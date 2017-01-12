@@ -1,9 +1,9 @@
 # Braille_learning-1
 
 
-Make by Yeo, SouthKorea.
-Make by Yoon, SouthKorea.
-Make by Lee, SouthKorea.
+Made by Yeo, SouthKorea.
+Made by Yoon, SouthKorea.
+Made by Lee, SouthKorea.
 
 Korea Polytech University
 
