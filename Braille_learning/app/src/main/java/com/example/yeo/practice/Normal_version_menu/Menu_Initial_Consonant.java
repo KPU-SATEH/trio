@@ -1,17 +1,18 @@
 package com.example.yeo.practice.Normal_version_menu;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.yeo.practice.Common_menu_sound.Menu_service;
+import com.example.yeo.practice.Common_menu_sound.Menu_basic_service;
+import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_practice;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.R;
+import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_sound.slied;
 
@@ -19,9 +20,6 @@ import com.example.yeo.practice.Common_sound.slied;
 
 
 public class Menu_Initial_Consonant extends FragmentActivity {
-    MediaPlayer finish;
-
-
     int newdrag,olddrag;
     int posx1,posx2,posy1,posy2;
     int y1drag,y2drag;
@@ -41,7 +39,6 @@ public class Menu_Initial_Consonant extends FragmentActivity {
 
         decorView.setSystemUiVisibility( uiOption );
         setContentView(R.layout.activity_common_menu__initial__consonant);
-        finish = MediaPlayer.create(Menu_Initial_Consonant.this, R.raw.basicfinish);
 
     }
 
@@ -49,6 +46,7 @@ public class Menu_Initial_Consonant extends FragmentActivity {
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN: //손가락 1개를 화면에 터치하였을 경우
+                startService(new Intent(this,Sound_Manager.class));
                 posx1 = (int)event.getX(); //현재 좌표의 x좌표값 저장
                 posy1 = (int)event.getY(); //현재 좌표의 y좌표값 저장
                 break;
@@ -75,28 +73,27 @@ public class Menu_Initial_Consonant extends FragmentActivity {
                 if(olddrag-newdrag>WHclass.Drag_space) { //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
                     Intent intent = new Intent(this,Menu_Vowel.class);
                     startActivityForResult(intent,Menu_info.MENU_VOWEL);
-                    Menu_service.menu_page = Menu_info.MENU_VOWEL;
+                    Menu_basic_service.menu_page = Menu_info.MENU_VOWEL;
                     slied.slied =Menu_info.next;
                     startService(new Intent(this, slied.class));
-                    startService(new Intent(this, Menu_service.class));
+                    startService(new Intent(this, Menu_basic_service.class));
 
                     finish();
                 }
                 else if(newdrag-olddrag>WHclass.Drag_space) { //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
                     Intent intent = new Intent(this,Menu_abbreviation.class);
                     startActivityForResult(intent,Menu_info.MENU_ABBREVIATION);
-                    Menu_service.menu_page = Menu_info.MENU_ABBREVIATION;
+                    Menu_basic_service.menu_page = Menu_info.MENU_ABBREVIATION;
                     slied.slied = Menu_info.pre;
                     startService(new Intent(this, slied.class));
-                    startService(new Intent(this, Menu_service.class));
+                    startService(new Intent(this, Menu_basic_service.class));
                     finish();
                 }
                 else if(y2drag-y1drag> WHclass.Drag_space) { //손가락 2개를 이용하여 상단에서 하단으로 드래그할 경우 현재 메뉴의 상세정보 음성 출력
-                    Menu_detail_contents.menu_page=5;
-                    startService(new Intent(this, Menu_detail_contents.class));
+                    Menu_detail_service.menu_page=5;
+                    startService(new Intent(this, Menu_detail_service.class));
                 }else if (y1drag - y2drag > WHclass.Drag_space) {  //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
-                    finish.start();
-                    finish();
+                    onBackPressed();
                 }
                 break;
             case MotionEvent.ACTION_POINTER_DOWN: //두번째 손가락이 화면에 터치 될 경우
@@ -110,8 +107,10 @@ public class Menu_Initial_Consonant extends FragmentActivity {
         return true;
 
     }
+    @Override
     public void onBackPressed() { //종료키를 눌렀을 경우
-        finish.start();
+        Menu_basic_service.finish=true;
+        startService(new Intent(this,Menu_basic_service.class));
         finish();
     }
 }

@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_master_service;
 import com.example.yeo.practice.R;
@@ -42,6 +43,7 @@ public class Menu_master_practice extends FragmentActivity {
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN: //손가락 1개를 화면에 터치하였을 경우
+                startService(new Intent(this, Sound_Manager.class));
                 posx1 = (int)event.getX();  //현재 좌표의 x좌표값 저장
                 posy1 = (int)event.getY(); //현재 좌표의 y좌표값 저장
                 break;
@@ -82,8 +84,8 @@ public class Menu_master_practice extends FragmentActivity {
                     finish();
                 }
                 else if(y2drag-y1drag> WHclass.Drag_space) { //손가락 2개를 이용하여 상단에서 하단으로 드래그할 경우 현재 메뉴의 상세정보 음성 출력
-                    Menu_detail_contents.menu_page=3;
-                    startService(new Intent(this, Menu_detail_contents.class));
+                    Menu_detail_service.menu_page=3;
+                    startService(new Intent(this, Menu_detail_service.class));
                 }else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
                     Menu_main_service.menu_page=Menu_info.MENU_TUTORIAL;
                     finish();

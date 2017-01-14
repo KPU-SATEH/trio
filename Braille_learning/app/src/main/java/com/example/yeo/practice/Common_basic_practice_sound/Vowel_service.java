@@ -11,6 +11,7 @@ import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_pr
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.R;
+import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_display;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_practice;
 import com.example.yeo.practice.WHclass;
@@ -66,96 +67,50 @@ public class Vowel_service extends Service {
             vowel[previous].reset();
             vowel[previous] = MediaPlayer.create(this, rawid[previous]);
         }
-        if(finish==true){
-            for(int i = 0 ; i<dot_vowel.vowel_count; i++){
-                vowel[i].reset();
-                vowel[i] = MediaPlayer.create(this, rawid[i]);
-            }
+        if(vowelfinish.isPlaying()){
+            vowelfinish.reset();
+            vowelfinish = MediaPlayer.create(this, R.raw.vowelfinish);
         }
+        Sound_Manager.stop = false;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startID){
-        if(WHclass.Braiile_type==2) {
-            if (finish == false) {
-                if (WHclass.sel == Menu_info.MENU_NOTE) {
-                    if (Braille_short_practice.pre_reference == true) {
-                        init();
-                        Braille_short_practice.pre_reference = false;
-                    } else {
-                        if (progress == false) {
-                            progress = true;
-                            previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
-                        } else if (progress == true) {
-                            init();
-                            previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
-                        }
-                        vowel[MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page)].start();
-                        Braille_short_practice.pre_reference = true;
-                    }
+        Sound_Manager.Service_address=12;
+        if(Sound_Manager.stop==true)
+            init();
+        else {
+            if (WHclass.Braiile_type == 2) {
+                if (finish == false) {
+                    if (WHclass.sel == Menu_info.MENU_NOTE)
+                        previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
+                    else
+                        previous = Braille_short_display.page;
+                    vowel[previous].start();
                 } else {
-                    if (progress == false) {
-                        progress = true;
-                        previous = Braille_short_display.page;
-                    } else if (progress == true) {
-                        init();
-                        previous = Braille_short_display.page;
-                    }
-                    vowel[Braille_short_display.page].start();
+                    vowelfinish.start();
+                    finish = false;
                 }
-            } else {
-                init();
-                vowelfinish.start();
-                finish = false;
-                vowelfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        vowelfinish.reset();
-                        vowelfinish = MediaPlayer.create(Vowel_service.this, R.raw.vowelfinish);
-                    }
-                });
+            } else if (WHclass.Braiile_type == 1) {
+                if (finish == false) {
+                    if (WHclass.sel == Menu_info.MENU_NOTE)
+                        previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
+                    else
+                        previous = Talk_Braille_short_display.page;
+                    vowel[previous].start();
+                } else {
+                    vowelfinish.start();
+                    finish = false;
+                }
             }
         }
-        else if(WHclass.Braiile_type==1){
-            if (finish == false) {
-                if (WHclass.sel == Menu_info.MENU_NOTE) {
-                    if (Talk_Braille_short_practice.pre_reference == true) {
-                        init();
-                        Talk_Braille_short_practice.pre_reference = false;
-                    } else {
-                        if (progress == false) {
-                            progress = true;
-                            previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
-                        } else if (progress == true) {
-                            init();
-                            previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
-                        }
-                        vowel[MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page)].start();
-                        Talk_Braille_short_practice.pre_reference = true;
-                    }
-                } else {
-                    if (progress == false) {
-                        progress = true;
-                        previous = Talk_Braille_short_display.page;
-                    } else if (progress == true) {
-                        init();
-                        previous = Talk_Braille_short_display.page;
-                    }
-                    vowel[Talk_Braille_short_display.page].start();
-                }
-            } else {
-                init();
-                vowelfinish.start();
-                finish = false;
-                vowelfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        vowelfinish.reset();
-                        vowelfinish = MediaPlayer.create(Vowel_service.this, R.raw.vowelfinish);
-                    }
-                });
+        vowelfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                vowelfinish.reset();
+                vowelfinish = MediaPlayer.create(Vowel_service.this, R.raw.vowelfinish);
             }
-        }
+        });
         return START_NOT_STICKY;
     }
 }

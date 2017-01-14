@@ -13,6 +13,7 @@ import com.example.yeo.practice.Common_braille_data.dot_letter;
 import com.example.yeo.practice.Common_braille_data.dot_word;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
+import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_master_practice_sound.Letter_service;
 import com.example.yeo.practice.Common_master_practice_sound.Word_service;
@@ -85,6 +86,7 @@ public class Talk_Braille_long_practice extends FragmentActivity {
             public boolean onHover(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_HOVER_ENTER:
+                        startService(new Intent(Talk_Braille_long_practice.this, Sound_Manager.class));
                         m.x = (int) event.getX(); //x좌표를 저장
                         m.y = (int) event.getY(); //y좌표를 저장
                         touch_init(0);

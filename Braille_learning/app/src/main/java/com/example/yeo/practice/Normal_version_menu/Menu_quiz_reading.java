@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.R;
+import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Normal_version_quiz.quiz_reading_manual;
 import com.example.yeo.practice.Common_quiz_sound.quiz_service;
@@ -48,6 +49,7 @@ public class Menu_quiz_reading extends FragmentActivity {
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:  //손가락 1개를 화면에 터치하였을 경우
+                startService(new Intent(this, Sound_Manager.class));
                 posx1 = (int)event.getX();  //현재 좌표의 x좌표값 저장
                 posy1 = (int)event.getY();  //현재 좌표의 y좌표값 저장
                 break;

@@ -83,7 +83,7 @@ class reading_short_display extends View {
 
         /*
         초성퀴즈, 모음퀴즈, 종성퀴즈, 숫자퀴즈, 알파벳퀴즈, 문자부호퀴즈, 약자및 약어퀴즈, 글자퀴즈
-         */
+        */
         switch(WHclass.quiz_sel){
             case 1: //
                 max = Dot_quiz_initial.Initialcount;
@@ -113,7 +113,6 @@ class reading_short_display extends View {
                         for (int j = 0; j < 6; j++) {
                             text_3[i][j] = Dot_quiz_initial.Initial_Array.get(page)[i][j];
                             textname_3 = Dot_quiz_initial.Initial_name.get(page);
-
                         }
                     }
                 }

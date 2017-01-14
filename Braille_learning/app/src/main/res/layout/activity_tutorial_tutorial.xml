@@ -17,5 +17,5 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:src="@drawable/tutorial"
-        android:background="#161a2c" />
+        android:background="@drawable/tutorial" />
 </RelativeLayout>

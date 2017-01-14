@@ -1,26 +1,34 @@
 package com.example.yeo.practice.Normal_version_Display_Practice;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_quiz_sound.quiz_service;
 import com.example.yeo.practice.Common_quiz_sound.score_service;
 import com.example.yeo.practice.Common_sound.Number;
+import com.example.yeo.practice.WHclass;
+
+import net.daum.mf.speech.api.SpeechRecognizeListener;
+import net.daum.mf.speech.api.SpeechRecognizerClient;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class reading_short_practice extends FragmentActivity implements TextToSpeech.OnInitListener {
+public class reading_short_practice extends FragmentActivity implements TextToSpeech.OnInitListener, SpeechRecognizeListener {
+    private SpeechRecognizerClient client;
 /*
 3칸 이하의 점자 퀴즈를 진행하는 클래스
 */
@@ -68,12 +76,6 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
 
 
         tts = new TextToSpeech(this, this);
-        /*tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int i) {
-                tts.setLanguage(Locale.KOREA);
-            }
-        });*/
 
         mRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
         mRecognizer.setRecognitionListener(listener);
@@ -708,13 +710,25 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
                     newdrag = (int) event.getX();//두번째 손가락이 화면에서 떨어질 때의 x좌표값을 저장
                     y2drag = (int) event.getY();//두번째 손가락이 화면에서 떨어질 떄의 y좌표값을 저장
                     if (y2drag - y1drag > WHclass.Drag_space) {//손가락 2개를 이용하여 하단으로 드래그 하는 경우 음성인식 실행
-                        if (mRecognizer != null) {
+                        //if(PermissionUtils.checkAudioRecordPermission(this)) {
+                            SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().
+                                    setApiKey(WHclass.APIKEY).
+                                    setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB);
+
+                        client = builder.build();
+
+                        client.setSpeechRecognizeListener(this);
+                        client.startRecording(true);
+
+                        //}
+                        /*if (mRecognizer != null) {
                             mRecognizer.destroy();
                             mRecognizer.setRecognitionListener(listener);
                             mRecognizer.startListening(i);
                         } else {
                             mRecognizer.startListening(i);
                         }
+                        */
                     } else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 상단으로 드래그 하는 경우 퀴즈 화면 종료
                         switch(WHclass.sel){
                             case 1: //초성퀴즈 종료
@@ -823,5 +837,116 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
         page = 0;
         score_service.result = 0;
         finish();
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+
+            final StringBuilder builder = new StringBuilder();
+
+            new AlertDialog.Builder(this).
+                    setMessage(builder.toString()).
+                    setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).
+                    show();
+        }
+        else if (requestCode == RESULT_CANCELED) {
+            // 음성인식의 오류 등이 아니라 activity의 취소가 발생했을 때.
+            if (data == null) {
+                return;
+            }
+        }
+    }
+
+    @Override
+    public void onReady() {
+        //TODO implement interface DaumSpeechRecognizeListener method
+    }
+
+    @Override
+    public void onBeginningOfSpeech() {
+        //TODO implement interface DaumSpeechRecognizeListener method
+    }
+
+    @Override
+    public void onEndOfSpeech() {
+        //TODO implement interface DaumSpeechRecognizeListener method
+    }
+
+    @Override
+    public void onError(int errorCode, String errorMsg) {
+        //TODO implement interface DaumSpeechRecognizeListener method
+        Log.e("SpeechSampleActivity", "onError");
+
+        client = null;
+    }
+
+    @Override
+    public void onPartialResult(String text) {
+        //TODO implement interface DaumSpeechRecognizeListener method
+    }
+
+    @Override
+    public void onResults(Bundle results) {
+        final StringBuilder builder = new StringBuilder();
+        //Log.i("SpeechSampleActivity", "onResults");
+
+        String answer="기역";
+        boolean result=false;
+
+        ArrayList<String> texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
+
+        for(int i=0 ; i<texts.size() ; i++){
+            if(answer.equals(texts.get(i))==true) {
+                result=true;
+                break;
+            }
+            else
+                continue;
+        }
+
+        if(result==true)
+            builder.append("정답이야 축하해");
+        else
+            builder.append("오답이야 당신이 말한건 '"+texts.get(0)+"' 이거야");
+
+//        text1.setText(builder.toString());
+
+        final Activity activity = this;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // finishing일때는 처리하지 않는다.
+                if (activity.isFinishing()) return;
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(activity).
+                        setMessage(builder.toString()).
+                        setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                dialog.show();
+
+            }
+        });
+
+
+        //client = null;
+    }
+
+    @Override
+    public void onAudioLevel(float v) {
+        //TODO implement interface DaumSpeechRecognizeListener method
+    }
+
+    @Override
+    public void onFinished() {
+        Log.i("SpeechSampleActivity", "onFinished");
     }
 }

@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application
         android:allowBackup="true"
@@ -54,7 +57,7 @@
             android:screenOrientation="landscape" />
 
         <service
-            android:name=".Common_menu_sound.Menu_service"
+            android:name=".Common_menu_sound.Menu_basic_service"
             android:enabled="true"
             android:exported="true" />
 
@@ -120,7 +123,7 @@
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".Normal_version_menu.Menu_detail_contents"
+            android:name=".Common_menu_sound.Menu_detail_service"
             android:enabled="true"
             android:exported="true" />
 
@@ -220,7 +223,7 @@
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".Common_menu_sound.quiz_menu_service"
+            android:name=".Common_menu_sound.Menu_quiz_service"
             android:enabled="true"
             android:exported="true" />
         <service
@@ -484,9 +487,15 @@
             android:name=".Talkback_version_quiz.Talk_quiz_writing_manual"
             android:label=""
             android:screenOrientation="landscape" />
-        <activity android:name=".Talkback_version_quiz.Talk_quiz_reading_manual"
+        <activity
+            android:name=".Talkback_version_quiz.Talk_quiz_reading_manual"
             android:label=""
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
+
+        <service
+            android:name=".Sound_Manager"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

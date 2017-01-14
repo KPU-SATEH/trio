@@ -14,6 +14,7 @@ import com.example.yeo.practice.Common_braille_data.dot_letter;
 import com.example.yeo.practice.Common_braille_data.dot_word;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
+import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_master_practice_sound.Letter_service;
 import com.example.yeo.practice.Common_master_practice_sound.Word_service;
@@ -88,10 +89,8 @@ public class Braille_long_practice extends FragmentActivity {
                 array[2]="";
 
                 if(WHclass.sel==Menu_info.MENU_NOTE) {
-                    MyNote_Stop_service();
                     MainActivity.master_braille_db.delete(MainActivity.master_braille_db.master_db_manager.getId(MainActivity.master_braille_db.master_db_manager.My_Note_page));
                     result = MainActivity.master_braille_db.getResult();
-
                     if(MainActivity.master_braille_db.master_db_manager.size_count==0)
                         onBackPressed();
                     Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
@@ -123,6 +122,7 @@ public class Braille_long_practice extends FragmentActivity {
                 lock=false;
                 break;
             case MotionEvent.ACTION_DOWN: // 손가락 1개를 이용하여 터치가 발생하였을 때
+                startService(new Intent(this, Sound_Manager.class));
                 m.x = (int) event.getX(); //x좌표를 저장
                 m.y = (int) event.getY(); //y좌표를 저장
 
@@ -1972,7 +1972,6 @@ public class Braille_long_practice extends FragmentActivity {
                                 startService(new Intent(this, Word_service.class));
                                 break;
                             case 10:
-                                MyNote_Stop_service();
                                 MainActivity.master_braille_db.master_db_manager.My_Note_page++;
                                 if (MainActivity.master_braille_db.master_db_manager.My_Note_page >= MainActivity.master_braille_db.master_db_manager.size_count) //가장 마지막 학습내용까지 진행됬다면
                                     onBackPressed(); //종료
@@ -1993,8 +1992,6 @@ public class Braille_long_practice extends FragmentActivity {
                                 startService(new Intent(this, Word_service.class));
                                 break;
                             case 10:
-                                MyNote_Stop_service(); // 이전에 실행되던 음성을 중지하는 함수
-
                                 if (MainActivity.master_braille_db.master_db_manager.My_Note_page > 0)
                                     MainActivity.master_braille_db.master_db_manager.My_Note_page--;
                                 MyNote_Start_service(); //현재 화면의 음성 출력
@@ -2043,24 +2040,9 @@ public class Braille_long_practice extends FragmentActivity {
         }
         return true;
     }
-
-    public void MyNote_Stop_service(){
-        if(pre_reference2==true) { //이전에 출력되었던 학습 음성 종료
-            previous_reference = MainActivity.master_braille_db.master_db_manager.getReference(MainActivity.master_braille_db.master_db_manager.My_Note_page);
-            switch (previous_reference) {
-                case 8: //글자연습
-                    startService(new Intent(this, Letter_service.class));
-                    break;
-                case 9: //단어연습
-                    startService(new Intent(this, Word_service.class));
-                    break;
-            }
-        }
-    }
     public void MyNote_Start_service(){
         reference2 = MainActivity.master_braille_db.master_db_manager.getReference(MainActivity.master_braille_db.master_db_manager.My_Note_page);
         reference_index2 = MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page);
-
         switch (reference2) {  //나만의 단어장 음성출력
             case 8: //글자연습
                 startService(new Intent(this, Letter_service.class));
@@ -2117,7 +2099,7 @@ public class Braille_long_practice extends FragmentActivity {
                 startService(new Intent(this, Word_service.class));
                 break;
             case 10:
-                MyNote_Stop_service();
+
                 MainActivity.master_braille_db.master_db_manager.My_Note_page=0;
                 break;
         }

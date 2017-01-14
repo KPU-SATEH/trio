@@ -9,9 +9,9 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.yeo.practice.MainActivity;
+import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.WHclass;
-import com.example.yeo.practice.Normal_version_menu.Menu_detail_contents;
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.Common_sound.slied;
 
@@ -110,8 +110,8 @@ public class Tutorial_master_practice extends FragmentActivity {
                             }
                             finish();
                         } else if (newdragy - olddragy > MainActivity.width * (float) 0.2) {
-                            Menu_detail_contents.menu_page = 1;
-                            startService(new Intent(this, Menu_detail_contents.class));
+                            Menu_detail_service.menu_page = 1;
+                            startService(new Intent(this, Menu_detail_service.class));
                         } else if (newdragx < olddragx + WHclass.width * (float) 0.1 && newdragx > olddragx - WHclass.width * (float) 0.1 && newdragy < olddragy + WHclass.width * (float) 0.1 && newdragy > olddragy - WHclass.width * (float) 0.1) {
                             WHclass.tutorial_progress = WHclass.tutorial_previous;
                             startService(new Intent(this, Tutorial_service.class));

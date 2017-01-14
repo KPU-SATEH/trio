@@ -16,5 +16,5 @@
         android:layout_height="match_parent"
         android:id="@+id/imageView9"
         android:src="@drawable/quiz"
-        android:background="#161a2c" />
+        android:background="@drawable/quiz" />
 </LinearLayout>

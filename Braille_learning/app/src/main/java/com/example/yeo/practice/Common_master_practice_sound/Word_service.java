@@ -10,6 +10,7 @@ import com.example.yeo.practice.Normal_version_Display_Practice.Braille_long_dis
 import com.example.yeo.practice.Normal_version_Display_Practice.Braille_long_practice;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
+import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_long_practice;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_long_display;
@@ -20,7 +21,7 @@ public class Word_service extends Service {
     /*
 단어 연습에서 출력되는 음성파일을 관리하는 서비스 클래스
  */
-    private static final String TAG = "Menu_service";
+    private static final String TAG = "Menu_basic_service";
     MediaPlayer  wordfinish, toilet, love, exit, enterance, subway, korea, computer, dot, mom, dad, seoul,
                  right, left, direction, seat, smartphone, stair, handphone, bookstore;
     MediaPlayer Word[] ;//음성파일을 저장하는 배열 변수
@@ -58,116 +59,65 @@ public class Word_service extends Service {
         }
     }
     public void init(){//사용한 음성파일을 재 설정해주는 함수
+        if(wordfinish.isPlaying()){
+            wordfinish.reset();
+            wordfinish = MediaPlayer.create(this, R.raw.wordfinish);
+        }
         if(Word[previous].isPlaying()) {
             Word[previous].reset();
             Word[previous] = MediaPlayer.create(this, rawid[previous]);
         }
+        Sound_Manager.stop=false;
+    }
+
+    public void setting(){
+        if (setting[previous] == 0) {
+            Word[previous] = MediaPlayer.create(this, rawid[previous]);
+            Word[previous].setLooping(false);
+            setting[previous] = 1;
+        }
     }
     public int onStartCommand(Intent intent, int flags, int startID){
-        if(WHclass.Braiile_type==2) {
-            if (finish == false) {
-                if (WHclass.sel == Menu_info.MENU_NOTE) {
-                    if (Braille_long_practice.pre_reference2 == true) {
-                        init();
-                        Braille_long_practice.pre_reference2 = false;
-                    } else {
-                        if (setting[MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page)] == 0) {
-                            Word[MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page)] =
-                                    MediaPlayer.create(this, rawid[MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page)]);
-                            Word[MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page)].setLooping(false);
-                            setting[MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page)] = 1;
-                        }
-                        if (progress == false) {
-                            progress = true;
-                            previous = MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page);
-                        } else if (progress == true) {
-                            init();
-                            previous = MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page);
-                        }
-                        Word[MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page)].start();
-                        Braille_long_practice.pre_reference2 = true;
-                    }
-                } else {
-                    if (setting[Braille_long_display.page] == 0) {
-                        Word[Braille_long_display.page] = MediaPlayer.create(this, rawid[Braille_long_display.page]);
-                        Word[Braille_long_display.page].setLooping(false);
-                        setting[Braille_long_display.page] = 1;
-                    }
-                    if (progress == false) {
-                        progress = true;
+        Sound_Manager.Service_address=22;
+        if(Sound_Manager.stop==true)
+            init();
+        else {
+            if (WHclass.Braiile_type == 2) {
+                if (finish == false) {
+                    if (WHclass.sel == Menu_info.MENU_NOTE)
+                        previous = MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page);
+                    else
                         previous = Braille_long_display.page;
-                    } else if (progress == true) {
-                        init();
-                        previous = Braille_long_display.page;
-                    }
-                    Word[Braille_long_display.page].start();
+                    setting();
+                    Word[previous].start();
                 }
+                else {
+                    wordfinish.start();
+                    finish = false;
 
-            } else {
-                init();
-                wordfinish.start();
-                finish = false;
-                wordfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        wordfinish.reset();
-                        wordfinish = MediaPlayer.create(Word_service.this, R.raw.letterfinish);
-                    }
-                });
+                }
+            } else if (WHclass.Braiile_type == 1) {
+                if (finish == false) {
+                    if (WHclass.sel == Menu_info.MENU_NOTE)
+                        previous = MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page);
+                    else
+                        previous = Talk_Braille_long_display.page;
+                    setting();
+                    Word[previous].start();
+                }
+                else {
+                    wordfinish.start();
+                    finish = false;
+                }
             }
         }
-        else if(WHclass.Braiile_type==1){
-            if (finish == false) {
-                if (WHclass.sel == Menu_info.MENU_NOTE) {
-                    if (Talk_Braille_long_practice.pre_reference2 == true) {
-                        init();
-                        Talk_Braille_long_practice.pre_reference2 = false;
-                    } else {
-                        if (setting[MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page)] == 0) {
-                            Word[MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page)] =
-                                    MediaPlayer.create(this, rawid[MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page)]);
-                            Word[MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page)].setLooping(false);
-                            setting[MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page)] = 1;
-                        }
-                        if (progress == false) {
-                            progress = true;
-                            previous = MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page);
-                        } else if (progress == true) {
-                            init();
-                            previous = MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page);
-                        }
-                        Word[MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page)].start();
-                        Talk_Braille_long_practice.pre_reference2 = true;
-                    }
-                } else {
-                    if (setting[Talk_Braille_long_display.page] == 0) {
-                        Word[Talk_Braille_long_display.page] = MediaPlayer.create(this, rawid[Talk_Braille_long_display.page]);
-                        Word[Talk_Braille_long_display.page].setLooping(false);
-                        setting[Talk_Braille_long_display.page] = 1;
-                    }
-                    if (progress == false) {
-                        progress = true;
-                        previous = Talk_Braille_long_display.page;
-                    } else if (progress == true) {
-                        init();
-                        previous = Talk_Braille_long_display.page;
-                    }
-                    Word[Talk_Braille_long_display.page].start();
-                }
-
-            } else {
-                init();
-                wordfinish.start();
-                finish = false;
-                wordfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        wordfinish.reset();
-                        wordfinish = MediaPlayer.create(Word_service.this, R.raw.letterfinish);
-                    }
-                });
+        wordfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                wordfinish.reset();
+                wordfinish = MediaPlayer.create(Word_service.this, R.raw.letterfinish);
             }
-        }
+        });
         return START_NOT_STICKY;
     }
 }

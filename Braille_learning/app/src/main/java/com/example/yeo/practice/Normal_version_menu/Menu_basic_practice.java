@@ -7,8 +7,9 @@ import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.yeo.practice.Common_menu_sound.Menu_basic_service;
+import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
-import com.example.yeo.practice.Common_menu_sound.Menu_service;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Common_sound.slied;
 import com.example.yeo.practice.*;
@@ -43,6 +44,7 @@ public class Menu_basic_practice extends FragmentActivity {
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN://손가락 1개를 화면에 터치하였을 경우
+                startService(new Intent(this, Sound_Manager.class));
                 posx1 = (int)event.getX();//현재 좌표의 x좌표값 저장
                 posy1 = (int)event.getY();//현재 좌표의 y좌표값 저장
                 break;
@@ -54,8 +56,8 @@ public class Menu_basic_practice extends FragmentActivity {
                //     if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                         Intent intent = new Intent(Menu_basic_practice.this, Menu_Initial_Consonant.class);
                         startActivityForResult(intent, Menu_info.MENU_BASIC_PRACTICE);
-                        Menu_service.menu_page=Menu_info.MENU_INITIAL;
-                        startService(new Intent(this, Menu_service.class));
+                        Menu_basic_service.menu_page=Menu_info.MENU_INITIAL;
+                        startService(new Intent(this, Menu_basic_service.class));
                  //   }
                 }
                 else    enter = true;
@@ -85,12 +87,11 @@ public class Menu_basic_practice extends FragmentActivity {
                     finish();
                 }
                 else if(y2drag-y1drag> WHclass.Drag_space) {  //손가락 2개를 이용하여 상단에서 하단으로 드래그할 경우 현재 메뉴의 상세정보 음성 출력
-                    Menu_detail_contents.menu_page=2;
-                    startService(new Intent(this, Menu_detail_contents.class));
+                    Menu_detail_service.menu_page=2;
+                    startService(new Intent(this, Menu_detail_service.class));
                 }
                 else if (y1drag - y2drag > WHclass.Drag_space) {//손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
-                    Menu_main_service.menu_page=Menu_info.MENU_TUTORIAL;
-                    finish();
+                    onBackPressed();
                 }
                 break;
              case MotionEvent.ACTION_POINTER_DOWN:  //두번째 손가락이 화면에 터치 될 경우

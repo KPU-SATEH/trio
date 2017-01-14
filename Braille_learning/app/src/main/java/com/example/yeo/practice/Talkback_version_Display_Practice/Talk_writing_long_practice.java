@@ -60,6 +60,7 @@ public class Talk_writing_long_practice extends FragmentActivity {
                     case MotionEvent.ACTION_HOVER_ENTER:
                         m.x = (int) event.getX();//x좌표를 저장
                         m.y = (int) event.getY();//y좌표를 저장
+                        touch_init(0);
                         if ((m.x < m.bigcircle * 2) && (m.x > m.bigcircle * (-2)) && (m.y > m.bigcircle * (-2)) && (m.y < (m.bigcircle * 2)))
                             break;
                         else
@@ -71,10 +72,10 @@ public class Talk_writing_long_practice extends FragmentActivity {
                         m.y = (int) event.getY();// 현재 터치한 지점의 y좌표를 저장
                         if ((m.x < m.bigcircle * 2) && (m.x > m.bigcircle * (-2)) && (m.y > m.bigcircle * (-2)) && (m.y < (m.bigcircle * 2)))
                             break;
-                     /*
-                    터치한 지점의 좌표가 돌출된 점자일 경우 남성의 음성으로 점자번호를 안내하면서 강한진동이 발생
-                    터치한 지점의 좌표가 비돌출된 점자일 경우 여성의 음성으로 점자번호를 안내함
-                     */
+                         /*
+                           터치한 지점의 좌표가 돌출된 점자일 경우 남성의 음성으로 점자번호를 안내하면서 강한진동이 발생
+                           터치한 지점의 좌표가 비돌출된 점자일 경우 여성의 음성으로 점자번호를 안내함
+                         */
                         if (click == true)
                             Touch_event();
                         m.invalidate(); // 화면을 다시 그려줘라 => onDraw() 호출해준다

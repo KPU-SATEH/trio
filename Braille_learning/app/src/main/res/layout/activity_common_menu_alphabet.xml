@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageView6"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:src="@drawable/alphabet"
-        android:background="#161a2c" />
+        android:background="#161a2c"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

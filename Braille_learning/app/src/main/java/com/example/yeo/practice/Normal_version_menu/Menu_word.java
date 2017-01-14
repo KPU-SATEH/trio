@@ -1,17 +1,18 @@
 package com.example.yeo.practice.Normal_version_menu;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.Common_menu_sound.Menu_master_service;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Normal_version_Display_Practice.Braille_long_practice;
+import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_sound.slied;
 
@@ -19,13 +20,11 @@ import com.example.yeo.practice.Common_sound.slied;
 
 
 public class Menu_word extends FragmentActivity {
-    MediaPlayer finish;
 
     int newdrag,olddrag;
     int posx1,posx2,posy1,posy2;
     int y1drag,y2drag;
     boolean enter = true;
-    ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +36,7 @@ public class Menu_word extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        finish = MediaPlayer.create(Menu_word.this, R.raw.masterfinish);
+
         decorView.setSystemUiVisibility( uiOption );
         setContentView(R.layout.activity_common_menu_word);
     }
@@ -46,13 +45,14 @@ public class Menu_word extends FragmentActivity {
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:  //손가락 1개를 화면에 터치하였을 경우
+                startService(new Intent(this, Sound_Manager.class));
                 posx1 = (int)event.getX();  //현재 좌표의 x좌표값 저장
-                posy1 = (int)event.getY(); //현재 좌표의 y좌표값 저장
+                posy1 = (int)event.getY();  //현재 좌표의 y좌표값 저장
                 break;
-            case MotionEvent.ACTION_UP: //손가락 1개를 화면에서 떨어트렸을 경우
+            case MotionEvent.ACTION_UP:   //손가락 1개를 화면에서 떨어트렸을 경우
                 posx2 = (int)event.getX(); //손가락 1개를 화면에서 떨어트린 x좌표값 저장
                 posy2 = (int)event.getY(); //손가락 1개를 화면에서 떨어트린 y좌표값 저장
-                if(enter == true) {  //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 글자 연습으로 접속
+                if(enter == true) {       //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 글자 연습으로 접속
                     if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                         WHclass.sel = Menu_info.MENU_WORD;
                         Menu_info.MENU_INFO = Menu_info.MENU_WORD;
@@ -61,7 +61,6 @@ public class Menu_word extends FragmentActivity {
                     }
                 }
                 else    enter = true;
-
 
                 break;
 
@@ -87,12 +86,13 @@ public class Menu_word extends FragmentActivity {
                     finish();
                 }
                 else if(y2drag-y1drag> WHclass.Drag_space) {  //손가락 2개를 이용하여 상단에서 하단으로 드래그할 경우 현재 메뉴의 상세정보 음성 출력
-                    Menu_detail_contents.menu_page=13;
-                    startService(new Intent(this, Menu_detail_contents.class));
-                }else if (y1drag - y2drag > WHclass.Drag_space) {  //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
-                    finish.start();
-                    finish();
+                    Menu_detail_service.menu_page=13;
+                    startService(new Intent(this, Menu_detail_service.class));
                 }
+                else if (y1drag - y2drag > WHclass.Drag_space) {  //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
+                    onBackPressed();
+                }
+
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:  //두번째 손가락이 화면에 터치 될 경우
                 enter = false;  //손가락 1개를 인지하는 화면을 잠금
@@ -102,8 +102,10 @@ public class Menu_word extends FragmentActivity {
         }
         return true;
     }
-    public void onBackPressed() {
-        finish.start();
+    @Override
+    public void onBackPressed() { //종료키를 눌렀을 경우
+        Menu_master_service.finish=true;
+        startService(new Intent(this,Menu_master_service.class));
         finish();
     }
 }

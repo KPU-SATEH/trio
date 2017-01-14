@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.yeo.practice.Common_menu_sound.Menu_quiz_service;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Normal_version_menu.Menu_quiz_abbreviation;
 import com.example.yeo.practice.Normal_version_menu.Menu_quiz_alphabet;
@@ -18,7 +19,6 @@ import com.example.yeo.practice.Normal_version_menu.Menu_quiz_number;
 import com.example.yeo.practice.Normal_version_menu.Menu_quiz_sentence;
 import com.example.yeo.practice.Normal_version_menu.Menu_quiz_vowel;
 import com.example.yeo.practice.Normal_version_menu.Menu_quiz_word;
-import com.example.yeo.practice.Common_menu_sound.quiz_menu_service;
 import com.example.yeo.practice.Common_quiz_sound.score_service;
 
 
@@ -30,7 +30,7 @@ public class quiz_score extends AppCompatActivity {
     public static int sel;
     TextView tv_score;
     TextView comment;
-    com.example.yeo.practice.Common_menu_sound.quiz_menu_service quiz_menu_service;
+    Menu_quiz_service quiz_menu_service;
     com.example.yeo.practice.Common_quiz_sound.score_service score_service;
     int newdrag,olddrag;
     int posx1,posx2,posy1,posy2;
@@ -51,6 +51,7 @@ public class quiz_score extends AppCompatActivity {
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         tv_score = (TextView) findViewById(R.id.textView);
         comment = (TextView) findViewById(R.id.textView2);
+
 
 
         tv_score.setText(score*20+"점 입니다.");
@@ -99,47 +100,47 @@ public class quiz_score extends AppCompatActivity {
                     if (posx2 < posx1 + 200 && posx2 > posx1 - 200 && posy1 < posy2 + 200 && posy2 > posy2 - 200) {
                         if(sel ==1) {
                             quiz_menu_service.menu_page=0;
-                            startService(new Intent(this, quiz_menu_service.class));
+                            startService(new Intent(this, Menu_quiz_service.class));
                             Intent intent = new Intent(quiz_score.this, Menu_quiz_initial.class);
                             startActivityForResult(intent, 1);
                         }else if(sel ==2) {
                             quiz_menu_service.menu_page=1;
-                            startService(new Intent(this, quiz_menu_service.class));
+                            startService(new Intent(this, Menu_quiz_service.class));
                             Intent intent = new Intent(quiz_score.this, Menu_quiz_vowel.class);
                             startActivityForResult(intent, 1);
                         }else if(sel ==3) {
                             quiz_menu_service.menu_page=2;
-                            startService(new Intent(this, quiz_menu_service.class));
+                            startService(new Intent(this, Menu_quiz_service.class));
                             Intent intent = new Intent(quiz_score.this, Menu_quiz_final.class);
                             startActivityForResult(intent, 1);
                         }else if(sel ==4) {
                             quiz_menu_service.menu_page=3;
-                            startService(new Intent(this, quiz_menu_service.class));
+                            startService(new Intent(this, Menu_quiz_service.class));
                             Intent intent = new Intent(quiz_score.this, Menu_quiz_number.class);
                             startActivityForResult(intent, 1);
                         }else if(sel ==5) {
                             quiz_menu_service.menu_page=4;
-                            startService(new Intent(this, quiz_menu_service.class));
+                            startService(new Intent(this, Menu_quiz_service.class));
                             Intent intent = new Intent(quiz_score.this, Menu_quiz_alphabet.class);
                             startActivityForResult(intent, 1);
                         }else if(sel ==6) {
                             quiz_menu_service.menu_page=5;
-                            startService(new Intent(this, quiz_menu_service.class));
+                            startService(new Intent(this, Menu_quiz_service.class));
                             Intent intent = new Intent(quiz_score.this, Menu_quiz_sentence.class);
                             startActivityForResult(intent, 1);
                         }else if(sel ==7) {
                             quiz_menu_service.menu_page=6;
-                            startService(new Intent(this, quiz_menu_service.class));
+                            startService(new Intent(this, Menu_quiz_service.class));
                             Intent intent = new Intent(quiz_score.this, Menu_quiz_abbreviation.class);
                             startActivityForResult(intent, 1);
                         }else if(sel ==8) {
                             quiz_menu_service.menu_page=7;
-                            startService(new Intent(this, quiz_menu_service.class));
+                            startService(new Intent(this, Menu_quiz_service.class));
                             Intent intent = new Intent(quiz_score.this, Menu_quiz_letter.class);
                             startActivityForResult(intent, 1);
                         }else if(sel ==9) {
                             quiz_menu_service.menu_page=8;
-                            startService(new Intent(this, quiz_menu_service.class));
+                            startService(new Intent(this, Menu_quiz_service.class));
                             Intent intent = new Intent(quiz_score.this, Menu_quiz_word.class);
                             startActivityForResult(intent, 1);
                         }

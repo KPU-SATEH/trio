@@ -19,5 +19,5 @@
         android:layout_height="match_parent"
         android:src="@drawable/mynote"
         android:id="@+id/imageView34"
-        android:background="@color/colorAccent" />
+        android:background="@drawable/mynote" />
 </LinearLayout>

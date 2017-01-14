@@ -11,6 +11,7 @@ import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_pr
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.R;
+import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_display;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_practice;
 import com.example.yeo.practice.WHclass;
@@ -54,97 +55,56 @@ public class abbreviation_service extends Service {
             Abbreviation[i].setLooping(false);
         }
     }
+
     public void init(){ //사용한 음성파일을 재 설정해주는 함수
         if(Abbreviation[previous].isPlaying()) {
             Abbreviation[previous].reset();
             Abbreviation[previous] = MediaPlayer.create(this, rawid[previous]);
         }
-
+        if(abbreviationfinish.isPlaying()){
+            abbreviationfinish.reset();
+            abbreviationfinish = MediaPlayer.create(this, R.raw.abbreviationfinish);
+        }
+        Sound_Manager.stop = false;
     }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startID){
-        if(WHclass.Braiile_type==2) {
-            if (finish == false) {
-                if (WHclass.sel == Menu_info.MENU_NOTE) {
-                    if (Braille_short_practice.pre_reference == true) {
-                        init();
-                        Braille_short_practice.pre_reference = false;
-                    } else {
-                        if (progress == false) {
-                            progress = true;
-                            previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
-                        } else if (progress == true) {
-                            init();
-                            previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
-                        }
-                        Abbreviation[MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page)].start();
-                        Braille_short_practice.pre_reference = true;
-                    }
+        Sound_Manager.Service_address=17;
+        if(Sound_Manager.stop==true)
+            init();
+        else {
+            if (WHclass.Braiile_type == 2) {
+                if (finish == false) {
+                    if (WHclass.sel == Menu_info.MENU_NOTE)
+                        previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
+                    else
+                        previous = Braille_short_display.page;
+                    Abbreviation[previous].start();
                 } else {
-                    if (progress == false) {
-                        progress = true;
-                        previous = Braille_short_display.page;
-                    } else if (progress == true) {
-                        init();
-                        previous = Braille_short_display.page;
-                    }
-                    Abbreviation[Braille_short_display.page].start();
+                    abbreviationfinish.start();
+                    finish = false;
                 }
-
-            } else {
-                init();
-                abbreviationfinish.start();
-                finish = false;
-                abbreviationfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        abbreviationfinish.reset();
-                        abbreviationfinish = MediaPlayer.create(abbreviation_service.this, R.raw.abbreviationfinish);
-                    }
-                });
+            } else if (WHclass.Braiile_type == 1) {
+                if (finish == false) {
+                    if (WHclass.sel == Menu_info.MENU_NOTE)
+                        previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
+                    else
+                        previous = Talk_Braille_short_display.page;
+                    Abbreviation[previous].start();
+                } else {
+                    abbreviationfinish.start();
+                    finish = false;
+                }
             }
         }
-        else if(WHclass.Braiile_type==1){
-            if (finish == false) {
-                if (WHclass.sel == Menu_info.MENU_NOTE) {
-                    if (Talk_Braille_short_practice.pre_reference == true) {
-                        init();
-                        Talk_Braille_short_practice.pre_reference = false;
-                    } else {
-                        if (progress == false) {
-                            progress = true;
-                            previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
-                        } else if (progress == true) {
-                            init();
-                            previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
-                        }
-                        Abbreviation[MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page)].start();
-                        Talk_Braille_short_practice.pre_reference = true;
-                    }
-                } else {
-                    if (progress == false) {
-                        progress = true;
-                        previous = Talk_Braille_short_display.page;
-                    } else if (progress == true) {
-                        init();
-                        previous = Talk_Braille_short_display.page;
-                    }
-                    Abbreviation[Talk_Braille_short_display.page].start();
-                }
-
-            } else {
-                init();
-                abbreviationfinish.start();
-                finish = false;
-                abbreviationfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        abbreviationfinish.reset();
-                        abbreviationfinish = MediaPlayer.create(abbreviation_service.this, R.raw.abbreviationfinish);
-                    }
-                });
+        abbreviationfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                abbreviationfinish.reset();
+                abbreviationfinish = MediaPlayer.create(abbreviation_service.this, R.raw.abbreviationfinish);
             }
-        }
+        });
         return START_NOT_STICKY;
     }
 }

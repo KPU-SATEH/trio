@@ -16,5 +16,5 @@
         android:layout_height="match_parent"
         android:id="@+id/imageView7"
         android:src="@drawable/basic_practice"
-        android:background="#161a2c" />
+        android:background="@drawable/basic_practice" />
 </LinearLayout>

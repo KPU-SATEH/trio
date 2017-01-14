@@ -11,6 +11,7 @@ import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_pr
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.R;
+import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_display;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_practice;
 import com.example.yeo.practice.WHclass;
@@ -43,7 +44,7 @@ public class Num_service extends Service {
         // 선언된 음성 변수들을 배열 변수에 저장
 
         rawid = new int[] {R.raw.num_sign,R.raw.zero,R.raw.one,R.raw.two,R.raw.three,R.raw.four,R.raw.five,R.raw.six,R.raw.seven,R.raw.eight,R.raw.nine,R.raw.ten
-        ,R.raw.twofive,R.raw.fourseven,R.raw.sixeight,R.raw.ninenine};
+                ,R.raw.twofive,R.raw.fourseven,R.raw.sixeight,R.raw.ninenine};
         // 음성파일의 id 주소를 배열변수에 저장
 
 
@@ -55,96 +56,61 @@ public class Num_service extends Service {
             Num[i].setLooping(false);
         }
     }
-    public void init(){ //사용한 음성파일을 재 설정해주는 함수
+
+    public void init(){
+        if(numfinish.isPlaying()){
+            numfinish.reset();
+            numfinish = MediaPlayer.create(this, R.raw.initfinish);
+        }
         if(Num[previous].isPlaying()) {
             Num[previous].reset();
             Num[previous] = MediaPlayer.create(this, rawid[previous]);
         }
+        Sound_Manager.stop = false;
     }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startID){
-        if(WHclass.Braiile_type==2) {
-            if (finish == false) {
-                if (WHclass.sel == Menu_info.MENU_NOTE) {
-                    if (Braille_short_practice.pre_reference == true) {
-                        init();
-                        Braille_short_practice.pre_reference = false;
-                    } else {
-                        if (progress == false) {
-                            progress = true;
-                            previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
-                        } else if (progress == true) {
-                            init();
-                            previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
-                        }
-                        Num[MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page)].start();
-                        Braille_short_practice.pre_reference = true;
-                    }
-                } else {
-                    if (progress == false) {
-                        progress = true;
+        Sound_Manager.Service_address=14;
+        if(Sound_Manager.stop==true)
+            init();
+        else {
+            if (WHclass.Braiile_type == 2) { //일반버전
+                if (finish == false) {
+                    if (WHclass.sel == Menu_info.MENU_NOTE)
+                        previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
+                    else
                         previous = Braille_short_display.page;
-                    } else if (progress == true) {
-                        init();
-                        previous = Braille_short_display.page;
-                    }
-                    Num[Braille_short_display.page].start();
+                    Num[previous].start();
                 }
-
-            } else {
-                init();
-                numfinish.start();
-                finish = false;
-                numfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        numfinish.reset();
-                        numfinish = MediaPlayer.create(Num_service.this, R.raw.numfinish);
-                    }
-                });
+                else {
+                    numfinish.start();
+                    finish = false;
+                }
+            }
+            else if (WHclass.Braiile_type == 1) { //시각장애인버전
+                if (finish == false) {
+                    if (WHclass.sel == Menu_info.MENU_NOTE)
+                        previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
+                    else
+                        previous = Talk_Braille_short_display.page;
+                    Num[previous].start();
+                }
+                else {
+                    numfinish.start();
+                    finish = false;
+                }
             }
         }
-        else if(WHclass.Braiile_type==1){
-            if (finish == false) {
-                if (WHclass.sel == Menu_info.MENU_NOTE) {
-                    if (Talk_Braille_short_practice.pre_reference == true) {
-                        init();
-                        Talk_Braille_short_practice.pre_reference = false;
-                    } else {
-                        if (progress == false) {
-                            progress = true;
-                            previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
-                        } else if (progress == true) {
-                            init();
-                            previous = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
-                        }
-                        Num[MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page)].start();
-                        Talk_Braille_short_practice.pre_reference = true;
-                    }
-                } else {
-                    if (progress == false) {
-                        progress = true;
-                        previous = Talk_Braille_short_display.page;
-                    } else if (progress == true) {
-                        init();
-                        previous = Talk_Braille_short_display.page;
-                    }
-                    Num[Talk_Braille_short_display.page].start();
-                }
 
-            } else {
-                init();
-                numfinish.start();
-                finish = false;
-                numfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        numfinish.reset();
-                        numfinish = MediaPlayer.create(Num_service.this, R.raw.numfinish);
-                    }
-                });
+        numfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                numfinish.reset();
+                numfinish = MediaPlayer.create(Num_service.this, R.raw.numfinish);
             }
-        }
+        });
         return START_NOT_STICKY;
     }
+
 }

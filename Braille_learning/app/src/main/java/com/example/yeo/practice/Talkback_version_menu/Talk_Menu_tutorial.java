@@ -49,6 +49,7 @@ public class Talk_Menu_tutorial extends FragmentActivity {
             public boolean onHover(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_HOVER_ENTER: //손가락 1개를 화면에 터치하였을 경우
+                        startService(new Intent(Talk_Menu_tutorial.this, Sound_Manager.class));
                         posx1 = (int)event.getX();  //현재 좌표의 x좌표값 저장
                         posy1 = (int)event.getY();  //현재 좌표의 y좌표값 저장
                         enter= true;

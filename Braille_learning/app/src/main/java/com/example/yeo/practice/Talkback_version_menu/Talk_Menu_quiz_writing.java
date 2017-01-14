@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.R;
+import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.Talkback_version_quiz.Talk_quiz_writing_manual;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_sound.slied;
@@ -45,6 +46,7 @@ public class Talk_Menu_quiz_writing extends FragmentActivity {
             public boolean onHover(View v, MotionEvent event) {
                 switch(event.getAction()){
                     case MotionEvent.ACTION_HOVER_EXIT :
+                        startService(new Intent(Talk_Menu_quiz_writing.this, Sound_Manager.class));
                         posx2 = (int)event.getX();  //손가락 1개를 화면에서 떨어트린 x좌표값 저장
                         posy2 = (int)event.getY();  //손가락 1개를 화면에서 떨어트린 y좌표값 저장
                         if(enter == true) { //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 초성 퀴즈로 접속

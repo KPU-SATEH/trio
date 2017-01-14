@@ -8,11 +8,12 @@ import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.yeo.practice.Common_menu_sound.Menu_quiz_service;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
-import com.example.yeo.practice.Common_menu_sound.quiz_menu_service;
-import com.example.yeo.practice.Normal_version_menu.Menu_detail_contents;
+import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.R;
+import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.Talkback_version_quiz.Talk_quiz_reading_manual;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Normal_version_quiz.quiz_score;
@@ -50,6 +51,7 @@ public class Talk_Menu_quiz_sentence extends FragmentActivity {
             public boolean onHover(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_HOVER_ENTER: //손가락 1개를 화면에 터치하였을 경우
+                        startService(new Intent(Talk_Menu_quiz_sentence.this, Sound_Manager.class));
                         posx1 = (int)event.getX();  //현재 좌표의 x좌표값 저장
                         posy1 = (int)event.getY();  //현재 좌표의 y좌표값 저장
                         enter= true;
@@ -89,8 +91,8 @@ public class Talk_Menu_quiz_sentence extends FragmentActivity {
                 if(olddrag-newdrag>WHclass.Drag_space) { //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
                     Intent intent = new Intent(this,Talk_Menu_quiz_abbreviation.class);
                     startActivityForResult(intent,Menu_info.MENU_QUIZ_ABBREVIATION);
-                    quiz_menu_service.menu_page= Menu_info.MENU_QUIZ_ABBREVIATION;
-                    startService(new Intent(this, quiz_menu_service.class));
+                    Menu_quiz_service.menu_page= Menu_info.MENU_QUIZ_ABBREVIATION;
+                    startService(new Intent(this, Menu_quiz_service.class));
                     slied.slied = Menu_info.next;
                     startService(new Intent(this, slied.class));
                     finish();
@@ -98,15 +100,15 @@ public class Talk_Menu_quiz_sentence extends FragmentActivity {
                 else if(newdrag-olddrag>WHclass.Drag_space) { //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
                     Intent intent = new Intent(this,Talk_Menu_quiz_alphabet.class);
                     startActivityForResult(intent,Menu_info.MENU_QUIZ_ALPHABET);
-                    quiz_menu_service.menu_page=Menu_info.MENU_QUIZ_ALPHABET;
-                    startService(new Intent(this, quiz_menu_service.class));
+                    Menu_quiz_service.menu_page=Menu_info.MENU_QUIZ_ALPHABET;
+                    startService(new Intent(this, Menu_quiz_service.class));
                     slied.slied = Menu_info.pre;
                     startService(new Intent(this, slied.class));
                     finish();
                 }
                 else if(y2drag-y1drag>WHclass.Drag_space) {   //손가락 2개를 이용하여 상단에서 하단으로 드래그할 경우 현재 메뉴의 상세정보 음성 출력
-                    Menu_detail_contents.menu_page=19;
-                    startService(new Intent(this, Menu_detail_contents.class));
+                    Menu_detail_service.menu_page=19;
+                    startService(new Intent(this, Menu_detail_service.class));
                 }else if (y1drag - y2drag > WHclass.Drag_space) {  //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
                     quiz_service.question = 7;
                     startService(new Intent(this, quiz_service.class));

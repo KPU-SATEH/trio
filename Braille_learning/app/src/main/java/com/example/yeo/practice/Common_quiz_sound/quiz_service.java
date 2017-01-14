@@ -34,7 +34,7 @@ public class quiz_service extends Service {
         third= MediaPlayer.create(this, R.raw.third_quiz); //세번째 문제
         forth= MediaPlayer.create(this, R.raw.forth_quiz); //네번째 문제
         last= MediaPlayer.create(this, R.raw.last_quiz); //마지막 문제
-        quiz_finish = MediaPlayer.create(this, R.raw.quiz_finish); //퀴즈 종료
+
         initial_quiz_finish = MediaPlayer.create(this, R.raw.initial_quiz_finish); //초성퀴즈 종료
         vowel_quiz_finish = MediaPlayer.create(this, R.raw.vowel_quiz_finish ); //모음퀴즈 종료
         final_quiz_finish = MediaPlayer.create(this, R.raw.final_quiz_finish); //종성 퀴즈 종료

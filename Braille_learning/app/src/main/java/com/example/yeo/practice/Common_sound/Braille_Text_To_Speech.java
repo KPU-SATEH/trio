@@ -93,5 +93,4 @@ public class Braille_Text_To_Speech implements TextToSpeechListener {
 
         Log.i(TAG, strInacctiveText);
     }
-
 }

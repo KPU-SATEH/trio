@@ -3,17 +3,12 @@ package com.example.yeo.practice.Normal_version_Display_Practice;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.yeo.practice.Common_braille_data.*;
-import com.example.yeo.practice.MainActivity;
-import com.example.yeo.practice.Menu_info;
-import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_basic_practice_sound.Final_service;
 import com.example.yeo.practice.Common_basic_practice_sound.Initial_service;
 import com.example.yeo.practice.Common_basic_practice_sound.Num_service;
@@ -21,8 +16,19 @@ import com.example.yeo.practice.Common_basic_practice_sound.Sentence_service;
 import com.example.yeo.practice.Common_basic_practice_sound.Vowel_service;
 import com.example.yeo.practice.Common_basic_practice_sound.abbreviation_service;
 import com.example.yeo.practice.Common_basic_practice_sound.alphabet_service;
+import com.example.yeo.practice.Common_braille_data.dot_abbreviation;
+import com.example.yeo.practice.Common_braille_data.dot_alphabet;
+import com.example.yeo.practice.Common_braille_data.dot_final;
+import com.example.yeo.practice.Common_braille_data.dot_initial;
+import com.example.yeo.practice.Common_braille_data.dot_num;
+import com.example.yeo.practice.Common_braille_data.dot_sentence;
+import com.example.yeo.practice.Common_braille_data.dot_vowel;
 import com.example.yeo.practice.Common_sound.Number;
 import com.example.yeo.practice.Common_sound.slied;
+import com.example.yeo.practice.MainActivity;
+import com.example.yeo.practice.Menu_info;
+import com.example.yeo.practice.Sound_Manager;
+import com.example.yeo.practice.WHclass;
 
 
 public class Braille_short_practice extends FragmentActivity {
@@ -127,12 +133,7 @@ public class Braille_short_practice extends FragmentActivity {
                 startService(new Intent(this, abbreviation_service.class));
                 break;
         }
-
-
-
-
     }
-
 
     public void update(){ //1초동안 화면에 연속으로 2번의 터치가 발생됬을 경우 데이터베이스로 현재 단어정보를 전송함
                 String result ="";
@@ -213,6 +214,7 @@ public class Braille_short_practice extends FragmentActivity {
                 lock=false;
                 break;
             case MotionEvent.ACTION_DOWN: // 첫번째 손가락을 화면에 터치하였을 경우
+                startService(new Intent(this, Sound_Manager.class));
                 m.x = (int) event.getX(); // 현재 좌표의 x좌표 값을 저장
                 m.y = (int) event.getY(); // 현재 좌표의 y좌표 값을 저장
 

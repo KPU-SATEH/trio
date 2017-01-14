@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.yeo.practice.Common_braille_data.*;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
+import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_basic_practice_sound.Final_service;
 import com.example.yeo.practice.Common_basic_practice_sound.Initial_service;
@@ -140,6 +141,7 @@ public class Talk_Braille_short_practice extends FragmentActivity {
                         }
                         break;
                     case MotionEvent.ACTION_HOVER_ENTER:
+                        startService(new Intent(Talk_Braille_short_practice.this, Sound_Manager.class));
                         m.x = (int) event.getX(); // 현재 좌표의 x좌표 값을 저장
                         m.y = (int) event.getY(); // 현재 좌표의 y좌표 값을 저장
                         touch_init(0);

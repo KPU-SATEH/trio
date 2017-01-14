@@ -3,23 +3,24 @@ package com.example.yeo.practice;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Toast;
 
+import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.Common_mynote_database.Basic_Braille_DB;
 import com.example.yeo.practice.Common_mynote_database.Master_Braille_DB;
-import com.example.yeo.practice.Normal_version_menu.Menu_Tutorial;
-import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.Common_sound.Braille_Text_To_Speech;
+import com.example.yeo.practice.Normal_version_menu.Menu_Tutorial;
 import com.example.yeo.practice.Talkback_version_menu.Talk_Menu_tutorial;
 
+import net.daum.mf.speech.api.SpeechRecognizerManager;
 import net.daum.mf.speech.api.TextToSpeechManager;
 
 import java.util.Locale;
@@ -75,13 +76,13 @@ public class MainActivity extends FragmentActivity {
         decorView.setSystemUiVisibility( uiOption );
         setContentView(R.layout.activity_common_main);
 
-
-
         Display display = getWindowManager().getDefaultDisplay(); //해상도 불러오는 함수
         Point size = new Point();
         display.getSize(size);
 
+        //뉴톤 라이브러리 초기화
         TextToSpeechManager.getInstance().initializeLibrary(getApplicationContext());
+        SpeechRecognizerManager.getInstance().initializeLibrary(this);
 
         width = size.y;   // 스마트폰 가로 해상도
         height = size.x;  // 스마트폰 세로 해상도
@@ -103,6 +104,7 @@ public class MainActivity extends FragmentActivity {
                 tts.speak("스마트폰 버전을 확인하도록 하겠습니다. 손가락을 화면에 얹고, 약 3초간, 기다려주세요",TextToSpeech.QUEUE_FLUSH,null);
             }
         });
+
 
 
         View container = findViewById(R.id.activity_main);
@@ -358,6 +360,12 @@ public class MainActivity extends FragmentActivity {
             timer= null;
         }
         time_check=0;
+    }
+    //뉴톤 라이브러리를 해제
+    public void onDestroy() {
+        super.onDestroy();
+        TextToSpeechManager.getInstance().finalizeLibrary();
+        SpeechRecognizerManager.getInstance().finalizeLibrary();
     }
 }
 

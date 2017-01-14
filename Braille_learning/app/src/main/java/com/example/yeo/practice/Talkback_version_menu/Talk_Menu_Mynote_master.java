@@ -13,8 +13,9 @@ import com.example.yeo.practice.Common_sound.Braille_Text_To_Speech;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.Common_mynote_database.Master_DB_manager;
-import com.example.yeo.practice.Normal_version_menu.Menu_detail_contents;
+import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.R;
+import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_long_practice;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_master_practice_sound.Letter_service;
@@ -55,6 +56,7 @@ public class Talk_Menu_Mynote_master extends FragmentActivity {
             public boolean onHover(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_HOVER_ENTER: //손가락 1개를 화면에 터치하였을 경우
+                        startService(new Intent(Talk_Menu_Mynote_master.this, Sound_Manager.class));
                         posx1 = (int)event.getX();  //현재 좌표의 x좌표값 저장
                         posy1 = (int)event.getY();  //현재 좌표의 y좌표값 저장
                         enter= true;
@@ -130,8 +132,8 @@ public class Talk_Menu_Mynote_master extends FragmentActivity {
                     finish();
                 }
                 else if(y2drag-y1drag> WHclass.Drag_space) { //손가락 2개를 이용하여 상단에서 하단으로 드래그할 경우 현재 메뉴의 상세정보 음성 출력
-                    Menu_detail_contents.menu_page=4;
-                    startService(new Intent(this, Menu_detail_contents.class));
+                    Menu_detail_service.menu_page=4;
+                    startService(new Intent(this, Menu_detail_service.class));
                 }else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
                     //             Menu_main_service.menu_page=Menu_info.MENU_TUTORIAL;
                     MainActivity.Braille_TTS.TTS_Play("숙련 단어장을 종료하고 상위 메뉴로 이동합니다., 나만의 단어장");
