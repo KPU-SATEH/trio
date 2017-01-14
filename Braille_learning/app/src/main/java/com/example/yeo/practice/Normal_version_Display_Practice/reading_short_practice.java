@@ -100,6 +100,7 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
         setContentView(m);
     }
 
+
     private RecognitionListener listener = new RecognitionListener() { // 음성인식을 위한 함수
         @Override
         public void onRmsChanged(float rmsdB) {
@@ -153,6 +154,7 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
         }
     };
 
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // 화면에 터치가 발생했을 때 호출되는 콜백 메서드
@@ -164,7 +166,6 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
                     }
                 case MotionEvent.ACTION_DOWN:// 첫번째 손가락을 화면에 터치하였을 경우
                     m.x = (int) event.getX();// 현재 좌표의 x좌표 값을 저장
-                    m.y = (int) event.getY();// 현재 좌표의 y좌표 값을 저장
 
                     if ((m.x == 0) && (m.y == 0)) { //좌표 초기값으로 지정된 곳을 터치하면 반응을 없앰
                         break;
@@ -892,9 +893,10 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
     @Override
     public void onResults(Bundle results) {
         final StringBuilder builder = new StringBuilder();
-        //Log.i("SpeechSampleActivity", "onResults");
+        Log.i("SpeechSampleActivity", "onResults");
 
-        String answer="기역";
+        String answer=m.textname_1;
+
         boolean result=false;
 
         ArrayList<String> texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
@@ -909,9 +911,9 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
         }
 
         if(result==true)
-            builder.append("정답이야 축하해");
+            builder.append("정답이야 축하해 너는 "+m.textname_1+"이 단어를 말했어^_^");
         else
-            builder.append("오답이야 당신이 말한건 '"+texts.get(0)+"' 이거야");
+            builder.append("오답이야 당신이 말한건 '"+texts.get(0)+"' 이거야 그리고 정답은"+m.textname_1+"이거야");
 
 //        text1.setText(builder.toString());
 
