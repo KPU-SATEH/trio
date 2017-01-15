@@ -17,7 +17,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.yeo.practice.Common_quiz_sound.quiz_service;
-import com.example.yeo.practice.Common_quiz_sound.score_service;
 import com.example.yeo.practice.Common_sound.Number;
 import com.example.yeo.practice.WHclass;
 
@@ -26,6 +25,8 @@ import net.daum.mf.speech.api.SpeechRecognizerClient;
 
 import java.util.ArrayList;
 import java.util.Locale;
+
+import static com.example.yeo.practice.Common_quiz_sound.score_service.result;
 
 public class reading_short_practice extends FragmentActivity implements TextToSpeech.OnInitListener, SpeechRecognizeListener {
     private SpeechRecognizerClient client;
@@ -836,7 +837,7 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
         m.quiz_view_init();
         m.page = 0;
         page = 0;
-        score_service.result = 0;
+        result = 0;
         finish();
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -895,9 +896,15 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
         final StringBuilder builder = new StringBuilder();
         Log.i("SpeechSampleActivity", "onResults");
 
-        String answer=m.textname_1;
-
+        String answer="";
         boolean result=false;
+
+        //점자 한칸, 두칸, 세칸을 구별해야함!!!!!!!!!!!!!?????????????????????
+        if(m.dot_count==1) answer=m.textname_1;
+        else if(m.dot_count==2) answer=m.textname_2;
+        else if(m.dot_count==3) answer=m.textname_3;
+        else return;
+        //??????????????????????????????????????????????????????????????????????????????????????????
 
         ArrayList<String> texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
 
@@ -910,10 +917,14 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
                 continue;
         }
 
-        if(result==true)
-            builder.append("정답이야 축하해 너는 "+m.textname_1+"이 단어를 말했어^_^");
-        else
-            builder.append("오답이야 당신이 말한건 '"+texts.get(0)+"' 이거야 그리고 정답은"+m.textname_1+"이거야");
+        if(result==true) {
+            //정답 tts부분 넣기, 그리고 다음문제로 이동시키기!!
+            builder.append("정답이야 축하해 너는 " + m.textname_1 + "이 단어를 말했어^_^");
+        }
+        else {
+            //오답 tts부분 넣기
+            builder.append("오답이야 당신이 말한건 '" + texts.get(0) + "' 이거야 그리고 정답은" + m.textname_1 + "이거야");
+        }
 
 //        text1.setText(builder.toString());
 
