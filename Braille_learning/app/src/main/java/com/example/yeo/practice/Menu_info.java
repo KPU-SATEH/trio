@@ -55,4 +55,14 @@ public class Menu_info {
     // 이전, 다음 소리 출력을 위한 상수 정의
     public static int next = 1; //다음
     public static int pre = 2; //이전
+
+    //버전 확인을 위한 상수 정의
+    public static int version_check=0; //버전 확인 멘트
+    public static int version_start=1; //버전 확인 시작
+    public static int version_restart=2; // 다시 시도 멘트
+    public static int version_reset=3; //다시 시도 멘트 2
+    public static int version_onefinger=4; //손가락을 1개만 얹어달라는 멘트
+    public static int version_blind_person=5; //시각장애인 전용버전 멘트
+    public static int version_normal=6; //일반 사용자 전용 버전 멘트
+
 }

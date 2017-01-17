@@ -53,12 +53,12 @@ public class Menu_basic_practice extends FragmentActivity {
                 posy2 = (int)event.getY();//손가락 1개를 화면에서 떨어트린 y좌표값 저장
                 if(enter == true) {
                     //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 기초과정으로 접속
-               //     if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
+                    if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                         Intent intent = new Intent(Menu_basic_practice.this, Menu_Initial_Consonant.class);
                         startActivityForResult(intent, Menu_info.MENU_BASIC_PRACTICE);
                         Menu_basic_service.menu_page=Menu_info.MENU_INITIAL;
                         startService(new Intent(this, Menu_basic_service.class));
-                 //   }
+                    }
                 }
                 else    enter = true;
 
@@ -103,9 +103,11 @@ public class Menu_basic_practice extends FragmentActivity {
         }
         return true;
     }
+
     @Override
-    public void onBackPressed() {  //종료키를 눌렀을 경우
-        Menu_main_service.menu_page=Menu_info.MENU_TUTORIAL;
+    public void onBackPressed() { //종료키를 눌렀을 경우
+        Menu_main_service.finish=true;
+        startService(new Intent(this,Menu_main_service.class));
         finish();
     }
 

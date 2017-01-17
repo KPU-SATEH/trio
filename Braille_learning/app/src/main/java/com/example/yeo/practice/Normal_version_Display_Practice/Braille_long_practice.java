@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.yeo.practice.Common_braille_data.dot_letter;
 import com.example.yeo.practice.Common_braille_data.dot_word;
+import com.example.yeo.practice.Common_mynote_database.Mynote_service;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.Sound_Manager;
@@ -93,10 +94,14 @@ public class Braille_long_practice extends FragmentActivity {
                     result = MainActivity.master_braille_db.getResult();
                     if(MainActivity.master_braille_db.master_db_manager.size_count==0)
                         onBackPressed();
-                    Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
                     m.MyView3_init();
                     m.invalidate();
                     MyNote_Start_service();
+                    if(result.equals("삭제")){
+                      //  Mynote_service.menu_page=1;
+                      //  startService(new Intent(this, Mynote_service.class));
+                    }
+
                 }
                 else {
                     for (int i = 0; i < 3; i++) {
@@ -105,7 +110,14 @@ public class Braille_long_practice extends FragmentActivity {
                         }
                     }
                     result = MainActivity.master_braille_db.insert(m.dot_count, m.textname_7, array[0], array[1], array[2], Menu_info.MENU_INFO, m.page);  //데이터베이스에 입력하고, 성공문자를 돌려받음
-                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show(); //성공했다는 메시지를 출력
+                    if(result.equals("성공")){
+                        Mynote_service.menu_page=2;
+                        startService(new Intent(this, Mynote_service.class));
+                    }
+                    else if(result.equals("실패")){
+                        Mynote_service.menu_page=3;
+                        startService(new Intent(this, Mynote_service.class));
+                    }
                 }
 
     }

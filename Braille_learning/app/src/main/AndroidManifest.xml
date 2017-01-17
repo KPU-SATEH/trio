@@ -495,6 +495,18 @@
         <service
             android:name=".Sound_Manager"
             android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Common_menu_sound.Version_check_service"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Common_menu_sound.Menu_mynote_service"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Common_mynote_database.Mynote_service"
+            android:enabled="true"
             android:exported="true"></service>
     </application>
 

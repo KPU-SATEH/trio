@@ -13,7 +13,7 @@ import com.example.yeo.practice.Sound_Manager;
  */
 public class Menu_main_service extends Service {
     private static final String TAG = "Menu_basic_service";
-    MediaPlayer basic,master,quiz, tutorial;
+    MediaPlayer basic,master,quiz, tutorial,mynote,mainfinish;
     MediaPlayer main[];
     int rawid[];
 
@@ -31,21 +31,24 @@ public class Menu_main_service extends Service {
     @Override
     public void onCreate(){
         super.onCreate();
-        main = new MediaPlayer[]{tutorial,basic,master,quiz};
-        rawid = new int[]{R.raw.directions,R.raw.basic,R.raw.master,R.raw.quiz};
+        mainfinish = MediaPlayer.create(this,R.raw.mainfinish);
+        mainfinish.setLooping(false);
 
-        for(int i=0 ; i<4 ; i++){
+        main = new MediaPlayer[]{tutorial,basic,master,quiz,mynote};
+        rawid = new int[]{R.raw.directions,R.raw.basic,R.raw.master,R.raw.quiz,R.raw.mynote};
+
+        for(int i=0 ; i<5 ; i++){
             main[i]=MediaPlayer.create(this,rawid[i]);
             main[i].setLooping(false);
         }
     }
     public void init(){
-        /*
+
         if(mainfinish.isPlaying()) {
             mainfinish.reset();
-            mainfinish = MediaPlayer.create(this, R.raw.mainfinish]);
+            mainfinish = MediaPlayer.create(this, R.raw.mainfinish);
         }
-        */
+
         if(main[previous].isPlaying()) {
             main[previous].reset();
             main[previous] = MediaPlayer.create(this, rawid[previous]);
@@ -64,19 +67,19 @@ public class Menu_main_service extends Service {
                 main[previous].start();
             }
             else{
-                //mainfinish.start();
-                //finish=false;
+                mainfinish.start();
+                finish=false;
             }
         }
-        /*
-        basicfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+        mainfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                basicfinish.reset();
-                basicfinish = MediaPlayer.create(Menu_basic_service.this,R.raw.basicfinish);
+                mainfinish.reset();
+                mainfinish = MediaPlayer.create(Menu_main_service.this,R.raw.mainfinish);
             }
         });
-         */
+
         return START_NOT_STICKY;
 
     }

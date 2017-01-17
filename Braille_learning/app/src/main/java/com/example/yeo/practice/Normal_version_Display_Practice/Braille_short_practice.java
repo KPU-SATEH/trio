@@ -23,6 +23,7 @@ import com.example.yeo.practice.Common_braille_data.dot_initial;
 import com.example.yeo.practice.Common_braille_data.dot_num;
 import com.example.yeo.practice.Common_braille_data.dot_sentence;
 import com.example.yeo.practice.Common_braille_data.dot_vowel;
+import com.example.yeo.practice.Common_mynote_database.Mynote_service;
 import com.example.yeo.practice.Common_sound.Number;
 import com.example.yeo.practice.Common_sound.slied;
 import com.example.yeo.practice.MainActivity;
@@ -148,7 +149,6 @@ public class Braille_short_practice extends FragmentActivity {
                             result = MainActivity.basic_braille_db.getResult();
                             if(MainActivity.basic_braille_db.basic_db_manager.size_count==0)
                                 onBackPressed();
-                            Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
                             m.MyView2_init();
                             m.invalidate();
                             MyNote_Start_service();
@@ -160,14 +160,20 @@ public class Braille_short_practice extends FragmentActivity {
                                 }
                             }
                             result = MainActivity.basic_braille_db.insert(m.dot_count, m.textname_1, array[0], array[1], array[2], Menu_info.MENU_INFO, m.page);  //데이터베이스에 입력하고, 성공문자를 돌려받음
-                            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show(); //성공했다는 메시지를 출력
+                            if(result.equals("성공")){
+                                Mynote_service.menu_page=2;
+                                startService(new Intent(this, Mynote_service.class));
+                            }
+                            else if(result.equals("실패")){
+                                Mynote_service.menu_page=3;
+                                startService(new Intent(this, Mynote_service.class));
+                            }
                         }
                         break;
                     case 2://두 칸 일때
                         if(WHclass.sel==Menu_info.MENU_NOTE) {
                             MainActivity.basic_braille_db.delete(MainActivity.basic_braille_db.basic_db_manager.getId(MainActivity.basic_braille_db.basic_db_manager.My_Note_page));
                             result = MainActivity.basic_braille_db.getResult();
-                            Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
                             m.MyView2_init();
                             m.invalidate();}
                         else {
@@ -177,14 +183,20 @@ public class Braille_short_practice extends FragmentActivity {
                                 }
                             }
                             result = MainActivity.basic_braille_db.insert(m.dot_count, m.textname_2, array[0], array[1], array[2], Menu_info.MENU_INFO, m.page);  //데이터베이스에 입력하고, 성공문자를 돌려받음
-                            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show(); //성공했다는 메시지를 출력
+                            if(result.equals("성공")){
+                                Mynote_service.menu_page=2;
+                                startService(new Intent(this, Mynote_service.class));
+                            }
+                            else if(result.equals("실패")){
+                                Mynote_service.menu_page=3;
+                                startService(new Intent(this, Mynote_service.class));
+                            }
                         }
                         break;
                     case 3://세 칸 일때
                         if(WHclass.sel==Menu_info.MENU_NOTE) {
                             MainActivity.basic_braille_db.delete(MainActivity.basic_braille_db.basic_db_manager.getId(MainActivity.basic_braille_db.basic_db_manager.My_Note_page));
                             result = MainActivity.basic_braille_db.getResult();
-                            Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
                             m.MyView2_init();
                             m.invalidate();
                         }
@@ -195,7 +207,14 @@ public class Braille_short_practice extends FragmentActivity {
                                 }
                             }
                             result = MainActivity.basic_braille_db.insert(m.dot_count, m.textname_3, array[0], array[1], array[2], Menu_info.MENU_INFO, m.page);  //데이터베이스에 입력하고, 성공문자를 돌려받음
-                            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show(); //성공했다는 메시지를 출력
+                            if(result.equals("성공")){
+                                Mynote_service.menu_page=2;
+                                startService(new Intent(this, Mynote_service.class));
+                            }
+                            else if(result.equals("실패")){
+                                Mynote_service.menu_page=3;
+                                startService(new Intent(this, Mynote_service.class));
+                            }
                         }
                         break;
                 }

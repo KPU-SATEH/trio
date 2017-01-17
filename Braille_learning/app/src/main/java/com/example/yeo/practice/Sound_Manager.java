@@ -19,14 +19,18 @@ import com.example.yeo.practice.Common_master_practice_sound.Word_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_basic_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_master_service;
+import com.example.yeo.practice.Common_menu_sound.Menu_mynote_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_quiz_service;
+import com.example.yeo.practice.Common_menu_sound.Version_check_service;
 
 public class Sound_Manager extends Service {
       /*
+    Version_check_service=1; //버전 체크 음성
     Menu_main_service = 0; //대메뉴 음성
     Menu_basic_service = 10; //기초과정 음성
     Menu_master_service =  20; //숙련과정 음성
     Menu_quiz_service = 30; //퀴즈 음성
+    Menu_mynote_service = 40; //나만의 단어장 음성
 
     Initial_service = 11; //초성연습 음성
     Vowel_service = 12; //모음연습 음성
@@ -49,6 +53,7 @@ public class Sound_Manager extends Service {
     quiz_alphabet_service = 315; //알파벳 읽기 퀴즈
     quiz_sentence_service = 316; //문장부호 읽기 퀴즈
     quiz_abbreviation_service = 317; //약자 및 약어 읽기 퀴즈
+
      */
 
 
@@ -64,6 +69,9 @@ public class Sound_Manager extends Service {
             case 0:
                 startService(new Intent(this,Menu_main_service.class));
                 break;
+            case 1:
+                startService(new Intent(this,Version_check_service.class));
+                break;
             case 10:
                 startService(new Intent(this,Menu_basic_service.class));
                 break;
@@ -72,6 +80,9 @@ public class Sound_Manager extends Service {
                 break;
             case 30:
                 startService(new Intent(this,Menu_quiz_service.class));
+                break;
+            case 40:
+                startService(new Intent(this,Menu_mynote_service.class));
                 break;
             case 11:
                 startService(new Intent(this,Initial_service.class));

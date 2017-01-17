@@ -14,6 +14,7 @@ import android.view.accessibility.AccessibilityEvent;
 import android.widget.Toast;
 
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
+import com.example.yeo.practice.Common_menu_sound.Version_check_service;
 import com.example.yeo.practice.Common_mynote_database.Basic_Braille_DB;
 import com.example.yeo.practice.Common_mynote_database.Master_Braille_DB;
 import com.example.yeo.practice.Common_sound.Braille_Text_To_Speech;
@@ -57,7 +58,7 @@ public class MainActivity extends FragmentActivity {
 
     boolean test= false;
 
-    TextToSpeech tts;
+    int oldx,oldy,newx,newy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,13 +98,8 @@ public class MainActivity extends FragmentActivity {
         basic_braille_db = new Basic_Braille_DB(getApplicationContext(),"BRAILLE.db",null,1); //BRAILLE 라는 이름을 가진 테이블
         master_braille_db = new Master_Braille_DB(getApplicationContext(),"BRAILLE2.db",null,1); //BRAILLE2 라는 이름을 가진 테이블
 
-        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                tts.setLanguage(Locale.KOREA);
-                tts.speak("스마트폰 버전을 확인하도록 하겠습니다. 손가락을 화면에 얹고, 약 3초간, 기다려주세요",TextToSpeech.QUEUE_FLUSH,null);
-            }
-        });
+        Version_check_service.menu_page=Menu_info.version_check;
+        startService(new Intent(this, Version_check_service.class));
 
 
 
@@ -119,16 +115,18 @@ public class MainActivity extends FragmentActivity {
                                 if(test==false) {
                                     one_finger = true;
                                     type = HOVER; // 시각장애인 전용버전으로 타입 변경
-                                    tts.speak("버전을 확인합니다.", TextToSpeech.QUEUE_FLUSH, null);
-                                    Timer_Reset(); //시
-                                }// 간 카운트 시작
+                                    Version_check_service.menu_page=Menu_info.version_start;
+                                    startService(new Intent(MainActivity.this, Version_check_service.class));
+                                    Timer_Reset(); //시간 카운트 시작
+                                }
                                 break;
                             case MotionEvent.ACTION_HOVER_MOVE:
                                 type = HOVER;
                                 break;
                             case MotionEvent.ACTION_HOVER_EXIT: // 손가락 1개를 화면에서 떨어트렸을 경우
                                 if (test == false) {//아직 버전 판별이 되지 않았을 경우
-                                    tts.speak("손가락을 다시 화면에 얹고 약 3초간 기다려주세요", TextToSpeech.QUEUE_FLUSH, null);
+                                    Version_check_service.menu_page=Menu_info.version_reset;
+                                    startService(new Intent(MainActivity.this, Version_check_service.class));
                                     type = INIT; //타입 초기화
                                     Timer_Stop(); //시간 카운트 정지
                                 }
@@ -225,29 +223,48 @@ public class MainActivity extends FragmentActivity {
                 if (one_finger == false) { // hover이벤트가 발생되지 않았을 경우
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
+                            oldx = (int)event.getX();  // 두번째 손가락이 터지된 지점의 x좌표값 저장
+                            oldy = (int) event.getY();  // 두번째 손가락이 터지된 지점의 y좌표값 저장
                             if(test==false) {
                                 type = INIT;
-                                tts.speak("다시 시도해 주세요. 손가락 한 개를 화면에 언저주세요.", TextToSpeech.QUEUE_FLUSH, null);
+                                Version_check_service.menu_page=Menu_info.version_restart;
+                                startService(new Intent(MainActivity.this, Version_check_service.class));
                                 Timer_Stop();
                             }
+                            break;
+                        case MotionEvent.ACTION_UP:  // 두번째 손가락을 떼었을 경우
+                            newx = (int)event.getX();  // 두번째 손가락이 떨어진 지점의 x좌표값 저장
+                            newy = (int) event.getY();  // 두번째 손가락이 떨어진 지점의 y좌표값 저장
+                            if (oldy - newy > WHclass.Drag_space)   //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
+                                onBackPressed();
                             break;
                     }
                 } else if (one_finger == true) { //hover이벤트가 발생됬을 경우
                     switch (event.getAction()) {
-                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_DOWN:
+                            oldx = (int)event.getX();  // 두번째 손가락이 터지된 지점의 x좌표값 저장
+                            oldy = (int) event.getY();  // 두번째 손가락이 터지된 지점의 y좌표값 저장
                             if(test==false) {
                                 type = INIT;
-                                tts.speak("손가락을 한 개만 언저주세요. ", TextToSpeech.QUEUE_FLUSH, null);
+                                Version_check_service.menu_page=Menu_info.version_onefinger;
+                                startService(new Intent(MainActivity.this, Version_check_service.class));
                                 Timer_Stop();
                             }
+                            break;
+                        case MotionEvent.ACTION_UP:  // 두번째 손가락을 떼었을 경우
+                            newx = (int)event.getX();  // 두번째 손가락이 떨어진 지점의 x좌표값 저장
+                            newy = (int) event.getY();  // 두번째 손가락이 떨어진 지점의 y좌표값 저장
+                            if (oldy - newy> WHclass.Drag_space)   //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
+                                onBackPressed();
                             break;
                     }
                 }
             } else if (Blind_person == false) { //일반사용자 버전일 경우
-                switch (event.getAction()) {
+                switch(event.getAction() & MotionEvent.ACTION_MASK) {
                     case MotionEvent.ACTION_DOWN:
                         type = NORMAL;
-                        tts.speak("버전을 확인합니다.", TextToSpeech.QUEUE_FLUSH, null);
+                        Version_check_service.menu_page=Menu_info.version_start;
+                        startService(new Intent(MainActivity.this, Version_check_service.class));
                         Timer_Reset();
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -255,14 +272,28 @@ public class MainActivity extends FragmentActivity {
                         break;
                     case MotionEvent.ACTION_UP:
                         if (test == false) {
-                            tts.speak("손가락을 다시 화면에 얹고 약 3초간 기다려주세요", TextToSpeech.QUEUE_FLUSH, null);
+                            Version_check_service.menu_page=Menu_info.version_reset;
+                            startService(new Intent(MainActivity.this, Version_check_service.class));
                             type = INIT;
                             Timer_Stop();
                         }
                         break;
+                    case MotionEvent.ACTION_POINTER_UP:  // 두번째 손가락을 떼었을 경우
+                        newx = (int)event.getX();  // 두번째 손가락이 떨어진 지점의 x좌표값 저장
+                        newy = (int)event.getY();  // 두번째 손가락이 떨어진 지점의 y좌표값 저장
+                        if (oldy - newy > WHclass.Drag_space)   //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
+                            onBackPressed();
+
+                        break;
+                    case MotionEvent.ACTION_POINTER_DOWN:  //두번째 손가락이 화면에 터치 될 경우
+                        oldx = (int)event.getX();  // 두번째 손가락이 터지된 지점의 x좌표값 저장
+                        oldy = (int)event.getY();  // 두번째 손가락이 터지된 지점의 y좌표값 저장
+                        break;
                 }
             }
         }
+
+
         return true;
     }
 
@@ -321,14 +352,16 @@ public class MainActivity extends FragmentActivity {
                         }
                     }
                     else if(hover_count>=9) { //10번의 체크동안 모두 확인되었을 경우
-                        tts.speak("손가락을 떨어트려주세요. 시각장애인 전용 버전입니다.", TextToSpeech.QUEUE_FLUSH, null);
+                        Version_check_service.menu_page=Menu_info.version_blind_person;
+                        startService(new Intent(MainActivity.this, Version_check_service.class));
                         type=HOVER;
                         hover_count=0;
                         normal_count=0;
                         test = true;
                     }
                     else if(normal_count>=9) { //10번의 체크동안 모두 확인되었을 경우
-                        tts.speak("손가락을 떨어트려주세요. 일반 사용자 전용 버전입니다.", TextToSpeech.QUEUE_FLUSH, null);
+                        Version_check_service.menu_page=Menu_info.version_normal;
+                        startService(new Intent(MainActivity.this, Version_check_service.class));
                         type=NORMAL;
                         hover_count=0;
                         normal_count=0;
@@ -366,6 +399,13 @@ public class MainActivity extends FragmentActivity {
         super.onDestroy();
         TextToSpeechManager.getInstance().finalizeLibrary();
         SpeechRecognizerManager.getInstance().finalizeLibrary();
+    }
+    @Override
+    public void onBackPressed() { //종료키를 눌렀을 경우
+        startService(new Intent(this,Sound_Manager.class));
+        Menu_main_service.finish=true;
+        startService(new Intent(this,Menu_main_service.class));
+        finish();
     }
 }
 

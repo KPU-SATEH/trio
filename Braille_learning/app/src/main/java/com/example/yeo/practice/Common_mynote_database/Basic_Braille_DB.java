@@ -54,11 +54,11 @@ public class Basic_Braille_DB extends SQLiteOpenHelper {
 
         if(basic_db_manager.datacount<basic_db_manager.MAXSIZE) { // 현재까지 저장되어 있는 데이터베이스의 단어 숫자가 maxsize보다 작을경우에만 저장
             db.execSQL("INSERT INTO BRAILLE VALUES(null,'" + count + "', '" + name + "', '" + matrix1 + "', '" + matrix2 + "', '" + matrix3 + "', '" + reference + "', '" + reference_index + "');");
-            result = "나만의 단어장으로 전송 성공";
+            result = "성공";
             basic_db_manager.MyNote_down = false;
         }
         else{ // 그 외는 저장 안됨
-            result = "나만의 단어장 용량 초과";
+            result = "실패";
         }
         db.close();
 
@@ -141,7 +141,7 @@ public class Basic_Braille_DB extends SQLiteOpenHelper {
         }
 
 
-        result = "단어장 불러오기 성공";
+        result = "성공";
 
         return result;
 

@@ -100,8 +100,9 @@ public class Menu_master_practice extends FragmentActivity {
         return true;
     }
     @Override
-    public void onBackPressed() {   //종료키를 눌렀을 경우
-        Menu_main_service.menu_page=Menu_info.MENU_TUTORIAL;
+    public void onBackPressed() { //종료키를 눌렀을 경우
+        Menu_main_service.finish=true;
+        startService(new Intent(this,Menu_main_service.class));
         finish();
     }
 

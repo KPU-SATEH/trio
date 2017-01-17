@@ -17,15 +17,16 @@ import com.example.yeo.practice.WHclass;
 
 // 메뉴에 대한 음성을 출력하는 서비스
 
-public class Menu_basic_service extends Service {
-    private static final String TAG = "Menu_basic_service";
-    MediaPlayer Init,Vowel,Final,number,alphabet,Sentence,abbreviation,basicfinish;
-    MediaPlayer basic[];
+
+public class Version_check_service extends Service {
+    private static final String TAG = "version_check_service";
+    MediaPlayer check,start,restart,reset,onefinger,blind_person,nromal;
+    MediaPlayer version[];
     int rawid[];
     public static int menu_page = 0;
     public static boolean finish = false;
     int previous =0 ;
-    public Menu_basic_service() {
+    public Version_check_service() {
     }
 
     @Override
@@ -36,53 +37,45 @@ public class Menu_basic_service extends Service {
     @Override
     public void onCreate(){
         super.onCreate();
-        basicfinish = MediaPlayer.create(this, R.raw.basicfinish); //기초과정 종료
-        basicfinish.setLooping(false);
 
-        basic = new MediaPlayer[]{Init,Vowel,Final,number,alphabet,Sentence,abbreviation};
+        version = new MediaPlayer[]{check,start,restart,reset,onefinger,blind_person,nromal};
         // 선언된 음성 변수들을 배열 변수에 저장
-        rawid = new int[]{R.raw.initial,R.raw.vowel,R.raw.finalconsonant,R.raw.number,R.raw.alphabet,R.raw.start_sentence,R.raw.abbreviation_start};
+        rawid = new int[]{R.raw.version_check,R.raw.version_check_start,R.raw.version_check_restart,R.raw.version_check_reset,R.raw.version_check_onefinger,
+                R.raw.version_blind_person,R.raw.version_normal};
         // 선언된 음성 변수 id를 배열변수에 저장
         for(int i = 0; i< 7; i++){
-            basic[i] = MediaPlayer.create(this, rawid[i]);
-            basic[i].setLooping(false);
+            version[i] = MediaPlayer.create(this, rawid[i]);
+            version[i].setLooping(false);
         }
     }
 
     public void init(){
-        if(basicfinish.isPlaying()){
-            basicfinish.reset();
-            basicfinish = MediaPlayer.create(this, R.raw.basicfinish);
+        if(version[previous].isPlaying()) {
+            version[previous].reset();
+            version[previous] = MediaPlayer.create(this, rawid[previous]);
         }
-        if(basic[previous].isPlaying()) {
-            basic[previous].reset();
-            basic[previous] = MediaPlayer.create(this, rawid[previous]);
-        }
-        Sound_Manager.stop = false;
+        Sound_Manager.stop=false;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startID){
-        Sound_Manager.Service_address=10;
+        Sound_Manager.Service_address=1;
         if(Sound_Manager.stop==true)
             init();
         else {
-            if(finish==false) {
-                previous = menu_page - 1;
-                basic[previous].start();
-            }
-            else{
-                basicfinish.start();
-                finish=false;
-            }
+            init();
+            previous = menu_page;
+            version[previous].start();
         }
-        basicfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+        version[previous].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                basicfinish.reset();
-                basicfinish = MediaPlayer.create(Menu_basic_service.this,R.raw.basicfinish);
+                version[previous].reset();
+                version[previous] = MediaPlayer.create(Version_check_service.this,rawid[previous]);
             }
         });
+
         return START_NOT_STICKY;
     }
 }

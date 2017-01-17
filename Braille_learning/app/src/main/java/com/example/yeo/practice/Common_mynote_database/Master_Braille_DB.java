@@ -54,11 +54,11 @@ public class Master_Braille_DB extends SQLiteOpenHelper {
 
         if(master_db_manager.datacount<master_db_manager.MAXSIZE) {
             db.execSQL("INSERT INTO BRAILLE2 VALUES(null,'" + count + "', '" + name + "', '" + matrix1 + "', '" + matrix2 + "', '" + matrix3 + "', '" + reference + "', '" + reference_index + "');");
-            result = "나만의 단어장으로 전송 성공";
             master_db_manager.MyNote_down = false;
+            result = "성공";
         }
         else{
-            result = "나만의 단어장 용량 초과";
+            result = "실패";
         }
         db.close();
 
@@ -137,7 +137,7 @@ public class Master_Braille_DB extends SQLiteOpenHelper {
             master_db_manager.DB_All_insert(id,count, name, matrix1, matrix2, matrix3, reference, reference_index); //데이터베이스에 저장
         }
 
-        result = "단어장 불러오기 성공";
+        result = "성공";
         db.close();
 
         return result;
