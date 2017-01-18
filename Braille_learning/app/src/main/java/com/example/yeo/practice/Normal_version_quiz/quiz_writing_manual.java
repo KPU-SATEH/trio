@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
 import com.example.yeo.practice.Normal_version_Display_Practice.writing_long_practice;
 import com.example.yeo.practice.Normal_version_Display_Practice.writing_short_practice;
 import com.example.yeo.practice.R;
@@ -45,6 +46,7 @@ public class quiz_writing_manual extends FragmentActivity {
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN: //손가락 1개로 터치하였을 때
+                startService(new Intent(this, Sound_Manager.class));
                 posx1 = (int)event.getX(); //현재 좌표의 x좌표값을 저장
                 posy1 = (int)event.getY(); //현재 좌표의 y좌표값을 저장
                 break;
@@ -95,7 +97,6 @@ public class quiz_writing_manual extends FragmentActivity {
                                 startActivityForResult(intent8, ENTER);
                                 break;
                         }
-                        //MainActivity.Braille_TTS.TTS_Stop();
                         finish();
                     }
                 }
@@ -109,7 +110,7 @@ public class quiz_writing_manual extends FragmentActivity {
                 newdrag = (int)event.getX(); //두번째 손가락이 떨어진 x좌표 저장
                 y2drag = (int) event.getY(); //두번째 손가락이 떨어진 y좌표 저장
                 if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 하단에서 상단으로 쓸어 올렸을 때 퀴즈 종료
-                    finish();
+                    onBackPressed();
                 }
             case MotionEvent.ACTION_POINTER_DOWN: //두번째 손가락이 터치되었을 때
                 olddrag = (int)event.getX(); //두번째 손가락이 터치된 지점의 x좌표 저장
@@ -118,7 +119,10 @@ public class quiz_writing_manual extends FragmentActivity {
         }
         return true;
     }
+    @Override
     public void onBackPressed() {
+        quiz_writing_service.finish = true;
+        startService(new Intent(this, quiz_writing_service.class));
         finish();
     }
 }

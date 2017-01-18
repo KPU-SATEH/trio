@@ -62,6 +62,7 @@ public class Menu_quiz_service extends Service {
         if(Sound_Manager.stop==true)
             init();
         else {
+            init();
             if (finish == false) {
                 previous = menu_page;
                 quiz_menu[previous].start();

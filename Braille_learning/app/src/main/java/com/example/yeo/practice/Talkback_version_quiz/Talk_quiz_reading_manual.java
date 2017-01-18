@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.*;
-import com.example.yeo.practice.Common_quiz_sound.quiz_service;
+import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_reading_long_practice;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_reading_short_practice;
 /*
@@ -66,55 +66,55 @@ public class Talk_quiz_reading_manual extends FragmentActivity {
                                     case 1: //초성퀴즈
                                         Intent intent = new Intent(Talk_quiz_reading_manual.this, Talk_reading_short_practice.class);
                                         startActivityForResult(intent, ENTER);
-                                        quiz_service.question = 1;
+                                        quiz_reading_service.question = 1;
                                         WHclass.quiz_sel = 1;
                                         break;
                                     case 2: //모음퀴즈
                                         Intent intent2 = new Intent(Talk_quiz_reading_manual.this, Talk_reading_short_practice.class);
                                         startActivityForResult(intent2, ENTER);
-                                        quiz_service.question = 1;
+                                        quiz_reading_service.question = 1;
                                         WHclass.quiz_sel = 2;
                                         break;
                                     case 3: //종성퀴즈
                                         Intent intent3 = new Intent(Talk_quiz_reading_manual.this, Talk_reading_short_practice.class);
                                         startActivityForResult(intent3, ENTER);
-                                        quiz_service.question = 1;
+                                        quiz_reading_service.question = 1;
                                         WHclass.quiz_sel = 3;
                                         break;
                                     case 4: //숫자퀴즈
                                         Intent intent4 = new Intent(Talk_quiz_reading_manual.this, Talk_reading_short_practice.class);
                                         startActivityForResult(intent4, ENTER);
-                                        quiz_service.question = 1;
+                                        quiz_reading_service.question = 1;
                                         WHclass.quiz_sel = 4;
                                         break;
                                     case 5: //알파벳 퀴즈
                                         Intent intent5 = new Intent(Talk_quiz_reading_manual.this, Talk_reading_short_practice.class);
                                         startActivityForResult(intent5, ENTER);
-                                        quiz_service.question = 1;
+                                        quiz_reading_service.question = 1;
                                         WHclass.quiz_sel = 5;
                                         break;
                                     case 6: //문장부호 퀴즈
                                         Intent intent6 = new Intent(Talk_quiz_reading_manual.this, Talk_reading_short_practice.class);
                                         startActivityForResult(intent6, ENTER);
-                                        quiz_service.question = 1;
+                                        quiz_reading_service.question = 1;
                                         WHclass.quiz_sel = 6;
                                         break;
                                     case 7: //약자 및 약어 퀴즈
                                         Intent intent7 = new Intent(Talk_quiz_reading_manual.this, Talk_reading_short_practice.class);
                                         startActivityForResult(intent7, ENTER);
-                                        quiz_service.question = 1;
+                                        quiz_reading_service.question = 1;
                                         WHclass.quiz_sel = 7;
                                         break;
                                     case 8: //글자 퀴즈
                                         Intent intent8 = new Intent(Talk_quiz_reading_manual.this, Talk_reading_short_practice.class);
                                         startActivityForResult(intent8, ENTER);
-                                        quiz_service.question = 1;
+                                        quiz_reading_service.question = 1;
                                         WHclass.quiz_sel = 8;
                                         break;
                                     case 9: //단어퀴즈
                                         Intent intent9 = new Intent(Talk_quiz_reading_manual.this, Talk_reading_long_practice.class);
                                         startActivityForResult(intent9, ENTER);
-                                        quiz_service.question = 1;
+                                        quiz_reading_service.question = 1;
                                         break;
                                 }
                                 finish();
@@ -154,8 +154,8 @@ public class Talk_quiz_reading_manual extends FragmentActivity {
                 newdrag = (int)event.getX(); //두번째 손가락이 떨어진 x좌표 저장
                 y2drag = (int) event.getY(); //두번째 손가락이 떨어진 y좌표 저장
                 if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 하단에서 상단으로 쓸어 올렸을 때 퀴즈 종료
-                    quiz_service.question=6;
-                    startService(new Intent(this, quiz_service.class));
+                    quiz_reading_service.question=6;
+                    startService(new Intent(this, quiz_reading_service.class));
                     finish();
                 }
             case MotionEvent.ACTION_DOWN: //두번째 손가락이 터치되었을 때

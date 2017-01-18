@@ -7,7 +7,7 @@ package com.example.yeo.practice;
 public class Menu_info {
 
     /*
-    각각의 메뉴들을 구분하기 위해 고정적으로 사용되는 상수들을 관리하는 클래스
+    고정적으로 사용되는 상수들을 관리하는 클래스
      */
     //각각의 메뉴 상수 정의
 
@@ -65,4 +65,13 @@ public class Menu_info {
     public static int version_blind_person=5; //시각장애인 전용버전 멘트
     public static int version_normal=6; //일반 사용자 전용 버전 멘트
 
+    //쓰기 퀴즈 상수정의
+    public static int writing_direction = 0; // 설명멘트
+    public static int writing_first = 1; //첫번째 문제
+    public static int writing_second = 2; //두번째 문제
+    public static int writing_last = 3; //마지막 문제
+    public static int writing_success = 4; //정답 맞춤
+    public static int writing_fail = 5; //정답 틀림
+    public static int all_finish = 6; //모든 문제 풀고 종료
+    public static int writingfinish =  7; //중간 종료
 }

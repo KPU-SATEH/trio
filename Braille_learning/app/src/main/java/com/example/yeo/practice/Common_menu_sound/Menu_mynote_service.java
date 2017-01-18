@@ -48,7 +48,7 @@ public class Menu_mynote_service extends Service {
         }
         if(mynote[previous].isPlaying()){
             mynote[previous].reset();
-            mynote[previous].setLooping(false);
+            mynote[previous] = MediaPlayer.create(this, rawid[previous]);
         }
         Sound_Manager.stop=false;
     }
@@ -58,6 +58,7 @@ public class Menu_mynote_service extends Service {
         if(Sound_Manager.stop==true)
             init();
         else{
+            init();
             if(finish==false) {
                 previous = menu_page;
                 mynote[previous].start();

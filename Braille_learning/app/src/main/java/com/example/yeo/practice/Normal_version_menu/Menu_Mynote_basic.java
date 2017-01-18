@@ -135,7 +135,6 @@ public class Menu_Mynote_basic extends FragmentActivity {
                     Menu_main_service.menu_page = Menu_info.MENU_MYNOTE_MASTER;
                     slied.slied =Menu_info.next;
                     startService(new Intent(this, slied.class));
-                    //startService(new Intent(this, Menu_main_service.class));
                     Menu_mynote_service.menu_page=Menu_info.MENU_MYNOTE_MASTER;
                     startService(new Intent(this,Menu_mynote_service.class));
                     finish();
@@ -146,7 +145,6 @@ public class Menu_Mynote_basic extends FragmentActivity {
                     Menu_main_service.menu_page = Menu_info.MENU_MYNOTE_MASTER;
                     slied.slied = Menu_info.pre;
                     startService(new Intent(this, slied.class));
-                   // startService(new Intent(this, Menu_main_service.class));
                     Menu_mynote_service.menu_page=Menu_info.MENU_MYNOTE_MASTER;
                     startService(new Intent(this,Menu_mynote_service.class));
                     finish();

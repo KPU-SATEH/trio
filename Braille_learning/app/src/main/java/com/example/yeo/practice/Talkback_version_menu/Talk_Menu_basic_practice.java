@@ -96,8 +96,7 @@ public class Talk_Menu_basic_practice extends FragmentActivity {
                     Menu_detail_service.menu_page=2;
                     startService(new Intent(this, Menu_detail_service.class));
                 } else if (y1drag - y2drag > WHclass.Drag_space) {//손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
-                    Menu_main_service.menu_page = Menu_info.MENU_TUTORIAL;
-                    finish();
+                    onBackPressed();
                 }
                 break;
             case MotionEvent.ACTION_DOWN:  //두번째 손가락이 화면에 터치 될 경우
@@ -109,9 +108,11 @@ public class Talk_Menu_basic_practice extends FragmentActivity {
         }
         return true;
     }
+
     @Override
-    public void onBackPressed() {  //종료키를 눌렀을 경우
-        Menu_main_service.menu_page=Menu_info.MENU_TUTORIAL;
+    public void onBackPressed() { //종료키를 눌렀을 경우
+        Menu_main_service.finish=true;
+        startService(new Intent(this,Menu_main_service.class));
         finish();
     }
 

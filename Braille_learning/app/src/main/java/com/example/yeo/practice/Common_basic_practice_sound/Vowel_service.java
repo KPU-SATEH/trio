@@ -80,6 +80,7 @@ public class Vowel_service extends Service {
         if(Sound_Manager.stop==true)
             init();
         else {
+            init();
             if (WHclass.Braiile_type == 2) {
                 if (finish == false) {
                     if (WHclass.sel == Menu_info.MENU_NOTE)

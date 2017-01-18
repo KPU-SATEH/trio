@@ -13,7 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.yeo.practice.WHclass;
-import com.example.yeo.practice.Common_quiz_sound.quiz_service;
+import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Common_quiz_sound.score_service;
 import com.example.yeo.practice.Common_sound.Number;
 
@@ -89,7 +89,7 @@ public class Talk_reading_short_practice extends FragmentActivity implements Tex
             uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        startService(new Intent(this, quiz_service.class));
+        startService(new Intent(this, quiz_reading_service.class));
         decorView.setSystemUiVisibility( uiOption );
 
 
@@ -141,8 +141,8 @@ public class Talk_reading_short_practice extends FragmentActivity implements Tex
                                     break;
                                 }
                                 page++;
-                                quiz_service.question++;
-                                startService(new Intent(Talk_reading_short_practice.this, quiz_service.class));
+                                quiz_reading_service.question++;
+                                startService(new Intent(Talk_reading_short_practice.this, quiz_reading_service.class));
                                 m.quiz_view_init();
                                 m.invalidate();
                                 m.next = false;
@@ -230,28 +230,28 @@ public class Talk_reading_short_practice extends FragmentActivity implements Tex
                     } else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 상단으로 드래그 하는 경우 퀴즈 화면 종료
                         switch(WHclass.sel){
                             case 1: //초성퀴즈 종료
-                                quiz_service.initial_quiz_finish.start();
+                                quiz_reading_service.initial_quiz_finish.start();
                                 break;
                             case 2://모음퀴즈 종료
-                                quiz_service.vowel_quiz_finish.start();
+                                quiz_reading_service.vowel_quiz_finish.start();
                                 break;
                             case 3://종성퀴즈 종료
-                                quiz_service.final_quiz_finish.start();
+                                quiz_reading_service.final_quiz_finish.start();
                                 break;
                             case 4://숫자퀴즈 종료
-                                quiz_service.num_quiz_finish.start();
+                                quiz_reading_service.num_quiz_finish.start();
                                 break;
                             case 5://알파벳퀴즈 종료
-                                quiz_service.alphabet_quiz_finish.start();
+                                quiz_reading_service.alphabet_quiz_finish.start();
                                 break;
                             case 6://문장부호퀴즈 종료
-                                quiz_service.sentence_quiz_finish.start();
+                                quiz_reading_service.sentence_quiz_finish.start();
                                 break;
                             case 7://약자및 약어퀴즈 종료
-                                quiz_service.abbreviation_quiz_finish.start();
+                                quiz_reading_service.abbreviation_quiz_finish.start();
                                 break;
                             case 8://글자 퀴즈 종료
-                                quiz_service.letter_quiz_finish.start();
+                                quiz_reading_service.letter_quiz_finish.start();
                                 break;
                         }
                         onBackPressed();

@@ -384,6 +384,7 @@ public class Talk_Braille_short_practice extends FragmentActivity {
                     lock=false;
                 break;
             case MotionEvent.ACTION_DOWN: // 두번째 손가락이 화면에 터치된 경우
+                startService(new Intent(Talk_Braille_short_practice.this, Sound_Manager.class));
                 click = false; // 손가락 1개로 사용하는 문지르기 기능을 잠금
                 olddrag = (int)event.getX(); // 두번째 손가락이 화면에 터치된 지점의 x좌표 값 저장
                 y1drag = (int) event.getY(); // 두번째 손가락이 화면에 터치된 지점의 y좌표 값 저장

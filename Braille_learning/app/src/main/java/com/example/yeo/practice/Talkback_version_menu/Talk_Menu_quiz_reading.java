@@ -14,7 +14,7 @@ import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.Talkback_version_quiz.Talk_quiz_reading_manual;
 import com.example.yeo.practice.WHclass;
-import com.example.yeo.practice.Common_quiz_sound.quiz_service;
+import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Common_sound.slied;
 
 // 읽기 퀴즈 메뉴 화면
@@ -46,20 +46,20 @@ public class Talk_Menu_quiz_reading extends FragmentActivity {
             public boolean onHover(View v, MotionEvent event) {
                 switch(event.getAction()){
                     case MotionEvent.ACTION_HOVER_EXIT :
-                        startService(new Intent(Talk_Menu_quiz_reading.this, Sound_Manager.class));
                         posx2 = (int)event.getX();  //손가락 1개를 화면에서 떨어트린 x좌표값 저장
                         posy2 = (int)event.getY();  //손가락 1개를 화면에서 떨어트린 y좌표값 저장
                         if(enter == true) { //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 초성 퀴즈로 접속
                             if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                                 Intent intent = new Intent(Talk_Menu_quiz_reading.this, Talk_quiz_reading_manual.class);
-                                startService(new Intent(Talk_Menu_quiz_reading.this, quiz_service.class));
+                                startService(new Intent(Talk_Menu_quiz_reading.this, quiz_reading_service.class));
                                 startActivityForResult(intent, Menu_info.MENU_QUIZ_INITIAL);
-                                startService(new Intent(Talk_Menu_quiz_reading.this, quiz_service.class));
+                                startService(new Intent(Talk_Menu_quiz_reading.this, quiz_reading_service.class));
                             }
                         }
                         else    enter = true;
                         break;
                     case MotionEvent.ACTION_HOVER_ENTER :
+                        startService(new Intent(Talk_Menu_quiz_reading.this, Sound_Manager.class));
                         posx1 = (int)event.getX();  //현재 좌표의 x좌표값 저장
                         posy1 = (int)event.getY();  //현재 좌표의 y좌표값 저장
                         break;

@@ -60,7 +60,7 @@ class Talk_writing_long_display extends View {
     static dot_quiz_letter Dot_quiz_letter;
     static dot_quiz_word Dot_quiz_word;
 
-    int question = 0; // 문제 수를 지정할 변수
+    int question = 1; // 문제 수를 지정할 변수
     String type="";
 
     public void quiz_target_init(){
@@ -115,7 +115,7 @@ class Talk_writing_long_display extends View {
                     text_7[i][j] = Dot_quiz_word.word_Array.get(page)[i][j];
             }
         }
-
+/*
         switch(question){
             case 0:
                 String text="첫번째 문제 입니다. 점자를 입력하여 정답을 맞추어 보세요. "+type+textname_7+"! "+dot_count+"칸, ";
@@ -130,7 +130,7 @@ class Talk_writing_long_display extends View {
                 MainActivity.Braille_TTS.TTS_Play(text3);
                 break;
         }
-
+*/
     }
     public Talk_writing_long_display(Context context) {
         super(context);

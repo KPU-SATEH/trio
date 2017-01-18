@@ -9,7 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.yeo.practice.Common_braille_data.dot_quiz_word;
-import com.example.yeo.practice.Common_quiz_sound.quiz_service;
+import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Common_quiz_sound.score_service;
 import com.example.yeo.practice.Common_sound.Number;
 import com.example.yeo.practice.WHclass;
@@ -36,7 +36,7 @@ public class reading_long_practice extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        startService(new Intent(this, quiz_service.class));
+        startService(new Intent(this, quiz_reading_service.class));
         decorView.setSystemUiVisibility( uiOption );
         dot_quiz_word dot = new dot_quiz_word(); // 단어퀴즈 단위의 점자 클래스 선언
         m = new reading_long_display(this);
@@ -1844,7 +1844,7 @@ public class reading_long_practice extends FragmentActivity {
                     if (y2drag - y1drag > WHclass.Drag_space) { //손가락 2개를 이용하여 하단으로 드래그 하는경우 음성 인식 실행
 
                     } else if (y1drag - y2drag > WHclass.Drag_space) {// 손가락 2개를 이용하여 상단으로 드래그하는 경우 종료
-                        quiz_service.word_quiz_finish.start();
+                        quiz_reading_service.word_quiz_finish.start();
                         onBackPressed();
                     }
                     break;
@@ -1872,8 +1872,8 @@ public class reading_long_practice extends FragmentActivity {
                             break;
                         }
                         page++;
-                        quiz_service.question++;
-                        startService(new Intent(this, quiz_service.class));
+                        quiz_reading_service.question++;
+                        startService(new Intent(this, quiz_reading_service.class));
                         m.quiz_view2_init();
                         m.invalidate();
                         m.next = false;
@@ -1924,7 +1924,7 @@ public class reading_long_practice extends FragmentActivity {
         m.page = 0;
         page = 0;
         score_service.result = 0;
-        quiz_service.question = 0;
+        quiz_reading_service.question = 0;
         finish();
     }
 }

@@ -192,6 +192,7 @@ public class Talk_Braille_long_practice extends FragmentActivity {
                     lock = false;
                 break;
             case MotionEvent.ACTION_DOWN: //두 번째 손가락을 터치하였을 때
+                startService(new Intent(Talk_Braille_long_practice.this, Sound_Manager.class));
                 click = false; // 제스처 기능을 위해 손가락 1개를 인지하는 화면을 잠금
                 olddrag = (int)event.getX(); // 두번쨰 손가락이 터치한 지점의 x좌표 저장
                 y1drag = (int) event.getY(); // 두번째 손가락이 터치한 지점의 y좌표 저장

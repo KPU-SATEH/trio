@@ -12,8 +12,8 @@ import com.example.yeo.practice.R;
 숫자 퀴즈에서 출력되는 음성파일을 관리하는 서비스 클래스
  */
 
-public class quiz_number_service extends Service {
-    private static final String TAG = "quiz_number_service";
+public class reading_number_service extends Service {
+    private static final String TAG = "reading_number_service";
 
     MediaPlayer num_sign,zero,one,two,three,four,five,six,seven,eight,nine,ten,twofive,fourseven,sixeight,ninenine;
     MediaPlayer number[]; //음성파일을 저장하는 배열 변수
@@ -23,7 +23,7 @@ public class quiz_number_service extends Service {
     int previous=0;
     boolean progress = false;
 
-    public quiz_number_service() {
+    public reading_number_service() {
 
     }
 

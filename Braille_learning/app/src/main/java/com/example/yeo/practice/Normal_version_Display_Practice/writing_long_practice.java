@@ -10,8 +10,11 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.yeo.practice.Common_braille_data.dot_quiz_word;
+import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Common_sound.Number;
+import com.example.yeo.practice.Menu_info;
+import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
 
 import java.util.Timer;
@@ -47,10 +50,12 @@ public class writing_long_practice extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
         decorView.setSystemUiVisibility( uiOption );
-        dot_quiz_word dot = new dot_quiz_word(); // 단어퀴즈 단위의 점자 클래스 선언
         m = new writing_long_display(this);
         m.setBackgroundColor(Color.rgb(22, 26, 44));
         setContentView(m);
+
+        quiz_writing_service.menu_page = m.question;
+        startService(new Intent(this, quiz_writing_service.class));
     }
 
     @Override
@@ -64,6 +69,7 @@ public class writing_long_practice extends FragmentActivity {
                         click = true;
                     break;
                 case MotionEvent.ACTION_DOWN: // 손가락 1개를 이용하여 터치가 발생하였을 때
+                    startService(new Intent(this, Sound_Manager.class));
                     m.x = (int) event.getX();//x좌표를 저장
                     m.y = (int) event.getY();//y좌표를 저장
                     if ((m.x < m.bigcircle * 2) && (m.x > m.bigcircle * (-2)) && (m.y > m.bigcircle * (-2)) && (m.y < (m.bigcircle * 2)))
@@ -92,22 +98,22 @@ public class writing_long_practice extends FragmentActivity {
                     y2drag = (int) event.getY();// 두번째 손가락이 화면에서 떨어진 지점의 y 좌표 저장
                     if (y2drag - y1drag > WHclass.Drag_space) { //손가락 2개를 이용하여 하단으로 드래그 하는경우 정답 채점
                         if(next==false) {
-                            String temp="";
-                            temp=Grading();
-                            MainActivity.Braille_TTS.TTS_Play(temp);
+                            Grading();
                         }
                     }
                     else if (y1drag - y2drag > WHclass.Drag_space) {// 손가락 2개를 이용하여 상단으로 드래그하는 경우 종료
-                        MainActivity.Braille_TTS.TTS_Play("쓰기 퀴즈를 종료하고 상위 메뉴로 이동합니다. 쓰기 퀴즈");
                         onBackPressed();
                     }
                     else if(olddrag - newdrag > WHclass.Drag_space){
                         if(next==true) {
                             next = false;
                             m.quiz_view2_init();
-                            if(m.question==3) {
-                                MainActivity.Braille_TTS.TTS_Play("모든 문제가 끝났으므로, 쓰기 퀴즈를 종료합니다. 쓰기 퀴즈");
-                                finish();
+                            if(m.question==4) {
+                                onBackPressed();
+                            }
+                            else if(m.question<4){
+                                quiz_writing_service.menu_page=m.question;
+                                startService(new Intent(this, quiz_writing_service.class));
                             }
                         }
                     }
@@ -1266,9 +1272,9 @@ public class writing_long_practice extends FragmentActivity {
     }
 
 
-    public String Grading(){
+    public void Grading(){
         boolean result= false;
-        String result_return="";
+
 
         for(int i=0 ; i<3 ; i++){
             for(int j=0 ; j<14 ; j++){
@@ -1285,7 +1291,8 @@ public class writing_long_practice extends FragmentActivity {
         }
 
         if(result==true) {
-            result_return="정답입니다. 다음 화면으로 이동하시기 바랍니다.";
+            quiz_writing_service.menu_page= Menu_info.writing_success;
+            startService(new Intent(this, quiz_writing_service.class));
         }
         else if(result==false){
             m.quiz_target_init();
@@ -1295,20 +1302,26 @@ public class writing_long_practice extends FragmentActivity {
                     m.Braille_insert[i][j] = m.text_7[i][j];
                 }
             }
-            result_return="오답입니다. 화면을 문지르며 정답을 확인해보세요. 정답을 확인한 뒤, 다음 화면으로 이동하시기 바랍니다.";
+            quiz_writing_service.menu_page= Menu_info.writing_fail;
+            startService(new Intent(this, quiz_writing_service.class));
         }
 
         next = true;
         m.question++;
 
-
-        return result_return;
-
     }
 
     @Override
     public void onBackPressed() { //종료키를 눌렀을 경우 발생되는 이벤트
-        m.page = 0;
+        if(m.question==4){
+            quiz_writing_service.finish = true;
+            quiz_writing_service.progress = true;
+            startService(new Intent(this, quiz_writing_service.class));
+        }
+        else{
+            quiz_writing_service.finish = true;
+            startService(new Intent(this, quiz_writing_service.class));
+        }
         finish();
     }
 }

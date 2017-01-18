@@ -13,7 +13,7 @@ import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Normal_version_quiz.quiz_score;
-import com.example.yeo.practice.Common_quiz_sound.quiz_service;
+import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Common_sound.slied;
 import com.example.yeo.practice.*;
 import com.example.yeo.practice.Talkback_version_quiz.Talk_quiz_reading_manual;
@@ -39,7 +39,7 @@ public class Talk_Menu_quiz_abbreviation extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        quiz_service.finish_n = 6;
+        quiz_reading_service.finish_n = 6;
         decorView.setSystemUiVisibility( uiOption );
         setContentView(R.layout.activity_common_menu_quiz_abbreviation);
         View container = findViewById(R.id.activity_common_menu_quiz_abbreviation);
@@ -106,8 +106,8 @@ public class Talk_Menu_quiz_abbreviation extends FragmentActivity {
                     Menu_detail_service.menu_page=23;
                     startService(new Intent(this, Menu_detail_service.class));
                 }else if (y1drag - y2drag >WHclass.Drag_space) {  //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
-                    quiz_service.question = 7;
-                    startService(new Intent(this, quiz_service.class));
+                    quiz_reading_service.question = 7;
+                    startService(new Intent(this, quiz_reading_service.class));
                     finish();
                 }
                 break;

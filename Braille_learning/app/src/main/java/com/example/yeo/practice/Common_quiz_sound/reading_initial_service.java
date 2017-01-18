@@ -11,8 +11,8 @@ import com.example.yeo.practice.R;
 /*
 초성 퀴즈에서 출력되는 음성파일을 관리하는 서비스 클래스
  */
-public class quiz_initial_service extends Service {
-    private static final String TAG = "quiz_initial_service";
+public class reading_initial_service extends Service {
+    private static final String TAG = "reading_initial_service";
     MediaPlayer giyeok,nieun,digeud,nieul,mieum,bieub,siot,zieut,chieut,kieuk,tieut,pieup,hieut,fortis,fgiyeok, fdigued, fbieub, fsiot, fzieut,initfinish;
     MediaPlayer Initial[]; //음성파일을 저장하는 배열 변수
     int rawid[]; //음성파일의 주소를 저장하는 배열 변수
@@ -21,7 +21,7 @@ public class quiz_initial_service extends Service {
     int previous=0;
     boolean progress = false;
 
-    public quiz_initial_service() {
+    public reading_initial_service() {
 
     }
 

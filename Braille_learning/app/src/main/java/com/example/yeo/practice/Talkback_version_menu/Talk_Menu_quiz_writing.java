@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.R;
@@ -46,21 +47,20 @@ public class Talk_Menu_quiz_writing extends FragmentActivity {
             public boolean onHover(View v, MotionEvent event) {
                 switch(event.getAction()){
                     case MotionEvent.ACTION_HOVER_EXIT :
-                        startService(new Intent(Talk_Menu_quiz_writing.this, Sound_Manager.class));
                         posx2 = (int)event.getX();  //손가락 1개를 화면에서 떨어트린 x좌표값 저장
                         posy2 = (int)event.getY();  //손가락 1개를 화면에서 떨어트린 y좌표값 저장
                         if(enter == true) { //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 초성 퀴즈로 접속
                             if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                                 Intent intent = new Intent(Talk_Menu_quiz_writing.this, Talk_quiz_writing_manual.class);
                                 startActivityForResult(intent, Menu_info.MENU_QUIZ_INITIAL);
-                                MainActivity.Braille_TTS.TTS_Play("점자 학습을 진행하는 여러분을 응원합니다. 쓰기 퀴즈는, 화면에 구성되어 있는 점자와 글자에 대한 정보를 듣고," +
-                                        " 점자를 직접 입력하여 정답을 맞추어 보는 메뉴 입니다. 자신이 입력하기를 원하는 점자로 이동하여, 손가락을 약 3초간 가만히 머무르게 되면," +
-                                        " 해당 위치에 점자가 입력됩니다. 문제는 총 세문제로 구성되어 있으며, 좌측 하단부터 시작하여 문제를 풀어나가기를 바랍니다. 화면을 한 번 터치하면, 시작됩니다.");
+                                quiz_writing_service.menu_page = Menu_info.writing_direction;
+                                startService(new Intent(Talk_Menu_quiz_writing.this, quiz_writing_service.class));
                             }
                         }
                         else    enter = true;
                         break;
                     case MotionEvent.ACTION_HOVER_ENTER :
+                        startService(new Intent(Talk_Menu_quiz_writing.this, Sound_Manager.class));
                         posx1 = (int)event.getX();  //현재 좌표의 x좌표값 저장
                         posy1 = (int)event.getY();  //현재 좌표의 y좌표값 저장
                         break;

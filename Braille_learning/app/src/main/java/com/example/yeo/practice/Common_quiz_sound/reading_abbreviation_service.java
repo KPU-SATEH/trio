@@ -9,8 +9,8 @@ import com.example.yeo.practice.Common_braille_data.dot_quiz_abbreviation;
 import com.example.yeo.practice.R;
 
 
-public class quiz_abbreviation_service extends Service {
-    private static final String TAG = "quiz_abbreviation_service";
+public class reading_abbreviation_service extends Service {
+    private static final String TAG = "reading_abbreviation_service";
 
 /*
 약자 및 약어 퀴즈에서 출력되는 음성파일을 관리하는 서비스 클래스
@@ -26,7 +26,7 @@ public class quiz_abbreviation_service extends Service {
     int previous=0;
     boolean progress = false;
 
-    public quiz_abbreviation_service() {
+    public reading_abbreviation_service() {
 
     }
 

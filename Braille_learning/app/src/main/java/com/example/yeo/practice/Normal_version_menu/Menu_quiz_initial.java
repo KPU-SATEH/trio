@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_quiz_service;
+import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.R;
@@ -28,7 +29,7 @@ public class Menu_quiz_initial extends FragmentActivity {
     int posx1,posx2,posy1,posy2;
     boolean enter = true;
     quiz_reading_manual manual;
-    com.example.yeo.practice.Common_quiz_sound.quiz_service quiz_service;
+    quiz_reading_service quiz_reading_service;
     quiz_score score;
 
     @Override
@@ -42,7 +43,7 @@ public class Menu_quiz_initial extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        quiz_service.finish_n = 0;
+        quiz_reading_service.finish_n = 0;
         decorView.setSystemUiVisibility( uiOption );
         setContentView(R.layout.activity_common_menu_quiz_initial);
 

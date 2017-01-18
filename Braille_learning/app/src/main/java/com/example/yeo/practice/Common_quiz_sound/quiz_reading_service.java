@@ -12,13 +12,13 @@ import com.example.yeo.practice.Normal_version_quiz.quiz_reading_manual;
 퀴즈가 진행될때 출력되는 음성을 관리하는 서비스
  */
 
-public class quiz_service extends Service {
+public class quiz_reading_service extends Service {
     private static final String TAG = "Number";
     public static MediaPlayer first, second, third, forth, last, quizmanual,quiz_finish, initial_quiz_finish, vowel_quiz_finish, final_quiz_finish,
             num_quiz_finish, alphabet_quiz_finish, sentence_quiz_finish, abbreviation_quiz_finish, word_quiz_finish, letter_quiz_finish;
     public static int question =0 ;
     public static int finish_n = 0;
-    public quiz_service() {
+    public quiz_reading_service() {
     }
 
     @Override
@@ -155,7 +155,7 @@ public class quiz_service extends Service {
                     quiz_reading_manual.speechani.stop();
                 }
                 quizmanual.reset();
-                quizmanual=MediaPlayer.create(quiz_service.this,R.raw.quiz_manual);
+                quizmanual=MediaPlayer.create(quiz_reading_service.this,R.raw.quiz_manual);
             }
         });
 

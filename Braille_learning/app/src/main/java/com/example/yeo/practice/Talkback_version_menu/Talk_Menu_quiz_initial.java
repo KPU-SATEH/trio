@@ -17,7 +17,7 @@ import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.Talkback_version_quiz.Talk_quiz_reading_manual;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Normal_version_quiz.quiz_score;
-import com.example.yeo.practice.Common_quiz_sound.quiz_service;
+import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Common_sound.slied;
 
 // 초성 퀴즈 메뉴 화면
@@ -29,7 +29,7 @@ public class Talk_Menu_quiz_initial extends FragmentActivity {
     int posx1,posx2,posy1,posy2;
     boolean enter = true;
     Talk_quiz_reading_manual manual;
-    com.example.yeo.practice.Common_quiz_sound.quiz_service quiz_service;
+    quiz_reading_service quiz_reading_service;
     quiz_score score;
 
     @Override
@@ -43,7 +43,7 @@ public class Talk_Menu_quiz_initial extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        quiz_service.finish_n = 0;
+        quiz_reading_service.finish_n = 0;
         decorView.setSystemUiVisibility( uiOption );
         setContentView(R.layout.activity_common_menu_quiz_initial);
         View container = findViewById(R.id.activity_common_menu_quiz_initial);
@@ -112,8 +112,8 @@ public class Talk_Menu_quiz_initial extends FragmentActivity {
                     Menu_detail_service.menu_page=14;
                     startService(new Intent(this, Menu_detail_service.class));
                 }else if (y1drag - y2drag > WHclass.Drag_space) {  //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
-                    quiz_service.question = 7;
-                    startService(new Intent(this, quiz_service.class));
+                    quiz_reading_service.question = 7;
+                    startService(new Intent(this, quiz_reading_service.class));
                     finish();
                 }
                 break;

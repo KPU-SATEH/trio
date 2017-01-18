@@ -60,8 +60,7 @@ class writing_long_display extends View {
     static dot_quiz_letter Dot_quiz_letter;
     static dot_quiz_word Dot_quiz_word;
 
-    int question = 0; // 문제 수를 지정할 변수
-    String type="";
+    int question = 1; // 문제 수를 지정할 변수
 
     public void quiz_target_init(){
         for(int i=0 ; i<3; i++){ // 돌출점자와 비돌출점자의 x,y값을 저장하는 배열변수를 초기화함
@@ -93,7 +92,6 @@ class writing_long_display extends View {
                 page = random.nextInt(max) + min;
                 dot_count = Dot_quiz_letter.letter_dot_count.get(page);
                 textname_7 = Dot_quiz_letter.letter_name.get(page);
-                type="글자 ";
                 break;
             case 8: //단어 퀴즈
                 max = Dot_quiz_word.wordcount;
@@ -101,7 +99,6 @@ class writing_long_display extends View {
                 page = random.nextInt(max) + min;
                 dot_count = Dot_quiz_word.word_dot_count.get(page);
                 textname_7 = Dot_quiz_word.word_name.get(page);
-                type="단어 ";
                 break;
         }
 
@@ -114,21 +111,6 @@ class writing_long_display extends View {
                 else if(Menu_info.MENU_QUIZ_INFO==8)
                     text_7[i][j] = Dot_quiz_word.word_Array.get(page)[i][j];
             }
-        }
-
-        switch(question){
-            case 0:
-                String text="첫번째 문제 입니다. 점자를 입력하여 정답을 맞추어 보세요. "+type+textname_7+"! "+dot_count+"칸, ";
-                MainActivity.Braille_TTS.TTS_Play(text);
-                break;
-            case 1:
-                String text2="두번째 문제 입니다. 점자를 입력하여 정답을 맞추어 보세요. "+type+textname_7+"! "+dot_count+"칸, ";
-                MainActivity.Braille_TTS.TTS_Play(text2);
-                break;
-            case 2:
-                String text3="마지막 문제 입니다. 점자를 입력하여 정답을 맞추어 보세요. "+type+textname_7+"! "+dot_count+"칸, ";
-                MainActivity.Braille_TTS.TTS_Play(text3);
-                break;
         }
 
     }

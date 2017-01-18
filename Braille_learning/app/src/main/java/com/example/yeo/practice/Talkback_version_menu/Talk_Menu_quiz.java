@@ -83,7 +83,7 @@ public class Talk_Menu_quiz extends FragmentActivity {
                     Menu_main_service.menu_page = Menu_info.MENU_MYNOTE;
                     slied.slied =Menu_info.next;
                     startService(new Intent(this, slied.class));
-                    MainActivity.Braille_TTS.TTS_Play("나만의 단어장");
+                    startService(new Intent(this, Menu_main_service.class));
                     finish();
                 }
                 else if(newdrag-olddrag>WHclass.Drag_space) { //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
@@ -99,8 +99,7 @@ public class Talk_Menu_quiz extends FragmentActivity {
                     Menu_detail_service.menu_page=4;
                     startService(new Intent(this, Menu_detail_service.class));
                 }else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
-                    Menu_main_service.menu_page=Menu_info.MENU_TUTORIAL;
-                    finish();
+                    onBackPressed();
                 }
                 break;
             case MotionEvent.ACTION_DOWN:  //두번째 손가락이 화면에 터치 될 경우
@@ -111,9 +110,11 @@ public class Talk_Menu_quiz extends FragmentActivity {
         }
         return true;
     }
+
     @Override
-    public void onBackPressed() {  //종료키를 눌렀을 경우
-        Menu_main_service.menu_page=Menu_info.MENU_TUTORIAL;
+    public void onBackPressed() { //종료키를 눌렀을 경우
+        Menu_main_service.finish=true;
+        startService(new Intent(this,Menu_main_service.class));
         finish();
     }
 

@@ -51,7 +51,7 @@ class writing_short_display extends View {
     int dot_count=0;
 
 
-    int question = 0; // 문제 수를 지정할 변수
+    int question = 1; // 문제 수를 지정할 변수
 
 
 
@@ -67,7 +67,7 @@ class writing_short_display extends View {
     static int Braille_insert[][] = new int [3][6] ;
 
     static String textname_3; // 18개 점자 이름 저장변수
-    String type="";
+
 
     public void quiz_target_init(){
         w1=0;w2=0;w3=0;w4=0;w5=0;w6=0;w7=0;w8=0;w9=0;w10=0;w11=0;w12=0;w13=0;w14=0;w15=0;w16=0;w17=0;w18=0; //버튼 가로위치
@@ -110,7 +110,6 @@ class writing_short_display extends View {
                         text_3[i][j] = Dot_quiz_initial.Initial_Array.get(page)[i][j];
                 }
                 textname_3 = Dot_quiz_initial.Initial_name.get(page);
-                type="초성 ";
                 break;
             case 1 :
                 max = Dot_quiz_vowel.vowelcount;
@@ -123,9 +122,9 @@ class writing_short_display extends View {
                 for (int i = 0; i < 3; i++) {
                     for (int j = 0; j < k; j++)
                         text_3[i][j] = Dot_quiz_vowel.vowel_Array.get(page)[i][j];
-                 }
+                }
                 textname_3 = Dot_quiz_vowel.vowel_name.get(page);
-                type="모음 ";
+
                 break;
             case 2 :
                 max = Dot_quiz_final.finalcount;
@@ -140,7 +139,6 @@ class writing_short_display extends View {
                         text_3[i][j] = Dot_quiz_final.final_Array.get(page)[i][j];
                 }
                 textname_3 = Dot_quiz_final.final_name.get(page);
-                type="종성 ";
                 break;
             case 3 :
                 max = Dot_quiz_number.numbercount;
@@ -155,7 +153,6 @@ class writing_short_display extends View {
                         text_3[i][j] = Dot_quiz_number.number_Array.get(page)[i][j];
                 }
                 textname_3 = Dot_quiz_number.number_name.get(page);
-                type="숫자 ";
                 break;
             case 4 :
                 max = Dot_quiz_alphabet.alphabetcount;
@@ -170,7 +167,6 @@ class writing_short_display extends View {
                         text_3[i][j] = Dot_quiz_alphabet.alphabet_Array.get(page)[i][j];
                 }
                 textname_3 = Dot_quiz_alphabet.alphabet_name.get(page);
-                type="알파벳 ";
                 break;
             case 5 :
                 max = Dot_quiz_sentence.sentence_count;
@@ -185,7 +181,6 @@ class writing_short_display extends View {
                         text_3[i][j] = Dot_quiz_sentence.sentence_Array.get(page)[i][j];
                 }
                 textname_3 = Dot_quiz_sentence.sentence_name.get(page);
-                type="문장부호 ";
                 break;
             case 6 :
                 max = Dot_quiz_abbreviation.abbreviation_count;
@@ -198,28 +193,8 @@ class writing_short_display extends View {
                         text_3[i][j] = Dot_quiz_abbreviation.abbreviation_Array.get(page)[i][j];
                 }
                 textname_3 = Dot_quiz_abbreviation.abbreviation_name.get(page);
-                type="알파벳 ";
                 break;
          }
-
-
-
-
-        switch(question){
-            case 0:
-                String text="첫번째 문제 입니다. 점자를 입력하여 정답을 맞추어 보세요. "+type+textname_3+"! "+dot_count+"칸, ";
-                MainActivity.Braille_TTS.TTS_Play(text);
-                break;
-            case 1:
-                String text2="두번째 문제 입니다. 점자를 입력하여 정답을 맞추어 보세요. "+type+textname_3+"! "+dot_count+"칸, ";
-                MainActivity.Braille_TTS.TTS_Play(text2);
-                break;
-            case 2:
-                String text3="마지막 문제 입니다. 점자를 입력하여 정답을 맞추어 보세요. "+type+textname_3+"! "+dot_count+"칸, ";
-                MainActivity.Braille_TTS.TTS_Play(text3);
-                break;
-        }
-
     }
     public writing_short_display(Context context) {
         super(context);

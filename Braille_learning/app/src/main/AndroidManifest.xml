@@ -203,23 +203,23 @@
             android:screenOrientation="landscape" />
 
         <service
-            android:name=".Common_quiz_sound.quiz_initial_service"
+            android:name=".Common_quiz_sound.reading_initial_service"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".Common_quiz_sound.quiz_vowel_service"
+            android:name=".Common_quiz_sound.reading_vowel_service"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".Common_quiz_sound.quiz_final_service"
+            android:name=".Common_quiz_sound.reading_final_service"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".Common_quiz_sound.quiz_number_service"
+            android:name=".Common_quiz_sound.reading_number_service"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".Common_quiz_sound.quiz_alphabet_service"
+            android:name=".Common_quiz_sound.reading_alphabet_service"
             android:enabled="true"
             android:exported="true" />
         <service
@@ -227,11 +227,11 @@
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".Common_quiz_sound.quiz_sentence_service"
+            android:name=".Common_quiz_sound.reading_sentence_service"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".Common_quiz_sound.quiz_abbreviation_service"
+            android:name=".Common_quiz_sound.reading_abbreviation_service"
             android:enabled="true"
             android:exported="true" />
 
@@ -299,7 +299,7 @@
             android:screenOrientation="landscape" />
 
         <service
-            android:name=".Common_quiz_sound.quiz_service"
+            android:name=".Common_quiz_sound.quiz_reading_service"
             android:enabled="true"
             android:exported="true" />
         <service
@@ -506,6 +506,53 @@
             android:exported="true" />
         <service
             android:name=".Common_mynote_database.Mynote_service"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Common_quiz_sound.quiz_writing_service"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Common_quiz_sound.writing_vowel_service"
+            android:exported="false" />
+        <service
+            android:name=".Common_quiz_sound.writing_final_service"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Common_quiz_sound.writing_number_service"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Common_quiz_sound.writing_alphabet_service"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Common_quiz_sound.writing_sentence_service"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Common_quiz_sound.writing_abbreviation_service"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Common_quiz_sound.reading_letter_service"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Common_quiz_sound.reading_word_service"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Common_quiz_sound.writing_letter_service"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Common_quiz_sound.writing_word_service"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Common_quiz_sound.writing_initial_service"
             android:enabled="true"
             android:exported="true"></service>
     </application>

@@ -58,8 +58,9 @@ public class Mynote_service extends Service {
 
         if(mynote[previous].isPlaying()){
             mynote[previous].reset();
-            mynote[previous].setLooping(false);
+            mynote[previous] = MediaPlayer.create(this, rawid[previous]);
         }
+
         Sound_Manager.stop=false;
     }
     @Override

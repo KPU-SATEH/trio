@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
+import com.example.yeo.practice.Common_menu_sound.Menu_mynote_service;
+import com.example.yeo.practice.Common_mynote_database.Mynote_service;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.Common_mynote_database.Basic_DB_manager;
@@ -107,8 +109,10 @@ public class Talk_Menu_Mynote_basic extends FragmentActivity {
                                             break;
                                     }
                                 }
-                                else
-                                    MainActivity.Braille_TTS.TTS_Play("등록된 점자가 없어, 메뉴로 들어갈 수가 없습니다.");
+                                else {
+                                    Mynote_service.menu_page=0;
+                                    startService(new Intent(Talk_Menu_Mynote_basic.this, Mynote_service.class));
+                                }
                             }
                         }
                         else    enter = true;
@@ -137,8 +141,8 @@ public class Talk_Menu_Mynote_basic extends FragmentActivity {
                     Menu_main_service.menu_page = Menu_info.MENU_MYNOTE_MASTER;
                     slied.slied =Menu_info.next;
                     startService(new Intent(this, slied.class));
-                    //startService(new Intent(this, Menu_main_service.class));
-                    MainActivity.Braille_TTS.TTS_Play("나만의 숙련장 단어");
+                    Menu_mynote_service.menu_page=Menu_info.MENU_MYNOTE_MASTER;
+                    startService(new Intent(this,Menu_mynote_service.class));
 
                     finish();
                 }
@@ -148,8 +152,8 @@ public class Talk_Menu_Mynote_basic extends FragmentActivity {
                     Menu_main_service.menu_page = Menu_info.MENU_MYNOTE_MASTER;
                     slied.slied = Menu_info.pre;
                     startService(new Intent(this, slied.class));
-                    // startService(new Intent(this, Menu_main_service.class));
-                    MainActivity.Braille_TTS.TTS_Play("나만의 숙련장 단어");
+                    Menu_mynote_service.menu_page=Menu_info.MENU_MYNOTE_MASTER;
+                    startService(new Intent(this,Menu_mynote_service.class));
 
                     finish();
                 }
@@ -157,9 +161,7 @@ public class Talk_Menu_Mynote_basic extends FragmentActivity {
                     Menu_detail_service.menu_page=4;
                     startService(new Intent(this, Menu_detail_service.class));
                 }else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
-                    //             Menu_main_service.menu_page=Menu_info.MENU_TUTORIAL;
-                    MainActivity.Braille_TTS.TTS_Play("기초 단어장을 종료하고 상위 메뉴로 이동합니다. 나만의 단어장");
-                    finish();
+                    onBackPressed();
                 }
                 break;
             case MotionEvent.ACTION_DOWN:  //두번째 손가락이 화면에 터치 될 경우
@@ -170,9 +172,11 @@ public class Talk_Menu_Mynote_basic extends FragmentActivity {
         }
         return true;
     }
+
     @Override
-    public void onBackPressed() {  //종료키를 눌렀을 경우
-        //     Menu_main_service.menu_page=Menu_info.MENU_TUTORIAL;
+    public void onBackPressed() {
+        Menu_mynote_service.finish = true;
+        startService(new Intent(this, Menu_mynote_service.class));
         finish();
     }
 

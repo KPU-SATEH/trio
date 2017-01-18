@@ -62,6 +62,7 @@ public class Menu_main_service extends Service {
         if(Sound_Manager.stop==true)
             init();
         else {
+            init();
             if(finish==false) {
                 previous = menu_page;
                 main[previous].start();

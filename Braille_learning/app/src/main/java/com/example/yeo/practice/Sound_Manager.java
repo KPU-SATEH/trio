@@ -22,6 +22,7 @@ import com.example.yeo.practice.Common_menu_sound.Menu_master_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_mynote_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_quiz_service;
 import com.example.yeo.practice.Common_menu_sound.Version_check_service;
+import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
 
 public class Sound_Manager extends Service {
       /*
@@ -46,13 +47,17 @@ public class Sound_Manager extends Service {
 
     //읽기 퀴즈 // 31
     //쓰기 퀴즈 // 32
-    quiz_initial_service = 311; //초성 읽기퀴즈
-    quiz_vowel_service = 312; //모음 읽기 퀴즈
-    quiz_final_service = 313; // 종성 읽기 퀴즈
-    quiz_number_service = 314; // 숫자 읽기 퀴즈
-    quiz_alphabet_service = 315; //알파벳 읽기 퀴즈
-    quiz_sentence_service = 316; //문장부호 읽기 퀴즈
-    quiz_abbreviation_service = 317; //약자 및 약어 읽기 퀴즈
+    quiz_reading_service = 310; //읽기 퀴즈 메뉴얼
+    reading_initial_service = 311; //초성 읽기퀴즈
+    reading_vowel_service = 312; //모음 읽기 퀴즈
+    reading_final_service = 313; // 종성 읽기 퀴즈
+    reading_number_service = 314; // 숫자 읽기 퀴즈
+    reading_alphabet_service = 315; //알파벳 읽기 퀴즈
+    reading_sentence_service = 316; //문장부호 읽기 퀴즈
+    reading_abbreviation_service = 317; //약자 및 약어 읽기 퀴즈
+
+    quiiz_writing_service = 320; //쓰기 퀴즈 메뉴얼
+
 
      */
 
@@ -75,15 +80,6 @@ public class Sound_Manager extends Service {
             case 10:
                 startService(new Intent(this,Menu_basic_service.class));
                 break;
-            case 20:
-                startService(new Intent(this,Menu_master_service.class));
-                break;
-            case 30:
-                startService(new Intent(this,Menu_quiz_service.class));
-                break;
-            case 40:
-                startService(new Intent(this,Menu_mynote_service.class));
-                break;
             case 11:
                 startService(new Intent(this,Initial_service.class));
                 break;
@@ -105,12 +101,25 @@ public class Sound_Manager extends Service {
             case 17:
                 startService(new Intent(this,abbreviation_service.class));
                 break;
+            case 20:
+                startService(new Intent(this,Menu_master_service.class));
+                break;
             case 21:
                 startService(new Intent(this,Letter_service.class));
                 break;
             case 22:
                 startService(new Intent(this,Word_service.class));
                 break;
+            case 30:
+                startService(new Intent(this,Menu_quiz_service.class));
+                break;
+            case 320:
+                startService(new Intent(this,quiz_writing_service.class));
+                break;
+            case 40:
+                startService(new Intent(this,Menu_mynote_service.class));
+                break;
+
         }
 
     }

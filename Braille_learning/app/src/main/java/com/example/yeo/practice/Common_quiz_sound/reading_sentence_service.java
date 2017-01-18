@@ -11,8 +11,8 @@ import com.example.yeo.practice.R;
 문장부호 퀴즈에서 출력되는 음성파일을 관리하는 서비스 클래스
  */
 
-public class quiz_sentence_service extends Service {
-    private static final String TAG = "quiz_sentence_service";
+public class reading_sentence_service extends Service {
+    private static final String TAG = "reading_sentence_service";
 
 
 
@@ -26,7 +26,7 @@ public class quiz_sentence_service extends Service {
     int previous=0;
     boolean progress = false;
 
-    public quiz_sentence_service() {
+    public reading_sentence_service() {
 
     }
 

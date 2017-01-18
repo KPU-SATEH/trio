@@ -9,8 +9,8 @@ import com.example.yeo.practice.Common_braille_data.dot_quiz_alphabet;
 import com.example.yeo.practice.R;
 
 
-public class quiz_alphabet_service extends Service {
-    private static final String TAG = "quiz_alphabet_service";
+public class reading_alphabet_service extends Service {
+    private static final String TAG = "reading_alphabet_service";
 
 /*
 알파벳 퀴즈에서 출력되는 음성파일을 관리하는 서비스 클래스
@@ -27,7 +27,7 @@ public class quiz_alphabet_service extends Service {
     int previous=0;
     boolean progress = false;
 
-    public quiz_alphabet_service() {
+    public reading_alphabet_service() {
 
     }
 

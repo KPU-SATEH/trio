@@ -11,8 +11,8 @@ import com.example.yeo.practice.R;
 /*
 모음 퀴즈에서 출력되는 음성파일을 관리하는 서비스 클래스
  */
-public class quiz_vowel_service extends Service {
-    private static final String TAG = "quiz_vowel_service";
+public class reading_vowel_service extends Service {
+    private static final String TAG = "reading_vowel_service";
 
 
 
@@ -25,7 +25,7 @@ public class quiz_vowel_service extends Service {
     int previous=0;
     boolean progress = false;
 
-    public quiz_vowel_service() {
+    public reading_vowel_service() {
 
     }
 
