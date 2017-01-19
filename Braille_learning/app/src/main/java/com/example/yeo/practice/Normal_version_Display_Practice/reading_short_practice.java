@@ -5,6 +5,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
@@ -18,7 +21,13 @@ import android.view.View;
 
 import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Common_sound.Number;
+import com.example.yeo.practice.MainActivity;
+import com.example.yeo.practice.R;
 import com.example.yeo.practice.WHclass;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import net.daum.mf.speech.api.SpeechRecognizeListener;
 import net.daum.mf.speech.api.SpeechRecognizerClient;
@@ -30,41 +39,47 @@ import static com.example.yeo.practice.Common_quiz_sound.score_service.result;
 
 public class reading_short_practice extends FragmentActivity implements TextToSpeech.OnInitListener, SpeechRecognizeListener {
     private SpeechRecognizerClient client;
-/*
-3칸 이하의 점자 퀴즈를 진행하는 클래스
-*/
+    /*
+    3칸 이하의 점자 퀴즈를 진행하는 클래스
+    */
     reading_short_display m;
     int newdrag, olddrag;  //첫번째 손가락과 두번째 손가락의 x좌표를 저장할 변수
     int y1drag, y2drag;//첫번째 손가락과 두번째 손가락의 y좌표를 저장할 변수
-    int result1 = 0,result2=0, result3=0, result4=0, result5=0, result6=0;//문지르기 기능을 초기화 하기 위한 컨트롤 변수
+    int result1 = 0, result2 = 0, result3 = 0, result4 = 0, result5 = 0, result6 = 0;//문지르기 기능을 초기화 하기 위한 컨트롤 변수
     boolean click = true;
     static int page = 0;
     Intent i;
     private TextToSpeech tts;
-    int posx1,posx2,posy1,posy2;
-    boolean enter=true;
+    int posx1, posx2, posy1, posy2;
+    boolean enter = true;
     SpeechRecognizer mRecognizer;
     com.example.yeo.practice.Normal_version_quiz.quiz_score quiz_score;
     static int score = 0;
-
+    SoundPool sound;
+    int soundId;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client2;
 
 
     @Override
-    public void onInit(int status){
+    public void onInit(int status) {
         tts.setLanguage(Locale.KOREA);
     }
 
     @Override
-    public void onDestroy(){
-        if(tts != null){
+    public void onDestroy() {
+        if (tts != null) {
             tts.stop();
             tts.shutdown();
         }
         super.onDestroy();
     }
 
-    public void say(String text){
-        tts.speak(text, TextToSpeech.QUEUE_FLUSH,null);
+    public void say(String text) {
+        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
     }
 
 
@@ -74,6 +89,9 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
         i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         i.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getPackageName());
         i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR");
+
+        sound = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+        soundId = sound.load(this, R.raw.abbreviation, 1);
 
 
         tts = new TextToSpeech(this, this);
@@ -86,19 +104,22 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
 
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
-        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
             uiOption |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
             uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
-        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         startService(new Intent(this, quiz_reading_service.class));
-        decorView.setSystemUiVisibility( uiOption );
+        decorView.setSystemUiVisibility(uiOption);
 
 
         m = new reading_short_display(this);
         m.setBackgroundColor(Color.rgb(22, 26, 44));
         setContentView(m);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
@@ -127,27 +148,33 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
         public void onReadyForSpeech(Bundle params) {
             // TODO Auto-generated method stub
         }
+
         @Override
         public void onPartialResults(Bundle partialResults) {
             // TODO Auto-generated method stub
         }
+
         @Override
         public void onEvent(int eventType, Bundle params) {
             // TODO Auto-generated method stub
         }
+
         @Override
         public void onError(int error) {
             tts.speak("음성인식에 실패하였습니다. 다시 시도해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
             // TODO Auto-generated method stub
         }
+
         @Override
         public void onEndOfSpeech() {
             // TODO Auto-generated method stub
         }
+
         @Override
-        public void onBufferReceived(byte[] buffer){
+        public void onBufferReceived(byte[] buffer) {
             // TODO Auto-generated method stub
         }
+
         @Override
         public void onBeginningOfSpeech() {
             // TODO Auto-generated method stub
@@ -713,14 +740,17 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
                     y2drag = (int) event.getY();//두번째 손가락이 화면에서 떨어질 떄의 y좌표값을 저장
                     if (y2drag - y1drag > WHclass.Drag_space) {//손가락 2개를 이용하여 하단으로 드래그 하는 경우 음성인식 실행
                         //if(PermissionUtils.checkAudioRecordPermission(this)) {
-                            SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().
-                                    setApiKey(WHclass.APIKEY).
-                                    setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB);
+                        //sound.play(soundId, 1f, 1f,0,0,1f);
+                        /*
+                        SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().
+                                setApiKey(WHclass.APIKEY).
+                                setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB);
 
                         client = builder.build();
 
                         client.setSpeechRecognizeListener(this);
                         client.startRecording(true);
+                        */
 
                         //}
                         /*if (mRecognizer != null) {
@@ -732,7 +762,7 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
                         }
                         */
                     } else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 상단으로 드래그 하는 경우 퀴즈 화면 종료
-                        switch(WHclass.sel){
+                        switch (WHclass.sel) {
                             case 1: //초성퀴즈 종료
                                 quiz_reading_service.initial_quiz_finish.start();
                                 break;
@@ -778,9 +808,9 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
                     posx2 = (int) event.getX();
                     posy2 = (int) event.getY();
                     if (enter == true) {
-                        if(page==4) { //만약 마지막 문제라면 점수화면으로 이동
-                       //     Intent in = new Intent(this, quiz_score.class);
-                      //      startActivity(in);
+                        if (page == 4) { //만약 마지막 문제라면 점수화면으로 이동
+                            //     Intent in = new Intent(this, quiz_score.class);
+                            //      startActivity(in);
                             onBackPressed();
                             break;
                         }
@@ -790,8 +820,7 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
                         m.quiz_view_init();
                         m.invalidate();
                         m.next = false;
-                    }
-                    else
+                    } else
                         enter = true;
                     break;
             }
@@ -799,32 +828,32 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
         return true;
     }
 
-    public void touch_init(int coordinate){ //문지르기 기능을 위한 컨트롤 변수 초기화 함수
-        result1=0;
-        result2=0;
-        result3=0;
-        result4=0;
-        result5=0;
-        result6=0;
+    public void touch_init(int coordinate) { //문지르기 기능을 위한 컨트롤 변수 초기화 함수
+        result1 = 0;
+        result2 = 0;
+        result3 = 0;
+        result4 = 0;
+        result5 = 0;
+        result6 = 0;
 
-        switch(coordinate){
+        switch (coordinate) {
             case 1:
-                result1=1;
+                result1 = 1;
                 break;
             case 2:
-                result2=1;
+                result2 = 1;
                 break;
             case 3:
-                result3=1;
+                result3 = 1;
                 break;
             case 4:
-                result4=1;
+                result4 = 1;
                 break;
             case 5:
-                result5=1;
+                result5 = 1;
                 break;
             case 6:
-                result6=1;
+                result6 = 1;
                 break;
             default:
                 break;
@@ -840,6 +869,7 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
         result = 0;
         finish();
     }
+    /*
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
 
@@ -862,6 +892,7 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
             }
         }
     }
+    */
 
     @Override
     public void onReady() {
@@ -896,39 +927,36 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
         final StringBuilder builder = new StringBuilder();
         Log.i("SpeechSampleActivity", "onResults");
 
-        String answer="";
-        boolean result=false;
+        String answer = "";
+        boolean result = false;
 
-        //점자 한칸, 두칸, 세칸을 구별해야함!!!!!!!!!!!!!?????????????????????
-        if(m.dot_count==1) answer=m.textname_1;
-        else if(m.dot_count==2) answer=m.textname_2;
-        else if(m.dot_count==3) answer=m.textname_3;
+        if (m.dot_count == 1) answer = m.textname_1;
+        else if (m.dot_count == 2) answer = m.textname_2;
+        else if (m.dot_count == 3) answer = m.textname_3;
         else return;
-        //??????????????????????????????????????????????????????????????????????????????????????????
 
         ArrayList<String> texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
 
-        for(int i=0 ; i<texts.size() ; i++){
-            if(answer.equals(texts.get(i))==true) {
-                result=true;
+        for (int i = 0; i < texts.size(); i++) {
+            if (answer.equals(texts.get(i)) == true) {
+                result = true;
                 break;
-            }
-            else
+            } else
                 continue;
         }
 
-        if(result==true) {
-            //정답 tts부분 넣기, 그리고 다음문제로 이동시키기!!
-            builder.append("정답이야 축하해 너는 " + m.textname_1 + "이 단어를 말했어^_^");
-        }
-        else {
+        if (result == true) {
+            //정답 TTS부분 넣기, 그리고 다음문제로 이동시키기!!
+            MainActivity.Braille_TTS.TTS_Play("정답이야 축하해 너는 \" + texts.get(0) + \"이 단어를 말했어");
+            //builder.append("정답이야 축하해 너는 " + texts.get(0) + "이 단어를 말했어^_^");
+        } else {
             //오답 tts부분 넣기
-            builder.append("오답이야 당신이 말한건 '" + texts.get(0) + "' 이거야 그리고 정답은" + m.textname_1 + "이거야");
+            MainActivity.Braille_TTS.TTS_Play("오답이야 당신이 말한건 '\" + texts.get(0) + \"' 이거야 그리고 정답은\" + answer + \"이거야");
+            //builder.append("오답이야 당신이 말한건 '" + texts.get(0) + "' 이거야 그리고 정답은" + answer + "이거야");
         }
-
-//        text1.setText(builder.toString());
 
         final Activity activity = this;
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -943,14 +971,12 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
                                 dialog.dismiss();
                             }
                         });
-
                 dialog.show();
-
             }
         });
 
 
-        //client = null;
+        client = null;
     }
 
     @Override
@@ -961,5 +987,41 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
     @Override
     public void onFinished() {
         Log.i("SpeechSampleActivity", "onFinished");
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("reading_short_practice Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client2.connect();
+        AppIndex.AppIndexApi.start(client2, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client2, getIndexApiAction());
+        client2.disconnect();
     }
 }
