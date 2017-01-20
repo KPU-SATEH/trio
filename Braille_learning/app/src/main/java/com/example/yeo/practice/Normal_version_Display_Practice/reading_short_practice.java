@@ -1,7 +1,5 @@
 package com.example.yeo.practice.Normal_version_Display_Practice;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
@@ -53,6 +51,9 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
         super.onCreate(savedInstanceState);
         SpeechRecognizerManager.getInstance().initializeLibrary(this);
 
+        sound_pool = new SoundPool( 5, AudioManager.STREAM_MUSIC, 0 );
+        sound_beep = sound_pool.load(this, R.raw.alarm2, 1 );
+
         quiz_score.score = 0;
 
         View decorView = getWindow().getDecorView();
@@ -75,11 +76,6 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
     public void onDestroy() {
         super.onDestroy();
         SpeechRecognizerManager.getInstance().finalizeLibrary();
-    }
-
-    private void initSound() {
-        sound_pool = new SoundPool( 5, AudioManager.STREAM_MUSIC, 0 );
-        sound_beep = sound_pool.load(this, R.raw.alarm2, 1 );
     }
 
     @Override
@@ -766,28 +762,6 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
         page = 0;
         result = 0;
         finish();
-    }
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-
-            final StringBuilder builder = new StringBuilder();
-
-            new AlertDialog.Builder(this).
-                    setMessage(builder.toString()).
-                    setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).
-                    show();
-        }
-        else if (requestCode == RESULT_CANCELED) {
-            // 음성인식의 오류 등이 아니라 activity의 취소가 발생했을 때.
-            if (data == null) {
-                return;
-            }
-        }
     }
 
     @Override
