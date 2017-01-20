@@ -416,7 +416,6 @@ public class MainActivity extends FragmentActivity {
         Timer_Stop();
         test=true;
         finish();
-
     }
 }
 
