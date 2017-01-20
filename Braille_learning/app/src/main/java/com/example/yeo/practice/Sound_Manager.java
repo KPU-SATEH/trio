@@ -75,7 +75,7 @@ public class Sound_Manager extends Service {
                 startService(new Intent(this,Menu_main_service.class));
                 break;
             case 1:
-                startService(new Intent(this,Version_check_service.class));
+                startService(new Intent(this, Version_check_service.class));
                 break;
             case 10:
                 startService(new Intent(this,Menu_basic_service.class));

@@ -464,13 +464,14 @@ public class writing_short_practice extends FragmentActivity{
                 else if (m.Braille_insert[coordinate_x][coordinate_y] == 1)
                     m.Braille_insert[coordinate_x][coordinate_y] = 0;
             }
+
             result1 = 0;
             result2 = 0;
             result3 = 0;
             result4 = 0;
             result5 = 0;
             result6 = 0;
-            Touch_event();
+            //Touch_event();
         }
     }
 

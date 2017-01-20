@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 
+import com.example.yeo.practice.Common_menu_sound.Menu_master_service;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.WHclass;
 
@@ -50,8 +51,8 @@ public class Number extends Service {
             if (WHclass.target == true) {
                 number = WHclass.number - 1;
                 if (pre_number != number) {
-                    if (pre_number == 6 || pre_number == 7) {
-                    } else if (mwnumber[pre_number].isPlaying()) {
+                    if (pre_number == 6 || pre_number == 7) {}
+                    else if (mwnumber[pre_number].isPlaying()) {
                         mwnumber[pre_number].reset();
                         mwnumber[pre_number] = MediaPlayer.create(this, rawid[pre_number]);
                     }
@@ -69,6 +70,14 @@ public class Number extends Service {
             }
             pre_number = number;
         }
+
+        mwnumber[pre_number].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mwnumber[pre_number].reset();
+                mwnumber[pre_number] = MediaPlayer.create(Number.this,rawid[pre_number]);
+            }
+        });
         return super.onStartCommand(intent, flags, startID);
     }
 

@@ -21,6 +21,8 @@ import com.example.yeo.practice.Common_sound.Braille_Text_To_Speech;
 import com.example.yeo.practice.Normal_version_menu.Menu_Tutorial;
 import com.example.yeo.practice.Talkback_version_menu.Talk_Menu_tutorial;
 
+import junit.runner.Version;
+
 import net.daum.mf.speech.api.SpeechRecognizerManager;
 import net.daum.mf.speech.api.TextToSpeechManager;
 
@@ -59,6 +61,8 @@ public class MainActivity extends FragmentActivity {
     boolean test= false;
 
     int oldx,oldy,newx,newy;
+
+    public static boolean version_finish=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -233,10 +237,12 @@ public class MainActivity extends FragmentActivity {
                             }
                             break;
                         case MotionEvent.ACTION_UP:  // 두번째 손가락을 떼었을 경우
+
                             newx = (int)event.getX();  // 두번째 손가락이 떨어진 지점의 x좌표값 저장
                             newy = (int) event.getY();  // 두번째 손가락이 떨어진 지점의 y좌표값 저장
-                            if (oldy - newy > WHclass.Drag_space)   //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
+                            if (oldy - newy > WHclass.Drag_space) {  //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
                                 onBackPressed();
+                            }
                             break;
                     }
                 } else if (one_finger == true) { //hover이벤트가 발생됬을 경우
@@ -254,8 +260,9 @@ public class MainActivity extends FragmentActivity {
                         case MotionEvent.ACTION_UP:  // 두번째 손가락을 떼었을 경우
                             newx = (int)event.getX();  // 두번째 손가락이 떨어진 지점의 x좌표값 저장
                             newy = (int) event.getY();  // 두번째 손가락이 떨어진 지점의 y좌표값 저장
-                            if (oldy - newy> WHclass.Drag_space)   //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
+                            if (oldy - newy> WHclass.Drag_space) { //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
                                 onBackPressed();
+                            }
                             break;
                     }
                 }
@@ -281,10 +288,12 @@ public class MainActivity extends FragmentActivity {
                     case MotionEvent.ACTION_POINTER_UP:  // 두번째 손가락을 떼었을 경우
                         newx = (int)event.getX();  // 두번째 손가락이 떨어진 지점의 x좌표값 저장
                         newy = (int)event.getY();  // 두번째 손가락이 떨어진 지점의 y좌표값 저장
-                        if (oldy - newy > WHclass.Drag_space)   //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
+                        if (oldy - newy > WHclass.Drag_space) {  //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
                             onBackPressed();
 
-                        break;
+                        }
+
+                            break;
                     case MotionEvent.ACTION_POINTER_DOWN:  //두번째 손가락이 화면에 터치 될 경우
                         oldx = (int)event.getX();  // 두번째 손가락이 터지된 지점의 x좌표값 저장
                         oldy = (int)event.getY();  // 두번째 손가락이 터지된 지점의 y좌표값 저장
@@ -402,10 +411,12 @@ public class MainActivity extends FragmentActivity {
     }
     @Override
     public void onBackPressed() { //종료키를 눌렀을 경우
-        startService(new Intent(this,Sound_Manager.class));
-        Menu_main_service.finish=true;
-        startService(new Intent(this,Menu_main_service.class));
+        Version_check_service.finish=true;
+        startService(new Intent(this, Version_check_service.class));
+        Timer_Stop();
+        test=true;
         finish();
+
     }
 }
 

@@ -389,7 +389,7 @@ public class writing_long_practice extends FragmentActivity {
             result4 = 0;
             result5 = 0;
             result6 = 0;
-            Touch_event();
+            //Touch_event();
         }
     }
 
