@@ -6,7 +6,6 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
-import android.speech.SpeechRecognizer;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -14,7 +13,6 @@ import android.view.View;
 
 import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Common_sound.Number;
-import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.WHclass;
 
@@ -42,7 +40,6 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
     Intent i;
     int posx1,posx2,posy1,posy2;
     boolean enter=true;
-    SpeechRecognizer mRecognizer;
     com.example.yeo.practice.Normal_version_quiz.quiz_score quiz_score;
     static int score = 0;
 
@@ -636,16 +633,16 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                     if (y2drag - y1drag > WHclass.Drag_space) {//손가락 2개를 이용하여 하단으로 드래그 하는 경우 음성인식 실행
                         //if(PermissionUtils.checkAudioRecordPermission(this)) {
                         sound_pool.play(sound_beep, 1,1,0,0,1);
-                        /*
+
                         SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().
                                 setApiKey(WHclass.APIKEY).
                                 setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB);
 
                         //client = builder.build();
 
-                        client.setSpeechRecognizeListener(this);
-                        client.startRecording(true);
-                        */
+                        //client.setSpeechRecognizeListener(this);
+                        //client.startRecording(true);
+
                         //}
                         /*if (mRecognizer != null) {
                             mRecognizer.destroy();
@@ -815,7 +812,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
             else
                 continue;
         }
-
+        /*
         if(result==true) {
             MainActivity.Braille_TTS.TTS_Play("정답이야 축하해 너는 \" +answer + \"이 단어를 말했어");
             //builder.append("정답이야 축하해 너는 " +answer + "이 단어를 말했어^_^");
@@ -824,6 +821,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
             MainActivity.Braille_TTS.TTS_Play("오답이야 당신이 말한건 '\" + texts.get(0) + \"' 이거야 그리고 정답은\" + answer + \"이거야");
             //builder.append("오답이야 당신이 말한건 '" + texts.get(0) + "' 이거야 그리고 정답은" + answer + "이거야");
         }
+        */
 
         /*
         final Activity activity = this;
