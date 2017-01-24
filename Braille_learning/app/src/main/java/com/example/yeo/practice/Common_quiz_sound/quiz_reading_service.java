@@ -13,6 +13,9 @@ import com.example.yeo.practice.Normal_version_quiz.quiz_reading_manual;
  */
 
 public class quiz_reading_service extends Service {
+    static public int menu_page = 1;
+    static public boolean finish = false; //점자 학습의 종료를 알리는 변수
+    static public boolean progress = false;
     private static final String TAG = "Number";
     public static MediaPlayer first, second, third, forth, last, quizmanual,quiz_finish, initial_quiz_finish, vowel_quiz_finish, final_quiz_finish,
             num_quiz_finish, alphabet_quiz_finish, sentence_quiz_finish, abbreviation_quiz_finish, word_quiz_finish, letter_quiz_finish;
@@ -20,6 +23,8 @@ public class quiz_reading_service extends Service {
     public static int finish_n = 0;
     public quiz_reading_service() {
     }
+
+
 
     @Override
     public IBinder onBind(Intent intent) {
