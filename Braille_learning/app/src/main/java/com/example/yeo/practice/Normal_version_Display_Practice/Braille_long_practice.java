@@ -2111,8 +2111,9 @@ public class Braille_long_practice extends FragmentActivity {
                 startService(new Intent(this, Word_service.class));
                 break;
             case 10:
-
                 MainActivity.master_braille_db.master_db_manager.My_Note_page=0;
+                Mynote_service.finish = true;
+                startService(new Intent(this, Mynote_service.class));
                 break;
         }
         finish();

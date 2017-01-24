@@ -239,7 +239,7 @@ public class Talk_writing_long_practice extends FragmentActivity {
             @Override
             public void run() {
                 touch_check++;
-                if(touch_check>2){
+                if(touch_check>3){
                     touch_insert_check(coordinate);
                     touch_check=0;
                 }

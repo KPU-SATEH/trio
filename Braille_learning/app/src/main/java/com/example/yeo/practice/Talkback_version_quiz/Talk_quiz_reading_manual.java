@@ -54,6 +54,7 @@ public class Talk_quiz_reading_manual extends FragmentActivity {
             public boolean onHover(View v, MotionEvent event) {
                 switch(event.getAction()){
                     case MotionEvent.ACTION_HOVER_EXIT:
+                        startService(new Intent(Talk_quiz_reading_manual.this, Sound_Manager.class));
                         posx2 = (int)event.getX(); //현재 좌표의 x좌표값을 저장
                         posy2 = (int)event.getY();  //현재 좌표의 y좌표값을 저장
 
@@ -62,59 +63,43 @@ public class Talk_quiz_reading_manual extends FragmentActivity {
                         /*
                         화면을 터치하게 되면, 자신이 풀어보려고 했던 퀴즈가 시작됨
                          */
+                                quiz_reading_service.question = 1;
                                 switch(choice) {
                                     case 1: //초성퀴즈
                                         Intent intent = new Intent(Talk_quiz_reading_manual.this, Talk_reading_short_practice.class);
                                         startActivityForResult(intent, ENTER);
-                                        quiz_reading_service.question = 1;
-                                        WHclass.quiz_sel = 1;
                                         break;
                                     case 2: //모음퀴즈
                                         Intent intent2 = new Intent(Talk_quiz_reading_manual.this, Talk_reading_short_practice.class);
                                         startActivityForResult(intent2, ENTER);
-                                        quiz_reading_service.question = 1;
-                                        WHclass.quiz_sel = 2;
                                         break;
                                     case 3: //종성퀴즈
                                         Intent intent3 = new Intent(Talk_quiz_reading_manual.this, Talk_reading_short_practice.class);
                                         startActivityForResult(intent3, ENTER);
-                                        quiz_reading_service.question = 1;
-                                        WHclass.quiz_sel = 3;
                                         break;
                                     case 4: //숫자퀴즈
                                         Intent intent4 = new Intent(Talk_quiz_reading_manual.this, Talk_reading_short_practice.class);
                                         startActivityForResult(intent4, ENTER);
-                                        quiz_reading_service.question = 1;
-                                        WHclass.quiz_sel = 4;
                                         break;
                                     case 5: //알파벳 퀴즈
                                         Intent intent5 = new Intent(Talk_quiz_reading_manual.this, Talk_reading_short_practice.class);
                                         startActivityForResult(intent5, ENTER);
-                                        quiz_reading_service.question = 1;
-                                        WHclass.quiz_sel = 5;
                                         break;
                                     case 6: //문장부호 퀴즈
                                         Intent intent6 = new Intent(Talk_quiz_reading_manual.this, Talk_reading_short_practice.class);
                                         startActivityForResult(intent6, ENTER);
-                                        quiz_reading_service.question = 1;
-                                        WHclass.quiz_sel = 6;
                                         break;
                                     case 7: //약자 및 약어 퀴즈
                                         Intent intent7 = new Intent(Talk_quiz_reading_manual.this, Talk_reading_short_practice.class);
                                         startActivityForResult(intent7, ENTER);
-                                        quiz_reading_service.question = 1;
-                                        WHclass.quiz_sel = 7;
                                         break;
                                     case 8: //글자 퀴즈
                                         Intent intent8 = new Intent(Talk_quiz_reading_manual.this, Talk_reading_short_practice.class);
                                         startActivityForResult(intent8, ENTER);
-                                        quiz_reading_service.question = 1;
-                                        WHclass.quiz_sel = 8;
                                         break;
                                     case 9: //단어퀴즈
                                         Intent intent9 = new Intent(Talk_quiz_reading_manual.this, Talk_reading_long_practice.class);
                                         startActivityForResult(intent9, ENTER);
-                                        quiz_reading_service.question = 1;
                                         break;
                                 }
                                 finish();
@@ -159,6 +144,7 @@ public class Talk_quiz_reading_manual extends FragmentActivity {
                     finish();
                 }
             case MotionEvent.ACTION_DOWN: //두번째 손가락이 터치되었을 때
+                startService(new Intent(this, Sound_Manager.class));
                 olddrag = (int)event.getX(); //두번째 손가락이 터치된 지점의 x좌표 저장
                 y1drag = (int) event.getY(); //두번째 손가락이 터치된 지점의 y좌표 저장
                 break;

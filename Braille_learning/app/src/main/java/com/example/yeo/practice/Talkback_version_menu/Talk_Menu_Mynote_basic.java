@@ -75,7 +75,7 @@ public class Talk_Menu_Mynote_basic extends FragmentActivity {
                         if(enter == true) {  //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 나만의 단어장으로 접속
                             if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                                 WHclass.sel =Menu_info.MENU_NOTE ;
-
+                                Mynote_service.menutype=0;
                                 result= MainActivity.basic_braille_db.getResult();
                                 if(MainActivity.basic_braille_db.basic_db_manager.size_count!=0) {
                                     Intent intent = new Intent(Talk_Menu_Mynote_basic.this, Talk_Braille_short_practice.class);
@@ -165,6 +165,7 @@ public class Talk_Menu_Mynote_basic extends FragmentActivity {
                 }
                 break;
             case MotionEvent.ACTION_DOWN:  //두번째 손가락이 화면에 터치 될 경우
+                startService(new Intent(this, Sound_Manager.class));
                 enter = false; //손가락 1개를 인지하는 화면을 잠금
                 olddrag = (int)event.getX(); // 두번째 손가락이 터지된 지점의 x좌표값 저장
                 y1drag = (int) event.getY(); // 두번째 손가락이 터지된 지점의 y좌표값 저장

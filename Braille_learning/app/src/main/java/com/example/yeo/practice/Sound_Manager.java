@@ -20,8 +20,10 @@ import com.example.yeo.practice.Common_menu_sound.Menu_basic_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_master_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_mynote_service;
+import com.example.yeo.practice.Common_menu_sound.Menu_quiz_inside_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_quiz_service;
 import com.example.yeo.practice.Common_menu_sound.Version_check_service;
+import com.example.yeo.practice.Common_mynote_database.Mynote_service;
 import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
 
 public class Sound_Manager extends Service {
@@ -32,6 +34,7 @@ public class Sound_Manager extends Service {
     Menu_master_service =  20; //숙련과정 음성
     Menu_quiz_service = 30; //퀴즈 음성
     Menu_mynote_service = 40; //나만의 단어장 음성
+    Mynote_service = 41; //나만의 단어장 내부 음성
 
     Initial_service = 11; //초성연습 음성
     Vowel_service = 12; //모음연습 음성
@@ -47,6 +50,8 @@ public class Sound_Manager extends Service {
 
     //읽기 퀴즈 // 31
     //쓰기 퀴즈 // 32
+    //퀴즈 안쪽 // 33
+
     quiz_reading_service = 310; //읽기 퀴즈 메뉴얼
     reading_initial_service = 311; //초성 읽기퀴즈
     reading_vowel_service = 312; //모음 읽기 퀴즈
@@ -57,6 +62,7 @@ public class Sound_Manager extends Service {
     reading_abbreviation_service = 317; //약자 및 약어 읽기 퀴즈
 
     quiiz_writing_service = 320; //쓰기 퀴즈 메뉴얼
+    menu_quiz_inside_service = 33;
 
 
      */
@@ -116,8 +122,14 @@ public class Sound_Manager extends Service {
             case 320:
                 startService(new Intent(this,quiz_writing_service.class));
                 break;
+            case 33:
+                startService(new Intent(this, Menu_quiz_inside_service.class));
+                break;
             case 40:
                 startService(new Intent(this,Menu_mynote_service.class));
+                break;
+            case 41:
+                startService(new Intent(this, Mynote_service.class));
                 break;
 
         }

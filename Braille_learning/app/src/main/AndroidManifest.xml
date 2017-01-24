@@ -554,11 +554,11 @@
         <service
             android:name=".Common_quiz_sound.writing_initial_service"
             android:enabled="true"
-            android:exported="true"></service><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:exported="true" />
+        <service
+            android:name=".Common_menu_sound.Menu_quiz_inside_service"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

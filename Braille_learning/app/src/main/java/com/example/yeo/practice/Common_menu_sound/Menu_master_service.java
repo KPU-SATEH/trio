@@ -44,11 +44,10 @@ public class Menu_master_service extends Service {
         if(masterfinish.isPlaying()){
             masterfinish.reset();
             masterfinish = MediaPlayer.create(this, R.raw.masterfinish);
-
         }
         if(master[previous].isPlaying()){
             master[previous].reset();
-            master[previous].setLooping(false);
+            master[previous] = MediaPlayer.create(this, rawid[previous]);
         }
         Sound_Manager.stop=false;
     }

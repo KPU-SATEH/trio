@@ -20,7 +20,6 @@ import com.example.yeo.practice.Common_sound.slied;
 //숫자연습 메뉴 화면
 
 public class Talk_Menu_number extends FragmentActivity {
-    MediaPlayer finish;
 
     int newdrag,olddrag;
     int y1drag,y2drag;
@@ -40,7 +39,6 @@ public class Talk_Menu_number extends FragmentActivity {
 
         decorView.setSystemUiVisibility( uiOption );
         setContentView(R.layout.activity_common_menu_number);
-        finish = MediaPlayer.create(Talk_Menu_number.this, R.raw.basicfinish);
 
         View container = findViewById(R.id.activity_common_menu_number);
         container.setOnHoverListener(new View.OnHoverListener() {
@@ -99,11 +97,11 @@ public class Talk_Menu_number extends FragmentActivity {
                     Menu_detail_service.menu_page=8;
                     startService(new Intent(this, Menu_detail_service.class));
                 }else if (y1drag - y2drag > WHclass.Drag_space) {//손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
-                    finish.start();
-                    finish();
+                    onBackPressed();
                 }
                 break;
             case MotionEvent.ACTION_DOWN:     //두번째 손가락이 화면에 터치 될 경우
+                startService(new Intent(this, Sound_Manager.class));
                 enter = false; //손가락 1개를 인지하는 화면을 잠금
                 olddrag = (int)event.getX(); // 두번째 손가락이 터지된 지점의 x좌표값 저장
                 y1drag = (int)event.getY(); // 두번째 손가락이 터지된 지점의 y좌표값 저장
@@ -111,9 +109,11 @@ public class Talk_Menu_number extends FragmentActivity {
         }
         return true;
     }
-    public void onBackPressed() {  //종료키를 눌렀을 경우
-        finish.start();
+
+    @Override
+    public void onBackPressed() { //종료키를 눌렀을 경우
+        Menu_basic_service.finish=true;
+        startService(new Intent(this,Menu_basic_service.class));
         finish();
     }
-
 }

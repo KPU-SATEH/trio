@@ -17,6 +17,7 @@ import com.example.yeo.practice.Common_braille_data.dot_quiz_letter;
 import com.example.yeo.practice.Common_braille_data.dot_quiz_number;
 import com.example.yeo.practice.Common_braille_data.dot_quiz_sentence;
 import com.example.yeo.practice.Common_braille_data.dot_quiz_vowel;
+import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Normal_version_quiz.quiz_score;
 
@@ -26,7 +27,6 @@ import java.util.Random;
  * Created by yoonc on 2016-07-25.
  */
 class reading_short_display extends View {
-    int question = 1;
     String tv;
     int test = 1;
     quiz_score score;
@@ -85,8 +85,8 @@ class reading_short_display extends View {
         /*
         초성퀴즈, 모음퀴즈, 종성퀴즈, 숫자퀴즈, 알파벳퀴즈, 문자부호퀴즈, 약자및 약어퀴즈, 글자퀴즈
         */
-        switch(WHclass.quiz_sel){
-            case 1: //
+        switch(Menu_info.MENU_QUIZ_INFO){
+            case 0: //
                 max = Dot_quiz_initial.Initialcount;
                 random = new Random();
                 page = random.nextInt(max) + min;
@@ -118,7 +118,7 @@ class reading_short_display extends View {
                     }
                 }
                 break;
-            case 2: //
+            case 1: //
                 max = Dot_quiz_vowel.vowelcount;
                 random = new Random();
                 page = random.nextInt(max) + min;
@@ -151,7 +151,7 @@ class reading_short_display extends View {
                     }
                 }
                 break;
-            case 3: //
+            case 2: //
                 max = Dot_quiz_final.finalcount;
                 random = new Random();
                 page = random.nextInt(max) + min;
@@ -184,7 +184,7 @@ class reading_short_display extends View {
                     }
                 }
                 break;
-            case 4: //
+            case 3: //
                 max = Dot_quiz_number.numbercount;
                 random = new Random();
                 page = random.nextInt(max) + min;
@@ -217,7 +217,7 @@ class reading_short_display extends View {
                     }
                 }
                 break;
-            case 5: //
+            case 4: //
                 max = Dot_quiz_alphabet.alphabetcount;
                 random = new Random();
                 page = random.nextInt(max) + min;
@@ -250,7 +250,7 @@ class reading_short_display extends View {
                     }
                 }
                 break;
-            case 6: //
+            case 5: //
                 max = Dot_quiz_sentence.sentence_count;
                 random = new Random();
                 page = random.nextInt(max) + min;
@@ -283,7 +283,7 @@ class reading_short_display extends View {
                     }
                 }
                 break;
-            case 7: //
+            case 6: //
                 max = Dot_quiz_abbreviation.abbreviation_count;
                 random = new Random();
                 page = random.nextInt(max) + min;
@@ -317,7 +317,7 @@ class reading_short_display extends View {
                 }
                 break;
 
-            case 8: //
+            case 7: //
                 max = Dot_quiz_letter.lettercount;
                 random = new Random();
                 page = random.nextInt(max) + min;
@@ -363,29 +363,29 @@ class reading_short_display extends View {
             }
         });*/
 
-        switch(WHclass.quiz_sel){ //점자의 종류에 따라 점자퀴즈 클래스를 불러옴
-            case 1: //초성퀴즈
+        switch(Menu_info.MENU_QUIZ_INFO){ //점자의 종류에 따라 점자퀴즈 클래스를 불러옴
+            case 0: //초성퀴즈
                 Dot_quiz_initial = new dot_quiz_initial();
                 break;
-            case 2: //모음퀴즈
+            case 1: //모음퀴즈
                 Dot_quiz_vowel = new dot_quiz_vowel();
                 break;
-            case 3: //종성퀴즈
+            case 2: //종성퀴즈
                 Dot_quiz_final = new dot_quiz_final();
                 break;
-            case 4: //숫자퀴즈
+            case 3: //숫자퀴즈
                 Dot_quiz_number = new dot_quiz_number();
                 break;
-            case 5: //알파벳 퀴즈
+            case 4: //알파벳 퀴즈
                 Dot_quiz_alphabet = new dot_quiz_alphabet();
                 break;
-            case 6: //문장부호 퀴즈
+            case 5: //문장부호 퀴즈
                 Dot_quiz_sentence = new dot_quiz_sentence();
                 break;
-            case 7: //약자및 약어 퀴즈
+            case 6: //약자및 약어 퀴즈
                 Dot_quiz_abbreviation = new dot_quiz_abbreviation();
                 break;
-            case 8: //글자 퀴즈
+            case 7: //글자 퀴즈
                 Dot_quiz_letter = new dot_quiz_letter();
                 break;
         }

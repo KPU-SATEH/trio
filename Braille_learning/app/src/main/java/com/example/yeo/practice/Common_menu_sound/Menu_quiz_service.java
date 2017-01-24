@@ -36,8 +36,8 @@ public class Menu_quiz_service extends Service {
         //퀴즈메뉴의 음성변수들과 id를 배열변수에 저장
         quizfinish = MediaPlayer.create(this, R.raw.quiz_finish); //퀴즈 종료
         quiz_menu = new MediaPlayer[] {init_quiz,vowel_quiz,final_quiz,number_quiz,alphabet_quiz,sentence_quiz,abbreviation_quiz,letter_quiz,word_quiz};
-        rawid = new int[] {R.raw.initial_quiz, R.raw.vowel_quiz, R.raw.final_quiz, R.raw.num_quiz, R.raw.alphabet_quiz, R.raw.sentence_quiz, R.raw.abbreviation_quiz,
-                R.raw.letter_quiz, R.raw.verb_quiz};
+        rawid = new int[] {R.raw.initial_quiz, R.raw.vowel_quiz, R.raw.final_quiz, R.raw.number_quiz, R.raw.alphabet_quiz, R.raw.sentence_quiz, R.raw.abbreviation_quiz,
+                R.raw.letter_quiz, R.raw.word_quiz};
 
         for(int i = 0; i< quiz_menu_count; i++){
             quiz_menu[i] = MediaPlayer.create(this, rawid[i]);

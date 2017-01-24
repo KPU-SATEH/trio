@@ -68,7 +68,6 @@ public class Talk_Menu_quiz_vowel extends FragmentActivity {
                                 score.sel =2;
                                 Intent intent = new Intent(Talk_Menu_quiz_vowel.this, Talk_Menu_quiz_reading.class);
                                 startActivityForResult(intent, Menu_info.MENU_QUIZ_VOWEL);
-                                MainActivity.Braille_TTS.TTS_Play("읽기 퀴즈");
                             }
                         }
                         else    enter = true;
@@ -113,12 +112,11 @@ public class Talk_Menu_quiz_vowel extends FragmentActivity {
                     Menu_detail_service.menu_page=15;
                     startService(new Intent(this, Menu_detail_service.class));
                 }else if (y1drag - y2drag > WHclass.Drag_space) {  //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
-                    quiz_reading_service.question = 7;
-                    startService(new Intent(this, quiz_reading_service.class));
-                    finish();
+                    onBackPressed();
                 }
                 break;
             case MotionEvent.ACTION_DOWN:  //두번째 손가락이 화면에 터치 될 경우
+                startService(new Intent(this, Sound_Manager.class));
                 enter = false; //손가락 1개를 인지하는 화면을 잠금
                 olddrag = (int)event.getX(); // 두번째 손가락이 터지된 지점의 x좌표값 저장
                 y1drag = (int) event.getY(); // 두번째 손가락이 터지된 지점의 y좌표값 저장
@@ -126,8 +124,10 @@ public class Talk_Menu_quiz_vowel extends FragmentActivity {
         }
         return true;
     }
+    @Override
     public void onBackPressed() {
-
+        Menu_quiz_service.finish = true;
+        startService(new Intent(this, Menu_quiz_service.class));
         finish();
     }
 }

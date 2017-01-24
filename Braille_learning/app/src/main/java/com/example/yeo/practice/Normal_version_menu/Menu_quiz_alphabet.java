@@ -66,11 +66,9 @@ public class Menu_quiz_alphabet extends FragmentActivity {
                 if(enter == true) {  //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 알파벳 퀴즈로 접속
                     if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                         Menu_info.MENU_QUIZ_INFO = Menu_info.MENU_QUIZ_ALPHABET;
-                        manual.choice=5;
                         score.sel =5;
                         Intent intent = new Intent(Menu_quiz_alphabet.this, Menu_quiz_reading.class);
                         startActivityForResult(intent, Menu_info.MENU_QUIZ_ALPHABET);
-                        MainActivity.Braille_TTS.TTS_Play("읽기 퀴즈");
                     }
                 }
                 else    enter = true;
