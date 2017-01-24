@@ -13,7 +13,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
-import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
 import com.example.yeo.practice.Common_sound.Number;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.R;
@@ -63,6 +62,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
         sound_beep = sound_pool.load(this, R.raw.alarm2, 1);
 
         quiz_score.score = 0;
+        WHclass.sel=1;
 
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
@@ -91,14 +91,31 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
 
     @Override
     public void onBackPressed() { //종료키를 눌렀을 경우 발생되는 함수
-        if(m.question==4){
-            quiz_reading_service.finish = true;
-            quiz_reading_service.progress = true;
-            startService(new Intent(this, quiz_reading_service.class));
-        }
-        else{
-            quiz_reading_service.finish = true;
-            startService(new Intent(this, quiz_reading_service.class));
+        switch (WHclass.sel) {
+            case 1: //초성퀴즈 종료
+                quiz_reading_service.initial_quiz_finish.start();
+                break;
+            case 2://모음퀴즈 종료
+                quiz_reading_service.vowel_quiz_finish.start();
+                break;
+            case 3://종성퀴즈 종료
+                quiz_reading_service.final_quiz_finish.start();
+                break;
+            case 4://숫자퀴즈 종료
+                quiz_reading_service.num_quiz_finish.start();
+                break;
+            case 5://알파벳퀴즈 종료
+                quiz_reading_service.alphabet_quiz_finish.start();
+                break;
+            case 6://문장부호퀴즈 종료
+                quiz_reading_service.sentence_quiz_finish.start();
+                break;
+            case 7://약자및 약어퀴즈 종료
+                quiz_reading_service.abbreviation_quiz_finish.start();
+                break;
+            case 8://글자 퀴즈 종료
+                quiz_reading_service.letter_quiz_finish.start();
+                break;
         }
         finish();
         /*
@@ -679,6 +696,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                             client.startRecording(false);
 
                             next=true;
+                            quiz_reading_service.question++;
                         }
                     } else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 상단으로 드래그 하는 경우 퀴즈 화면 종료
                         onBackPressed();
@@ -714,10 +732,10 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                         if(next==true) {
                             next = false;
                             m.quiz_view_init();
-                            if(m.question==4) {
+                            if(quiz_reading_service.question==4) {
                                 onBackPressed();
                             }
-                            else if(m.question<4){
+                            else if(quiz_reading_service.question<4){
                                 quiz_reading_service.menu_page=m.question;
                                 startService(new Intent(this, quiz_reading_service.class));
                             }
@@ -729,34 +747,6 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                     click = false;
                     olddrag = (int) event.getX();
                     y1drag = (int) event.getY();
-                    break;
-            }
-        } else { //다음 문제가 존재할 경우
-            switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                case MotionEvent.ACTION_DOWN:
-                    posx1 = (int) event.getX();
-                    posy1 = (int) event.getY();
-                    break;
-                case MotionEvent.ACTION_UP:
-                    posx2 = (int) event.getX();
-                    posy2 = (int) event.getY();
-                    if (enter == true) {
-                        /*
-                        if (page == 4) { //만약 마지막 문제라면 점수화면으로 이동
-                            //     Intent in = new Intent(this, quiz_score.class);
-                            //      startActivity(in);
-                            onBackPressed();
-                            break;
-                        }
-                        */
-                        page++;
-                        quiz_reading_service.question++;
-                        startService(new Intent(this, quiz_reading_service.class));
-                        m.quiz_view_init();
-                        m.invalidate();
-                        m.next = false;
-                    } else
-                        enter = true;
                     break;
             }
         }
