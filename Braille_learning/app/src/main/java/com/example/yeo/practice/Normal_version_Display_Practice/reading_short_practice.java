@@ -5,12 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-<<<<<<< HEAD
-import android.media.AudioManager;
-import android.media.SoundPool;
-import android.net.Uri;
-=======
->>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
@@ -23,18 +17,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
-import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
 import com.example.yeo.practice.Common_sound.Number;
-<<<<<<< HEAD
-import com.example.yeo.practice.MainActivity;
-import com.example.yeo.practice.R;
-=======
->>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
 import com.example.yeo.practice.WHclass;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import net.daum.mf.speech.api.SpeechRecognizeListener;
 import net.daum.mf.speech.api.SpeechRecognizerClient;
@@ -42,16 +26,6 @@ import net.daum.mf.speech.api.SpeechRecognizerClient;
 import java.util.ArrayList;
 import java.util.Locale;
 
-<<<<<<< HEAD
-public class reading_short_practice extends FragmentActivity implements SpeechRecognizeListener {
-    private SpeechRecognizerClient client;
-    private SoundPool sound_pool;
-    private int sound_beep;
-    boolean next = false; // 다음문제로 이동하기 위한 변수
-    /*
-    3칸 이하의 점자 퀴즈를 진행하는 클래스
-    */
-=======
 import static com.example.yeo.practice.Common_quiz_sound.score_service.result;
 
 public class reading_short_practice extends FragmentActivity implements TextToSpeech.OnInitListener, SpeechRecognizeListener {
@@ -59,30 +33,19 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
 /*
 3칸 이하의 점자 퀴즈를 진행하는 클래스
 */
->>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
     reading_short_display m;
     int newdrag, olddrag;  //첫번째 손가락과 두번째 손가락의 x좌표를 저장할 변수
     int y1drag, y2drag;//첫번째 손가락과 두번째 손가락의 y좌표를 저장할 변수
-    int result1 = 0, result2 = 0, result3 = 0, result4 = 0, result5 = 0, result6 = 0;//문지르기 기능을 초기화 하기 위한 컨트롤 변수
+    int result1 = 0,result2=0, result3=0, result4=0, result5=0, result6=0;//문지르기 기능을 초기화 하기 위한 컨트롤 변수
     boolean click = true;
     static int page = 0;
     Intent i;
-<<<<<<< HEAD
-    int posx1, posx2, posy1, posy2;
-    boolean enter = true;
-=======
     private TextToSpeech tts;
     int posx1,posx2,posy1,posy2;
     boolean enter=true;
     SpeechRecognizer mRecognizer;
->>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
     com.example.yeo.practice.Normal_version_quiz.quiz_score quiz_score;
     static int score = 0;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client2;
 
 
 
@@ -115,35 +78,27 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
 
         tts = new TextToSpeech(this, this);
 
-<<<<<<< HEAD
-        sound_pool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
-        sound_beep = sound_pool.load(this, R.raw.alarm2, 1);
-=======
         mRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
         mRecognizer.setRecognitionListener(listener);
->>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
 
         quiz_score.score = 0;
 
 
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
             uiOption |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN )
             uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         startService(new Intent(this, quiz_reading_service.class));
-        decorView.setSystemUiVisibility(uiOption);
+        decorView.setSystemUiVisibility( uiOption );
 
 
         m = new reading_short_display(this);
         m.setBackgroundColor(Color.rgb(22, 26, 44));
         setContentView(m);
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
@@ -200,20 +155,6 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
         }
     };
 
-
-    @Override
-    public void onBackPressed() { //종료키를 눌렀을 경우 발생되는 함수
-        if(m.question==4){
-            quiz_reading_service.finish = true;
-            quiz_reading_service.progress = true;
-            startService(new Intent(this, quiz_reading_service.class));
-        }
-        else{
-            quiz_reading_service.finish = true;
-            startService(new Intent(this, quiz_reading_service.class));
-        }
-        finish();
-    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -771,34 +712,27 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
                     newdrag = (int) event.getX();//두번째 손가락이 화면에서 떨어질 때의 x좌표값을 저장
                     y2drag = (int) event.getY();//두번째 손가락이 화면에서 떨어질 떄의 y좌표값을 저장
                     if (y2drag - y1drag > WHclass.Drag_space) {//손가락 2개를 이용하여 하단으로 드래그 하는 경우 음성인식 실행
-<<<<<<< HEAD
-                        if(next==false) {
-                            sound_pool.play(sound_beep, 1, 1, 0, 0, 1);
-
-=======
                         //if(PermissionUtils.checkAudioRecordPermission(this)) {
->>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
                             SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().
                                     setApiKey(WHclass.APIKEY).
                                     setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB);
 
-<<<<<<< HEAD
-                            client = builder.build();
-
-                            client.setSpeechRecognizeListener(this);
-                            client.startRecording(false);
-=======
                         client = builder.build();
 
                         client.setSpeechRecognizeListener(this);
                         client.startRecording(true);
->>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
 
-                            next=true;
+                        //}
+                        /*if (mRecognizer != null) {
+                            mRecognizer.destroy();
+                            mRecognizer.setRecognitionListener(listener);
+                            mRecognizer.startListening(i);
+                        } else {
+                            mRecognizer.startListening(i);
                         }
+                        */
                     } else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 상단으로 드래그 하는 경우 퀴즈 화면 종료
-                        onBackPressed();
-                        /*switch (WHclass.sel) {
+                        switch(WHclass.sel){
                             case 1: //초성퀴즈 종료
                                 quiz_reading_service.initial_quiz_finish.start();
                                 break;
@@ -824,23 +758,8 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
                                 quiz_reading_service.letter_quiz_finish.start();
                                 break;
                         }
-                        */
+                        onBackPressed();
                     }
-                    else if(olddrag - newdrag > WHclass.Drag_space){ //다음화면으로 이동
-                        quiz_reading_service.question++;
-                        if(next==true) {
-                            next = false;
-                            m.quiz_view_init();
-                            if(m.question==4) {
-                                onBackPressed();
-                            }
-                            else if(m.question<4){
-                                quiz_reading_service.menu_page=m.question;
-                                startService(new Intent(this, quiz_reading_service.class));
-                            }
-                        }
-                    }
-
                     break;
                 case MotionEvent.ACTION_POINTER_DOWN:
                     click = false;
@@ -859,20 +778,20 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
                     posx2 = (int) event.getX();
                     posy2 = (int) event.getY();
                     if (enter == true) {
-                        /*
-                        if (page == 4) { //만약 마지막 문제라면 점수화면으로 이동
-                            //     Intent in = new Intent(this, quiz_score.class);
-                            //      startActivity(in);
+                        if(page==4) { //만약 마지막 문제라면 점수화면으로 이동
+                       //     Intent in = new Intent(this, quiz_score.class);
+                      //      startActivity(in);
                             onBackPressed();
                             break;
                         }
-                        */
                         page++;
+                        quiz_reading_service.question++;
                         startService(new Intent(this, quiz_reading_service.class));
                         m.quiz_view_init();
                         m.invalidate();
                         m.next = false;
-                    } else
+                    }
+                    else
                         enter = true;
                     break;
             }
@@ -880,32 +799,32 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
         return true;
     }
 
-    public void touch_init(int coordinate) { //문지르기 기능을 위한 컨트롤 변수 초기화 함수
-        result1 = 0;
-        result2 = 0;
-        result3 = 0;
-        result4 = 0;
-        result5 = 0;
-        result6 = 0;
+    public void touch_init(int coordinate){ //문지르기 기능을 위한 컨트롤 변수 초기화 함수
+        result1=0;
+        result2=0;
+        result3=0;
+        result4=0;
+        result5=0;
+        result6=0;
 
-        switch (coordinate) {
+        switch(coordinate){
             case 1:
-                result1 = 1;
+                result1=1;
                 break;
             case 2:
-                result2 = 1;
+                result2=1;
                 break;
             case 3:
-                result3 = 1;
+                result3=1;
                 break;
             case 4:
-                result4 = 1;
+                result4=1;
                 break;
             case 5:
-                result5 = 1;
+                result5=1;
                 break;
             case 6:
-                result6 = 1;
+                result6=1;
                 break;
             default:
                 break;
@@ -914,8 +833,6 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public void onBackPressed() { //종료키를 눌렀을 경우 발생되는 함수
         m.quiz_view_init();
         m.page = 0;
@@ -947,7 +864,6 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
     }
 
     @Override
->>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
     public void onReady() {
         //TODO implement interface DaumSpeechRecognizeListener method
     }
@@ -980,39 +896,26 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
         final StringBuilder builder = new StringBuilder();
         Log.i("SpeechSampleActivity", "onResults");
 
-        String answer = "";
-        boolean result = false;
+        String answer="";
+        boolean result=false;
 
-<<<<<<< HEAD
-        if (m.dot_count == 1) answer = m.textname_1;
-        else if (m.dot_count == 2) answer = m.textname_2;
-        else if (m.dot_count == 3) answer = m.textname_3;
-=======
         //점자 한칸, 두칸, 세칸을 구별해야함!!!!!!!!!!!!!?????????????????????
         if(m.dot_count==1) answer=m.textname_1;
         else if(m.dot_count==2) answer=m.textname_2;
         else if(m.dot_count==3) answer=m.textname_3;
->>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
         else return;
         //??????????????????????????????????????????????????????????????????????????????????????????
 
         ArrayList<String> texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
 
-        for (int i = 0; i < texts.size(); i++) {
-            if (answer.equals(texts.get(i)) == true) {
-                result = true;
+        for(int i=0 ; i<texts.size() ; i++){
+            if(answer.equals(texts.get(i))==true) {
+                result=true;
                 break;
-            } else
+            }
+            else
                 continue;
         }
-<<<<<<< HEAD
-
-        if (result == true) {
-            MainActivity.Braille_TTS.TTS_Play("축하합니다. 정답이에요~");
-        } else {
-            MainActivity.Braille_TTS.TTS_Play("오답입니다. 당신이 말한 단어는" + texts.get(0) + "입니다. 정답은"+answer+"입니다.");
-        }
-=======
 
         if(result==true) {
             //정답 tts부분 넣기, 그리고 다음문제로 이동시키기!!
@@ -1045,7 +948,6 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
 
             }
         });
->>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
 
 
         //client = null;
@@ -1059,41 +961,5 @@ public class reading_short_practice extends FragmentActivity implements TextToSp
     @Override
     public void onFinished() {
         Log.i("SpeechSampleActivity", "onFinished");
-    }
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("reading_short_practice Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client2.connect();
-        AppIndex.AppIndexApi.start(client2, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client2, getIndexApiAction());
-        client2.disconnect();
     }
 }

@@ -23,9 +23,9 @@ public class quiz_writing_service extends Service {
     MediaPlayer writing[];  //음성파일을 저장하는 배열 변수
     int rawid[]; //음성파일의 주소를 저장하는 배열 변수
     static public boolean finish = false; //점자 학습의 종료를 알리는 변수
-    static public boolean progress = false;
     static public int menu_page = 1;
     int previous=0;
+    static public boolean progress = false;
     static public int page=0;
     public quiz_writing_service() {
 

@@ -27,7 +27,6 @@ import java.util.Random;
  * Created by yoonc on 2016-07-25.
  */
 class reading_short_display extends View {
-    int question = 1;
     String tv;
     int test = 1;
     quiz_score score;

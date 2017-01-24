@@ -18,7 +18,7 @@ public class Menu_detail_service extends Service {
     //private static final String TAG = "Menu_basic_service";
     MediaPlayer explain_tutorial, explain_basic, explain_master, explain_quiz, explain_initial, explain_vowel, explain_consonant, explain_number, explain_alphabet, explain_abbreviation,
             explain_punctuation, explain_letter,explain_word, explain_initial_quiz,explain_vowel_quiz, explain_consonant_quiz, explain_number_quiz, explain_alphabet_quiz,explain_punctuation_quiz,
-            explain_abbreviation_quiz, explain_letter_quiz, explain_word_quiz;
+            explain_abbreviation_quiz, explain_letter_quiz, explain_word_quiz, explain_mynote, explain_basic_note,explain_master_note;
 
     int detail_size = 22;
     int rawid[];
@@ -48,14 +48,14 @@ public class Menu_detail_service extends Service {
     public void onCreate(){
         detail = new MediaPlayer[]{explain_tutorial, explain_basic, explain_master, explain_quiz, explain_initial, explain_vowel, explain_consonant, explain_number, explain_alphabet, explain_punctuation,
                 explain_abbreviation, explain_letter,explain_word, explain_initial_quiz,explain_vowel_quiz, explain_consonant_quiz, explain_number_quiz, explain_alphabet_quiz,explain_punctuation_quiz,
-                explain_abbreviation_quiz, explain_letter_quiz, explain_word_quiz};
+                explain_abbreviation_quiz, explain_letter_quiz, explain_word_quiz, explain_mynote, explain_basic_note,explain_master_note};
 
-        rawid = new int[]{R.raw.explain_directions,R.raw.explain_basic,R.raw.explain_master,R.raw.explain_quiz,R.raw.explain_initial,R.raw.explain_vowel,R.raw.explain_consonant,
-                R.raw.explain_number,R.raw.explain_alphabet,R.raw.explain_punctuation,R.raw.explain_abbreviation,R.raw.explain_letter,R.raw.explain_word,R.raw.explain_initial_quiz,
-                R.raw.explain_vowel_quiz,R.raw.explain_consonant_quiz,R.raw.explain_number_quiz,R.raw.explain_alphabet_quiz,R.raw.explain_punctuation_quiz,R.raw.explain_abbreviation_quiz,
-                R.raw.explain_letter_quiz,R.raw.explain_word_quiz};
+        rawid = new int[]{R.raw.tutorial_detail,R.raw.basic_detail,R.raw.master_detail,R.raw.quiz_detail,R.raw.initial_detail,R.raw.vowel_detail,R.raw.final_detail,
+                R.raw.number_detail,R.raw.alphabet_detail,R.raw.sentence_detail,R.raw.abbreviation_detail,R.raw.letter_detail,R.raw.word_detail,R.raw.quiz_initial_detail,
+                R.raw.quiz_vowel_detail,R.raw.quiz_final_detail,R.raw.quiz_number_detail,R.raw.quiz_alphabet_detail,R.raw.quiz_sentence_detail,R.raw.quiz_abbreviation_detail,
+                R.raw.quiz_letter_detail,R.raw.quiz_word_detail,R.raw.mynote_detail, R.raw.basic_detail, R.raw.master_detail};
 
-        for(int i=0; i<detail_size ; i++){
+        for(int i=0; i<detail.length ; i++){
             detail[i] = MediaPlayer.create(this, rawid[i]);
             detail[i].setLooping(false);
         }
@@ -63,7 +63,7 @@ public class Menu_detail_service extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startID){
-        Sound_Manager.Service_address=1;
+        Sound_Manager.Service_address=2;
 
         if(Sound_Manager.stop==true)
             init();

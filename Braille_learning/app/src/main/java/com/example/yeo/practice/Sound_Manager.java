@@ -17,6 +17,7 @@ import com.example.yeo.practice.Common_braille_data.dot_vowel;
 import com.example.yeo.practice.Common_master_practice_sound.Letter_service;
 import com.example.yeo.practice.Common_master_practice_sound.Word_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_basic_service;
+import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_master_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_mynote_service;
@@ -28,8 +29,10 @@ import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
 
 public class Sound_Manager extends Service {
       /*
-    Version_check_service=1; //버전 체크 음성
+
     Menu_main_service = 0; //대메뉴 음성
+    Version_check_service=1; //버전 체크 음성
+    Menu_detail_service=2; // 상세내용 출력
     Menu_basic_service = 10; //기초과정 음성
     Menu_master_service =  20; //숙련과정 음성
     Menu_quiz_service = 30; //퀴즈 음성
@@ -82,6 +85,9 @@ public class Sound_Manager extends Service {
                 break;
             case 1:
                 startService(new Intent(this, Version_check_service.class));
+                break;
+            case 2:
+                startService(new Intent(this, Menu_detail_service.class));
                 break;
             case 10:
                 startService(new Intent(this,Menu_basic_service.class));
