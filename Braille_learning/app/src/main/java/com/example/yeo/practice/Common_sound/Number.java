@@ -50,34 +50,34 @@ public class Number extends Service {
         if(WHclass.number!=0) {
             if (WHclass.target == true) {
                 number = WHclass.number - 1;
-                if (pre_number != number) {
+             /*   if (pre_number != number) {
                     if (pre_number == 6 || pre_number == 7) {}
                     else if (mwnumber[pre_number].isPlaying()) {
                         mwnumber[pre_number].reset();
                         mwnumber[pre_number] = MediaPlayer.create(this, rawid[pre_number]);
                     }
-                }
+                }*/
                 mwnumber[number].start();
             } else if (WHclass.target == false) {
-                number = WHclass.number + 7;
+                number = WHclass.number + 7;/*
                 if (pre_number != number) {
                     if (mwnumber[pre_number].isPlaying()) {
                         mwnumber[pre_number].reset();
                         mwnumber[pre_number] = MediaPlayer.create(this, rawid[pre_number]);
                     }
-                }
+                }*/
                 mwnumber[number].start();
             }
             pre_number = number;
         }
-
+/*
         mwnumber[pre_number].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
                 mwnumber[pre_number].reset();
                 mwnumber[pre_number] = MediaPlayer.create(Number.this,rawid[pre_number]);
             }
-        });
+        });*/
         return super.onStartCommand(intent, flags, startID);
     }
 

@@ -12,6 +12,8 @@ import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
+import com.example.yeo.practice.Normal_version_menu.Menu_Mynote;
+import com.example.yeo.practice.Normal_version_menu.Menu_Mynote_basic;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
@@ -108,6 +110,7 @@ public class Talk_Menu_Mynote extends FragmentActivity {
                 }
                 break;
             case MotionEvent.ACTION_DOWN:  //두번째 손가락이 화면에 터치 될 경우
+                startService(new Intent(this, Sound_Manager.class));
                 enter = false; //손가락 1개를 인지하는 화면을 잠금
                 olddrag = (int)event.getX(); // 두번째 손가락이 터지된 지점의 x좌표값 저장
                 y1drag = (int) event.getY(); // 두번째 손가락이 터지된 지점의 y좌표값 저장

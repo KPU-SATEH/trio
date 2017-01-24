@@ -21,7 +21,6 @@ import com.example.yeo.practice.Common_sound.slied;
 //약자 및 약어 연습 메뉴 화면
 
 public class Talk_Menu_abbreviation extends FragmentActivity {
-    MediaPlayer finish;
 
     int newdrag,olddrag;
     int posx1,posx2,posy1,posy2;
@@ -43,7 +42,6 @@ public class Talk_Menu_abbreviation extends FragmentActivity {
         decorView.setSystemUiVisibility( uiOption );
         setContentView(R.layout.activity_common_menu_abbreviation);
 
-        finish = MediaPlayer.create(Talk_Menu_abbreviation.this, R.raw.basicfinish); // 기초과정의 종료를 알리는 음성파일
 
         View container = findViewById(R.id.activity_common_menu_abbreviation);
         container.setOnHoverListener(new View.OnHoverListener() {
@@ -106,8 +104,7 @@ public class Talk_Menu_abbreviation extends FragmentActivity {
                     startService(new Intent(this, Menu_detail_service.class));
                 }
                 else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
-                    finish.start();
-                    finish();
+                    onBackPressed();
                 }
                 break;
             case MotionEvent.ACTION_DOWN: //두번째 손가락이 화면에 터치 될 경우
@@ -118,8 +115,11 @@ public class Talk_Menu_abbreviation extends FragmentActivity {
         }
         return true;
     }
+
+    @Override
     public void onBackPressed() { //종료키를 눌렀을 경우
-        finish.start();
+        Menu_basic_service.finish=true;
+        startService(new Intent(this,Menu_basic_service.class));
         finish();
     }
 }

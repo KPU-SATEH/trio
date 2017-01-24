@@ -107,6 +107,7 @@ public class Talk_Menu_alphabet extends FragmentActivity {
                 }
                 break;
             case MotionEvent.ACTION_DOWN://두번째 손가락이 화면에 터치 될 경우
+                startService(new Intent(this, Sound_Manager.class));
                 enter = false; //손가락 1개를 인지하는 화면을 잠금
                 olddrag = (int)event.getX();// 두번째 손가락이 터지된 지점의 x좌표값 저장
                 y1drag = (int) event.getY();// 두번째 손가락이 터지된 지점의 y좌표값 저장
@@ -114,8 +115,10 @@ public class Talk_Menu_alphabet extends FragmentActivity {
         }
         return true;
     }
+    @Override
     public void onBackPressed() { //종료키를 눌렀을 경우
-        finish.start();
+        Menu_basic_service.finish=true;
+        startService(new Intent(this,Menu_basic_service.class));
         finish();
     }
 }

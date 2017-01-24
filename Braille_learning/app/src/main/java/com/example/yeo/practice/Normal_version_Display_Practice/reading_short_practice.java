@@ -1,12 +1,22 @@
 package com.example.yeo.practice.Normal_version_Display_Practice;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+<<<<<<< HEAD
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.net.Uri;
+=======
+>>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
 import android.os.Build;
 import android.os.Bundle;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -15,8 +25,11 @@ import android.view.View;
 import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
 import com.example.yeo.practice.Common_sound.Number;
+<<<<<<< HEAD
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.R;
+=======
+>>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
 import com.example.yeo.practice.WHclass;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -25,10 +38,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import net.daum.mf.speech.api.SpeechRecognizeListener;
 import net.daum.mf.speech.api.SpeechRecognizerClient;
-import net.daum.mf.speech.api.SpeechRecognizerManager;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
+<<<<<<< HEAD
 public class reading_short_practice extends FragmentActivity implements SpeechRecognizeListener {
     private SpeechRecognizerClient client;
     private SoundPool sound_pool;
@@ -37,6 +51,15 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
     /*
     3칸 이하의 점자 퀴즈를 진행하는 클래스
     */
+=======
+import static com.example.yeo.practice.Common_quiz_sound.score_service.result;
+
+public class reading_short_practice extends FragmentActivity implements TextToSpeech.OnInitListener, SpeechRecognizeListener {
+    private SpeechRecognizerClient client;
+/*
+3칸 이하의 점자 퀴즈를 진행하는 클래스
+*/
+>>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
     reading_short_display m;
     int newdrag, olddrag;  //첫번째 손가락과 두번째 손가락의 x좌표를 저장할 변수
     int y1drag, y2drag;//첫번째 손가락과 두번째 손가락의 y좌표를 저장할 변수
@@ -44,8 +67,15 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
     boolean click = true;
     static int page = 0;
     Intent i;
+<<<<<<< HEAD
     int posx1, posx2, posy1, posy2;
     boolean enter = true;
+=======
+    private TextToSpeech tts;
+    int posx1,posx2,posy1,posy2;
+    boolean enter=true;
+    SpeechRecognizer mRecognizer;
+>>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
     com.example.yeo.practice.Normal_version_quiz.quiz_score quiz_score;
     static int score = 0;
     /**
@@ -54,15 +84,47 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
      */
     private GoogleApiClient client2;
 
+
+
+    @Override
+    public void onInit(int status){
+        tts.setLanguage(Locale.KOREA);
+    }
+
+    @Override
+    public void onDestroy(){
+        if(tts != null){
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onDestroy();
+    }
+
+    public void say(String text){
+        tts.speak(text, TextToSpeech.QUEUE_FLUSH,null);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SpeechRecognizerManager.getInstance().initializeLibrary(this);
+        i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        i.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getPackageName());
+        i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR");
 
+
+        tts = new TextToSpeech(this, this);
+
+<<<<<<< HEAD
         sound_pool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
         sound_beep = sound_pool.load(this, R.raw.alarm2, 1);
+=======
+        mRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+        mRecognizer.setRecognitionListener(listener);
+>>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
 
         quiz_score.score = 0;
+
 
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
@@ -84,10 +146,60 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
         client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    public void onDestroy() {
-        super.onDestroy();
-        SpeechRecognizerManager.getInstance().finalizeLibrary();
-    }
+
+    private RecognitionListener listener = new RecognitionListener() { // 음성인식을 위한 함수
+        @Override
+        public void onRmsChanged(float rmsdB) {
+            // TODO Auto-generated method stub
+        }
+
+
+        @Override
+        public void onResults(Bundle results) {
+            String key = "";
+            key = SpeechRecognizer.RESULTS_RECOGNITION;
+            ArrayList<String> mResult = results.getStringArrayList(key);
+            String[] rs = new String[mResult.size()];
+            mResult.toArray(rs);
+            m.tv = rs[0];
+            m.print = true;
+            m.invalidate();
+
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void onReadyForSpeech(Bundle params) {
+            // TODO Auto-generated method stub
+        }
+        @Override
+        public void onPartialResults(Bundle partialResults) {
+            // TODO Auto-generated method stub
+        }
+        @Override
+        public void onEvent(int eventType, Bundle params) {
+            // TODO Auto-generated method stub
+        }
+        @Override
+        public void onError(int error) {
+            tts.speak("음성인식에 실패하였습니다. 다시 시도해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
+            // TODO Auto-generated method stub
+        }
+        @Override
+        public void onEndOfSpeech() {
+            // TODO Auto-generated method stub
+        }
+        @Override
+        public void onBufferReceived(byte[] buffer){
+            // TODO Auto-generated method stub
+        }
+        @Override
+        public void onBeginningOfSpeech() {
+            // TODO Auto-generated method stub
+
+        }
+    };
+
 
     @Override
     public void onBackPressed() { //종료키를 눌렀을 경우 발생되는 함수
@@ -659,17 +771,28 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                     newdrag = (int) event.getX();//두번째 손가락이 화면에서 떨어질 때의 x좌표값을 저장
                     y2drag = (int) event.getY();//두번째 손가락이 화면에서 떨어질 떄의 y좌표값을 저장
                     if (y2drag - y1drag > WHclass.Drag_space) {//손가락 2개를 이용하여 하단으로 드래그 하는 경우 음성인식 실행
+<<<<<<< HEAD
                         if(next==false) {
                             sound_pool.play(sound_beep, 1, 1, 0, 0, 1);
 
+=======
+                        //if(PermissionUtils.checkAudioRecordPermission(this)) {
+>>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
                             SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().
                                     setApiKey(WHclass.APIKEY).
                                     setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB);
 
+<<<<<<< HEAD
                             client = builder.build();
 
                             client.setSpeechRecognizeListener(this);
                             client.startRecording(false);
+=======
+                        client = builder.build();
+
+                        client.setSpeechRecognizeListener(this);
+                        client.startRecording(true);
+>>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
 
                             next=true;
                         }
@@ -724,6 +847,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                     olddrag = (int) event.getX();
                     y1drag = (int) event.getY();
                     break;
+
             }
         } else { //다음 문제가 존재할 경우
             switch (event.getAction() & MotionEvent.ACTION_MASK) {
@@ -790,6 +914,40 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public void onBackPressed() { //종료키를 눌렀을 경우 발생되는 함수
+        m.quiz_view_init();
+        m.page = 0;
+        page = 0;
+        result = 0;
+        finish();
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+
+            final StringBuilder builder = new StringBuilder();
+
+            new AlertDialog.Builder(this).
+                    setMessage(builder.toString()).
+                    setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).
+                    show();
+        }
+        else if (requestCode == RESULT_CANCELED) {
+            // 음성인식의 오류 등이 아니라 activity의 취소가 발생했을 때.
+            if (data == null) {
+                return;
+            }
+        }
+    }
+
+    @Override
+>>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
     public void onReady() {
         //TODO implement interface DaumSpeechRecognizeListener method
     }
@@ -807,7 +965,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
     @Override
     public void onError(int errorCode, String errorMsg) {
         //TODO implement interface DaumSpeechRecognizeListener method
-        Log.e("reading_short_practice", "onError");
+        Log.e("SpeechSampleActivity", "onError");
 
         client = null;
     }
@@ -820,15 +978,23 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
     @Override
     public void onResults(Bundle results) {
         final StringBuilder builder = new StringBuilder();
-        Log.i("reading_short_practice", "onResults");
+        Log.i("SpeechSampleActivity", "onResults");
 
         String answer = "";
         boolean result = false;
 
+<<<<<<< HEAD
         if (m.dot_count == 1) answer = m.textname_1;
         else if (m.dot_count == 2) answer = m.textname_2;
         else if (m.dot_count == 3) answer = m.textname_3;
+=======
+        //점자 한칸, 두칸, 세칸을 구별해야함!!!!!!!!!!!!!?????????????????????
+        if(m.dot_count==1) answer=m.textname_1;
+        else if(m.dot_count==2) answer=m.textname_2;
+        else if(m.dot_count==3) answer=m.textname_3;
+>>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
         else return;
+        //??????????????????????????????????????????????????????????????????????????????????????????
 
         ArrayList<String> texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
 
@@ -839,14 +1005,50 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
             } else
                 continue;
         }
+<<<<<<< HEAD
 
         if (result == true) {
             MainActivity.Braille_TTS.TTS_Play("축하합니다. 정답이에요~");
         } else {
             MainActivity.Braille_TTS.TTS_Play("오답입니다. 당신이 말한 단어는" + texts.get(0) + "입니다. 정답은"+answer+"입니다.");
         }
+=======
 
-        client = null;
+        if(result==true) {
+            //정답 tts부분 넣기, 그리고 다음문제로 이동시키기!!
+            builder.append("정답이야 축하해 너는 " + m.textname_1 + "이 단어를 말했어^_^");
+        }
+        else {
+            //오답 tts부분 넣기
+            builder.append("오답이야 당신이 말한건 '" + texts.get(0) + "' 이거야 그리고 정답은" + m.textname_1 + "이거야");
+        }
+
+//        text1.setText(builder.toString());
+
+        final Activity activity = this;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // finishing일때는 처리하지 않는다.
+                if (activity.isFinishing()) return;
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(activity).
+                        setMessage(builder.toString()).
+                        setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                dialog.show();
+
+            }
+        });
+>>>>>>> cc36d7d388513c162a3e27b7b2eb481a282f1e57
+
+
+        //client = null;
     }
 
     @Override
@@ -856,7 +1058,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
 
     @Override
     public void onFinished() {
-        Log.i("reading_short_practice", "onFinished");
+        Log.i("SpeechSampleActivity", "onFinished");
     }
 
     /**

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.yeo.practice.Common_braille_data.dot_letter;
 import com.example.yeo.practice.Common_braille_data.dot_word;
+import com.example.yeo.practice.Common_mynote_database.Mynote_service;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.Sound_Manager;
@@ -192,7 +193,7 @@ public class Talk_Braille_long_practice extends FragmentActivity {
                     lock = false;
                 break;
             case MotionEvent.ACTION_DOWN: //두 번째 손가락을 터치하였을 때
-                startService(new Intent(Talk_Braille_long_practice.this, Sound_Manager.class));
+                startService(new Intent(this, Sound_Manager.class));
                 click = false; // 제스처 기능을 위해 손가락 1개를 인지하는 화면을 잠금
                 olddrag = (int)event.getX(); // 두번쨰 손가락이 터치한 지점의 x좌표 저장
                 y1drag = (int) event.getY(); // 두번째 손가락이 터치한 지점의 y좌표 저장
@@ -1208,6 +1209,8 @@ public class Talk_Braille_long_practice extends FragmentActivity {
 
         m.invalidate(); // 화면을 다시 그려줘라 => onDraw() 호출해준다
     }
+
+
     @Override
     public void onBackPressed() { // 뒤로가기 키를 눌렀을때 점자 학습을 위한 변수 초기화 및 종료
         m.page = 0;
@@ -1222,8 +1225,9 @@ public class Talk_Braille_long_practice extends FragmentActivity {
                 startService(new Intent(this, Word_service.class));
                 break;
             case 10:
-                MyNote_Stop_service();
                 MainActivity.master_braille_db.master_db_manager.My_Note_page=0;
+                Mynote_service.finish = true;
+                startService(new Intent(this, Mynote_service.class));
                 break;
         }
         finish();

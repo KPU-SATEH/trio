@@ -52,6 +52,7 @@ public class Menu_info {
     public static int MENU_QUIZ_WRITING = 2;
     public static int MENU_QUIZ_INFO = 0; //퀴즈 메뉴 정보
 
+
     // 이전, 다음 소리 출력을 위한 상수 정의
     public static int next = 1; //다음
     public static int pre = 2; //이전

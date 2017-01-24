@@ -22,11 +22,8 @@ import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 public class quiz_reading_manual extends FragmentActivity {
     static public AnimationDrawable speechani;
     static public ImageView speechimage;
-    final public static int VOWEL = 2;
-    final public static int WORD= 9;
     final public static int ENTER = 0;
     public int newdrag,olddrag;
-    public static int choice;
     public int y1drag,y2drag;
     public int posx1,posx2,posy1,posy2;
     public boolean enter = true;
@@ -78,59 +75,43 @@ public class quiz_reading_manual extends FragmentActivity {
                         /*
                         화면을 터치하게 되면, 자신이 풀어보려고 했던 퀴즈가 시작됨
                          */
-                        switch(choice) {
-                            case 1: //초성퀴즈
+                        quiz_reading_service.question = 1;
+                        switch(Menu_info.MENU_QUIZ_INFO) {
+                            case 0: //초성퀴즈
                                 Intent intent = new Intent(quiz_reading_manual.this, reading_short_practice.class);
                                 startActivityForResult(intent, ENTER);
-                                quiz_reading_service.question = 1;
-                                WHclass.quiz_sel = 1;
                                 break;
-                            case 2: //모음퀴즈
+                            case 1: //모음퀴즈
                                 Intent intent2 = new Intent(quiz_reading_manual.this, reading_short_practice.class);
                                 startActivityForResult(intent2, ENTER);
-                                quiz_reading_service.question = 1;
-                                WHclass.quiz_sel = 2;
                                 break;
-                            case 3: //종성퀴즈
+                            case 2: //종성퀴즈
                                 Intent intent3 = new Intent(quiz_reading_manual.this, reading_short_practice.class);
                                 startActivityForResult(intent3, ENTER);
-                                quiz_reading_service.question = 1;
-                                WHclass.quiz_sel = 3;
                                 break;
-                            case 4: //숫자퀴즈
+                            case 3: //숫자퀴즈
                                 Intent intent4 = new Intent(quiz_reading_manual.this, reading_short_practice.class);
                                 startActivityForResult(intent4, ENTER);
-                                quiz_reading_service.question = 1;
-                                WHclass.quiz_sel = 4;
                                 break;
-                            case 5: //알파벳 퀴즈
+                            case 4: //알파벳 퀴즈
                                 Intent intent5 = new Intent(quiz_reading_manual.this, reading_short_practice.class);
                                 startActivityForResult(intent5, ENTER);
-                                quiz_reading_service.question = 1;
-                                WHclass.quiz_sel = 5;
                                 break;
-                            case 6: //문장부호 퀴즈
+                            case 5: //문장부호 퀴즈
                                 Intent intent6 = new Intent(quiz_reading_manual.this, reading_short_practice.class);
                                 startActivityForResult(intent6, ENTER);
-                                quiz_reading_service.question = 1;
-                                WHclass.quiz_sel = 6;
                                 break;
-                            case 7: //약자 및 약어 퀴즈
+                            case 6: //약자 및 약어 퀴즈
                                 Intent intent7 = new Intent(quiz_reading_manual.this, reading_short_practice.class);
                                 startActivityForResult(intent7, ENTER);
-                                quiz_reading_service.question = 1;
-                                WHclass.quiz_sel = 7;
                                 break;
-                            case 8: //글자 퀴즈
+                            case 7: //글자 퀴즈
                                 Intent intent8 = new Intent(quiz_reading_manual.this, reading_short_practice.class);
                                 startActivityForResult(intent8, ENTER);
-                                quiz_reading_service.question = 1;
-                                WHclass.quiz_sel = 8;
                                 break;
-                            case 9: //단어퀴즈
+                            case 8: //단어퀴즈
                                 Intent intent9 = new Intent(quiz_reading_manual.this, reading_long_practice.class);
                                 startActivityForResult(intent9, ENTER);
-                                quiz_reading_service.question = 1;
                                 break;
                         }
                         finish();

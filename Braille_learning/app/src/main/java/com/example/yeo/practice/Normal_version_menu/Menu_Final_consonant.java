@@ -108,6 +108,7 @@ public class Menu_Final_consonant extends FragmentActivity {
         }
         return true;
     }
+
     @Override
     public void onBackPressed() { //종료키를 눌렀을 경우
         Menu_basic_service.finish=true;

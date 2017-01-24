@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
+import com.example.yeo.practice.Common_menu_sound.Menu_quiz_inside_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_quiz_service;
 import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.MainActivity;
@@ -66,12 +67,9 @@ public class Menu_quiz_initial extends FragmentActivity {
                 if(enter == true) { //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 초성 퀴즈로 접속
                     if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                         Menu_info.MENU_QUIZ_INFO = Menu_info.MENU_QUIZ_INITIAL;
-                        manual.choice=1;
                         score.sel = 1;
                         Intent intent = new Intent(Menu_quiz_initial.this, Menu_quiz_reading.class);
                         startActivityForResult(intent, Menu_info.MENU_QUIZ_INITIAL);
-                        MainActivity.Braille_TTS.TTS_Play("읽기 퀴즈");
-
                     }
                 }
                 else    enter = true;

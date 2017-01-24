@@ -80,7 +80,7 @@ public class Menu_Mynote_basic extends FragmentActivity {
                 if(enter == true) {  //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 나만의 단어장으로 접속
                     if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                         WHclass.sel =Menu_info.MENU_NOTE ;
-
+                        Mynote_service.menutype=0;
                         result= MainActivity.basic_braille_db.getResult();
                         if(MainActivity.basic_braille_db.basic_db_manager.size_count!=0) {
                             Intent intent = new Intent(Menu_Mynote_basic.this, Braille_short_practice.class);

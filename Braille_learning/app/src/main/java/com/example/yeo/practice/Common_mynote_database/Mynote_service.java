@@ -16,7 +16,7 @@ public class Mynote_service extends Service {
     MediaPlayer mynote[];
     int rawid[];
     static public int menu_page = 0;
-    static public int menutype=0;
+    static public int menutype = 0;
     public static boolean finish = false;
     int previous=0;
     public Mynote_service() {
@@ -65,7 +65,7 @@ public class Mynote_service extends Service {
     }
     @Override
     public int onStartCommand(Intent intent, int flags, int startID){
-        Sound_Manager.Service_address=40;
+        Sound_Manager.Service_address=41;
         if(Sound_Manager.stop==true)
             init();
         else{

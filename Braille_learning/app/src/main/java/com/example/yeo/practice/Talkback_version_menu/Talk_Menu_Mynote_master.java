@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_mynote_service;
+import com.example.yeo.practice.Common_mynote_database.Mynote_service;
 import com.example.yeo.practice.Common_sound.Braille_Text_To_Speech;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
@@ -69,7 +70,7 @@ public class Talk_Menu_Mynote_master extends FragmentActivity {
                             if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                                 WHclass.sel =Menu_info.MENU_NOTE ;
                                 result= MainActivity.master_braille_db.getResult();
-
+                                Mynote_service.menutype=1;
                                 if(MainActivity.master_braille_db.master_db_manager.size_count!=0) {
                                     Intent intent = new Intent(Talk_Menu_Mynote_master.this, Talk_Braille_long_practice.class);
                                     startActivityForResult(intent, Menu_info.MENU_NOTE);
@@ -86,8 +87,10 @@ public class Talk_Menu_Mynote_master extends FragmentActivity {
                                             break;
                                     }
                                 }
-                                else //단어장에 단어가 추가되어 있지 않은경우 접속 차단
-                                    MainActivity.Braille_TTS.TTS_Play("등록된된 점자가 없어, 메뉴로 들어갈 수가 없습니다.");
+                                else { //단어장에 단어가 추가되어 있지 않은경우 접속 차단
+                                    Mynote_service.menu_page=0;
+                                    startService(new Intent(Talk_Menu_Mynote_master.this, Mynote_service.class));
+                                }
                             }
                         }
                         else    enter = true;
@@ -138,6 +141,7 @@ public class Talk_Menu_Mynote_master extends FragmentActivity {
                 }
                 break;
             case MotionEvent.ACTION_DOWN:  //두번째 손가락이 화면에 터치 될 경우
+                startService(new Intent(this, Sound_Manager.class));
                 enter = false; //손가락 1개를 인지하는 화면을 잠금
                 olddrag = (int)event.getX(); // 두번째 손가락이 터지된 지점의 x좌표값 저장
                 y1drag = (int) event.getY(); // 두번째 손가락이 터지된 지점의 y좌표값 저장

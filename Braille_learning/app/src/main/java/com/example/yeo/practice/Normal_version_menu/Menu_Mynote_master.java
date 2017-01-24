@@ -77,7 +77,7 @@ public class Menu_Mynote_master extends FragmentActivity {
                     if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                         WHclass.sel =Menu_info.MENU_NOTE ;
                         result= MainActivity.master_braille_db.getResult();
-
+                        Mynote_service.menutype=1;
                         if(MainActivity.master_braille_db.master_db_manager.size_count!=0) {
                             Intent intent = new Intent(Menu_Mynote_master.this, Braille_long_practice.class);
                             startActivityForResult(intent, Menu_info.MENU_NOTE);

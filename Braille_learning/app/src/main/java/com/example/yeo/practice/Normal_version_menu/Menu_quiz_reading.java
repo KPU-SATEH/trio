@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.yeo.practice.Common_menu_sound.Menu_quiz_inside_service;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.R;
@@ -39,6 +40,9 @@ public class Menu_quiz_reading extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         decorView.setSystemUiVisibility( uiOption );
         setContentView(R.layout.activity_common_menu_quiz_reading);
+
+        Menu_quiz_inside_service.menu_page = Menu_info.MENU_QUIZ_READING;
+        startService(new Intent(this, Menu_quiz_inside_service.class));
 
     }
     public IBinder onBind(Intent intent) {
@@ -76,7 +80,6 @@ public class Menu_quiz_reading extends FragmentActivity {
                     startActivityForResult(intent,Menu_info.MENU_QUIZ_WRITING);
                     slied.slied = Menu_info.next;
                     startService(new Intent(this, slied.class));
-                    MainActivity.Braille_TTS.TTS_Play("쓰기 퀴즈");
                     finish();
                 }
                 else if(newdrag-olddrag>WHclass.Drag_space) {  //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
@@ -84,13 +87,12 @@ public class Menu_quiz_reading extends FragmentActivity {
                     startActivityForResult(intent,Menu_info.MENU_QUIZ_WRITING);
                     slied.slied = Menu_info.pre;
                     startService(new Intent(this, slied.class));
-                    MainActivity.Braille_TTS.TTS_Play("쓰기 퀴즈");
                     finish();
                 }
                 else if(y2drag-y1drag>WHclass.Drag_space) { //손가락 2개를 이용하여 상단에서 하단으로 드래그할 경우 현재 메뉴의 상세정보 음성 출력
                  }
                 else if (y1drag - y2drag > WHclass.Drag_space) {  //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
-                     finish();
+                     onBackPressed();
                 }
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:  //두번째 손가락이 화면에 터치 될 경우
@@ -101,8 +103,12 @@ public class Menu_quiz_reading extends FragmentActivity {
         }
         return true;
     }
-    public void onBackPressed() {
 
+    @Override
+    public void onBackPressed() {
+        Menu_quiz_inside_service.menu_page = Menu_info.MENU_QUIZ_INFO;
+        Menu_quiz_inside_service.finish = true;
+        startService(new Intent(this, Menu_quiz_inside_service.class));
         finish();
     }
 }

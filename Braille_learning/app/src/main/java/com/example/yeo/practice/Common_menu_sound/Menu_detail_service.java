@@ -19,6 +19,7 @@ public class Menu_detail_service extends Service {
     MediaPlayer explain_tutorial, explain_basic, explain_master, explain_quiz, explain_initial, explain_vowel, explain_consonant, explain_number, explain_alphabet, explain_abbreviation,
             explain_punctuation, explain_letter,explain_word, explain_initial_quiz,explain_vowel_quiz, explain_consonant_quiz, explain_number_quiz, explain_alphabet_quiz,explain_punctuation_quiz,
             explain_abbreviation_quiz, explain_letter_quiz, explain_word_quiz;
+
     int detail_size = 22;
     int rawid[];
     MediaPlayer detail[];
@@ -45,8 +46,8 @@ public class Menu_detail_service extends Service {
 
     @Override
     public void onCreate(){
-        detail = new MediaPlayer[]{explain_tutorial, explain_basic, explain_master, explain_quiz, explain_initial, explain_vowel, explain_consonant, explain_number, explain_alphabet, explain_abbreviation,
-                explain_punctuation, explain_letter,explain_word, explain_initial_quiz,explain_vowel_quiz, explain_consonant_quiz, explain_number_quiz, explain_alphabet_quiz,explain_punctuation_quiz,
+        detail = new MediaPlayer[]{explain_tutorial, explain_basic, explain_master, explain_quiz, explain_initial, explain_vowel, explain_consonant, explain_number, explain_alphabet, explain_punctuation,
+                explain_abbreviation, explain_letter,explain_word, explain_initial_quiz,explain_vowel_quiz, explain_consonant_quiz, explain_number_quiz, explain_alphabet_quiz,explain_punctuation_quiz,
                 explain_abbreviation_quiz, explain_letter_quiz, explain_word_quiz};
 
         rawid = new int[]{R.raw.explain_directions,R.raw.explain_basic,R.raw.explain_master,R.raw.explain_quiz,R.raw.explain_initial,R.raw.explain_vowel,R.raw.explain_consonant,
