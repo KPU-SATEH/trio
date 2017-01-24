@@ -104,6 +104,17 @@ public class quiz_reading_service extends Service {
                 }
                 forth.start();
                 break;
+<<<<<<< HEAD
+=======
+            case 5: //마지막 문제
+                if(forth.isPlaying()){
+                    forth.reset();
+                    forth=MediaPlayer.create(this,R.raw.forth_quiz);
+                }
+                last.start();
+                question = 0;
+                break;
+>>>>>>> 64741ca47b3e00f8a0b457c114960ac8a917ff0e
             case 6: //퀴즈종료 후 점수 출력
                 if(quizmanual.isPlaying()){
                     quizmanual.reset();
