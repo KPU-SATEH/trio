@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 
-import com.example.yeo.practice.R;
 import com.example.yeo.practice.Normal_version_quiz.quiz_reading_manual;
+import com.example.yeo.practice.R;
 
 /*
 퀴즈가 진행될때 출력되는 음성을 관리하는 서비스
@@ -104,8 +104,6 @@ public class quiz_reading_service extends Service {
                 }
                 forth.start();
                 break;
-<<<<<<< HEAD
-=======
             case 5: //마지막 문제
                 if(forth.isPlaying()){
                     forth.reset();
@@ -114,7 +112,6 @@ public class quiz_reading_service extends Service {
                 last.start();
                 question = 0;
                 break;
->>>>>>> 64741ca47b3e00f8a0b457c114960ac8a917ff0e
             case 6: //퀴즈종료 후 점수 출력
                 if(quizmanual.isPlaying()){
                     quizmanual.reset();
@@ -156,6 +153,7 @@ public class quiz_reading_service extends Service {
                 break;
         }
 
+
         quizmanual.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
@@ -170,4 +168,5 @@ public class quiz_reading_service extends Service {
         return START_NOT_STICKY;
 
     }
+
 }
