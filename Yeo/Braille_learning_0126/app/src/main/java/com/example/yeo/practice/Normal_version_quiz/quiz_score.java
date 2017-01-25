@@ -32,9 +32,7 @@ public class quiz_score extends AppCompatActivity {
     TextView comment;
     Menu_quiz_service quiz_menu_service;
     com.example.yeo.practice.Common_quiz_sound.score_service score_service;
-    int newdrag,olddrag;
     int posx1,posx2,posy1,posy2;
-    int y1drag,y2drag;
     boolean enter = true;
 
     @Override

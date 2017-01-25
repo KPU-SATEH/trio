@@ -3,25 +3,35 @@ package com.example.yeo.practice.Normal_version_Display_Practice;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import com.example.yeo.practice.Common_sound.Number;
+
+import com.example.yeo.practice.Common_braille_data.dot_quiz_word;
 import com.example.yeo.practice.MainActivity;
+import com.example.yeo.practice.Common_sound.Number;
 import com.example.yeo.practice.WHclass;
 
+import java.util.Timer;
+import java.util.TimerTask;
 
-/**
- * Created by 여명 on 2017-01-16.
- */
-
-public class Communication_Student_Mode extends FragmentActivity {
-    student_reading m;
+public class writing_long_practice extends FragmentActivity {
+    writing_long_display m;
     int newdrag, olddrag; //화면전환시 이용될 좌표 2개를 저장할 변수
     int y1drag, y2drag;
     int result1 = 0,result2=0, result3=0, result4=0, result5=0, result6=0;
     boolean click = true;
+
+
+    private TimerTask second; //타이머
+    private final Handler handler = new Handler();
+    Timer timer =null;
+
+    int touch_check=0;  // 시간 초기화를 위한 변수
+    int coordinate=0; //현재 점자 위치를 저장하는 변수
+
     boolean next = false; // 다음문제로 이동하기 위한 변수
 
     @Override
@@ -37,7 +47,8 @@ public class Communication_Student_Mode extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
         decorView.setSystemUiVisibility( uiOption );
-        m = new student_reading(this);
+        dot_quiz_word dot = new dot_quiz_word(); // 단어퀴즈 단위의 점자 클래스 선언
+        m = new writing_long_display(this);
         m.setBackgroundColor(Color.rgb(22, 26, 44));
         setContentView(m);
     }
@@ -48,6 +59,7 @@ public class Communication_Student_Mode extends FragmentActivity {
         if (m.next == false) {
             switch (event.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_UP://마지막 손가락을 땠을 때 화면잠금을 품
+                    Timer_Stop();
                     if (click == false)
                         click = true;
                     break;
@@ -57,7 +69,7 @@ public class Communication_Student_Mode extends FragmentActivity {
                     if ((m.x < m.bigcircle * 2) && (m.x > m.bigcircle * (-2)) && (m.y > m.bigcircle * (-2)) && (m.y < (m.bigcircle * 2)))
                         break;
                     else
-                        Touch_event();
+                       Touch_event();
                     m.invalidate(); // 화면을 다시 그려줘라 => onDraw() 호출해준다//// break;
                     break;
                 case MotionEvent.ACTION_MOVE:// 화면을 터치한 상태로 움직일때 발생되는 이벤트
@@ -80,17 +92,23 @@ public class Communication_Student_Mode extends FragmentActivity {
                     y2drag = (int) event.getY();// 두번째 손가락이 화면에서 떨어진 지점의 y 좌표 저장
                     if (y2drag - y1drag > WHclass.Drag_space) { //손가락 2개를 이용하여 하단으로 드래그 하는경우 정답 채점
                         if(next==false) {
-
+                            String temp="";
+                            temp=Grading();
+                            MainActivity.Braille_TTS.TTS_Play(temp);
                         }
                     }
                     else if (y1drag - y2drag > WHclass.Drag_space) {// 손가락 2개를 이용하여 상단으로 드래그하는 경우 종료
-                        MainActivity.Braille_TTS.TTS_Play("학생모드를 종료하고 상위 메뉴로 돌아갑니다. 학생모드");
+                        MainActivity.Braille_TTS.TTS_Play("쓰기 퀴즈를 종료하고 상위 메뉴로 이동합니다. 쓰기 퀴즈");
                         onBackPressed();
                     }
                     else if(olddrag - newdrag > WHclass.Drag_space){
                         if(next==true) {
                             next = false;
-                            finish();
+                            m.quiz_view2_init();
+                            if(m.question==3) {
+                                MainActivity.Braille_TTS.TTS_Play("모든 문제가 끝났으므로, 쓰기 퀴즈를 종료합니다. 쓰기 퀴즈");
+                                finish();
+                            }
                         }
                     }
                     m.invalidate();
@@ -157,6 +175,213 @@ public class Communication_Student_Mode extends FragmentActivity {
             case 6:
                 result6=1;
                 break;
+        }
+
+        Timer_Reset(coordinate_temp);
+    }
+
+    public void Timer_Stop(){
+        if(timer != null){
+            timer.cancel();
+            timer= null;
+        }
+    }
+
+    public void Timer_Reset(int coordinate_temp){
+        coordinate = coordinate_temp;
+        touch_check=0;
+        if(coordinate==0)
+            Timer_Stop();
+        else {
+            if (timer != null) {
+                timer.cancel();
+                timer = null;
+                timer = new Timer();
+                Timer_Start();
+            } else if (timer == null) {
+                timer = new Timer();
+                Timer_Start();
+            }
+        }
+    }
+    public void Timer_Start(){ //1초의 딜레이 시간을 갖는 함수
+        second = new TimerTask() {
+            @Override
+            public void run() {
+                Touch_check();
+            }
+        };
+        timer.schedule(second,0,1000); //1초의 딜레이시간
+    }
+
+    public void Touch_check(){
+        Runnable updater = new Runnable() {
+            @Override
+            public void run() {
+                touch_check++;
+                if(touch_check>2){
+                    touch_insert_check(coordinate);
+                    touch_check=0;
+                }
+            }
+        };
+        handler.post(updater);
+    }
+
+    public void touch_insert_check(int coordinate_temp){
+        if(next==false) {
+            int coordinate_x = -1;
+            int coordinate_y = -1;
+
+            if (coordinate_temp == 1) {
+                coordinate_x = 0;
+                coordinate_y = 0;
+            } else if (coordinate_temp == 2) {
+                coordinate_x = 0;
+                coordinate_y = 1;
+            } else if (coordinate_temp == 3) {
+                coordinate_x = 0;
+                coordinate_y = 2;
+            } else if (coordinate_temp == 4) {
+                coordinate_x = 1;
+                coordinate_y = 0;
+            } else if (coordinate_temp == 5) {
+                coordinate_x = 1;
+                coordinate_y = 1;
+            } else if (coordinate_temp == 6) {
+                coordinate_x = 1;
+                coordinate_y = 2;
+            } else if (coordinate_temp == 7) {
+                coordinate_x = 2;
+                coordinate_y = 0;
+            } else if (coordinate_temp == 8) {
+                coordinate_x = 2;
+                coordinate_y = 1;
+            } else if (coordinate_temp == 9) {
+                coordinate_x = 2;
+                coordinate_y = 2;
+            } else if (coordinate_temp == 10) {
+                coordinate_x = 3;
+                coordinate_y = 0;
+            } else if (coordinate_temp == 11) {
+                coordinate_x = 3;
+                coordinate_y = 1;
+            } else if (coordinate_temp == 12) {
+                coordinate_x = 3;
+                coordinate_y = 2;
+            } else if (coordinate_temp == 13) {
+                coordinate_x = 4;
+                coordinate_y = 0;
+            } else if (coordinate_temp == 14) {
+                coordinate_x = 4;
+                coordinate_y = 1;
+            } else if (coordinate_temp == 15) {
+                coordinate_x = 4;
+                coordinate_y = 2;
+            } else if (coordinate_temp == 16) {
+                coordinate_x = 5;
+                coordinate_y = 0;
+            } else if (coordinate_temp == 17) {
+                coordinate_x = 5;
+                coordinate_y = 1;
+            } else if (coordinate_temp == 18) {
+                coordinate_x = 5;
+                coordinate_y = 2;
+            } else if (coordinate_temp == 19) {
+                coordinate_x = 6;
+                coordinate_y = 0;
+            } else if (coordinate_temp == 20) {
+                coordinate_x = 6;
+                coordinate_y = 1;
+            } else if (coordinate_temp == 21) {
+                coordinate_x = 6;
+                coordinate_y = 2;
+            } else if (coordinate_temp == 22) {
+                coordinate_x = 7;
+                coordinate_y = 0;
+            } else if (coordinate_temp == 23) {
+                coordinate_x = 7;
+                coordinate_y = 1;
+            } else if (coordinate_temp == 24) {
+                coordinate_x = 7;
+                coordinate_y = 2;
+            } else if (coordinate_temp == 25) {
+                coordinate_x = 8;
+                coordinate_y = 0;
+            } else if (coordinate_temp == 26) {
+                coordinate_x = 8;
+                coordinate_y = 1;
+            } else if (coordinate_temp == 27) {
+                coordinate_x = 8;
+                coordinate_y = 2;
+            } else if (coordinate_temp == 28) {
+                coordinate_x = 9;
+                coordinate_y = 0;
+            } else if (coordinate_temp == 29) {
+                coordinate_x = 9;
+                coordinate_y = 1;
+            } else if (coordinate_temp == 30) {
+                coordinate_x = 9;
+                coordinate_y = 2;
+            } else if (coordinate_temp == 31) {
+                coordinate_x = 10;
+                coordinate_y = 0;
+            } else if (coordinate_temp == 32) {
+                coordinate_x = 10;
+                coordinate_y = 1;
+            } else if (coordinate_temp == 33) {
+                coordinate_x = 10;
+                coordinate_y = 2;
+            } else if (coordinate_temp == 34) {
+                coordinate_x = 11;
+                coordinate_y = 0;
+            } else if (coordinate_temp == 35) {
+                coordinate_x = 11;
+                coordinate_y = 1;
+            } else if (coordinate_temp == 36) {
+                coordinate_x = 11;
+                coordinate_y = 2;
+            } else if (coordinate_temp == 37) {
+                coordinate_x = 12;
+                coordinate_y = 0;
+            } else if (coordinate_temp == 38) {
+                coordinate_x = 12;
+                coordinate_y = 1;
+            } else if (coordinate_temp == 39) {
+                coordinate_x = 12;
+                coordinate_y = 2;
+            } else if (coordinate_temp == 40) {
+                coordinate_x = 13;
+                coordinate_y = 0;
+            } else if (coordinate_temp == 41) {
+                coordinate_x = 13;
+                coordinate_y = 1;
+            } else if (coordinate_temp == 42) {
+                coordinate_x = 13;
+                coordinate_y = 2;
+            }
+
+            if (coordinate_x != (-1) && coordinate_y != (-1)) {
+                if (m.target7_width[coordinate_y][coordinate_x] == 0 && m.target7_height[coordinate_y][coordinate_x] == 0) {
+                    m.target7_width[coordinate_y][coordinate_x] = m.width_7[coordinate_y][coordinate_x];
+                    m.target7_height[coordinate_y][coordinate_x] = m.height_7[coordinate_y][coordinate_x];
+                } else {
+                    m.target7_width[coordinate_y][coordinate_x] = 0;
+                    m.target7_height[coordinate_y][coordinate_x] = 0;
+                }
+
+                if (m.Braille_insert[coordinate_y][coordinate_x] == 0)
+                    m.Braille_insert[coordinate_y][coordinate_x] = 1;
+                else if (m.Braille_insert[coordinate_y][coordinate_x] == 1)
+                    m.Braille_insert[coordinate_y][coordinate_x] = 0;
+            }
+            result1 = 0;
+            result2 = 0;
+            result3 = 0;
+            result4 = 0;
+            result5 = 0;
+            result6 = 0;
+            Touch_event();
         }
     }
 
@@ -1036,6 +1261,47 @@ public class Communication_Student_Mode extends FragmentActivity {
                 }
                 break;
         }
+    }
+
+
+    public String Grading(){
+        boolean result= false;
+        String result_return="";
+
+        for(int i=0 ; i<3 ; i++){
+            for(int j=0 ; j<14 ; j++){
+                if(m.Braille_insert[i][j]==m.text_7[i][j])
+                    result = true;
+                else
+                    result = false;
+
+                if(result==false)
+                    break;
+            }
+            if (result == false)
+                break;
+        }
+
+        if(result==true) {
+            result_return="정답입니다. 다음 화면으로 이동하시기 바랍니다.";
+        }
+        else if(result==false){
+            m.quiz_target_init();
+
+            for(int i=0 ; i<3 ; i++) {
+                for (int j = 0; j < 14; j++) {
+                    m.Braille_insert[i][j] = m.text_7[i][j];
+                }
+            }
+            result_return="오답입니다. 화면을 문지르며 정답을 확인해보세요. 정답을 확인한 뒤, 다음 화면으로 이동하시기 바랍니다.";
+        }
+
+        next = true;
+        m.question++;
+
+
+        return result_return;
+
     }
 
     @Override

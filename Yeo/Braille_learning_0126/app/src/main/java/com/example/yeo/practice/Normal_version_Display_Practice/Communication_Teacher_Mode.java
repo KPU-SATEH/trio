@@ -1,6 +1,5 @@
 package com.example.yeo.practice.Normal_version_Display_Practice;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -11,8 +10,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
-
-import com.example.yeo.practice.Common_braille_data.dot_quiz_word;
 import com.example.yeo.practice.Common_sound.Number;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.WHclass;
@@ -69,7 +66,6 @@ public class Communication_Teacher_Mode extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
         decorView.setSystemUiVisibility( uiOption );
-        dot_quiz_word dot = new dot_quiz_word(); // 단어퀴즈 단위의 점자 클래스 선언
         m = new teacher_display(this);
         m.setBackgroundColor(Color.rgb(22, 26, 44));
         setContentView(m);
@@ -396,7 +392,6 @@ public class Communication_Teacher_Mode extends FragmentActivity {
             result4 = 0;
             result5 = 0;
             result6 = 0;
-            Touch_event();
         }
     }
 
@@ -1312,9 +1307,11 @@ public class Communication_Teacher_Mode extends FragmentActivity {
 
             for(int i=0;i<abc.length();i++){
                 JSONObject c = abc.getJSONObject(i);
-                String str = c.getString("idwjd");    // 저장코드들
+                String str = c.getString("id");    // 저장코드들
+                Toast.makeText(getApplicationContext(),str,Toast.LENGTH_LONG).show();
+                String text=str+"번방에 입장하셨습니다. 학생들에게 방 번호를 알려주세요.";
+                MainActivity.Braille_TTS.TTS_Play(text);
                 room = str;
-                Toast.makeText(getApplicationContext(),room,Toast.LENGTH_LONG).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -1322,19 +1319,17 @@ public class Communication_Teacher_Mode extends FragmentActivity {
     }
     private void insertToDatabase(final String array1, String array2, String array3, String character, String room){
         class InsertData extends AsyncTask<String, Void, String>{
-            ProgressDialog loading;
+
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(Communication_Teacher_Mode.this, "Please Wait", null, true, true);
+
             }
 
             @Override
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
                 myJSON=result;
-                loading.dismiss();
                 show();
-
             }
 
             @Override

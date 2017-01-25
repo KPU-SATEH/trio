@@ -161,7 +161,6 @@ class writing_long_display extends View {
                 }
                 notarget7_width[i][j] = width_7[i][j];
                 notarget7_height[i][j] = height_7[i][j];
-
             }
         }
     }
