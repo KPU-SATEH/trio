@@ -17,7 +17,7 @@ public class quiz_reading_service extends Service {
     static public boolean finish = false; //점자 학습의 종료를 알리는 변수
     static public boolean progress = false;
     private static final String TAG = "Number";
-    public static MediaPlayer first, second, third, forth, last, quizmanual,quiz_finish, initial_quiz_finish, vowel_quiz_finish, final_quiz_finish,
+    public static MediaPlayer first, second, third, quizmanual,quiz_finish, initial_quiz_finish, vowel_quiz_finish, final_quiz_finish,
             num_quiz_finish, alphabet_quiz_finish, sentence_quiz_finish, abbreviation_quiz_finish, word_quiz_finish, letter_quiz_finish;
     public static int question =0 ;
     public static int finish_n = 0;
@@ -37,8 +37,6 @@ public class quiz_reading_service extends Service {
         first= MediaPlayer.create(this, R.raw.reading_quiz_first); //첫번째 문제
         second= MediaPlayer.create(this, R.raw.reading_quiz_second); //두번째 문제
         third= MediaPlayer.create(this, R.raw.reading_quiz_third); //세번째 문제
-        //forth= MediaPlayer.create(this, R.raw.forth_quiz); //네번째 문제
-        //last= MediaPlayer.create(this, R.raw.last_quiz); //마지막 문제
 
         initial_quiz_finish = MediaPlayer.create(this, R.raw.initial_quiz_finish); //초성퀴즈 종료
         vowel_quiz_finish = MediaPlayer.create(this, R.raw.vowel_quiz_finish ); //모음퀴즈 종료

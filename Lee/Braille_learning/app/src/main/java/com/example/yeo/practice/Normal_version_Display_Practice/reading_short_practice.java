@@ -15,12 +15,11 @@ import android.view.View;
 import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Common_sound.Number;
 import com.example.yeo.practice.MainActivity;
+import com.example.yeo.practice.Normal_version_quiz.quiz_score;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.WHclass;
 import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import net.daum.mf.speech.api.SpeechRecognizeListener;
 import net.daum.mf.speech.api.SpeechRecognizerClient;
@@ -45,13 +44,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
     Intent i;
     int posx1, posx2, posy1, posy2;
     boolean enter = true;
-    com.example.yeo.practice.Normal_version_quiz.quiz_score quiz_score;
     static int score = 0;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +72,6 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
         m = new reading_short_display(this);
         m.setBackgroundColor(Color.rgb(22, 26, 44));
         setContentView(m);
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     public void onDestroy() {
@@ -91,6 +81,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
 
     @Override
     public void onBackPressed() { //종료키를 눌렀을 경우 발생되는 함수
+        quiz_reading_service.quizmanual.reset();
         switch (quiz_reading_service.question) {
             case 0:
                 quiz_reading_service.quizmanual.reset();
@@ -106,7 +97,6 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                 break;
         }
         quiz_reading_service.question=0;
-        quiz_reading_service.quizmanual.reset();
         switch (WHclass.sel) {
             case 1: //초성퀴즈 종료
                 quiz_reading_service.initial_quiz_finish.start();
@@ -916,25 +906,5 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                 .setObject(object)
                 .setActionStatus(Action.STATUS_TYPE_COMPLETED)
                 .build();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client2.connect();
-        AppIndex.AppIndexApi.start(client2, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client2, getIndexApiAction());
-        client2.disconnect();
     }
 }

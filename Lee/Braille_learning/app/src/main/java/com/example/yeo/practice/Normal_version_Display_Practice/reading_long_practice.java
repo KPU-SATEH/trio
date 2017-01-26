@@ -5,15 +5,14 @@ import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.yeo.practice.Common_braille_data.dot_quiz_word;
 import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
-import com.example.yeo.practice.Common_quiz_sound.score_service;
 import com.example.yeo.practice.Common_sound.Number;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.R;
@@ -57,6 +56,7 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         startService(new Intent(this, quiz_reading_service.class));
         decorView.setSystemUiVisibility(uiOption);
+
         dot_quiz_word dot = new dot_quiz_word(); // 단어퀴즈 단위의 점자 클래스 선언
         m = new reading_long_display(this);
         m.setBackgroundColor(Color.rgb(22, 26, 44));
@@ -1881,9 +1881,20 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
                         }
                     } else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 상단으로 드래그 하는 경우 퀴즈 화면 종료
                         onBackPressed();
-                    } else if (y1drag - y2drag > WHclass.Drag_space) {// 손가락 2개를 이용하여 상단으로 드래그하는 경우 종료
-                        //quiz_reading_service.word_quiz_finish.start();
-                        onBackPressed();
+                    }
+                    else if(olddrag - newdrag > WHclass.Drag_space){ //다음화면으로 이동
+                        if(next==true) {
+                            next = false;
+                            m.quiz_view_init();
+
+                            if(quiz_reading_service.question==4) {
+                                onBackPressed();
+                            }
+                            else if(quiz_reading_service.question<4){
+                                quiz_reading_service.menu_page=m.question;
+                                startService(new Intent(this, quiz_reading_service.class));
+                            }
+                        }
                     }
                     break;
                 case MotionEvent.ACTION_POINTER_DOWN: //두 번째 손가락을 터치하였을 때
@@ -1912,7 +1923,7 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
                         page++;
                         quiz_reading_service.question++;
                         startService(new Intent(this, quiz_reading_service.class));
-                        m.quiz_view2_init();
+                        m.quiz_view_init();
                         m.invalidate();
                         m.next = false;
                     } else
@@ -1942,7 +1953,7 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
     @Override
     public void onError(int errorCode, String errorMsg) {
         //TODO implement interface DaumSpeechRecognizeListener method
-        Log.e("reading_short_practice", "onError");
+        Log.e("reading_long_practice", "onError");
 
         client = null;
     }
@@ -1959,11 +1970,13 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
 
         String answer = "";
         boolean result = false;
-
+        /*
         if (m.dot_count == 1) answer = m.textname_1;
         else if (m.dot_count == 2) answer = m.textname_2;
         else if (m.dot_count == 3) answer = m.textname_3;
         else return;
+        */
+        answer=m.textname_7;
 
         ArrayList<String> texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
 
@@ -2015,7 +2028,7 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
 
     @Override
     public void onFinished() {
-        Log.i("reading_short_practice", "onFinished");
+        Log.i("reading_long_practice", "onFinished");
     }
 
 
@@ -2048,12 +2061,12 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
                 break;
             default:
                 break;
-
         }
     }
 
     @Override
     public void onBackPressed() { //종료키를 눌렀을 경우 발생되는 함수
+        quiz_reading_service.quizmanual.reset();
         switch (quiz_reading_service.question) {
             case 0:
                 quiz_reading_service.quizmanual.reset();
@@ -2069,7 +2082,6 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
                 break;
         }
         quiz_reading_service.question = 0;
-        quiz_reading_service.quizmanual.reset();
         switch (WHclass.sel) {
             case 1: //초성퀴즈 종료
                 quiz_reading_service.initial_quiz_finish.start();

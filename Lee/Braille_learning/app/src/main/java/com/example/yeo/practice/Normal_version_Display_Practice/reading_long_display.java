@@ -61,7 +61,7 @@ class reading_long_display extends View {
 
     static int page=0;
 
-    public void quiz_view2_init(){//화면 초기화 함수. 화면이 이동될 때 점자를 다시 그려줌.
+    public void quiz_view_init(){//화면 초기화 함수. 화면이 이동될 때 점자를 다시 그려줌.
         print=false;
         for(int i=0 ; i<3; i++){ // 돌출점자와 비돌출점자의 x,y값을 저장하는 배열변수를 초기화함
             for(int j=0 ; j<14; j++) {
@@ -137,7 +137,7 @@ class reading_long_display extends View {
         super(context);
         max = dot_quiz_word.wordcount;
         random = new Random();
-        quiz_view2_init();
+        quiz_view_init();
         mMain = context;
         tts = new TextToSpeech(mMain, new TextToSpeech.OnInitListener() {
             @Override
