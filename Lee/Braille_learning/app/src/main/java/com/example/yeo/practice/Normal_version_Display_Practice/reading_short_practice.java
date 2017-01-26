@@ -91,6 +91,22 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
 
     @Override
     public void onBackPressed() { //종료키를 눌렀을 경우 발생되는 함수
+        switch (quiz_reading_service.question) {
+            case 0:
+                quiz_reading_service.quizmanual.reset();
+                break;
+            case 1:
+                quiz_reading_service.first.reset();
+                break;
+            case 2:
+                quiz_reading_service.second.reset();
+                break;
+            case 3:
+                quiz_reading_service.third.reset();
+                break;
+        }
+        quiz_reading_service.question=0;
+        quiz_reading_service.quizmanual.reset();
         switch (WHclass.sel) {
             case 1: //초성퀴즈 종료
                 quiz_reading_service.initial_quiz_finish.start();
@@ -712,33 +728,6 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                         }
                     } else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 상단으로 드래그 하는 경우 퀴즈 화면 종료
                         onBackPressed();
-                        /*switch (WHclass.sel) {
-                            case 1: //초성퀴즈 종료
-                                quiz_reading_service.initial_quiz_finish.start();
-                                break;
-                            case 2://모음퀴즈 종료
-                                quiz_reading_service.vowel_quiz_finish.start();
-                                break;
-                            case 3://종성퀴즈 종료
-                                quiz_reading_service.final_quiz_finish.start();
-                                break;
-                            case 4://숫자퀴즈 종료
-                                quiz_reading_service.num_quiz_finish.start();
-                                break;
-                            case 5://알파벳퀴즈 종료
-                                quiz_reading_service.alphabet_quiz_finish.start();
-                                break;
-                            case 6://문장부호퀴즈 종료
-                                quiz_reading_service.sentence_quiz_finish.start();
-                                break;
-                            case 7://약자및 약어퀴즈 종료
-                                quiz_reading_service.abbreviation_quiz_finish.start();
-                                break;
-                            case 8://글자 퀴즈 종료
-                                quiz_reading_service.letter_quiz_finish.start();
-                                break;
-                        }
-                        */
                     }
                     else if(olddrag - newdrag > WHclass.Drag_space){ //다음화면으로 이동
                         if(next==true) {
@@ -772,14 +761,6 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                     posx2 = (int) event.getX();
                     posy2 = (int) event.getY();
                     if (enter == true) {
-                        /*
-                        if (page == 4) { //만약 마지막 문제라면 점수화면으로 이동
-                            //     Intent in = new Intent(this, quiz_score.class);
-                            //      startActivity(in);
-                            onBackPressed();
-                            break;
-                        }
-                        */
                         page++;
                         quiz_reading_service.question++;
                         startService(new Intent(this, quiz_reading_service.class));

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.SoundPool;
 import android.os.Vibrator;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
@@ -21,11 +22,9 @@ import java.util.Random;
  * Created by yoonc on 2016-07-25.
  */
 class reading_long_display extends View {
-    /*
-4칸 이상의 점자를 화면에 출력해주는 클래스
-4칸부터 7칸까지 점자를 표현할 수 있도록 설정되어 있음
-단, 퀴즈이기 때문에, 점자를 의미하는 글자를 표현하지 않음
- */
+    int question = 1;
+    private SoundPool sound_pool;
+    private int sound_beep;
     SpeechRecognizer mRecognizer;
     int posx1,posx2,posy1,posy2;
     private static Context mMain;
