@@ -33,12 +33,12 @@ public class quiz_reading_service extends Service {
 
     @Override
     public void onCreate(){
-        quizmanual= MediaPlayer.create(this, R.raw.quiz_manual); //퀴즈 메뉴얼
-        first= MediaPlayer.create(this, R.raw.first_quiz); //첫번째 문제
-        second= MediaPlayer.create(this, R.raw.second_quiz); //두번째 문제
-        third= MediaPlayer.create(this, R.raw.third_quiz); //세번째 문제
-        forth= MediaPlayer.create(this, R.raw.forth_quiz); //네번째 문제
-        last= MediaPlayer.create(this, R.raw.last_quiz); //마지막 문제
+        quizmanual= MediaPlayer.create(this, R.raw.reading_quiz_manual); //퀴즈 메뉴얼
+        first= MediaPlayer.create(this, R.raw.reading_quiz_first); //첫번째 문제
+        second= MediaPlayer.create(this, R.raw.reading_quiz_second); //두번째 문제
+        third= MediaPlayer.create(this, R.raw.reading_quiz_third); //세번째 문제
+        //forth= MediaPlayer.create(this, R.raw.forth_quiz); //네번째 문제
+        //last= MediaPlayer.create(this, R.raw.last_quiz); //마지막 문제
 
         initial_quiz_finish = MediaPlayer.create(this, R.raw.initial_quiz_finish); //초성퀴즈 종료
         vowel_quiz_finish = MediaPlayer.create(this, R.raw.vowel_quiz_finish ); //모음퀴즈 종료
@@ -65,8 +65,8 @@ public class quiz_reading_service extends Service {
         first.setLooping(false);
         second.setLooping(false);
         third.setLooping(false);
-        forth.setLooping(false);
-        last.setLooping(false);
+        //forth.setLooping(false);
+        //last.setLooping(false);
 
     }
 
@@ -79,24 +79,32 @@ public class quiz_reading_service extends Service {
             case 1: //첫번째 문제
                 if(quizmanual.isPlaying()){
                     quizmanual.reset();
-                    quizmanual=MediaPlayer.create(this,R.raw.quiz_manual);
+                    quizmanual=MediaPlayer.create(this,R.raw.reading_quiz_manual);
                 }
                 first.start();
                 break;
             case 2: //두번째 문제
                 if(first.isPlaying()){
                     first.reset();
-                    first=MediaPlayer.create(this,R.raw.first_quiz);
+                    first=MediaPlayer.create(this,R.raw.reading_quiz_first);
                 }
                 second.start();
                 break;
             case 3: //세번째 문제
                 if(second.isPlaying()){
                     second.reset();
-                    second=MediaPlayer.create(this,R.raw.second_quiz);
+                    second=MediaPlayer.create(this,R.raw.reading_quiz_second);
                 }
                 third.start();
                 break;
+            default:
+                if(third.isPlaying()){
+                    third.reset();
+                    third=MediaPlayer.create(this,R.raw.reading_quiz_third);
+                }
+                question=0;
+                break;
+            /*
             case 4: //네번째 문제
                 if(third.isPlaying()){
                     third.reset();
@@ -151,6 +159,7 @@ public class quiz_reading_service extends Service {
                 quiz_finish.start();
                 question = 0;
                 break;
+                */
         }
 
 
@@ -161,7 +170,7 @@ public class quiz_reading_service extends Service {
                     quiz_reading_manual.speechani.stop();
                 }
                 quizmanual.reset();
-                quizmanual=MediaPlayer.create(quiz_reading_service.this,R.raw.quiz_manual);
+                quizmanual=MediaPlayer.create(quiz_reading_service.this,R.raw.reading_quiz_manual);
             }
         });
 
