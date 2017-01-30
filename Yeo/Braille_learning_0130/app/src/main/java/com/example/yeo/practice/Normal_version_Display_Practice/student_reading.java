@@ -47,7 +47,7 @@ public class student_reading extends View{
         Timer timer =null;
         private TimerTask second; //타이머
         JSONArray abc_ = null;  //  Mysql에서 불러올 데이터를 저장할 배열
-        String room="80";    // 테스트용 방 설정
+        String room="82";    // 테스트용 방 설정
 
         private static Context mMain;
         static boolean next = false;
@@ -77,7 +77,7 @@ public class student_reading extends View{
         static float notarget7_height[][] =new float[3][14]; //비돌출 점자의 y 좌표값을 저장하는 배열 변수
 
 
-        static int page=0;
+        public static int page=0;
 
 
         public student_reading(Context context) {
@@ -89,7 +89,7 @@ public class student_reading extends View{
                     tts.setLanguage(Locale.KOREA);
                 }
             });
-            getData("http://192.168.0.124:10080/import.php", room);
+            getData("http://192.168.219.171:10080/import.php", room);
             minicircle = width*(float)0.01; //작은점자  크기 메크로
             bigcircle = width*(float)0.049; //큰 점자 크기 메크로
             vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -101,7 +101,6 @@ public class student_reading extends View{
         paint.setColor(Color.WHITE);//점자의 색을 지정
         paint.setTextSize(width*(float)0.21);//점자를 의미하는 글자의 크기를 지정
         paint.setAntiAlias(true);// 점자의 표면을 부드럽게 그려줌
-        //getData("http://192.168.0.124:10080/import.php", room);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 14; j++) {
                 switch(dot_student_data.dot_count){
@@ -122,8 +121,6 @@ public class student_reading extends View{
                 }
             }
         }
-        //dot_student_data.delete_data();
-
     }
     protected void show(){
         try {
@@ -162,10 +159,14 @@ public class student_reading extends View{
                     }
                 }
                 dot_student_data.input_data(Braille_insert, letter);
-            }
-        } catch (JSONException e) {
+                invalidate();
+            }//page값이 --됨;;
+        }
+        catch (JSONException e) {
             e.printStackTrace();
         }
+        if(page==dot_student_data.dot_count-2)
+            page++;
     }
 
     public void getData(String url, String room2){
@@ -207,7 +208,6 @@ public class student_reading extends View{
             protected void onPostExecute(String result){
                 myJSON=result;
                 show();
-
             }
         }
         GetDataJSON g = new GetDataJSON();
