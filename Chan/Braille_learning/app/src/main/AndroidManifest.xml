@@ -558,7 +558,11 @@
         <service
             android:name=".Common_menu_sound.Menu_quiz_inside_service"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".Normal_version_menu.Menu_Braille_translation"
+            android:label=""
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

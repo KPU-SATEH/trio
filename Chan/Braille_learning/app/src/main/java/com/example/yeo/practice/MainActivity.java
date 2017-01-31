@@ -314,7 +314,7 @@ public class MainActivity extends FragmentActivity {
                 update();
             }
         };
-        timer.schedule(second,0,300); //0.3초의 딜레이시간
+        timer.schedule(second,0,100); //0.3초의 딜레이시간
     }
 
     public void update(){ //일정시간마다 타이머 함수에 의해 불려짐
