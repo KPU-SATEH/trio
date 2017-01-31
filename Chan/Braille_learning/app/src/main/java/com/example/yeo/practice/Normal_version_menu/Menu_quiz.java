@@ -79,9 +79,9 @@ public class Menu_quiz extends FragmentActivity {
                     finish();
                 }
                 else if(newdrag-olddrag>WHclass.Drag_space) { //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
-                    Intent intent = new Intent(this,Menu_master_practice.class);
-                    startActivityForResult(intent,Menu_info.MENU_MASTER_PRACTICE);
-                    Menu_main_service.menu_page = Menu_info.MENU_MASTER_PRACTICE;
+                    Intent intent = new Intent(this,Menu_Braille_translation.class);
+                    startActivityForResult(intent,Menu_info.MENU_BRAILLE_TRANSLATION);
+                    Menu_main_service.menu_page = Menu_info.MENU_BRAILLE_TRANSLATION;
                     slied.slied = Menu_info.pre;
                     startService(new Intent(this, slied.class));
                     startService(new Intent(this, Menu_main_service.class));

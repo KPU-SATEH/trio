@@ -45,8 +45,9 @@ public class Menu_info {
     public static int MENU_TUTORIAL = 0; //사용설명서
     public static int MENU_BASIC_PRACTICE = 1; //기초과정
     public static int MENU_MASTER_PRACTICE = 2; //숙련과정
-    public static int MENU_QUIZ = 3; //퀴즈
-    public static int MENU_MYNOTE = 4; //나만의단어장
+    public static int MENU_BRAILLE_TRANSLATION = 3; //점자 번역
+    public static int MENU_QUIZ = 4; //퀴즈
+    public static int MENU_MYNOTE = 5; //나만의단어장
 
     public static int MENU_QUIZ_READING = 1;
     public static int MENU_QUIZ_WRITING = 2;
