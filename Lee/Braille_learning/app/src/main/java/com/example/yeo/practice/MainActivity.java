@@ -5,7 +5,6 @@ import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.speech.tts.TextToSpeech;
 import android.support.v4.app.FragmentActivity;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -17,16 +16,14 @@ import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.Common_menu_sound.Version_check_service;
 import com.example.yeo.practice.Common_mynote_database.Basic_Braille_DB;
 import com.example.yeo.practice.Common_mynote_database.Master_Braille_DB;
+import com.example.yeo.practice.Common_sound.Braille_Speech_To_Text;
 import com.example.yeo.practice.Common_sound.Braille_Text_To_Speech;
 import com.example.yeo.practice.Normal_version_menu.Menu_Tutorial;
 import com.example.yeo.practice.Talkback_version_menu.Talk_Menu_tutorial;
 
-import junit.runner.Version;
-
 import net.daum.mf.speech.api.SpeechRecognizerManager;
 import net.daum.mf.speech.api.TextToSpeechManager;
 
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,6 +38,7 @@ public class MainActivity extends FragmentActivity {
     static public Master_Braille_DB master_braille_db; // 나만의 숙련 단어장을 위한 데이터베이스
 
     static public Braille_Text_To_Speech Braille_TTS = new Braille_Text_To_Speech();
+    static public Braille_Speech_To_Text Braille_STT = new Braille_Speech_To_Text();
 
     private TimerTask second; // 버전확인을 위한 타이머
     private final Handler handler = new Handler();
@@ -146,71 +144,6 @@ public class MainActivity extends FragmentActivity {
                 return false;
             }
         });
-
-
-
-/*
-        switch(i){ //Database 에 저장된 값을 읽어들여, 시작지점을 결정함
-            case 0:
-                Intent i0 = new Intent(MainActivity.this, Menu_Tutorial.class);
-                //Intent i0 = new Intent(MainActivity.this, Tutorial.class);
-                startActivityForResult(i0,CODE);
-                startService(new Intent(this, Menu_main_service.class)); //메뉴 음성 출력 서비스
-                //startService(new Intent(this, Tutorial_service.class)); // 사용설명 서비스
-                finish();
-                //WHclass.db=1;
-                break;
-            case 1:
-                Intent i1 = new Intent(MainActivity.this, Tutorial_tutorial.class);
-                startActivityForResult(i1, 0);
-                startService(new Intent(this, Tutorial_service.class));
-                finish();
-                break;
-            case 2:
-                Intent i2 = new Intent(MainActivity.this, Tutorial_basic_practice.class);
-                startActivityForResult(i2, 0);
-                finish();
-                break;
-            case 3:
-                Intent i3 = new Intent(MainActivity.this, Tutorial_master_practice.class);
-                WHclass.basicprogress[0] = 1;
-                startActivityForResult(i3, 0);
-                finish();
-                break;
-            case 4:
-                Intent i4 = new Intent(MainActivity.this, Tutorial_quiz.class);
-                startActivityForResult(i4, 0);
-                WHclass.mainmenuprogress = true;
-                finish();
-                break;
-            case 5:
-                Intent i5 = new Intent(MainActivity.this, Tutorial_dot_lecture.class);
-                startActivityForResult(i5, 0);
-                startService(new Intent(this, Tutorial_service.class));
-                finish();
-                break;
-            case 6:
-                Intent i6 = new Intent(MainActivity.this, Tutorial_dot_practice.class);
-                WHclass.sel = 9;
-                startActivityForResult(i6, 0);
-                startService(new Intent(this, Tutorial_service.class));
-                finish();
-                break;
-            case 7:
-                Intent i7 = new Intent(MainActivity.this, Menu_Tutorial.class);
-                startActivityForResult(i7, 0);
-                startService(new Intent(this, Tutorial_service.class));
-                finish();
-                break;
-        }
-*/
-        //Intent intent = new Intent(MainActivity.this, Menu_Tutorial.class); // 대 메뉴 사용설명서 화면
-        //Intent intent = new Intent(MainActivity.this, Tutorial.class); //여자 스피커 사용설명 화면
-        //startActivityForResult(intent,CODE);
-        //startService(new Intent(this, Tutorial_service.class)); // 사용설명 서비스
-        //startService(new Intent(this, Menu_main_service.class)); //메뉴 음성 출력 서비스
-      //  finish();
-
     }
 
     @Override
