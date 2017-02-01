@@ -7,25 +7,19 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
-import com.example.yeo.practice.Common_sound.Braille_Speech_To_Text;
 import com.example.yeo.practice.Common_sound.Number;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Normal_version_quiz.quiz_score;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.WHclass;
 
-import net.daum.mf.speech.api.SpeechRecognizeListener;
 import net.daum.mf.speech.api.SpeechRecognizerManager;
 
-import static com.example.yeo.practice.Common_sound.Braille_Speech_To_Text.client;
-import static com.example.yeo.practice.MainActivity.Braille_STT;
-
-public class reading_short_practice extends FragmentActivity implements SpeechRecognizeListener {
+public class reading_short_practice extends FragmentActivity {
     private SoundPool sound_pool;
     private int sound_beep;
     boolean next = false; // 다음문제로 이동하기 위한 변수
@@ -701,7 +695,10 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                         if(next==false) {
                             sound_pool.play(sound_beep, 1, 1, 0, 0, 1);
 
-                            Braille_STT.STT_Start();
+                            //Intent i = new Intent(this, Braille_Speech_To_Text.class);
+                            //startActivity(i);
+
+                            MainActivity.Braille_STT.STT_Start();
 
                             /*
                             SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().
@@ -713,6 +710,31 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                             client.setSpeechRecognizeListener(this);
                             client.startRecording(false);
                             */
+
+                            String answer = "";
+
+                            boolean result = false;
+
+                            if (m.dot_count == 1) answer = m.textname_1;
+                            else if (m.dot_count == 2) answer = m.textname_2;
+                            else if (m.dot_count == 3) answer = m.textname_3;
+                            else break;
+
+                            //ArrayList<String> texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
+
+                            for (int a = 0; a < MainActivity.Braille_STT.texts.size(); a++) {
+                                if (answer.equals(MainActivity.Braille_STT.texts.get(a)) == true) {
+                                    result = true;
+                                    break;
+                                } else
+                                    continue;
+                            }
+
+                            if (result == true) {
+                                MainActivity.Braille_TTS.TTS_Play("축하합니다. 정답이에요~");
+                            } else {
+                                MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은"+answer+"입니다.");
+                            }
 
                             next=true;
                             quiz_reading_service.question++;
@@ -798,6 +820,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
 
         }
     }
+    /*
 
     @Override
     public void onReady() {
@@ -830,7 +853,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
     @Override
     public void onResults(Bundle results) {
         Log.i("reading_short_practice", "onResults");
-        /*
+
         String answer = "";
         boolean result = false;
 
@@ -839,24 +862,25 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
         else if (m.dot_count == 3) answer = m.textname_3;
         else return;
 
-        ArrayList<String> texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
 
-        for (int i = 0; i < texts.size(); i++) {
-            if (answer.equals(texts.get(i)) == true) {
+        //ArrayList<String> texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
+
+        for (int i = 0; i < MainActivity.Braille_STT.texts.size(); i++) {
+            if (answer.equals(MainActivity.Braille_STT.texts.get(i)) == true) {
                 result = true;
                 break;
             } else
                 continue;
         }
-        */
 
-        if (MainActivity.Braille_STT.result == true) {
+
+        if (result == true) {
             MainActivity.Braille_TTS.TTS_Play("축하합니다. 정답이에요~");
         } else {
-            MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은"+MainActivity.Braille_STT.answer+"입니다.");
+            MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은"+answer+"입니다.");
         }
 
-        Braille_Speech_To_Text.client = null;
+        //Braille_Speech_To_Text.client = null;
     }
 
     @Override
@@ -868,4 +892,5 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
     public void onFinished() {
         Log.i("reading_short_practice", "onFinished");
     }
+    */
 }
