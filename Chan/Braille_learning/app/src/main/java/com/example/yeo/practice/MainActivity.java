@@ -79,6 +79,8 @@ public class MainActivity extends FragmentActivity {
         Point size = new Point();
         display.getSize(size);
 
+
+
         //뉴톤 라이브러리 초기화
         TextToSpeechManager.getInstance().initializeLibrary(getApplicationContext());
         SpeechRecognizerManager.getInstance().initializeLibrary(this);

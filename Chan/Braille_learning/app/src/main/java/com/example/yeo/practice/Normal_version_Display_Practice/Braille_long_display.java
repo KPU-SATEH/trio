@@ -78,6 +78,9 @@ public class Braille_long_display extends View {
             }
         }
 
+        dot_count=0;
+        textname_7="";
+
         random = new Random();
         switch(WHclass.sel){
             case 8:
@@ -121,6 +124,9 @@ public class Braille_long_display extends View {
                 }
             }
         }
+
+        if(Braille_long_practice.Trans_success==true)
+            Braille_long_practice.Trans_success=false;
     }
 
 

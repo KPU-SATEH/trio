@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.os.Message;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yeo.practice.Common_braille_data.dot_letter;
@@ -16,7 +20,6 @@ import com.example.yeo.practice.Common_braille_translation.Braille_translation;
 import com.example.yeo.practice.Common_mynote_database.Mynote_service;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
-import com.example.yeo.practice.Normal_version_menu.Menu_braille_translation_inside;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_master_practice_sound.Letter_service;
@@ -24,11 +27,17 @@ import com.example.yeo.practice.Common_master_practice_sound.Word_service;
 import com.example.yeo.practice.Common_sound.Number;
 import com.example.yeo.practice.Common_sound.slied;
 
+import net.daum.mf.speech.api.SpeechRecognizeListener;
+import net.daum.mf.speech.api.SpeechRecognizerClient;
+import net.daum.mf.speech.api.SpeechRecognizerManager;
+import net.daum.mf.speech.api.impl.util.PermissionUtils;
+
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class Braille_long_practice extends FragmentActivity {
+public class Braille_long_practice extends FragmentActivity implements SpeechRecognizeListener {
     Braille_long_display m;
     int newdrag, olddrag; //화면전환시 이용될 좌표 2개를 저장할 변수
     int y1drag, y2drag; // 손가락 1개를 터치하였을 때  y좌표와 손가락 2개를 터치하였을 때 y좌표를 저장하는 변수
@@ -61,11 +70,24 @@ public class Braille_long_practice extends FragmentActivity {
     Braille_translation Translation;
     boolean Matrix_check=false;
 
+
+    private SpeechRecognizerClient client;
+    ArrayList<String> texts;
+    boolean check= false;
+
+    private TimerTask second2; // 음성인식을 위한 스레드
+    private final Handler handler2 = new Handler();
+    Timer timer2 =null;
+    String text="";
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
+
+        SpeechRecognizerManager.getInstance().initializeLibrary(this);
+
 
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
             uiOption |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
@@ -108,9 +130,103 @@ public class Braille_long_practice extends FragmentActivity {
                 m.invalidate();
                 break;
         }
+    }
 
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
 
+        // API를 더이상 사용하지 않을 때 finalizeLibrary()를 호출한다.
+        SpeechRecognizerManager.getInstance().finalizeLibrary();
+    }
+
+    public void STT_start(){
+        String serviceType = SpeechRecognizerClient.SERVICE_TYPE_WEB;
+        // 음성인식 버튼 listener
+        if(PermissionUtils.checkAudioRecordPermission(this)) {
+            SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().
+                    setApiKey(WHclass.APIKEY).
+                    setServiceType(serviceType);
+            client = builder.build();
+            client.setSpeechRecognizeListener(this);
+            client.startRecording(true);
+        }
+
+    }
+
+
+    @Override
+    public void onReady() {
+        //TODO implement interface DaumSpeechRecognizeListener method
+    }
+
+    @Override
+    public void onBeginningOfSpeech() {
+        //TODO implement interface DaumSpeechRecognizeListener method
+    }
+
+    @Override
+    public void onEndOfSpeech() {
+        //TODO implement interface DaumSpeechRecognizeListener method
+    }
+
+    @Override
+    public void onError(int errorCode, String errorMsg) {
+        //TODO implement interface DaumSpeechRecognizeListener method
+        Log.e("SpeechSampleActivity", "onError");
+        client = null;
+    }
+
+    @Override
+    public void onPartialResult(String text) {
+        //TODO implement interface DaumSpeechRecognizeListener method
+    }
+
+    @Override
+    public void onResults(Bundle results) {
+//        final StringBuilder builder = new StringBuilder();
+        Log.i("SpeechSampleActivity", "onResults");
+        texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
+        if(texts.size()!=0) {
+            client.stopRecording();
+            getText();
+        }
+
+
+/*
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(check==true) {
+                    getText();
+                    check=false;
+                }
+
+            }
+        });
+*/
+        client = null;
+    }
+
+    public void getText(){
+        text = texts.get(0);
+        check=true;
+/*        for(int i=0; i<texts.size() ; i++) {
+            text=text+texts.get(i)+" ";
+        }
+        */
+        texts.clear();
+    }
+
+    @Override
+    public void onAudioLevel(float v) {
+        //TODO implement interface DaumSpeechRecognizeListener method
+    }
+
+    @Override
+    public void onFinished() {
+        Log.i("SpeechSampleActivity", "onFinished");
     }
 
     public void update(){ //1초동안 화면에 연속으로 2번의 터치가 발생됬을 경우 데이터베이스로 현재 단어정보를 전송함
@@ -164,6 +280,7 @@ public class Braille_long_practice extends FragmentActivity {
                 lock=false;
                 break;
             case MotionEvent.ACTION_DOWN: // 손가락 1개를 이용하여 터치가 발생하였을 때
+                MainActivity.Braille_TTS.TTS_stop();
                 startService(new Intent(this, Sound_Manager.class));
                 m.x = (int) event.getX(); //x좌표를 저장
                 m.y = (int) event.getY(); //y좌표를 저장
@@ -2053,29 +2170,9 @@ public class Braille_long_practice extends FragmentActivity {
                                 MyNote_Start_service();
                                 break;
                             case 11:
-                                matrix_init();
-                                hangel ="교육";
-                                Translation.Translation(hangel);
-                                Matrix_check=Matrix_copy();
-                                Translation_text = "삐이, ";
-                                if(Matrix_check==false) {
-                                    Trans_success=false;
-                                    Translation_text +="해당 단어는 7칸이 넘어서, 번역이 불가능합니다.";
-                                    Toast.makeText(Braille_long_practice.this, Translation_text, Toast.LENGTH_SHORT).show();
-                                    matrix_init();
-                                }
-                                else {
-                                    Trans_success=true;
-                                    Translation_text += Translation.get_TTs_text();
-                                    matrix_print();
-                                    Trans_dot_count=Translation.get_dotcount();
-                                    Trans_dot_name=Translation.get_dotname();
-                                    if(MainActivity.Braille_TTS.TTS_Play(Translation_text)==false){
-                                        Timer_Reset();
-                                    }
-                                }
-                                m.MyView3_init();
-                                m.invalidate();
+                                MainActivity.Braille_TTS.TTS_Play("삐이 ");
+                                STT_start();
+                                Timer_Reset2();
                                 break;
                         }
                     } else if (y1drag - y2drag > WHclass.Drag_space) { // 현재 점자 학습 종료
@@ -2195,6 +2292,76 @@ public class Braille_long_practice extends FragmentActivity {
 
 
 
+
+    public void Timer_Start2(){ //1초의 딜레이 시간을 갖는 함수
+        second2 = new TimerTask() {
+            @Override
+            public void run() {
+                if(check==true)
+                    STT_check();
+            }
+        };
+        timer2.schedule(second2,0,100); //0.3초의 딜레이시간
+
+    }
+
+    public void Timer_Reset2(){
+        if(timer2 != null){
+            timer2.cancel();
+            timer2= null;
+            timer2 = new Timer();
+            Timer_Start2();
+        }
+        else if(timer2==null){
+            timer2 = new Timer();
+            Timer_Start2();
+        }
+    }
+
+    public void Timer_Stop2(){
+        if(timer2 != null){
+            timer2.cancel();
+            timer2= null;
+        }
+    }
+
+    public void STT_check(){
+        check=false;
+        Timer_Stop2();
+        matrix_init();
+        hangel =text;
+        Translation.Translation(hangel);
+        Matrix_check=Matrix_copy();
+
+        if(Matrix_check==false) {
+            Trans_success=false;
+            Translation_text ="해당 단어는 7칸이 넘어서, 번역이 불가능합니다.";
+            if(MainActivity.Braille_TTS.TTS_Play(Translation_text)==false){
+                Timer_Reset();
+            }
+            matrix_init();
+        }
+        else {
+            Trans_success=true;
+            Translation_text = Translation.get_TTs_text();
+            matrix_print();
+            Trans_dot_count=Translation.get_dotcount();
+            Trans_dot_name=Translation.get_dotname();
+            if(MainActivity.Braille_TTS.TTS_Play(Translation_text)==false){
+                Timer_Reset();
+            }
+        }
+
+        runOnUiThread(new Runnable(){
+            @Override
+            public void run() {
+                m.MyView3_init();
+                m.invalidate();
+            }
+        });
+
+    }
+
     public void Timer_Start(){ //1초의 딜레이 시간을 갖는 함수
         second = new TimerTask() {
             @Override
@@ -2240,6 +2407,8 @@ public class Braille_long_practice extends FragmentActivity {
         };
         handler.post(updater);
     }
+
+
 
     @Override
     public void onBackPressed() { // 뒤로가기 키를 눌렀을때 점자 학습을 위한 변수 초기화 및 종료

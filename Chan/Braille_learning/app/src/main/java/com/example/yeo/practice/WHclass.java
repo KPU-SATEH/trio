@@ -33,5 +33,6 @@ public class WHclass extends ActionBarActivity {
     static public int Strong_vibe = 250; //강한 진동의 세기를 저장하는 메크로
     static public int Weak_vibe = 50; //약한 진동의 세기를 저장하는 메크로
 
+    static public boolean TTs_Stop_check=false;
     static public int Braiile_type = 0; //Braille_type이 2이면 일반사용자 버전, 1이면 시각장애인버전
 }

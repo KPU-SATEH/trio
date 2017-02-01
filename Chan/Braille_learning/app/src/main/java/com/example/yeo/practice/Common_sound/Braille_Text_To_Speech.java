@@ -38,7 +38,10 @@ public class Braille_Text_To_Speech implements TextToSpeechListener {
 
     public boolean TTS_Play(String text){
         if(TTS.isPlaying()) {
-            TTS.stop();
+            if(WHclass.TTs_Stop_check==false) {
+                TTS.stop();
+                WHclass.TTs_Stop_check = true;
+            }
             return false;
         }
         else {
