@@ -99,13 +99,26 @@ public class Braille_long_display extends View {
                 dot_temp[1]=MainActivity.master_braille_db.master_db_manager.getMatrix_2(MainActivity.master_braille_db.master_db_manager.My_Note_page); //두번째 행
                 dot_temp[2]=MainActivity.master_braille_db.master_db_manager.getMatrix_3(MainActivity.master_braille_db.master_db_manager.My_Note_page); //세번째 행
                 break;
+            case 11:
+                if(Braille_long_practice.Trans_success==true) {
+                    dot_count = Braille_long_practice.Trans_dot_count;
+                    textname_7 = Braille_long_practice.Trans_dot_name;
+                }
+                break;
         }
 
         for(int i=0 ; i<3 ; i++){
             for(int j=0; j<dot_count*2 ; j++){
-                if(WHclass.sel==8) text_7[i][j]=Braille_long_practice.Dot_letter.letter_Array.get(page)[i][j];
-                else if(WHclass.sel==9) text_7[i][j]=Braille_long_practice.Dot_word.word_Array.get(page)[i][j];
-                else if(WHclass.sel==10) text_7[i][j] = dot_temp[i].charAt(j)-'0';
+                if(WHclass.sel==8)
+                    text_7[i][j]=Braille_long_practice.Dot_letter.letter_Array.get(page)[i][j];
+                else if(WHclass.sel==9)
+                    text_7[i][j]=Braille_long_practice.Dot_word.word_Array.get(page)[i][j];
+                else if(WHclass.sel==10)
+                    text_7[i][j] = dot_temp[i].charAt(j)-'0';
+                else if(WHclass.sel==11) {
+                    if(Braille_long_practice.Trans_success==true)
+                        text_7[i][j] = Braille_long_practice.matrix[i][j];
+                }
             }
         }
     }

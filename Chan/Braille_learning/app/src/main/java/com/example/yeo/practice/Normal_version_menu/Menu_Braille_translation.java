@@ -10,6 +10,7 @@ import android.view.View;
 import com.example.yeo.practice.Common_menu_sound.Menu_basic_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
+import com.example.yeo.practice.Normal_version_Display_Practice.Braille_long_practice;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Common_sound.slied;
 import com.example.yeo.practice.*;
@@ -54,7 +55,10 @@ public class Menu_Braille_translation extends FragmentActivity {
                 if(enter == true) {
                     //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 기초과정으로 접속
                     if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
-                   /*     Intent intent = new Intent(Menu_basic_practice.this, Menu_Initial_Consonant.class);
+                        WHclass.sel = Menu_info.MENU_TRANSLATION;
+                        Intent intent = new Intent(Menu_Braille_translation.this, Braille_long_practice.class);
+                        startActivityForResult(intent, Menu_info.MENU_BRAILLE_TRANSLATION);
+                        /*Intent intent = new Intent(Menu_basic_practice.this, Menu_Initial_Consonant.class);
                         startActivityForResult(intent, Menu_info.MENU_BASIC_PRACTICE);
                         Menu_basic_service.menu_page=Menu_info.MENU_INITIAL;
                         startService(new Intent(this, Menu_basic_service.class));

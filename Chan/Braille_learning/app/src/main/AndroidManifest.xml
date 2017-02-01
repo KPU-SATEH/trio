@@ -560,7 +560,11 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".Normal_version_menu.Menu_Braille_translation"
+        <activity
+            android:name=".Normal_version_menu.Menu_Braille_translation"
+            android:label=""
+            android:screenOrientation="landscape" />
+        <activity android:name=".Normal_version_menu.Menu_braille_translation_inside"
             android:label=""
             android:screenOrientation="landscape"/>
     </application>

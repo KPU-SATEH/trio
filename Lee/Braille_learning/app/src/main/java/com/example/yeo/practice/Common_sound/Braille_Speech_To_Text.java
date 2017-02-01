@@ -20,6 +20,9 @@ public class Braille_Speech_To_Text implements SpeechRecognizeListener {
     public static boolean result = false;
     //public static String answer = "";
 
+    public Braille_Speech_To_Text(){
+
+    }
     public void STT_Start(){
         SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().
                 setApiKey(WHclass.APIKEY).

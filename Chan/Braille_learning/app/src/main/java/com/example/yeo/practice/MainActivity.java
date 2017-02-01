@@ -5,7 +5,6 @@ import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.speech.tts.TextToSpeech;
 import android.support.v4.app.FragmentActivity;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -21,12 +20,9 @@ import com.example.yeo.practice.Common_sound.Braille_Text_To_Speech;
 import com.example.yeo.practice.Normal_version_menu.Menu_Tutorial;
 import com.example.yeo.practice.Talkback_version_menu.Talk_Menu_tutorial;
 
-import junit.runner.Version;
-
 import net.daum.mf.speech.api.SpeechRecognizerManager;
 import net.daum.mf.speech.api.TextToSpeechManager;
 
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,7 +37,6 @@ public class MainActivity extends FragmentActivity {
     static public Master_Braille_DB master_braille_db; // 나만의 숙련 단어장을 위한 데이터베이스
 
     static public Braille_Text_To_Speech Braille_TTS = new Braille_Text_To_Speech();
-
     private TimerTask second; // 버전확인을 위한 타이머
     private final Handler handler = new Handler();
 
@@ -80,7 +75,6 @@ public class MainActivity extends FragmentActivity {
 
         decorView.setSystemUiVisibility( uiOption );
         setContentView(R.layout.activity_common_main);
-
         Display display = getWindowManager().getDefaultDisplay(); //해상도 불러오는 함수
         Point size = new Point();
         display.getSize(size);
@@ -213,6 +207,10 @@ public class MainActivity extends FragmentActivity {
 
     }
 
+    public void init(){
+        TextToSpeechManager.getInstance().initializeLibrary(getApplicationContext());
+        SpeechRecognizerManager.getInstance().initializeLibrary(this);
+    }
     @Override
     public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event){ //토크백 활성화 되었을 시 호출되는 함수
         Blind_person = super.dispatchPopulateAccessibilityEvent(event);
@@ -409,6 +407,8 @@ public class MainActivity extends FragmentActivity {
         TextToSpeechManager.getInstance().finalizeLibrary();
         SpeechRecognizerManager.getInstance().finalizeLibrary();
     }
+
+
     @Override
     public void onBackPressed() { //종료키를 눌렀을 경우
         Version_check_service.finish=true;

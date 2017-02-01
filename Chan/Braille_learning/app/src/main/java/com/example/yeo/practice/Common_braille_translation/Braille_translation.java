@@ -19,6 +19,7 @@ public class Braille_translation {
 
     String TTs_text="";
 
+
     // ㄲ, ㄳ, ㄵ, ㄶ, ㄺ, ㄻ, ㄼ, ㄽ, ㄾ, ㄿ, ㅀ, ㅄ, ㅆ
     Trans_dot_initial Trans_dot_initial; //초성 점자 저장 클래스
     Trans_dot_vowel Trans_dot_vowel; //모음 점자 저장 클래스
@@ -45,7 +46,9 @@ public class Braille_translation {
     boolean alphabet_check = false; //알파벳이 나온적이 있는지 체크하는 변수
     int i=0;
 
-    Braille_translation(){
+    int Trans_dotcount=0;
+
+    public Braille_translation(){
         Trans_dot_initial = new Trans_dot_initial();
         Trans_dot_vowel = new Trans_dot_vowel();
         Trans_dot_final = new Trans_dot_final();
@@ -60,7 +63,7 @@ public class Braille_translation {
 
     public void Translation(String text){
         Input_Text = text;
-        TTs_text = Input_Text;
+        TTs_text = "번역된 단어 , "+Input_Text+",";
         unicode = getUnicode(Input_Text);      //글자의 유니코드를 산출
         Kor_text = UNI_change_KOR(unicode);      // 유니코드를 글로 변환
 
@@ -493,27 +496,28 @@ public class Braille_translation {
         int a=0;
         int b=0;
         int braille_count = matrix_count/2;
+        Trans_dotcount=braille_count;
         switch(braille_count){
             case 1:
-                TTs_text += ", 한칸";
+                TTs_text += " 한칸,";
                 break;
             case 2:
-                TTs_text += ", 두칸";
+                TTs_text += " 두칸,";
                 break;
             case 3:
-                TTs_text += ", 세칸";
+                TTs_text += " 세칸,";
                 break;
             case 4:
-                TTs_text += ", 네칸";
+                TTs_text += " 네칸,";
                 break;
             case 5:
-                TTs_text += ", 다섯칸";
+                TTs_text += " 다섯칸,";
                 break;
             case 6:
-                TTs_text += ", 여섯칸";
+                TTs_text += " 여섯칸,";
                 break;
             case 7:
-                TTs_text += ", 일곱칸";
+                TTs_text += " 일곱칸,";
                 break;
         }
         for (int i=0; i<matrix_count; i++) {
@@ -522,32 +526,40 @@ public class Braille_translation {
                     switch (j) {
                         case 0:
                             if (i % 2 == 0)
-                                TTs_text += ", 1";
+                                TTs_text += "1 ";
                             else
-                                TTs_text += ", 4";
+                                TTs_text += "4 ";
                             break;
                         case 1:
                             if (i % 2 == 0)
-                                TTs_text += ", 2";
+                                TTs_text += "2 ";
                             else
-                                TTs_text += ", 5";
+                                TTs_text += "5 ";
                             break;
                         case 2:
                             if (i % 2 == 0)
-                                TTs_text += ", 3";
+                                TTs_text += "3 ";
                             else
-                                TTs_text += ", 6";
+                                TTs_text += "6 ";
                             break;
                     }
                 }
 
                 if(j==2 && i%2!=0){
-                    TTs_text += "점";
+                    TTs_text += "점, ";
                 }
             }
             a = 0;
             b++;
         }
         return TTs_text;
+    }
+
+    public int get_dotcount(){
+        return Trans_dotcount;
+    }
+
+    public String get_dotname(){
+        return Input_Text;
     }
 }

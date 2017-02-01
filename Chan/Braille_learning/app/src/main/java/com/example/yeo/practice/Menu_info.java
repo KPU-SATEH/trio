@@ -22,6 +22,7 @@ public class Menu_info {
     public static int MENU_LETTER = 8; //글자 연습
     public static int MENU_WORD = 9; // 단어연습
     public static int MENU_NOTE = 10; //나만의단어장
+    public static int MENU_TRANSLATION = 11; //점자 번역 메뉴
 
 
     public static int MENU_INFO = 0;

@@ -12,15 +12,20 @@ import android.widget.Toast;
 
 import com.example.yeo.practice.Common_braille_data.dot_letter;
 import com.example.yeo.practice.Common_braille_data.dot_word;
+import com.example.yeo.practice.Common_braille_translation.Braille_translation;
 import com.example.yeo.practice.Common_mynote_database.Mynote_service;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
+import com.example.yeo.practice.Normal_version_menu.Menu_braille_translation_inside;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_master_practice_sound.Letter_service;
 import com.example.yeo.practice.Common_master_practice_sound.Word_service;
 import com.example.yeo.practice.Common_sound.Number;
 import com.example.yeo.practice.Common_sound.slied;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class Braille_long_practice extends FragmentActivity {
@@ -41,6 +46,21 @@ public class Braille_long_practice extends FragmentActivity {
     int previous_reference=0; //나만의 단어장에서 이전에 출력됬던 음성을 초기화 시키기 위한 변수
     static public boolean pre_reference2 = false; //이전에 음성이 출력되었는지를 체크하는 변수
 
+
+
+    String hangel=""; //점자 번역을 위한 글자를 저장하는 변수
+    private TimerTask second; // 버전확인을 위한 타이머
+    private final Handler handler = new Handler();
+    Timer timer =null;
+    int timer_check=0;
+    String Translation_text="";
+    public static boolean Trans_success=false;
+    public static int Trans_dot_count=0;
+    public static String Trans_dot_name="";
+    public static int matrix[][];
+    Braille_translation Translation;
+    boolean Matrix_check=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +76,8 @@ public class Braille_long_practice extends FragmentActivity {
 
         decorView.setSystemUiVisibility( uiOption );
 
+        matrix = new int[3][14];
+        Translation = new Braille_translation();
 
 
         switch(WHclass.sel){
@@ -64,6 +86,10 @@ public class Braille_long_practice extends FragmentActivity {
                 break;
             case 9: //단어연습
                 Dot_word = new dot_word(); // 단어 단위의 점자 클래스 선언
+                break;
+            case 11:
+                MainActivity.Braille_TTS.TTS_Play("점자 번역을 시작하겠습니다. 손가락 2개를 화면에 얹고, 상단에서 하단으로 쓸어내리게 되면, 삐 소리가 발생됩니다." +
+                        "삐 소리가 난 뒤, 점자로 번역하기를 원하는 단어를 이야기 하시기 바랍니다.");
                 break;
         }
 
@@ -78,11 +104,15 @@ public class Braille_long_practice extends FragmentActivity {
             case 9: //단어연습
                 startService(new Intent(this, Word_service.class));
                 break;
+            case 11:
+                m.invalidate();
+                break;
         }
 
 
 
     }
+
     public void update(){ //1초동안 화면에 연속으로 2번의 터치가 발생됬을 경우 데이터베이스로 현재 단어정보를 전송함
                 String result ="";
                 array[0]="";
@@ -2022,6 +2052,31 @@ public class Braille_long_practice extends FragmentActivity {
                             case 10:
                                 MyNote_Start_service();
                                 break;
+                            case 11:
+                                matrix_init();
+                                hangel ="교육";
+                                Translation.Translation(hangel);
+                                Matrix_check=Matrix_copy();
+                                Translation_text = "삐이, ";
+                                if(Matrix_check==false) {
+                                    Trans_success=false;
+                                    Translation_text +="해당 단어는 7칸이 넘어서, 번역이 불가능합니다.";
+                                    Toast.makeText(Braille_long_practice.this, Translation_text, Toast.LENGTH_SHORT).show();
+                                    matrix_init();
+                                }
+                                else {
+                                    Trans_success=true;
+                                    Translation_text += Translation.get_TTs_text();
+                                    matrix_print();
+                                    Trans_dot_count=Translation.get_dotcount();
+                                    Trans_dot_name=Translation.get_dotname();
+                                    if(MainActivity.Braille_TTS.TTS_Play(Translation_text)==false){
+                                        Timer_Reset();
+                                    }
+                                }
+                                m.MyView3_init();
+                                m.invalidate();
+                                break;
                         }
                     } else if (y1drag - y2drag > WHclass.Drag_space) { // 현재 점자 학습 종료
                         m.page = 0;
@@ -2097,6 +2152,95 @@ public class Braille_long_practice extends FragmentActivity {
         }
     }
 
+
+    public boolean Matrix_copy(){
+        int Matrix_sum=42;
+        int sum=0;
+        for(int i=0 ; i<3 ; i++){
+            for(int j=0 ; j<14 ; j++){
+                matrix[i][j]= Translation.getMatrix()[i][j];
+                if(matrix[i][j]==1)
+                    sum+=1;
+            }
+        }
+        if(sum==Matrix_sum)
+            return false;
+        else
+            return true;
+    }
+    public void matrix_print(){                 //점자를 출력하는 함수
+        int a=0;
+        int b=0;
+        /*
+        braille.setText(matrix[0][0] + " " + matrix[0][1] + "   " + matrix[0][2] + " " + matrix[0][3] + "   " + matrix[0][4] + " " + matrix[0][5] + "   " + matrix[0][6] + " " + matrix[0][7] + "   " + matrix[0][8] + " " + matrix[0][9] + "   " + matrix[0][10] + " " + matrix[0][11] + "   " + matrix[0][12] + " " + matrix[0][13] + "\n"
+                + matrix[1][0] + " " + matrix[1][1] + "   " + matrix[1][2] + " " + matrix[1][3] + "   " + matrix[1][4] + " " + matrix[1][5] + "   " + matrix[1][6] + " " + matrix[1][7] + "   " + matrix[1][8] + " " + matrix[1][9] + "   " + matrix[1][10] + " " + matrix[1][11] + "   " + matrix[1][12] + " " + matrix[1][13] + "\n"
+                + matrix[2][0] + " " + matrix[2][1] + "   " + matrix[2][2] + " " + matrix[2][3] + "   " + matrix[2][4] + " " + matrix[2][5] + "   " + matrix[2][6] + " " + matrix[2][7] + "   " + matrix[2][8] + " " + matrix[2][9] + "   " + matrix[2][10] + " " + matrix[2][11] + "   " + matrix[2][12] + " " + matrix[2][13]);
+                */
+    }
+
+    public void matrix_init(){                      //점자를 초기화 하는 함수
+        Translation.matrix_init();
+        for(int i=0 ; i<3 ; i++){
+            for(int j=0 ; j<14 ; j++){
+                matrix[i][j]=0;
+            }
+        }
+        /*
+        braille.setText(matrix[0][0]+" "+matrix[0][1]+"   "+matrix[0][2]+" "+matrix[0][3]+"   "+matrix[0][4]+" "+matrix[0][5]+"   "+matrix[0][6]+" "+matrix[0][7]+"   "+matrix[0][8]+" "+matrix[0][9]+"   "+matrix[0][10]+" "+matrix[0][11]+"   "+matrix[0][12]+" "+matrix[0][13]+"\n"
+                +matrix[1][0]+" "+matrix[1][1]+"   "+matrix[1][2]+" "+matrix[1][3]+"   "+matrix[1][4]+" "+matrix[1][5]+"   "+matrix[1][6]+" "+matrix[1][7]+"   "+matrix[1][8]+" "+matrix[1][9]+"   "+matrix[1][10]+" "+matrix[1][11]+"   "+matrix[1][12]+" "+matrix[1][13]+"\n"
+                +matrix[2][0]+" "+matrix[2][1]+"   "+matrix[2][2]+" "+matrix[2][3]+"   "+matrix[2][4]+" "+matrix[2][5]+"   "+matrix[2][6]+" "+matrix[2][7]+"   "+matrix[2][8]+" "+matrix[2][9]+"   "+matrix[2][10]+" "+matrix[2][11]+"   "+matrix[2][12]+" "+matrix[2][13]);
+                */
+
+    }
+
+
+
+    public void Timer_Start(){ //1초의 딜레이 시간을 갖는 함수
+        second = new TimerTask() {
+            @Override
+            public void run() {
+                update2();
+            }
+        };
+        timer.schedule(second,0,1500); //0.3초의 딜레이시간
+
+    }
+
+    public void Timer_Reset(){
+        if(timer != null){
+            timer.cancel();
+            timer= null;
+            timer = new Timer();
+            Timer_Start();
+        }
+        else if(timer==null){
+            timer = new Timer();
+            Timer_Start();
+        }
+    }
+
+    public void Timer_Stop(){
+        if(timer != null){
+            timer.cancel();
+            timer= null;
+        }
+    }
+
+    public void update2(){ //일정시간마다 타이머 함수에 의해 불려짐
+        Runnable updater = new Runnable() {
+            @Override
+            public void run() {
+                timer_check++;
+                if(timer_check==2) {
+                    MainActivity.Braille_TTS.TTS_Play(Translation_text);
+                    Timer_Stop();
+                    timer_check=0;
+                }
+            }
+        };
+        handler.post(updater);
+    }
+
     @Override
     public void onBackPressed() { // 뒤로가기 키를 눌렀을때 점자 학습을 위한 변수 초기화 및 종료
         m.page = 0;
@@ -2118,4 +2262,6 @@ public class Braille_long_practice extends FragmentActivity {
         }
         finish();
     }
+
+
 }

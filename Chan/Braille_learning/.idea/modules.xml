@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Braille_learning.iml" filepath="$PROJECT_DIR$/Braille_learning.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/daum-speech-openapi-4.0/daum-speech-openapi-4.0.iml" filepath="$PROJECT_DIR$/daum-speech-openapi-4.0/daum-speech-openapi-4.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/daum-speech-openapi-5.0/daum-speech-openapi-5.0.iml" filepath="$PROJECT_DIR$/daum-speech-openapi-5.0/daum-speech-openapi-5.0.iml" />
     </modules>
   </component>
 </project>

@@ -4,11 +4,22 @@ package com.example.yeo.practice.Common_sound;
  * Created by chanh on 2017-01-05.
  */
 
+import android.os.Handler;
 import android.util.Log;
 
+import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.WHclass;
+
+import net.daum.mf.speech.api.SpeechRecognizerManager;
 import net.daum.mf.speech.api.TextToSpeechClient;
 import net.daum.mf.speech.api.TextToSpeechListener;
+import net.daum.mf.speech.api.TextToSpeechManager;
+
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Delayed;
+
+import static android.R.attr.delay;
 
 public class Braille_Text_To_Speech implements TextToSpeechListener {
     String TAG = "Braille_Text_To_Speech";
@@ -24,14 +35,19 @@ public class Braille_Text_To_Speech implements TextToSpeechListener {
                 .build();
     }
 
-    public void TTS_Play(String text){
-        if(TTS.isPlaying())
-            TTS.stop();
 
-        TTS.play(text);
+    public boolean TTS_Play(String text){
+        if(TTS.isPlaying()) {
+            TTS.stop();
+            return false;
+        }
+        else {
+            TTS.play(text);
+            return true;
+        }
     }
 
-    public void TTS_Stop(){
+    public void TTS_stop(){
         if(TTS.isPlaying())
             TTS.stop();
     }

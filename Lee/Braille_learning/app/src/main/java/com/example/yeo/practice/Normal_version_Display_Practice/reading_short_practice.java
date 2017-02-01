@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -16,10 +18,17 @@ import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Normal_version_quiz.quiz_score;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.WHclass;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.Thing;
 
+import net.daum.mf.speech.api.SpeechRecognizeListener;
+import net.daum.mf.speech.api.SpeechRecognizerClient;
 import net.daum.mf.speech.api.SpeechRecognizerManager;
 
-public class reading_short_practice extends FragmentActivity {
+import java.util.ArrayList;
+
+public class reading_short_practice extends FragmentActivity implements SpeechRecognizeListener {
+    private SpeechRecognizerClient client;
     private SoundPool sound_pool;
     private int sound_beep;
     boolean next = false; // 다음문제로 이동하기 위한 변수
@@ -115,17 +124,17 @@ public class reading_short_practice extends FragmentActivity {
                 break;
         }
 
-            if (m.question == 4) {
-                quiz_reading_service.finish = true;
-                quiz_reading_service.progress = true;
-                startService(new Intent(this, quiz_reading_service.class));
-            }
-            else {
-                quiz_reading_service.finish = true;
-                startService(new Intent(this, quiz_reading_service.class));
-            }
+        if (m.question == 4) {
+            quiz_reading_service.finish = true;
+            quiz_reading_service.progress = true;
+            startService(new Intent(this, quiz_reading_service.class));
+        }
+        else {
+            quiz_reading_service.finish = true;
+            startService(new Intent(this, quiz_reading_service.class));
+        }
 
-            finish();
+        finish();
         /*
         m.quiz_view_init();
         m.page = 0;
@@ -133,7 +142,7 @@ public class reading_short_practice extends FragmentActivity {
         result = 0;
         finish();
         */
-        }
+    }
 
 
     @Override
@@ -695,12 +704,6 @@ public class reading_short_practice extends FragmentActivity {
                         if(next==false) {
                             sound_pool.play(sound_beep, 1, 1, 0, 0, 1);
 
-                            //Intent i = new Intent(this, Braille_Speech_To_Text.class);
-                            //startActivity(i);
-
-                            MainActivity.Braille_STT.STT_Start();
-
-                            /*
                             SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().
                                     setApiKey(WHclass.APIKEY).
                                     setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB);
@@ -709,32 +712,6 @@ public class reading_short_practice extends FragmentActivity {
 
                             client.setSpeechRecognizeListener(this);
                             client.startRecording(false);
-                            */
-
-                            String answer = "";
-
-                            boolean result = false;
-
-                            if (m.dot_count == 1) answer = m.textname_1;
-                            else if (m.dot_count == 2) answer = m.textname_2;
-                            else if (m.dot_count == 3) answer = m.textname_3;
-                            else break;
-
-                            //ArrayList<String> texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
-
-                            for (int a = 0; a < MainActivity.Braille_STT.texts.size(); a++) {
-                                if (answer.equals(MainActivity.Braille_STT.texts.get(a)) == true) {
-                                    result = true;
-                                    break;
-                                } else
-                                    continue;
-                            }
-
-                            if (result == true) {
-                                MainActivity.Braille_TTS.TTS_Play("축하합니다. 정답이에요~");
-                            } else {
-                                MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은"+answer+"입니다.");
-                            }
 
                             next=true;
                             quiz_reading_service.question++;
@@ -820,7 +797,6 @@ public class reading_short_practice extends FragmentActivity {
 
         }
     }
-    /*
 
     @Override
     public void onReady() {
@@ -852,6 +828,7 @@ public class reading_short_practice extends FragmentActivity {
 
     @Override
     public void onResults(Bundle results) {
+        final StringBuilder builder = new StringBuilder();
         Log.i("reading_short_practice", "onResults");
 
         String answer = "";
@@ -862,25 +839,44 @@ public class reading_short_practice extends FragmentActivity {
         else if (m.dot_count == 3) answer = m.textname_3;
         else return;
 
+        ArrayList<String> texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
 
-        //ArrayList<String> texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
-
-        for (int i = 0; i < MainActivity.Braille_STT.texts.size(); i++) {
-            if (answer.equals(MainActivity.Braille_STT.texts.get(i)) == true) {
+        for (int i = 0; i < texts.size(); i++) {
+            if (answer.equals(texts.get(i)) == true) {
                 result = true;
                 break;
             } else
                 continue;
         }
 
-
         if (result == true) {
             MainActivity.Braille_TTS.TTS_Play("축하합니다. 정답이에요~");
         } else {
-            MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은"+answer+"입니다.");
+            MainActivity.Braille_TTS.TTS_Play("오답입니다. 당신이 말한 단어는" + texts.get(0) + "입니다. 정답은"+answer+"입니다.");
         }
 
-        //Braille_Speech_To_Text.client = null;
+        /*
+        final Activity activity = this;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // finishing일때는 처리하지 않는다.
+                if (activity.isFinishing()) return;
+                AlertDialog.Builder dialog = new AlertDialog.Builder(activity).
+                        setMessage(builder.toString()).
+                        setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                dialog.show();
+            }
+        });
+        */
+
+
+        client = null;
     }
 
     @Override
@@ -892,5 +888,20 @@ public class reading_short_practice extends FragmentActivity {
     public void onFinished() {
         Log.i("reading_short_practice", "onFinished");
     }
-    */
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("reading_short_practice Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
 }
