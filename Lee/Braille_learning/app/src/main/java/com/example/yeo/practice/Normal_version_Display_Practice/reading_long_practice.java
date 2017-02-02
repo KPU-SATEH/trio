@@ -1,5 +1,6 @@
 package com.example.yeo.practice.Normal_version_Display_Practice;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
@@ -23,6 +24,8 @@ import net.daum.mf.speech.api.SpeechRecognizerClient;
 import net.daum.mf.speech.api.SpeechRecognizerManager;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class reading_long_practice extends FragmentActivity implements SpeechRecognizeListener {
     private SpeechRecognizerClient client;
@@ -30,6 +33,7 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
     private SoundPool sound_pool;
     private int sound_beep;
     boolean next = false; // 다음문제로 이동하기 위한 변수
+    ArrayList<String> texts;
     int newdrag, olddrag; //화면전환시 이용될 좌표 2개를 저장할 변수
     int y1drag, y2drag;
     int result1 = 0, result2 = 0, result3 = 0, result4 = 0, result5 = 0, result6 = 0;
@@ -44,7 +48,7 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
         SpeechRecognizerManager.getInstance().initializeLibrary(this);
 
         sound_pool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
-        sound_beep = sound_pool.load(this, R.raw.alarm2, 1);
+        sound_beep = sound_pool.load(this, R.raw.reading_quiz_stt_start, 1);
 
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
@@ -1874,10 +1878,13 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
                             client = builder.build();
 
                             client.setSpeechRecognizeListener(this);
-                            client.startRecording(false);
+                            new Timer().schedule(new TimerTask() { public void run() {
+                                client.startRecording(false);
 
-                            next = true;
-                            quiz_reading_service.question++;
+                                next=true;
+                                quiz_reading_service.question++;
+                            }
+                            }, 2000);
                         }
                     } else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 상단으로 드래그 하는 경우 퀴즈 화면 종료
                         onBackPressed();
@@ -1965,59 +1972,43 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
 
     @Override
     public void onResults(Bundle results) {
-        final StringBuilder builder = new StringBuilder();
         Log.i("reading_short_practice", "onResults");
+        texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
+        m.print=true;
 
-        String answer = "";
-        boolean result = false;
-        /*
-        if (m.dot_count == 1) answer = m.textname_1;
-        else if (m.dot_count == 2) answer = m.textname_2;
-        else if (m.dot_count == 3) answer = m.textname_3;
-        else return;
-        */
-        answer=m.textname_7;
-
-        ArrayList<String> texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
-
-        for (int i = 0; i < texts.size(); i++) {
-            if (answer.equals(texts.get(i)) == true) {
-                result = true;
-                break;
-            } else
-                continue;
-        }
-
-        if (result == true) {
-            MainActivity.Braille_TTS.TTS_Play("축하합니다. 정답이에요~");
-        } else {
-            MainActivity.Braille_TTS.TTS_Play("오답입니다. 당신이 말한 단어는" + texts.get(0) + "입니다. 정답은"+answer+"입니다.");
-        }
-
-        /*
         final Activity activity = this;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                boolean result = false;
+                String answer = m.textname_7;
+
+                for (int i = 0; i < texts.size(); i++) {
+                    if (answer.equals(texts.get(i)) == true) {
+                        result = true;
+                        break;
+                    } else
+                        continue;
+                }
+
                 // finishing일때는 처리하지 않는다.
                 if (activity.isFinishing()) return;
-
-                AlertDialog.Builder dialog = new AlertDialog.Builder(activity).
-                        setMessage(builder.toString()).
-                        setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-
-                dialog.show();
-
+                if (result == true||quiz_reading_service.question!=4) {
+                    MainActivity.Braille_TTS.TTS_Play("정답입니다. 다음 화면으로 이동하세요.");
+                }
+                else if(result == true||quiz_reading_service.question==4){
+                    MainActivity.Braille_TTS.TTS_Play("정답입니다. 모든 문제가 끝났습니다.");
+                }
+                else if(result == false||quiz_reading_service.question!=4) {
+                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은"+answer+"입니다. 점자를 다시 읽어본 후에 다음 화면으로 이동하세요.");
+                }
+                else{
+                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은"+answer+"입니다. 모든 문제가 끝났습니다.");
+                }
             }
         });
-        */
 
-
+        client.cancelRecording();
         client = null;
     }
 

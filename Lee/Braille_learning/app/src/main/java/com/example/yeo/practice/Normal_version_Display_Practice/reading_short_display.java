@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Vibrator;
-import android.speech.tts.TextToSpeech;
 import android.view.View;
 
 import com.example.yeo.practice.Common_braille_data.dot_quiz_abbreviation;
@@ -18,7 +17,6 @@ import com.example.yeo.practice.Common_braille_data.dot_quiz_number;
 import com.example.yeo.practice.Common_braille_data.dot_quiz_sentence;
 import com.example.yeo.practice.Common_braille_data.dot_quiz_vowel;
 import com.example.yeo.practice.WHclass;
-import com.example.yeo.practice.Normal_version_quiz.quiz_score;
 
 import java.util.Random;
 
@@ -27,11 +25,7 @@ import java.util.Random;
  */
 class reading_short_display extends View {
     int question = 1;
-    String tv;
-    int test = 1;
-    quiz_score score;
     Random random;
-    TextToSpeech tts;
     int max, min=0; // 랜덤변수 최대값과 최소값
     float width; //가로
     float height; //세로
@@ -433,25 +427,7 @@ class reading_short_display extends View {
         switch(dot_count) { //점자의 칸수에 따라 글자 위치를 설정함. 또한 음성출력을 통한 퀴즈메뉴를 진행하고 화면에 점자를 출력함
             case 1: //점자의 칸 수가 한 칸 일때
                 if(print==true) {
-                    canvas.drawText(tv, height * (float) 0.4, width * (float) 0.2, paint);
-                    if(tv.equals(textname_1)){
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("정답 입니다.정답은 " + textname_1 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("정답 입니다.정답은 "+textname_1+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                        quiz_score.score++;
-                    }else{
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("틀렸습니다. 정답은 " + textname_1 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("틀렸습니다.정답은 "+textname_1+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                    }
+                    canvas.drawText(textname_1, height * (float) 0.4, width * (float) 0.2, paint);
                 }
                 else
                     canvas.drawText("?", height * (float) 0.4, width * (float) 0.2, paint);
@@ -523,25 +499,7 @@ class reading_short_display extends View {
 
             case 2: //점자의 칸 수가 두 칸 일때
                 if(print==true) {
-                    canvas.drawText(tv, height * (float) 0.4, width * (float) 0.2, paint);
-                    if(tv.equals(textname_2)){
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("정답 입니다.정답은 " + textname_2 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("정답 입니다.정답은 "+textname_2+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                        quiz_score.score++;
-                    }else{
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("틀렸습니다. 정답은 " + textname_2 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("틀렸습니다.정답은 "+textname_2+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                    }
+                    canvas.drawText(textname_2, height * (float) 0.4, width * (float) 0.2, paint);
                 }
                 else
                     canvas.drawText("?", height * (float) 0.4, width * (float) 0.2, paint);
@@ -672,25 +630,7 @@ class reading_short_display extends View {
 
             case 3: //점자의 칸 수가 세 칸일때
                 if(print==true) {
-                    canvas.drawText(tv, height * (float) 0.4, width * (float) 0.2, paint);
-                    if(tv.equals(textname_3)){
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("정답 입니다.정답은 " + textname_3 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("정답 입니다.정답은 "+textname_3+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                        quiz_score.score++;
-                    }else{
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("틀렸습니다. 정답은 " + textname_3 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("틀렸습니다.정답은 "+textname_3+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                    }
+                    canvas.drawText(textname_3, height * (float) 0.4, width * (float) 0.2, paint);
                 }
 
                 else

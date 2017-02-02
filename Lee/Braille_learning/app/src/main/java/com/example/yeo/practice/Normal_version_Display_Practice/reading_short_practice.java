@@ -1,5 +1,6 @@
 package com.example.yeo.practice.Normal_version_Display_Practice;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
@@ -26,12 +27,15 @@ import net.daum.mf.speech.api.SpeechRecognizerClient;
 import net.daum.mf.speech.api.SpeechRecognizerManager;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class reading_short_practice extends FragmentActivity implements SpeechRecognizeListener {
     private SpeechRecognizerClient client;
     private SoundPool sound_pool;
     private int sound_beep;
     boolean next = false; // 다음문제로 이동하기 위한 변수
+    ArrayList<String> texts;
     /*
     3칸 이하의 점자 퀴즈를 진행하는 클래스
     */
@@ -52,7 +56,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
         SpeechRecognizerManager.getInstance().initializeLibrary(this);
 
         sound_pool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
-        sound_beep = sound_pool.load(this, R.raw.alarm2, 1);
+        sound_beep = sound_pool.load(this, R.raw.reading_quiz_stt_start, 1);
 
         quiz_score.score = 0;
         WHclass.sel=1;
@@ -124,17 +128,17 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                 break;
         }
 
-        if (m.question == 4) {
-            quiz_reading_service.finish = true;
-            quiz_reading_service.progress = true;
-            startService(new Intent(this, quiz_reading_service.class));
-        }
-        else {
-            quiz_reading_service.finish = true;
-            startService(new Intent(this, quiz_reading_service.class));
-        }
+            if (m.question == 4) {
+                quiz_reading_service.finish = true;
+                quiz_reading_service.progress = true;
+                startService(new Intent(this, quiz_reading_service.class));
+            }
+            else {
+                quiz_reading_service.finish = true;
+                startService(new Intent(this, quiz_reading_service.class));
+            }
 
-        finish();
+            finish();
         /*
         m.quiz_view_init();
         m.page = 0;
@@ -142,7 +146,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
         result = 0;
         finish();
         */
-    }
+        }
 
 
     @Override
@@ -711,10 +715,28 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                             client = builder.build();
 
                             client.setSpeechRecognizeListener(this);
+
+                            new Timer().schedule(new TimerTask() { public void run() {
+                                client.startRecording(false);
+
+                                next=true;
+                                quiz_reading_service.question++;
+                                }
+                            }, 2000);
+                            /*
+
+                            SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().
+                                    setApiKey(WHclass.APIKEY).
+                                    setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB);
+
+                            client = builder.build();
+
+                            client.setSpeechRecognizeListener(this);
                             client.startRecording(false);
 
                             next=true;
                             quiz_reading_service.question++;
+                            */
                         }
                     } else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 상단으로 드래그 하는 경우 퀴즈 화면 종료
                         onBackPressed();
@@ -828,32 +850,55 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
 
     @Override
     public void onResults(Bundle results) {
-        final StringBuilder builder = new StringBuilder();
         Log.i("reading_short_practice", "onResults");
+        texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
+        m.print=true;
 
-        String answer = "";
-        boolean result = false;
+        final Activity activity = this;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                boolean result = false;
+                String answer = "";
 
-        if (m.dot_count == 1) answer = m.textname_1;
-        else if (m.dot_count == 2) answer = m.textname_2;
-        else if (m.dot_count == 3) answer = m.textname_3;
-        else return;
+                if (m.dot_count == 1) answer = m.textname_1;
+                else if (m.dot_count == 2) answer = m.textname_2;
+                else if (m.dot_count == 3) answer = m.textname_3;
+                else return;
 
-        ArrayList<String> texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
+                for (int i = 0; i < texts.size(); i++) {
+                    if (answer.equals(texts.get(i)) == true) {
+                        result = true;
+                        break;
+                    } else
+                        continue;
+                }
 
-        for (int i = 0; i < texts.size(); i++) {
-            if (answer.equals(texts.get(i)) == true) {
-                result = true;
-                break;
-            } else
-                continue;
-        }
+                // finishing일때는 처리하지 않는다.
+                if (activity.isFinishing()) return;
+                if (result == true&&quiz_reading_service.question!=4) {
+                    MainActivity.Braille_TTS.TTS_Play("정답입니다. 다음 화면으로 이동하세요.");
+                }
+                else if(result == true&&quiz_reading_service.question==4){
+                    MainActivity.Braille_TTS.TTS_Play("정답입니다. 다음 화면을 이동하면 읽기 퀴즈가 종료됩니다.");
+                }
+                else if(result == false&&quiz_reading_service.question!=4) {
+                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은"+answer+"입니다. 점자를 다시 확인하고 다음 화면으로 이동하세요.");
+                }
+                else{
+                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은"+answer+"입니다. 점자를 다시 확인하고 다음 화면을 이동하면 읽기 퀴즈가 종료됩니다.");
+                }
+            }
+        });
 
+        client.cancelRecording();
+        /*
         if (result == true) {
             MainActivity.Braille_TTS.TTS_Play("축하합니다. 정답이에요~");
         } else {
             MainActivity.Braille_TTS.TTS_Play("오답입니다. 당신이 말한 단어는" + texts.get(0) + "입니다. 정답은"+answer+"입니다.");
         }
+        */
 
         /*
         final Activity activity = this;
@@ -862,6 +907,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
             public void run() {
                 // finishing일때는 처리하지 않는다.
                 if (activity.isFinishing()) return;
+
                 AlertDialog.Builder dialog = new AlertDialog.Builder(activity).
                         setMessage(builder.toString()).
                         setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -870,7 +916,9 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                                 dialog.dismiss();
                             }
                         });
+
                 dialog.show();
+
             }
         });
         */

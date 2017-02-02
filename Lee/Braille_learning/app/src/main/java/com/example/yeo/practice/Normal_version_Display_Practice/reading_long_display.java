@@ -7,13 +7,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.media.SoundPool;
 import android.os.Vibrator;
-import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
 
 import com.example.yeo.practice.Common_braille_data.dot_quiz_word;
 import com.example.yeo.practice.WHclass;
-import com.example.yeo.practice.Normal_version_quiz.quiz_score;
 
 import java.util.Locale;
 import java.util.Random;
@@ -25,11 +23,8 @@ class reading_long_display extends View {
     int question = 1;
     private SoundPool sound_pool;
     private int sound_beep;
-    SpeechRecognizer mRecognizer;
-    int posx1,posx2,posy1,posy2;
     private static Context mMain;
     Random random;
-    int test = 1;
     static boolean next = false;
     int max, min=0; // 랜덤변수 최대값과 최소값
     float width= WHclass.width; //가로
@@ -37,7 +32,6 @@ class reading_long_display extends View {
     int x=0, y=0; // 점자를 터치할때 사용할 좌표를 저장할 변수
     Vibrator vibrator; //진동 변수
     static boolean print=false;
-    String tv ;
     TextToSpeech tts;
     int dot_count=0;
 
@@ -160,25 +154,7 @@ class reading_long_display extends View {
 
             case 2: //점자의 칸수가 2칸일 경우 글자의 길이에 따라 글자의 출력위치를 조정함. 또한 음성출력을 통한 퀴즈메뉴를 진행함
                 if(print==true) {
-                    canvas.drawText(tv, height * (float) 0.4, width * (float) 0.2, paint);
-                    if(tv.equals(textname_7)){
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("정답 입니다.정답은 " + textname_7 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("정답 입니다.정답은 "+textname_7+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                        quiz_score.score++;
-                    }else{
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("틀렸습니다. 정답은 " + textname_7 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("틀렸습니다.정답은 "+textname_7+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                    }
+                    canvas.drawText(textname_7, height * (float) 0.4, width * (float) 0.2, paint);
                 }
                 else
                     canvas.drawText("?", height * (float) 0.4, width * (float) 0.2, paint);
@@ -200,25 +176,7 @@ class reading_long_display extends View {
 
             case 3://점자의 칸수가 3칸일 경우 글자의 길이에 따라 글자의 출력위치를 조정함. 또한 음성출력을 통한 퀴즈메뉴를 진행함
                 if(print==true){
-                    canvas.drawText(tv, height * (float) 0.4, width * (float) 0.2, paint);
-                    if(tv.equals(textname_7)){
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("정답 입니다.정답은 " + textname_7 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("정답 입니다.정답은 "+textname_7+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                        quiz_score.score++;
-                    }else{
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("틀렸습니다. 정답은 " + textname_7 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("틀렸습니다.정답은 "+textname_7+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                    }
+                    canvas.drawText(textname_7, height * (float) 0.4, width * (float) 0.2, paint);
                 }
                 else
                     canvas.drawText("?", height * (float) 0.4, width * (float) 0.2, paint);
@@ -242,25 +200,7 @@ class reading_long_display extends View {
 
             case 4://점자의 칸수가 4칸일 경우 글자의 길이에 따라 글자의 출력위치를 조정함. 또한 음성출력을 통한 퀴즈메뉴를 진행함
                 if(print==true){
-                    canvas.drawText(tv, height * (float) 0.4, width * (float) 0.2, paint);
-                    if(tv.equals(textname_7)){
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("정답 입니다.정답은 " + textname_7 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("정답 입니다.정답은 "+textname_7+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                        quiz_score.score++;
-                    }else{
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("틀렸습니다. 정답은 " + textname_7 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("틀렸습니다.정답은 "+textname_7+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                    }
+                    canvas.drawText(textname_7, height * (float) 0.4, width * (float) 0.2, paint);
                 }
                 else
                     canvas.drawText("?", height * (float) 0.4, width * (float) 0.2, paint);
@@ -282,25 +222,7 @@ class reading_long_display extends View {
 
             case 5://점자의 칸수가 5칸일 경우 글자의 길이에 따라 글자의 출력위치를 조정함. 또한 음성출력을 통한 퀴즈메뉴를 진행함
                 if(print==true){
-                    canvas.drawText(tv, height * (float) 0.4, width * (float) 0.2, paint);
-                    if(tv.equals(textname_7)){
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("정답 입니다.정답은 " + textname_7 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("정답 입니다.정답은 "+textname_7+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                        quiz_score.score++;
-                    }else{
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("틀렸습니다. 정답은 " + textname_7 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("틀렸습니다.정답은 "+textname_7+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                    }
+                    canvas.drawText(textname_7, height * (float) 0.4, width * (float) 0.2, paint);
                 }
                 else
                     canvas.drawText("?", height * (float) 0.4, width * (float) 0.2, paint);
@@ -323,25 +245,7 @@ class reading_long_display extends View {
 
             case 6://점자의 칸수가 6칸일 경우 글자의 길이에 따라 글자의 출력위치를 조정함. 또한 음성출력을 통한 퀴즈메뉴를 진행함
                 if(print==true){
-                    canvas.drawText(tv, height * (float) 0.4, width * (float) 0.2, paint);
-                    if(tv.equals(textname_7)){
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("정답 입니다.정답은 " + textname_7 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("정답 입니다.정답은 "+textname_7+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                        quiz_score.score++;
-                    }else{
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("틀렸습니다. 정답은 " + textname_7 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("틀렸습니다.정답은 "+textname_7+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                    }
+                    canvas.drawText(textname_7, height * (float) 0.4, width * (float) 0.2, paint);
                 }
                 else
                     canvas.drawText("?", height * (float) 0.4, width * (float) 0.2, paint);
@@ -364,25 +268,7 @@ class reading_long_display extends View {
 
             case 7://점자의 칸수가 7칸일 경우 글자의 길이에 따라 글자의 출력위치를 조정함. 또한 음성출력을 통한 퀴즈메뉴를 진행함
                 if(print==true){
-                    canvas.drawText(tv, height * (float) 0.4, width * (float) 0.2, paint);
-                    if(tv.equals(textname_7)){
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("정답 입니다.정답은 " + textname_7 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("정답 입니다.정답은 "+textname_7+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                        quiz_score.score++;
-                    }else{
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("틀렸습니다. 정답은 " + textname_7 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("틀렸습니다.정답은 "+textname_7+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                    }
+                    canvas.drawText(textname_7, height * (float) 0.4, width * (float) 0.2, paint);
                 }
                 else
                     canvas.drawText("?", height * (float) 0.4, width * (float) 0.2, paint);
