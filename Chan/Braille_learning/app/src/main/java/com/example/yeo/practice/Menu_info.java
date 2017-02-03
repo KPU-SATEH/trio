@@ -77,4 +77,7 @@ public class Menu_info {
     public static int writing_fail = 5; //정답 틀림
     public static int all_finish = 6; //모든 문제 풀고 종료
     public static int writingfinish =  7; //중간 종료
+
+    //점자번역 상수 정의
+    public static int TRANS_INFO =0 ; //설명멘트
 }

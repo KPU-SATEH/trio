@@ -35,7 +35,7 @@ public class Menu_main_service extends Service {
         mainfinish.setLooping(false);
 
         main = new MediaPlayer[]{tutorial,basic,master,braille,quiz,mynote};
-        rawid = new int[]{R.raw.directions,R.raw.basic,R.raw.master,R.raw.master,R.raw.quiz,R.raw.mynote};
+        rawid = new int[]{R.raw.directions,R.raw.basic,R.raw.master,R.raw.braille_translation,R.raw.quiz,R.raw.mynote};
 
         for(int i=0 ; i<6 ; i++){
             main[i]=MediaPlayer.create(this,rawid[i]);

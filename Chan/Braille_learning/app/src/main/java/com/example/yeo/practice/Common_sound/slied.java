@@ -11,7 +11,10 @@ import com.example.yeo.practice.R;
 
 public class slied extends Service {
     private static final String TAG = "Number";
-    MediaPlayer next,previous; //이전과 다음 음성을 저장하는 변수
+    MediaPlayer next,previous,stt; //이전과 다음 음성을 저장하는 변수
+    MediaPlayer slied_[];
+    int rawid[];
+    int pre;
     static public int slied = 0;
     public slied() {
     }
@@ -23,21 +26,27 @@ public class slied extends Service {
 
     @Override
     public void onCreate(){
-        next= MediaPlayer.create(this, R.raw.next);
-        previous= MediaPlayer.create(this, R.raw.previous);
-        next.setLooping(false);
-        previous.setLooping(false);
+        slied_ = new MediaPlayer[]{stt,next,previous};
+        rawid = new int[]{R.raw.stt,R.raw.next,R.raw.previous};
 
+        for(int i=0; i<slied_.length ; i++){
+            slied_[i] = MediaPlayer.create(this,rawid[i]);
+            slied_[i].setLooping(false);
+
+        }
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startID){
-        if(slied == 1) { //다음
-            next.start();
-        }
-        else if(slied==2) { //이전
-            previous.start();
-        }
+        pre = slied;
+        slied_[slied].start();
+        slied_[slied].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                slied_[slied].reset();
+                slied_[slied] = MediaPlayer.create(slied.this,rawid[slied]);
+            }
+        });
         return super.onStartCommand(intent, flags, startID);
     }
 }

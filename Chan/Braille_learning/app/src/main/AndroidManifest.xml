@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -569,6 +568,11 @@
             android:name=".Normal_version_menu.Menu_braille_translation_inside"
             android:label=""
             android:screenOrientation="landscape" />
+
+        <service
+            android:name=".Common_trans_sound.Braille_trans_service"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

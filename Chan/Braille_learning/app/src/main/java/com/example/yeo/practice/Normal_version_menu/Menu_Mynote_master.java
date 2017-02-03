@@ -85,6 +85,7 @@ public class Menu_Mynote_master extends FragmentActivity {
                             Mynote_service.menu_page=1;
                             startService(new Intent(this, Mynote_service.class));
                             Master_DB_manager.MyNote_down=true;
+                            /*
                             reference2 = MainActivity.master_braille_db.master_db_manager.getReference(MainActivity.master_braille_db.master_db_manager.My_Note_page);
                             reference_index2 = MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page);
                             switch(reference2){
@@ -95,6 +96,7 @@ public class Menu_Mynote_master extends FragmentActivity {
                                     startService(new Intent(this, Word_service.class));
                                     break;
                             }
+                            */
                         }
                         else {//단어장에 단어가 추가되어 있지 않은경우 접속 차단
                             Mynote_service.menu_page=0;

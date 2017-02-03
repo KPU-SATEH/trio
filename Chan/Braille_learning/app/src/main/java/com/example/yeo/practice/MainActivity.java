@@ -151,7 +151,7 @@ public class MainActivity extends FragmentActivity {
                 Intent i0 = new Intent(MainActivity.this, Menu_Tutorial.class);
                 //Intent i0 = new Intent(MainActivity.this, Tutorial.class);
                 startActivityForResult(i0,CODE);
-                startService(new Intent(this, Menu_main_service.class)); //메뉴 음성 출력 서비스
+                startService(new Intent(this, Braille_trans_service.class)); //메뉴 음성 출력 서비스
                 //startService(new Intent(this, Tutorial_service.class)); // 사용설명 서비스
                 finish();
                 //WHclass.db=1;
@@ -204,7 +204,7 @@ public class MainActivity extends FragmentActivity {
         //Intent intent = new Intent(MainActivity.this, Tutorial.class); //여자 스피커 사용설명 화면
         //startActivityForResult(intent,CODE);
         //startService(new Intent(this, Tutorial_service.class)); // 사용설명 서비스
-        //startService(new Intent(this, Menu_main_service.class)); //메뉴 음성 출력 서비스
+        //startService(new Intent(this, Braille_trans_service.class)); //메뉴 음성 출력 서비스
       //  finish();
 
     }

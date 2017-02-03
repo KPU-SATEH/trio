@@ -18,6 +18,7 @@ import com.example.yeo.practice.Common_braille_data.dot_letter;
 import com.example.yeo.practice.Common_braille_data.dot_word;
 import com.example.yeo.practice.Common_braille_translation.Braille_translation;
 import com.example.yeo.practice.Common_mynote_database.Mynote_service;
+import com.example.yeo.practice.Common_trans_sound.Braille_trans_service;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.Sound_Manager;
@@ -59,9 +60,7 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
 
     String hangel=""; //점자 번역을 위한 글자를 저장하는 변수
     private TimerTask second; // 버전확인을 위한 타이머
-    private final Handler handler = new Handler();
     Timer timer =null;
-    int timer_check=0;
     String Translation_text="";
     public static boolean Trans_success=false;
     public static int Trans_dot_count=0;
@@ -75,9 +74,7 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
     ArrayList<String> texts;
     boolean check= false;
 
-    private TimerTask second2; // 음성인식을 위한 스레드
-    private final Handler handler2 = new Handler();
-    Timer timer2 =null;
+
     String text="";
 
     @Override
@@ -109,9 +106,38 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
             case 9: //단어연습
                 Dot_word = new dot_word(); // 단어 단위의 점자 클래스 선언
                 break;
-            case 11:
-                MainActivity.Braille_TTS.TTS_Play("점자 번역을 시작하겠습니다. 손가락 2개를 화면에 얹고, 상단에서 하단으로 쓸어내리게 되면, 삐 소리가 발생됩니다." +
-                        "삐 소리가 난 뒤, 점자로 번역하기를 원하는 단어를 이야기 하시기 바랍니다.");
+            case 10:
+                reference2 = MainActivity.master_braille_db.master_db_manager.getReference(MainActivity.master_braille_db.master_db_manager.My_Note_page);
+                reference_index2 = MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page);
+                switch(reference2){
+                    case 8: //글자연습
+                        startService(new Intent(this, Letter_service.class));
+                        break;
+                    case 9: //단어연습
+                        startService(new Intent(this, Word_service.class));
+                        break;
+                    case 11:
+                        String dbtext = "";
+                        dbtext = MainActivity.master_braille_db.master_db_manager.getName(MainActivity.master_braille_db.master_db_manager.My_Note_page);
+                        matrix_init();
+                        hangel = dbtext;
+                        Translation.Translation(hangel);
+                        Matrix_check=Matrix_copy();
+                        if(Matrix_check==false) {
+                            Trans_success=false;
+                            Translation_text ="해당 단어는 7칸이 넘어서, 번역이 불가능합니다.";
+                            MainActivity.Braille_TTS.TTS_Play(Translation_text);
+                            matrix_init();
+                        }
+                        else {
+                            Trans_success=true;
+                            Translation_text = Translation.get_TTs_text();
+                            Trans_dot_count=Translation.get_dotcount();
+                            Trans_dot_name=Translation.get_dotname();
+                            MainActivity.Braille_TTS.TTS_Play(Translation_text);
+                        }
+                        break;
+                }
                 break;
         }
 
@@ -150,11 +176,10 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                     setServiceType(serviceType);
             client = builder.build();
             client.setSpeechRecognizeListener(this);
-            client.startRecording(true);
+            client.startRecording(false);
         }
 
     }
-
 
     @Override
     public void onReady() {
@@ -280,7 +305,6 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                 lock=false;
                 break;
             case MotionEvent.ACTION_DOWN: // 손가락 1개를 이용하여 터치가 발생하였을 때
-                MainActivity.Braille_TTS.TTS_stop();
                 startService(new Intent(this, Sound_Manager.class));
                 m.x = (int) event.getX(); //x좌표를 저장
                 m.y = (int) event.getY(); //y좌표를 저장
@@ -2121,43 +2145,61 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                 }
                 else if(lock==false) {
                     if (olddrag - newdrag > WHclass.Drag_space) { // 다음 화면의 점자 학습 진행
-                        slied.slied = Menu_info.next;
-                        startService(new Intent(this, slied.class));
                         switch (WHclass.sel) {
                             case 8: //글자연습
+                                slied.slied = Menu_info.next;
+                                startService(new Intent(this, slied.class));
                                 startService(new Intent(this, Letter_service.class));
+                                m.MyView3_init();
+                                m.invalidate();
                                 break;
                             case 9: //단어 연습
+                                slied.slied = Menu_info.next;
+                                startService(new Intent(this, slied.class));
                                 startService(new Intent(this, Word_service.class));
+                                m.MyView3_init();
+                                m.invalidate();
                                 break;
                             case 10:
+                                slied.slied = Menu_info.next;
+                                startService(new Intent(this, slied.class));
                                 MainActivity.master_braille_db.master_db_manager.My_Note_page++;
                                 if (MainActivity.master_braille_db.master_db_manager.My_Note_page >= MainActivity.master_braille_db.master_db_manager.size_count) //가장 마지막 학습내용까지 진행됬다면
                                     onBackPressed(); //종료
                                 else  //아직 학습이 진행중이면
                                     MyNote_Start_service();
+                                m.MyView3_init();
+                                m.invalidate();
                                 break;
                         }
-                        m.MyView3_init();
-                        m.invalidate();
+
                     } else if (newdrag - olddrag > WHclass.Drag_space) { // 이전 화면의 점자 학습 진행
-                        slied.slied = Menu_info.pre;
-                        startService(new Intent(this, slied.class));
                         switch (WHclass.sel) {
                             case 8: //글자연습
+                                slied.slied = Menu_info.pre;
+                                startService(new Intent(this, slied.class));
                                 startService(new Intent(this, Letter_service.class));
+                                m.MyView3_init();
+                                m.invalidate();
                                 break;
                             case 9: //단어연습
+                                slied.slied = Menu_info.pre;
+                                startService(new Intent(this, slied.class));
                                 startService(new Intent(this, Word_service.class));
+                                m.MyView3_init();
+                                m.invalidate();
                                 break;
                             case 10:
+                                slied.slied = Menu_info.pre;
+                                startService(new Intent(this, slied.class));
                                 if (MainActivity.master_braille_db.master_db_manager.My_Note_page > 0)
                                     MainActivity.master_braille_db.master_db_manager.My_Note_page--;
                                 MyNote_Start_service(); //현재 화면의 음성 출력
+                                m.MyView3_init();
+                                m.invalidate();
                                 break;
                         }
-                        m.MyView3_init();
-                        m.invalidate();
+
                     } else if (y2drag - y1drag > WHclass.Drag_space) { // 현재 화면 점자 정보 다시 듣기
                         switch (WHclass.sel) {
                             case 8: //글자연습
@@ -2170,27 +2212,14 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                                 MyNote_Start_service();
                                 break;
                             case 11:
-                                MainActivity.Braille_TTS.TTS_Play("삐이 ");
+                                slied.slied=0;
+                                startService(new Intent(this, slied.class));
                                 STT_start();
-                                Timer_Reset2();
+                                Timer_Reset();
                                 break;
                         }
                     } else if (y1drag - y2drag > WHclass.Drag_space) { // 현재 점자 학습 종료
-                        m.page = 0;
-                        m.MyView3_init();
-                        switch (WHclass.sel) {
-                            case 8: //글자연습
-                                Letter_service.finish = true;
-                                startService(new Intent(this, Letter_service.class));
-                                break;
-                            case 9: //단어연습
-                                Word_service.finish = true;
-                                startService(new Intent(this, Word_service.class));
-                                break;
-                            case 10:
-                                onBackPressed();
-                        }
-                        finish();
+                        onBackPressed();
                     }
                 }
                 break;
@@ -2213,6 +2242,27 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                 break;
             case 9: //단어연습
                 startService(new Intent(this, Word_service.class));
+                break;
+            case 11:
+                String dbtext = "";
+                dbtext = MainActivity.master_braille_db.master_db_manager.getName(MainActivity.master_braille_db.master_db_manager.My_Note_page);
+                matrix_init();
+                hangel = dbtext;
+                Translation.Translation(hangel);
+                Matrix_check=Matrix_copy();
+                if(Matrix_check==false) {
+                    Trans_success=false;
+                    Translation_text ="해당 단어는 7칸이 넘어서, 번역이 불가능합니다.";
+                    MainActivity.Braille_TTS.TTS_Play(Translation_text);
+                    matrix_init();
+                }
+                else {
+                    Trans_success=true;
+                    Translation_text = Translation.get_TTs_text();
+                    Trans_dot_count=Translation.get_dotcount();
+                    Trans_dot_name=Translation.get_dotname();
+                    MainActivity.Braille_TTS.TTS_Play(Translation_text);
+                }
                 break;
         }
     }
@@ -2265,15 +2315,6 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
         else
             return true;
     }
-    public void matrix_print(){                 //점자를 출력하는 함수
-        int a=0;
-        int b=0;
-        /*
-        braille.setText(matrix[0][0] + " " + matrix[0][1] + "   " + matrix[0][2] + " " + matrix[0][3] + "   " + matrix[0][4] + " " + matrix[0][5] + "   " + matrix[0][6] + " " + matrix[0][7] + "   " + matrix[0][8] + " " + matrix[0][9] + "   " + matrix[0][10] + " " + matrix[0][11] + "   " + matrix[0][12] + " " + matrix[0][13] + "\n"
-                + matrix[1][0] + " " + matrix[1][1] + "   " + matrix[1][2] + " " + matrix[1][3] + "   " + matrix[1][4] + " " + matrix[1][5] + "   " + matrix[1][6] + " " + matrix[1][7] + "   " + matrix[1][8] + " " + matrix[1][9] + "   " + matrix[1][10] + " " + matrix[1][11] + "   " + matrix[1][12] + " " + matrix[1][13] + "\n"
-                + matrix[2][0] + " " + matrix[2][1] + "   " + matrix[2][2] + " " + matrix[2][3] + "   " + matrix[2][4] + " " + matrix[2][5] + "   " + matrix[2][6] + " " + matrix[2][7] + "   " + matrix[2][8] + " " + matrix[2][9] + "   " + matrix[2][10] + " " + matrix[2][11] + "   " + matrix[2][12] + " " + matrix[2][13]);
-                */
-    }
 
     public void matrix_init(){                      //점자를 초기화 하는 함수
         Translation.matrix_init();
@@ -2282,94 +2323,20 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                 matrix[i][j]=0;
             }
         }
-        /*
-        braille.setText(matrix[0][0]+" "+matrix[0][1]+"   "+matrix[0][2]+" "+matrix[0][3]+"   "+matrix[0][4]+" "+matrix[0][5]+"   "+matrix[0][6]+" "+matrix[0][7]+"   "+matrix[0][8]+" "+matrix[0][9]+"   "+matrix[0][10]+" "+matrix[0][11]+"   "+matrix[0][12]+" "+matrix[0][13]+"\n"
-                +matrix[1][0]+" "+matrix[1][1]+"   "+matrix[1][2]+" "+matrix[1][3]+"   "+matrix[1][4]+" "+matrix[1][5]+"   "+matrix[1][6]+" "+matrix[1][7]+"   "+matrix[1][8]+" "+matrix[1][9]+"   "+matrix[1][10]+" "+matrix[1][11]+"   "+matrix[1][12]+" "+matrix[1][13]+"\n"
-                +matrix[2][0]+" "+matrix[2][1]+"   "+matrix[2][2]+" "+matrix[2][3]+"   "+matrix[2][4]+" "+matrix[2][5]+"   "+matrix[2][6]+" "+matrix[2][7]+"   "+matrix[2][8]+" "+matrix[2][9]+"   "+matrix[2][10]+" "+matrix[2][11]+"   "+matrix[2][12]+" "+matrix[2][13]);
-                */
-
     }
 
 
 
 
-    public void Timer_Start2(){ //1초의 딜레이 시간을 갖는 함수
-        second2 = new TimerTask() {
+    public void Timer_Start(){ //1초의 딜레이 시간을 갖는 함수
+        second = new TimerTask() {
             @Override
             public void run() {
                 if(check==true)
                     STT_check();
             }
         };
-        timer2.schedule(second2,0,100); //0.3초의 딜레이시간
-
-    }
-
-    public void Timer_Reset2(){
-        if(timer2 != null){
-            timer2.cancel();
-            timer2= null;
-            timer2 = new Timer();
-            Timer_Start2();
-        }
-        else if(timer2==null){
-            timer2 = new Timer();
-            Timer_Start2();
-        }
-    }
-
-    public void Timer_Stop2(){
-        if(timer2 != null){
-            timer2.cancel();
-            timer2= null;
-        }
-    }
-
-    public void STT_check(){
-        check=false;
-        Timer_Stop2();
-        matrix_init();
-        hangel =text;
-        Translation.Translation(hangel);
-        Matrix_check=Matrix_copy();
-
-        if(Matrix_check==false) {
-            Trans_success=false;
-            Translation_text ="해당 단어는 7칸이 넘어서, 번역이 불가능합니다.";
-            if(MainActivity.Braille_TTS.TTS_Play(Translation_text)==false){
-                Timer_Reset();
-            }
-            matrix_init();
-        }
-        else {
-            Trans_success=true;
-            Translation_text = Translation.get_TTs_text();
-            matrix_print();
-            Trans_dot_count=Translation.get_dotcount();
-            Trans_dot_name=Translation.get_dotname();
-            if(MainActivity.Braille_TTS.TTS_Play(Translation_text)==false){
-                Timer_Reset();
-            }
-        }
-
-        runOnUiThread(new Runnable(){
-            @Override
-            public void run() {
-                m.MyView3_init();
-                m.invalidate();
-            }
-        });
-
-    }
-
-    public void Timer_Start(){ //1초의 딜레이 시간을 갖는 함수
-        second = new TimerTask() {
-            @Override
-            public void run() {
-                update2();
-            }
-        };
-        timer.schedule(second,0,1500); //0.3초의 딜레이시간
+        timer.schedule(second,0,100); //0.3초의 딜레이시간
 
     }
 
@@ -2393,19 +2360,36 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
         }
     }
 
-    public void update2(){ //일정시간마다 타이머 함수에 의해 불려짐
-        Runnable updater = new Runnable() {
+    public void STT_check(){
+        check=false;
+        Timer_Stop();
+        matrix_init();
+        hangel =text;
+        Translation.Translation(hangel);
+        Matrix_check=Matrix_copy();
+
+        if(Matrix_check==false) {
+            Trans_success=false;
+            Translation_text ="해당 단어는 7칸이 넘어서, 번역이 불가능합니다.";
+            MainActivity.Braille_TTS.TTS_Play(Translation_text);
+            matrix_init();
+        }
+        else {
+            Trans_success=true;
+            Translation_text = Translation.get_TTs_text();
+            Trans_dot_count=Translation.get_dotcount();
+            Trans_dot_name=Translation.get_dotname();
+            MainActivity.Braille_TTS.TTS_Play(Translation_text);
+        }
+
+        runOnUiThread(new Runnable(){
             @Override
             public void run() {
-                timer_check++;
-                if(timer_check==2) {
-                    MainActivity.Braille_TTS.TTS_Play(Translation_text);
-                    Timer_Stop();
-                    timer_check=0;
-                }
+                m.MyView3_init();
+                m.invalidate();
             }
-        };
-        handler.post(updater);
+        });
+
     }
 
 
@@ -2427,6 +2411,10 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                 MainActivity.master_braille_db.master_db_manager.My_Note_page=0;
                 Mynote_service.finish = true;
                 startService(new Intent(this, Mynote_service.class));
+                break;
+            case 11:
+                Braille_trans_service.finish = true;
+                startService(new Intent(this, Braille_trans_service.class));
                 break;
         }
         finish();

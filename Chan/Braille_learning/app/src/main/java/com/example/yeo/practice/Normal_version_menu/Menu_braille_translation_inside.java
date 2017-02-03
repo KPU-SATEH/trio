@@ -64,9 +64,9 @@ public class Menu_braille_translation_inside extends FragmentActivity {
         else {
             Translation_text = Translation.get_TTs_text();
             matrix_print();
-            if(MainActivity.Braille_TTS.TTS_Play(Translation_text)==false){
+            MainActivity.Braille_TTS.TTS_Play(Translation_text);
                 Timer_Reset();
-            }
+
         }
 
 
