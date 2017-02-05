@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -24,8 +25,6 @@ import net.daum.mf.speech.api.SpeechRecognizerClient;
 import net.daum.mf.speech.api.SpeechRecognizerManager;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class reading_long_practice extends FragmentActivity implements SpeechRecognizeListener {
     private SpeechRecognizerClient client;
@@ -1876,15 +1875,18 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
                                     setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB);
 
                             client = builder.build();
-
                             client.setSpeechRecognizeListener(this);
-                            new Timer().schedule(new TimerTask() { public void run() {
-                                client.startRecording(false);
 
-                                next=true;
-                                quiz_reading_service.question++;
-                            }
-                            }, 2000);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    client.startRecording(false);
+                                }
+                            }, 1000);
+
+                            next = true;
+                            quiz_reading_service.question++;
+
                         }
                     } else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 상단으로 드래그 하는 경우 퀴즈 화면 종료
                         onBackPressed();
@@ -1962,6 +1964,9 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
         //TODO implement interface DaumSpeechRecognizeListener method
         Log.e("reading_long_practice", "onError");
 
+        next=false;
+        MainActivity.Braille_TTS.TTS_Play("음성인식에 실패하였습니다. 다시 시도해주세요.");
+
         client = null;
     }
 
@@ -1993,13 +1998,13 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
 
                 // finishing일때는 처리하지 않는다.
                 if (activity.isFinishing()) return;
-                if (result == true||quiz_reading_service.question!=4) {
+                if (result == true&&quiz_reading_service.question!=4) {
                     MainActivity.Braille_TTS.TTS_Play("정답입니다. 다음 화면으로 이동하세요.");
                 }
-                else if(result == true||quiz_reading_service.question==4){
+                else if(result == true&&quiz_reading_service.question==4){
                     MainActivity.Braille_TTS.TTS_Play("정답입니다. 모든 문제가 끝났습니다.");
                 }
-                else if(result == false||quiz_reading_service.question!=4) {
+                else if(result == false&&quiz_reading_service.question!=4) {
                     MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은"+answer+"입니다. 점자를 다시 읽어본 후에 다음 화면으로 이동하세요.");
                 }
                 else{

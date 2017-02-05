@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -19,22 +19,20 @@ import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Normal_version_quiz.quiz_score;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.WHclass;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.Thing;
 
 import net.daum.mf.speech.api.SpeechRecognizeListener;
 import net.daum.mf.speech.api.SpeechRecognizerClient;
 import net.daum.mf.speech.api.SpeechRecognizerManager;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class reading_short_practice extends FragmentActivity implements SpeechRecognizeListener {
     private SpeechRecognizerClient client;
     private SoundPool sound_pool;
     private int sound_beep;
     boolean next = false; // 다음문제로 이동하기 위한 변수
+    private Handler mHandler = new Handler();
+
     ArrayList<String> texts;
     /*
     3칸 이하의 점자 퀴즈를 진행하는 클래스
@@ -59,7 +57,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
         sound_beep = sound_pool.load(this, R.raw.reading_quiz_stt_start, 1);
 
         quiz_score.score = 0;
-        WHclass.sel=1;
+        WHclass.sel = 1;
 
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
@@ -76,6 +74,8 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
         m = new reading_short_display(this);
         m.setBackgroundColor(Color.rgb(22, 26, 44));
         setContentView(m);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
     }
 
     public void onDestroy() {
@@ -100,7 +100,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                 quiz_reading_service.third.reset();
                 break;
         }
-        quiz_reading_service.question=0;
+        quiz_reading_service.question = 0;
         switch (WHclass.sel) {
             case 1: //초성퀴즈 종료
                 quiz_reading_service.initial_quiz_finish.start();
@@ -128,17 +128,16 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                 break;
         }
 
-            if (m.question == 4) {
-                quiz_reading_service.finish = true;
-                quiz_reading_service.progress = true;
-                startService(new Intent(this, quiz_reading_service.class));
-            }
-            else {
-                quiz_reading_service.finish = true;
-                startService(new Intent(this, quiz_reading_service.class));
-            }
+        if (m.question == 4) {
+            quiz_reading_service.finish = true;
+            quiz_reading_service.progress = true;
+            startService(new Intent(this, quiz_reading_service.class));
+        } else {
+            quiz_reading_service.finish = true;
+            startService(new Intent(this, quiz_reading_service.class));
+        }
 
-            finish();
+        finish();
         /*
         m.quiz_view_init();
         m.page = 0;
@@ -146,8 +145,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
         result = 0;
         finish();
         */
-        }
-
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -705,7 +703,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                     newdrag = (int) event.getX();//두번째 손가락이 화면에서 떨어질 때의 x좌표값을 저장
                     y2drag = (int) event.getY();//두번째 손가락이 화면에서 떨어질 떄의 y좌표값을 저장
                     if (y2drag - y1drag > WHclass.Drag_space) {//손가락 2개를 이용하여 하단으로 드래그 하는 경우 음성인식 실행
-                        if(next==false) {
+                        if (next == false) {
                             sound_pool.play(sound_beep, 1, 1, 0, 0, 1);
 
                             SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().
@@ -713,16 +711,20 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                                     setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB);
 
                             client = builder.build();
-
                             client.setSpeechRecognizeListener(this);
 
-                            new Timer().schedule(new TimerTask() { public void run() {
-                                client.startRecording(false);
-
-                                next=true;
-                                quiz_reading_service.question++;
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    client.startRecording(false);
                                 }
-                            }, 2000);
+                            }, 1000);
+
+                            next = true;
+                            quiz_reading_service.question++;
+
+
+                        }
                             /*
 
                             SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().
@@ -737,20 +739,18 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                             next=true;
                             quiz_reading_service.question++;
                             */
-                        }
+
                     } else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 상단으로 드래그 하는 경우 퀴즈 화면 종료
                         onBackPressed();
-                    }
-                    else if(olddrag - newdrag > WHclass.Drag_space){ //다음화면으로 이동
-                        if(next==true) {
+                    } else if (olddrag - newdrag > WHclass.Drag_space) { //다음화면으로 이동
+                        if (next == true) {
                             next = false;
                             m.quiz_view_init();
 
-                            if(quiz_reading_service.question==4) {
+                            if (quiz_reading_service.question == 4) {
                                 onBackPressed();
-                            }
-                            else if(quiz_reading_service.question<4){
-                                quiz_reading_service.menu_page=m.question;
+                            } else if (quiz_reading_service.question < 4) {
+                                quiz_reading_service.menu_page = m.question;
                                 startService(new Intent(this, quiz_reading_service.class));
                             }
                         }
@@ -839,6 +839,8 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
     public void onError(int errorCode, String errorMsg) {
         //TODO implement interface DaumSpeechRecognizeListener method
         Log.e("reading_short_practice", "onError");
+        next=false;
+        MainActivity.Braille_TTS.TTS_Play("음성인식에 실패하였습니다. 다시 시도해주세요.");
 
         client = null;
     }
@@ -852,7 +854,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
     public void onResults(Bundle results) {
         Log.i("reading_short_practice", "onResults");
         texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
-        m.print=true;
+
 
         final Activity activity = this;
         runOnUiThread(new Runnable() {
@@ -873,20 +875,19 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                     } else
                         continue;
                 }
+                m.print = true;
 
                 // finishing일때는 처리하지 않는다.
                 if (activity.isFinishing()) return;
-                if (result == true&&quiz_reading_service.question!=4) {
+
+                if (result == true && quiz_reading_service.question != 4) {
                     MainActivity.Braille_TTS.TTS_Play("정답입니다. 다음 화면으로 이동하세요.");
-                }
-                else if(result == true&&quiz_reading_service.question==4){
+                } else if (result == true && quiz_reading_service.question == 4) {
                     MainActivity.Braille_TTS.TTS_Play("정답입니다. 다음 화면을 이동하면 읽기 퀴즈가 종료됩니다.");
-                }
-                else if(result == false&&quiz_reading_service.question!=4) {
-                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은"+answer+"입니다. 점자를 다시 확인하고 다음 화면으로 이동하세요.");
-                }
-                else{
-                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은"+answer+"입니다. 점자를 다시 확인하고 다음 화면을 이동하면 읽기 퀴즈가 종료됩니다.");
+                } else if (result == false && quiz_reading_service.question != 4) {
+                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은" + answer + "입니다. 점자를 다시 확인하고 다음 화면으로 이동하세요.");
+                } else {
+                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은" + answer + "입니다. 점자를 다시 확인하고 다음 화면을 이동하면 읽기 퀴즈가 종료됩니다.");
                 }
             }
         });
@@ -935,21 +936,5 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
     @Override
     public void onFinished() {
         Log.i("reading_short_practice", "onFinished");
-    }
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("reading_short_practice Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
     }
 }
