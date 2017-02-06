@@ -81,12 +81,12 @@ public class Menu_Tutorial extends FragmentActivity {
                     finish();
                 }
                 else if(newdrag-olddrag>WHclass.Drag_space) { //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
-                    Intent intent = new Intent(this,Menu_Mynote.class);
-                    startActivityForResult(intent,Menu_info.MENU_MYNOTE);
-                    Menu_main_service.menu_page = Menu_info.MENU_MYNOTE;
+                    Intent intent = new Intent(this,Menu_Communication.class);
+                    startActivityForResult(intent,Menu_info.MENU_COMMUNICATION);
+                    Menu_main_service.menu_page = Menu_info.MENU_COMMUNICATION;
                     slied.slied = Menu_info.pre;
                     startService(new Intent(this, slied.class));
-                    startService(new Intent(this, Menu_main_service.class));
+                    MainActivity.Braille_TTS.TTS_Play("선생님과의 대화");
                     finish();
                 }
                 else if(y2drag-y1drag> WHclass.Drag_space) {   //손가락 2개를 이용하여 상단에서 하단으로 드래그할 경우 현재 메뉴의 상세정보 음성 출력

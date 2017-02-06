@@ -255,41 +255,41 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
     }
 
     public void update(){ //1초동안 화면에 연속으로 2번의 터치가 발생됬을 경우 데이터베이스로 현재 단어정보를 전송함
-                String result ="";
-                array[0]="";
-                array[1]="";
-                array[2]="";
+        String result ="";
+        array[0]="";
+        array[1]="";
+        array[2]="";
 
-                if(WHclass.sel==Menu_info.MENU_NOTE) {
-                    MainActivity.master_braille_db.delete(MainActivity.master_braille_db.master_db_manager.getId(MainActivity.master_braille_db.master_db_manager.My_Note_page));
-                    result = MainActivity.master_braille_db.getResult();
-                    if(MainActivity.master_braille_db.master_db_manager.size_count==0)
-                        onBackPressed();
-                    m.MyView3_init();
-                    m.invalidate();
-                    MyNote_Start_service();
-                    if(result.equals("삭제")){
-                      //  Mynote_service.menu_page=1;
-                      //  startService(new Intent(this, Mynote_service.class));
-                    }
+        if(WHclass.sel==Menu_info.MENU_NOTE) {
+            MainActivity.master_braille_db.delete(MainActivity.master_braille_db.master_db_manager.getId(MainActivity.master_braille_db.master_db_manager.My_Note_page));
+            result = MainActivity.master_braille_db.getResult();
+            if(MainActivity.master_braille_db.master_db_manager.size_count==0)
+                onBackPressed();
+            m.MyView3_init();
+            m.invalidate();
+            MyNote_Start_service();
+            if(result.equals("삭제")){
+                //  Mynote_service.menu_page=1;
+                //  startService(new Intent(this, Mynote_service.class));
+            }
 
+        }
+        else {
+            for (int i = 0; i < 3; i++) {
+                for(int j=0; j<m.dot_count*2 ; j++){
+                    array[i] = array[i]+Integer.toString(m.text_7[i][j]); // 3개의 배열에 1행 2행 3행을 집어넣음
                 }
-                else {
-                    for (int i = 0; i < 3; i++) {
-                        for(int j=0; j<m.dot_count*2 ; j++){
-                            array[i] = array[i]+Integer.toString(m.text_7[i][j]); // 3개의 배열에 1행 2행 3행을 집어넣음
-                        }
-                    }
-                    result = MainActivity.master_braille_db.insert(m.dot_count, m.textname_7, array[0], array[1], array[2], Menu_info.MENU_INFO, m.page);  //데이터베이스에 입력하고, 성공문자를 돌려받음
-                    if(result.equals("성공")){
-                        Mynote_service.menu_page=2;
-                        startService(new Intent(this, Mynote_service.class));
-                    }
-                    else if(result.equals("실패")){
-                        Mynote_service.menu_page=3;
-                        startService(new Intent(this, Mynote_service.class));
-                    }
-                }
+            }
+            result = MainActivity.master_braille_db.insert(m.dot_count, m.textname_7, array[0], array[1], array[2], Menu_info.MENU_INFO, m.page);  //데이터베이스에 입력하고, 성공문자를 돌려받음
+            if(result.equals("성공")){
+                Mynote_service.menu_page=2;
+                startService(new Intent(this, Mynote_service.class));
+            }
+            else if(result.equals("실패")){
+                Mynote_service.menu_page=3;
+                startService(new Intent(this, Mynote_service.class));
+            }
+        }
 
     }
 

@@ -18,7 +18,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -565,9 +566,25 @@
             android:label=""
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Normal_version_menu.Menu_braille_translation_inside"
+            android:name=".Normal_version_menu.Menu_Communication"
             android:label=""
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".Normal_version_menu.Menu_communication_teacher"
+            android:label=""
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Normal_version_menu.Menu_communication_student"
+            android:label=""
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Normal_version_Display_Practice.Communication_teacher_practice"
+            android:label=""
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Normal_version_Display_Practice.Communication_student_practice"
+            android:label=""
+            android:screenOrientation="landscape"></activity>
 
         <service
             android:name=".Common_trans_sound.Braille_trans_service"

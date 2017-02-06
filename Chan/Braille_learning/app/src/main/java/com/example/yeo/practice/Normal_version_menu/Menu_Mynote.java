@@ -40,12 +40,6 @@ public class Menu_Mynote extends FragmentActivity {
 
         decorView.setSystemUiVisibility( uiOption );
         setContentView(R.layout.activity_common_menu__mynote);
-
-
-
-
-
-
     }
 
     @Override
@@ -77,12 +71,12 @@ public class Menu_Mynote extends FragmentActivity {
                 newdrag = (int)event.getX();  // 두번째 손가락이 떨어진 지점의 x좌표값 저장
                 y2drag = (int)event.getY(); // 두번째 손가락이 떨어진 지점의 y좌표값 저장
                 if(olddrag-newdrag>WHclass.Drag_space) { //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
-                    Intent intent = new Intent(this,Menu_Tutorial.class);
-                    startActivityForResult(intent,Menu_info.MENU_TUTORIAL);
-                    Menu_main_service.menu_page = Menu_info.MENU_TUTORIAL;
+                    Intent intent = new Intent(this,Menu_Communication.class);
+                    startActivityForResult(intent,Menu_info.MENU_COMMUNICATION);
+                    Menu_main_service.menu_page = Menu_info.MENU_COMMUNICATION;
                     slied.slied =Menu_info.next;
                     startService(new Intent(this, slied.class));
-                    startService(new Intent(this, Menu_main_service.class));
+                    MainActivity.Braille_TTS.TTS_Play("선생님과의 대화");
                     finish();
                 }
                 else if(newdrag-olddrag>WHclass.Drag_space) { //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동

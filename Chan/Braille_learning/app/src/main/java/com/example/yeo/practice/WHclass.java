@@ -32,5 +32,6 @@ public class WHclass extends ActionBarActivity {
     static public float Drag_space ; //드래그 영역을 저장하는 메크로 = MainActivity.width * (float) 0.2
     static public int Strong_vibe = 250; //강한 진동의 세기를 저장하는 메크로
     static public int Weak_vibe = 50; //약한 진동의 세기를 저장하는 메크로
+
     static public int Braiile_type = 0; //Braille_type이 2이면 일반사용자 버전, 1이면 시각장애인버전
 }

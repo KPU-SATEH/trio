@@ -14,9 +14,6 @@ import com.example.yeo.practice.R;
 import com.example.yeo.practice.Common_sound.slied;
 import com.example.yeo.practice.*;
 
-import net.daum.mf.speech.api.SpeechRecognizerManager;
-import net.daum.mf.speech.api.TextToSpeechManager;
-
 //숙련과정 메뉴 화면
 
 public class Menu_master_practice extends FragmentActivity {
@@ -46,7 +43,6 @@ public class Menu_master_practice extends FragmentActivity {
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN: //손가락 1개를 화면에 터치하였을 경우
-               // MainActivity.Braille_TTS.TTS_stop();
                 startService(new Intent(this, Sound_Manager.class));
                 posx1 = (int)event.getX();  //현재 좌표의 x좌표값 저장
                 posy1 = (int)event.getY(); //현재 좌표의 y좌표값 저장

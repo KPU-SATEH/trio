@@ -49,13 +49,17 @@ public class Menu_info {
     public static int MENU_BRAILLE_TRANSLATION = 3; //점자 번역
     public static int MENU_QUIZ = 4; //퀴즈
     public static int MENU_MYNOTE = 5; //나만의단어장
-
+    public static int MENU_COMMUNICATION = 6; //커뮤니케이션
 
     public static int MENU_QUIZ_READING = 1;
     public static int MENU_QUIZ_WRITING = 2;
     public static int MENU_QUIZ_INFO = 0; //퀴즈 메뉴 정보
 
+    public static int MENU_COMMUNICATION_TEACHER = 0;//made by yeo
+    public static int MENU_COMMUNICATION_STUDENT = 1; //made by yeo
 
+    public static int COMMUNICATION_TEACHER_MODE=0; //made by yeo
+    public static int COMMUNICATION_STUDENT_MODE=1; //made by yeo
     // 이전, 다음 소리 출력을 위한 상수 정의
     public static int next = 1; //다음
     public static int pre = 2; //이전
@@ -81,4 +85,5 @@ public class Menu_info {
 
     //점자번역 상수 정의
     public static int TRANS_INFO =0 ; //설명멘트
+
 }
