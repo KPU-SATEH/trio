@@ -879,7 +879,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
 
                 // finishing일때는 처리하지 않는다.
                 if (activity.isFinishing()) return;
-
+                m.invalidate();
                 if (result == true && quiz_reading_service.question != 4) {
                     MainActivity.Braille_TTS.TTS_Play("정답입니다. 다음 화면으로 이동하세요.");
                 } else if (result == true && quiz_reading_service.question == 4) {
