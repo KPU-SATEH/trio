@@ -106,7 +106,7 @@ public class quiz_reading_manual extends FragmentActivity {
                                 startActivityForResult(intent7, ENTER);
                                 break;
                             case 7: //글자 퀴즈
-                                Intent intent8 = new Intent(quiz_reading_manual.this, reading_short_practice.class);
+                                Intent intent8 = new Intent(quiz_reading_manual.this, reading_long_practice.class);
                                 startActivityForResult(intent8, ENTER);
                                 break;
                             case 8: //단어퀴즈

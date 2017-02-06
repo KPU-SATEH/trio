@@ -31,9 +31,11 @@ public class dot_quiz_initial {
     int fortis_zieut[][] = {{0,0,0,1},{0,0,0,0},{0,1,0,1}}; // 초성 쌍지읒
 
     public static String name [] ={ "기역","니은","디귿","리을","미음","비읍","시옷","지읒","치읃","키윽","티읃","피읍","히읃","된소리표","쌍기역","쌍디귿","쌍비읍","쌍시옫","쌍지읃"};
+    public static String name1 [] ={ "ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ","된소리표","ㄲ","ㄸ","ㅃ","ㅆ","ㅉ"};
     public int dot_counter[]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2}; // 몇개의 칸으로 구성되어 있는지를 나타내는 점자 배열 변수
     public static ArrayList<int[][]> Initial_Array = new ArrayList<>(); // 점자의 배열정보를 저장하는 연결리스트
     public static ArrayList<String> Initial_name = new ArrayList<>(); //점자의 글자를 저장하는 연결리스트
+    public static ArrayList<String> Initial_name1 = new ArrayList<>(); //점자의 글자를 저장하는 연결리스트
     public static ArrayList<Integer> Initial_dot_count = new ArrayList<>(); // 몇개의 칸으로 구성되어 있는지를 저장하는 연결리스트
     public dot_quiz_initial(){
         Initial_Array.add(giyeok);
@@ -58,6 +60,7 @@ public class dot_quiz_initial {
 
         for(int i = 0 ; i<Initialcount ; i++){
             Initial_name.add(name[i]);
+            Initial_name1.add(name1[i]);
             Initial_dot_count.add(dot_counter[i]);
         }
 

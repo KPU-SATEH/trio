@@ -10,15 +10,13 @@ import android.view.View;
 
 import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_quiz_service;
-import com.example.yeo.practice.MainActivity;
+import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
+import com.example.yeo.practice.Common_sound.slied;
 import com.example.yeo.practice.Menu_info;
+import com.example.yeo.practice.Normal_version_quiz.quiz_score;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
-import com.example.yeo.practice.Normal_version_quiz.quiz_reading_manual;
-import com.example.yeo.practice.Normal_version_quiz.quiz_score;
-import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
-import com.example.yeo.practice.Common_sound.slied;
 
 // 문장부호 퀴즈 메뉴 화면
 
@@ -29,7 +27,6 @@ public class Menu_quiz_sentence extends FragmentActivity {
     int y1drag,y2drag;
     int posx1,posx2,posy1,posy2;
     boolean enter = true;
-    quiz_reading_manual manual;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
