@@ -54,6 +54,7 @@ public class Menu_Communication extends AppCompatActivity {
                         WHclass.sel = Menu_info.MENU_COMMUNICATION_TEACHER ;
                         Intent intent = new Intent(Menu_Communication.this, Menu_communication_teacher.class);
                         startActivityForResult(intent, Menu_info.MENU_COMMUNICATION_TEACHER);
+                        overridePendingTransition(R.anim.fade, R.anim.hold);
                     }
                 }
                 else    enter = true;
@@ -67,6 +68,7 @@ public class Menu_Communication extends AppCompatActivity {
                 if(olddrag-newdrag>WHclass.Drag_space) { //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
                     Intent intent = new Intent(this,Menu_Tutorial.class);
                     startActivityForResult(intent,Menu_info.MENU_TUTORIAL);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_main_service.menu_page = Menu_info.MENU_TUTORIAL;
                     slied.slied =Menu_info.next;
                     startService(new Intent(this, slied.class));
@@ -76,6 +78,7 @@ public class Menu_Communication extends AppCompatActivity {
                 else if(newdrag-olddrag>WHclass.Drag_space) { //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
                     Intent intent = new Intent(this,Menu_Mynote.class);
                     startActivityForResult(intent,Menu_info.MENU_NOTE);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_main_service.menu_page = Menu_info.MENU_NOTE;
                     slied.slied = Menu_info.pre;
                     startService(new Intent(this, slied.class));

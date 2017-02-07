@@ -64,6 +64,7 @@ public class Menu_quiz_word extends FragmentActivity {
                         score.sel =9;
                         Intent intent = new Intent(Menu_quiz_word.this, Menu_quiz_reading.class);
                         startActivityForResult(intent, Menu_info.MENU_QUIZ_WORD);
+                        overridePendingTransition(R.anim.fade, R.anim.hold);
                     }
                 }
                 else    enter = true;
@@ -77,6 +78,7 @@ public class Menu_quiz_word extends FragmentActivity {
                 if(olddrag-newdrag>WHclass.Drag_space) {  //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
                     Intent intent = new Intent(this,Menu_quiz_initial.class);
                     startActivityForResult(intent,Menu_info.MENU_QUIZ_INITIAL);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_quiz_service.menu_page= Menu_info.MENU_QUIZ_INITIAL;
                     startService(new Intent(this, Menu_quiz_service.class));
                     slied.slied = Menu_info.next;
@@ -86,6 +88,7 @@ public class Menu_quiz_word extends FragmentActivity {
                 else if(newdrag-olddrag>WHclass.Drag_space) {  //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
                     Intent intent = new Intent(this,Menu_quiz_letter.class);
                     startActivityForResult(intent,Menu_info.MENU_QUIZ_LETTER);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_quiz_service.menu_page=Menu_info.MENU_QUIZ_LETTER;
                     startService(new Intent(this, Menu_quiz_service.class));
                     slied.slied = Menu_info.pre;

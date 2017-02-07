@@ -65,6 +65,7 @@ public class Menu_quiz_writing extends FragmentActivity {
                     if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                         Intent intent = new Intent(Menu_quiz_writing.this, quiz_writing_manual.class);
                         startActivityForResult(intent, Menu_info.MENU_QUIZ_INITIAL);
+                        overridePendingTransition(R.anim.fade, R.anim.hold);
                         quiz_writing_service.menu_page = Menu_info.writing_direction;
                         startService(new Intent(this, quiz_writing_service.class));
                     }
@@ -80,6 +81,7 @@ public class Menu_quiz_writing extends FragmentActivity {
                 if(olddrag-newdrag>WHclass.Drag_space) { //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
                     Intent intent = new Intent(this,Menu_quiz_reading.class); // 읽기 퀴즈 메뉴로 이동
                     startActivityForResult(intent,Menu_info.MENU_QUIZ_READING);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     slied.slied = Menu_info.next;
                     startService(new Intent(this, slied.class));
                     finish();
@@ -87,6 +89,7 @@ public class Menu_quiz_writing extends FragmentActivity {
                 else if(newdrag-olddrag>WHclass.Drag_space) {  //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
                     Intent intent = new Intent(this,Menu_quiz_reading.class);
                     startActivityForResult(intent,Menu_info.MENU_QUIZ_READING);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     slied.slied = Menu_info.pre;
                     startService(new Intent(this, slied.class));
                     finish();

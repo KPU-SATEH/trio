@@ -82,6 +82,7 @@ public class Menu_Mynote_master extends FragmentActivity {
                         if(MainActivity.master_braille_db.master_db_manager.size_count!=0) {
                             Intent intent = new Intent(Menu_Mynote_master.this, Braille_long_practice.class);
                             startActivityForResult(intent, Menu_info.MENU_NOTE);
+                            overridePendingTransition(R.anim.fade, R.anim.hold);
                             Mynote_service.menu_page=1;
                             startService(new Intent(this, Mynote_service.class));
                             Master_DB_manager.MyNote_down=true;
@@ -114,6 +115,7 @@ public class Menu_Mynote_master extends FragmentActivity {
                 if(olddrag-newdrag>WHclass.Drag_space) { //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
                     Intent intent = new Intent(this,Menu_Mynote_basic.class);
                     startActivityForResult(intent,Menu_info.MENU_MYNOTE_BASIC);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_main_service.menu_page = Menu_info.MENU_MYNOTE_BASIC;
                     slied.slied =Menu_info.next;
                     startService(new Intent(this, slied.class));
@@ -124,6 +126,7 @@ public class Menu_Mynote_master extends FragmentActivity {
                 else if(newdrag-olddrag>WHclass.Drag_space) { //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
                     Intent intent = new Intent(this,Menu_Mynote_basic.class);
                     startActivityForResult(intent,Menu_info.MENU_MYNOTE_BASIC);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_main_service.menu_page = Menu_info.MENU_MYNOTE_BASIC;
                     slied.slied = Menu_info.pre;
                     startService(new Intent(this, slied.class));

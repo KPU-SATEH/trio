@@ -58,6 +58,7 @@ public class Menu_word extends FragmentActivity {
                         Menu_info.MENU_INFO = Menu_info.MENU_WORD;
                         Intent intent = new Intent(Menu_word.this, Braille_long_practice.class);
                         startActivityForResult(intent, Menu_info.MENU_WORD);
+                        overridePendingTransition(R.anim.fade, R.anim.hold);
                     }
                 }
                 else    enter = true;
@@ -70,6 +71,7 @@ public class Menu_word extends FragmentActivity {
                 if(olddrag-newdrag>WHclass.Drag_space) { //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
                     Intent intent = new Intent(this,Menu_letter.class);
                     startActivityForResult(intent,Menu_info.MENU_MASTER_LETTER);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_master_service.menu_page = Menu_info.MENU_MASTER_LETTER;
                     slied.slied =Menu_info.next;
                     startService(new Intent(this, slied.class));
@@ -79,6 +81,7 @@ public class Menu_word extends FragmentActivity {
                 else if(newdrag-olddrag>WHclass.Drag_space) { //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
                     Intent intent = new Intent(this,Menu_letter.class);
                     startActivityForResult(intent,Menu_info.MENU_MASTER_LETTER);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_master_service.menu_page = Menu_info.MENU_MASTER_LETTER;
                     slied.slied = Menu_info.pre;
                     startService(new Intent(this, slied.class));

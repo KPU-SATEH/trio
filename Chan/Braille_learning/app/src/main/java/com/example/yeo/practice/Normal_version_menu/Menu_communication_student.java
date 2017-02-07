@@ -11,7 +11,7 @@ import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.Common_sound.slied;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
-import com.example.yeo.practice.Normal_version_Display_Practice.Communication_student_practice;
+import com.example.yeo.practice.Normal_version_Display_Practice.student_practice;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
@@ -57,8 +57,9 @@ public class Menu_communication_student extends AppCompatActivity {
                 if(enter == true) {  //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 나만의 단어장으로 접속
                     if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                         WHclass.sel = Menu_info.MENU_COMMUNICATION_STUDENT ;
-                        Intent intent = new Intent(Menu_communication_student.this, Communication_student_practice.class);
+                        Intent intent = new Intent(Menu_communication_student.this, student_practice.class);
                         startActivityForResult(intent, Menu_info.COMMUNICATION_STUDENT_MODE);
+                        overridePendingTransition(R.anim.fade, R.anim.hold);
                     }
                 }
                 else    enter = true;
@@ -72,6 +73,7 @@ public class Menu_communication_student extends AppCompatActivity {
                 if(olddrag-newdrag>WHclass.Drag_space) { //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
                     Intent intent = new Intent(this,Menu_communication_teacher.class);
                     startActivityForResult(intent,Menu_info.MENU_COMMUNICATION_TEACHER);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_main_service.menu_page = Menu_info.MENU_COMMUNICATION_TEACHER;
                     slied.slied =Menu_info.next;
                     startService(new Intent(this, slied.class));
@@ -81,6 +83,7 @@ public class Menu_communication_student extends AppCompatActivity {
                 else if(newdrag-olddrag>WHclass.Drag_space) { //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
                     Intent intent = new Intent(this,Menu_communication_teacher.class);
                     startActivityForResult(intent,Menu_info.MENU_COMMUNICATION_TEACHER);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_main_service.menu_page = Menu_info.MENU_COMMUNICATION_TEACHER;
                     slied.slied = Menu_info.pre;
                     startService(new Intent(this, slied.class));

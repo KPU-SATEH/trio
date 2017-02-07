@@ -341,6 +341,7 @@ public class MainActivity extends FragmentActivity {
                                 case 1 :
                                     Intent i1 = new Intent(MainActivity.this, Talk_Menu_tutorial.class);
                                     startActivityForResult(i1, CODE);
+                                    overridePendingTransition(R.anim.fade, R.anim.hold);
                                     startService(new Intent(MainActivity.this, Menu_main_service.class)); //메뉴 음성 출력 서비스
                                     finish();
                                     Timer_Stop();
@@ -350,6 +351,7 @@ public class MainActivity extends FragmentActivity {
                                 case 2:
                                     Intent i2 = new Intent(MainActivity.this, Menu_Tutorial.class);
                                     startActivityForResult(i2, CODE);
+                                    overridePendingTransition(R.anim.fade, R.anim.hold);
                                     startService(new Intent(MainActivity.this, Menu_main_service.class)); //메뉴 음성 출력 서비스
                                     WHclass.Braiile_type=2;
                                     Toast.makeText(MainActivity.this, "일반사용자버전", Toast.LENGTH_SHORT).show();

@@ -578,11 +578,11 @@
             android:label=""
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Normal_version_Display_Practice.Communication_teacher_practice"
+            android:name=".Normal_version_Display_Practice.teacher_practice"
             android:label=""
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Normal_version_Display_Practice.Communication_student_practice"
+            android:name=".Normal_version_Display_Practice.student_practice"
             android:label=""
             android:screenOrientation="landscape"></activity>
 

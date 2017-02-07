@@ -56,6 +56,7 @@ public class Menu_basic_practice extends FragmentActivity {
                     if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                         Intent intent = new Intent(Menu_basic_practice.this, Menu_Initial_Consonant.class);
                         startActivityForResult(intent, Menu_info.MENU_BASIC_PRACTICE);
+                        overridePendingTransition(R.anim.fade, R.anim.hold);
                         Menu_basic_service.menu_page=Menu_info.MENU_INITIAL;
                         startService(new Intent(this, Menu_basic_service.class));
                     }
@@ -71,6 +72,7 @@ public class Menu_basic_practice extends FragmentActivity {
                  if(olddrag-newdrag>WHclass.Drag_space) {  //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
                     Intent intent = new Intent(this,Menu_master_practice.class);
                     startActivityForResult(intent,Menu_info.MENU_MASTER_PRACTICE);
+                     overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_main_service.menu_page = Menu_info.MENU_MASTER_PRACTICE;
                     slied.slied =Menu_info.next;
                     startService(new Intent(this, slied.class));
@@ -80,6 +82,7 @@ public class Menu_basic_practice extends FragmentActivity {
                 else if(newdrag-olddrag>WHclass.Drag_space) {//손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
                     Intent intent = new Intent(this,Menu_Tutorial.class);
                     startActivityForResult(intent,Menu_info.MENU_TUTORIAL);
+                     overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_main_service.menu_page = Menu_info.MENU_TUTORIAL;
                     slied.slied = Menu_info.pre;
                     startService(new Intent(this, slied.class));
