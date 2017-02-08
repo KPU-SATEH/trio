@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import junit.runner.Version;
 import net.daum.mf.speech.api.SpeechRecognizerManager;
 import net.daum.mf.speech.api.TextToSpeechManager;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -81,16 +83,43 @@ public class MainActivity extends FragmentActivity {
         decorView.setSystemUiVisibility( uiOption );
         setContentView(R.layout.activity_common_main);
 
-        Display display = getWindowManager().getDefaultDisplay(); //해상도 불러오는 함수
-        Point size = new Point();
-        display.getSize(size);
+        if(Build.VERSION.SDK_INT>=14)
+
+        {
+            android.view.Display display = ((WindowManager) this.getSystemService(this.WINDOW_SERVICE)).getDefaultDisplay();
+            Point realSize = new Point();
+            try {
+                Display.class.getMethod("getRealSize", Point.class).invoke(display, realSize);
+            } catch (IllegalArgumentException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            width=realSize.y;
+            height=realSize.x;
+        }
+        else{
+            Display display = getWindowManager().getDefaultDisplay(); //해상도 불러오는 함수
+            Point size = new Point();
+            display.getSize(size);
+            width = size.y;   // 스마트폰 가로 해상도
+            height = size.x;  // 스마트폰 세로 해상도
+        }
 
         //뉴톤 라이브러리 초기화
         TextToSpeechManager.getInstance().initializeLibrary(getApplicationContext());
         SpeechRecognizerManager.getInstance().initializeLibrary(this);
 
-        width = size.y;   // 스마트폰 가로 해상도
-        height = size.x;  // 스마트폰 세로 해상도
+
         WHclass.height = height;  //WHclass height에 세로 해상도 저장
         WHclass.width = width;  //WHclass width에 가로 해상도 저장
         WHclass.Touch_space = width * (float) 0.1; //터치 영역을 저장하는 메크로
@@ -104,6 +133,10 @@ public class MainActivity extends FragmentActivity {
 
         Version_check_service.menu_page=Menu_info.version_check;
         startService(new Intent(this, Version_check_service.class));
+
+
+
+
 
 
 

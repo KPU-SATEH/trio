@@ -18,7 +18,7 @@ public class Menu_detail_service extends Service {
     //private static final String TAG = "Menu_basic_service";
     MediaPlayer explain_tutorial, explain_basic, explain_master, explain_quiz, explain_initial, explain_vowel, explain_consonant, explain_number, explain_alphabet, explain_abbreviation,
             explain_punctuation, explain_letter,explain_word, explain_initial_quiz,explain_vowel_quiz, explain_consonant_quiz, explain_number_quiz, explain_alphabet_quiz,explain_punctuation_quiz,
-            explain_abbreviation_quiz, explain_letter_quiz, explain_word_quiz, explain_mynote, explain_basic_note,explain_master_note;
+            explain_abbreviation_quiz, explain_letter_quiz, explain_word_quiz, explain_mynote, explain_basic_note,explain_master_note,explain_comunication;
 
     int detail_size = 22;
     int rawid[];
@@ -48,12 +48,12 @@ public class Menu_detail_service extends Service {
     public void onCreate(){
         detail = new MediaPlayer[]{explain_tutorial, explain_basic, explain_master, explain_quiz, explain_initial, explain_vowel, explain_consonant, explain_number, explain_alphabet, explain_punctuation,
                 explain_abbreviation, explain_letter,explain_word, explain_initial_quiz,explain_vowel_quiz, explain_consonant_quiz, explain_number_quiz, explain_alphabet_quiz,explain_punctuation_quiz,
-                explain_abbreviation_quiz, explain_letter_quiz, explain_word_quiz, explain_mynote, explain_basic_note,explain_master_note};
+                explain_abbreviation_quiz, explain_letter_quiz, explain_word_quiz, explain_mynote, explain_basic_note,explain_master_note,explain_comunication};
 
         rawid = new int[]{R.raw.tutorial_detail,R.raw.basic_detail,R.raw.master_detail,R.raw.quiz_detail,R.raw.initial_detail,R.raw.vowel_detail,R.raw.final_detail,
                 R.raw.number_detail,R.raw.alphabet_detail,R.raw.sentence_detail,R.raw.abbreviation_detail,R.raw.letter_detail,R.raw.word_detail,R.raw.quiz_initial_detail,
                 R.raw.quiz_vowel_detail,R.raw.quiz_final_detail,R.raw.quiz_number_detail,R.raw.quiz_alphabet_detail,R.raw.quiz_sentence_detail,R.raw.quiz_abbreviation_detail,
-                R.raw.quiz_letter_detail,R.raw.quiz_word_detail,R.raw.mynote_detail, R.raw.basic_detail, R.raw.master_detail};
+                R.raw.quiz_letter_detail,R.raw.quiz_word_detail,R.raw.mynote_detail, R.raw.basic_detail, R.raw.master_detail, R.raw.comunication_detail};
 
         for(int i=0; i<detail.length ; i++){
             detail[i] = MediaPlayer.create(this, rawid[i]);

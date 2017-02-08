@@ -26,8 +26,11 @@ public class Braille_long_display extends View {
     public int max, min=0; // 랜덤변수 최대값과 최소값
     public float width= WHclass.width; //가로
     public float height= WHclass.height; //세로
-    public int x=0, y=0; // 점자를 터치할때 사용할 좌표를 저장할 변수
     public Vibrator vibrator; //진동 변수
+    public int first_x=10, first_y=10;
+    public int second_x=10, second_y=10;
+    public int third_x=10, third_y=10;
+    public int x=0, y=0;
 
 
 
@@ -321,5 +324,23 @@ public class Braille_long_display extends View {
                 break;
         }
 
+        Paint finger = new Paint();
+        finger.setARGB(180,255,00,00);
+        finger.setAntiAlias(true);
+        canvas.drawCircle(first_x,first_y,minicircle*2,finger);
+        canvas.drawCircle(second_x,second_y,minicircle*2,finger);
+        canvas.drawCircle(third_x,third_y,minicircle*2,finger);
+
     }
+
+    public void finger_set(int x1, int y1, int x2, int y2, int x3, int y3){
+        first_x=x1;
+        first_y=y1;
+        second_x=x2;
+        second_y=y2;
+        third_x=x3;
+        third_y=y3;
+        invalidate();
+    }
+
 }
