@@ -985,19 +985,19 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                             touch_init(6);
                         }
                     } //일곱번째 칸 6번 점자
-                    else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle){
-                        WHclass.number=7;
-                        WHclass.target= true;
-                        startService(new Intent(this, Number.class));
-                        m.vibrator.vibrate(WHclass.Weak_vibe);
-                        touch_init(0);
-                    }
                     else { //그외의 공간을 터치하였을 때는 문지르기 기능을 위한 컨트롤 변수 초기화
                         touch_init(0);
                     }
                     switch(m.dot_count){
                         case 1: //점자의 칸 수가 한 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
-                            if(m.x > m.width2+m.bigcircle && m.x<m.width2+(m.bigcircle*2)){
+                            if(m.x > m.width2+m.bigcircle && m.x<m.width2+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=7;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width2+(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
@@ -1006,14 +1006,21 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                             }
                             break;
                         case 2://점자의 칸 수가 두 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
-                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle){
+                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width4+m.bigcircle && m.x<m.width4+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width4+m.bigcircle && m.x<m.width4+(m.bigcircle*2)){
+                            else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width4+(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
@@ -1022,21 +1029,28 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                             }
                             break;
                         case 3://점자의 칸 수가 세 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
-                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle){
+                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width6+m.bigcircle && m.x<m.width6+(m.bigcircle*2)&& m.y > m.height1-(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.x > m.width6+m.bigcircle && m.x<m.width6+(m.bigcircle*2)){
+                            else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width6+(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
@@ -1045,28 +1059,35 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                             }
                             break;
                         case 4://점자의 칸 수가 네 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
-                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle){
+                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle) ){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width8+m.bigcircle && m.x<m.width8+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.x > m.width8+m.bigcircle && m.x<m.width8+(m.bigcircle*2)){
+                            else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width8+(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
@@ -1075,35 +1096,42 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                             }
                             break;
                         case 5://점자의 칸 수가 다섯 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
-                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle){
+                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width10+m.bigcircle && m.x<m.width10+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.x > m.width10+m.bigcircle && m.x<m.width10+(m.bigcircle*2)){
+                            else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width10+(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
@@ -1112,42 +1140,49 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                             }
                             break;
                         case 6://점자의 칸 수가 여섯 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
-                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle){
+                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width10+m.bigcircle && m.x<m.width11-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width12+m.bigcircle && m.x<m.width12+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.x > m.width10+m.bigcircle && m.x<m.width11-m.bigcircle){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.x > m.width12+m.bigcircle && m.x<m.width12+(m.bigcircle*2)){
+                            else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width12+(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
@@ -1156,49 +1191,56 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                             }
                             break;
                         case 7://점자의 칸 수가 일곱 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
-                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle){
+                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width10+m.bigcircle && m.x<m.width11-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width12+m.bigcircle && m.x<m.width13-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=8;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.x > m.width14+m.bigcircle && m.x<m.width14+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.x > m.width10+m.bigcircle && m.x<m.width11-m.bigcircle){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.x > m.width12+m.bigcircle && m.x<m.width13-m.bigcircle){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.x > m.width14+m.bigcircle && m.x<m.width14+(m.bigcircle*2)){
+                            else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width14+(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
@@ -1909,20 +1951,20 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                             touch_init(6);
                         }
                     } //일곱번째 칸 6번 점자
-                    else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle){
-                        WHclass.number=7;
-                        WHclass.target= true;
-                        startService(new Intent(this, Number.class));
-                        m.vibrator.vibrate(WHclass.Weak_vibe);
-                        touch_init(0);
-                    }
                     else { // 그외 지점을 터치하였을 경우 문지르기 기능을 위한 컨트롤 변수 초기화
                         touch_init(0);
                         WHclass.number=0;
                     }
                     switch(m.dot_count){
-                        case 1: // 점자의 칸수가 한 칸일때 구분선 및 경고음 발생 영역 지정
-                            if(m.x > m.width2+m.bigcircle && m.x<m.width2+(m.bigcircle*2)){
+                        case 1: //점자의 칸 수가 한 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
+                            if(m.x > m.width2+m.bigcircle && m.x<m.width2+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle)){
+                                WHclass.number=7;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width2+(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
@@ -1930,15 +1972,22 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                                 touch_init(0);
                             }
                             break;
-                        case 2:// 점자의 칸수가 두 칸일때 구분선 및 경고음 발생 영역 지정
-                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle){
+                        case 2://점자의 칸 수가 두 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
+                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width4+m.bigcircle && m.x<m.width4+(m.bigcircle*2)){
+                            else if(m.x > m.width4+m.bigcircle && m.x<m.width4+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
+                                WHclass.number=7;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width4+(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
@@ -1946,22 +1995,29 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                                 touch_init(0);
                             }
                             break;
-                        case 3:// 점자의 칸수가 세 칸일때 구분선 및 경고음 발생 영역 지정
-                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle){
+                        case 3://점자의 칸 수가 세 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
+                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle){
+                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width6+m.bigcircle && m.x<m.width6+(m.bigcircle*2)){
+                            else if(m.x > m.width6+m.bigcircle && m.x<m.width6+(m.bigcircle*2)&& m.y > m.height1-(m.bigcircle*2)){
+                                WHclass.number=7;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width6+(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
@@ -1969,29 +2025,36 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                                 touch_init(0);
                             }
                             break;
-                        case 4:// 점자의 칸수가 네 칸일때 구분선 및 경고음 발생 영역 지정
-                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle){
+                        case 4://점자의 칸 수가 네 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
+                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle) ){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle){
+                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle){
+                            else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width8+m.bigcircle && m.x<m.width8+(m.bigcircle*2)){
+                            else if(m.x > m.width8+m.bigcircle && m.x<m.width8+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
+                                WHclass.number=7;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width8+(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
@@ -1999,36 +2062,43 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                                 touch_init(0);
                             }
                             break;
-                        case 5:// 점자의 칸수가 다섯 칸일때 구분선 및 경고음 발생 영역 지정
-                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle){
+                        case 5://점자의 칸 수가 다섯 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
+                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle){
+                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle){
+                            else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle){
+                            else if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width10+m.bigcircle && m.x<m.width10+(m.bigcircle*2)){
+                            else if(m.x > m.width10+m.bigcircle && m.x<m.width10+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
+                                WHclass.number=7;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width10+(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
@@ -2036,43 +2106,50 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                                 touch_init(0);
                             }
                             break;
-                        case 6:// 점자의 칸수가 여섯 칸일때 구분선 및 경고음 발생 영역 지정
-                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle){
+                        case 6://점자의 칸 수가 여섯 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
+                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle){
+                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle){
+                            else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle){
+                            else if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width10+m.bigcircle && m.x<m.width11-m.bigcircle){
+                            else if(m.x > m.width10+m.bigcircle && m.x<m.width11-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width12+m.bigcircle && m.x<m.width12+(m.bigcircle*2)){
+                            else if(m.x > m.width12+m.bigcircle && m.x<m.width12+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
+                                WHclass.number=7;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width12+(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
@@ -2080,50 +2157,57 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                                 touch_init(0);
                             }
                             break;
-                        case 7:// 점자의 칸수가 일곱 칸일때 구분선 및 경고음 발생 영역 지정
-                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle){
+                        case 7://점자의 칸 수가 일곱 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
+                            if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle){
+                            else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle){
+                            else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle){
+                            else if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width10+m.bigcircle && m.x<m.width11-m.bigcircle){
+                            else if(m.x > m.width10+m.bigcircle && m.x<m.width11-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width12+m.bigcircle && m.x<m.width13-m.bigcircle){
+                            else if(m.x > m.width12+m.bigcircle && m.x<m.width13-m.bigcircle && m.y > m.height1-(m.bigcircle)){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width14+m.bigcircle && m.x<m.width14+(m.bigcircle*2)){
+                            else if(m.x > m.width14+m.bigcircle && m.x<m.width14+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
+                                WHclass.number=7;
+                                WHclass.target= true;
+                                startService(new Intent(this, Number.class));
+                                m.vibrator.vibrate(WHclass.Weak_vibe);
+                                touch_init(0);
+                            }
+                            else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width14+(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
