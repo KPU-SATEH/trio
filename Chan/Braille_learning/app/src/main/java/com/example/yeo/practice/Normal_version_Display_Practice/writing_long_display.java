@@ -25,6 +25,10 @@ class writing_long_display extends View {
 4칸부터 7칸까지 점자를 표현할 수 있도록 설정되어 있음
 단, 퀴즈이기 때문에, 점자를 의미하는 글자를 표현하지 않음
  */
+    public int first_x=-100, first_y=-100;
+    public int second_x=10, second_y=-100;
+    public int third_x=-100, third_y=-100;
+
     Random random;
     static boolean next = false;
     int max, min=0; // 랜덤변수 최대값과 최소값
@@ -146,5 +150,23 @@ class writing_long_display extends View {
 
             }
         }
+        Paint finger = new Paint();
+        finger.setARGB(180,255,00,00);
+        finger.setAntiAlias(true);
+        canvas.drawCircle(first_x,first_y,minicircle*2,finger);
+        canvas.drawCircle(second_x,second_y,minicircle*2,finger);
+        canvas.drawCircle(third_x,third_y,minicircle*2,finger);
+
     }
+
+    public void finger_set(int x1, int y1, int x2, int y2, int x3, int y3){
+        first_x=x1;
+        first_y=y1;
+        second_x=x2;
+        second_y=y2;
+        third_x=x3;
+        third_y=y3;
+        invalidate();
+    }
+
 }

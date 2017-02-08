@@ -27,9 +27,9 @@ public class Braille_long_display extends View {
     public float width= WHclass.width; //가로
     public float height= WHclass.height; //세로
     public Vibrator vibrator; //진동 변수
-    public int first_x=10, first_y=10;
-    public int second_x=10, second_y=10;
-    public int third_x=10, third_y=10;
+    public int first_x=-100, first_y=-100;
+    public int second_x=10, second_y=-100;
+    public int third_x=-100, third_y=-100;
     public int x=0, y=0;
 
 

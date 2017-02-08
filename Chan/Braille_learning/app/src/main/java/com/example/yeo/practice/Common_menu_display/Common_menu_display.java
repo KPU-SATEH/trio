@@ -152,6 +152,12 @@ public class Common_menu_display extends View {
             case 49:
                 image = BitmapFactory.decodeResource(getResources(), R.drawable.word_quiz);
                 break;
+            case 401:
+                image = BitmapFactory.decodeResource(getResources(), R.drawable.read);
+                break;
+            case 402:
+                image = BitmapFactory.decodeResource(getResources(), R.drawable.write);
+                break;
             case 5:
                 image = BitmapFactory.decodeResource(getResources(), R.drawable.mynote);
                 break;

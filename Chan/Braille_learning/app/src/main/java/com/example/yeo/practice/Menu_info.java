@@ -115,6 +115,8 @@ public class Menu_info {
     public static int DISPLAY_QUIZ_ABBREVIATION=47; //약자 및 약어 퀴즈
     public static int DISPLAY_QUIZ_LETTER=48; //글자 퀴즈
     public static int DISPLAY_QUIZ_WORD=49; //단어퀴즈
+    public static int DISPLAY_QUIZ_READ = 401; //읽기퀴즈
+    public static int DISPLAY_QUIZ_WRITING = 402; //쓰기퀴즈
 
     public static int DISPLAY_MYNOTE=5; //나만의 단어장
     public static int DISPLAY_MYNOTE_BASIC=51; //기초단어장

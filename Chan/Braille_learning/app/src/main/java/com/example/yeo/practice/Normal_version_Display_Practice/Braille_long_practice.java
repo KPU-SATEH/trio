@@ -221,29 +221,12 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
             getText();
         }
 
-
-/*
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if(check==true) {
-                    getText();
-                    check=false;
-                }
-
-            }
-        });
-*/
         client = null;
     }
 
     public void getText(){
         text = texts.get(0);
         check=true;
-/*        for(int i=0; i<texts.size() ; i++) {
-            text=text+texts.get(i)+" ";
-        }
-        */
         texts.clear();
     }
 

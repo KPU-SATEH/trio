@@ -32,6 +32,12 @@ import java.util.TimerTask;
 
 public class student_display extends View {
 com.example.yeo.practice.Common_braille_data.dot_student_data dot_student_data;
+
+
+    public int first_x=-100, first_y=-100;
+    public int second_x=10, second_y=-100;
+    public int third_x=-100, third_y=-100;
+
     String myJSON;
     private static final String TAG_RESULTS="result";
     private static final String ID = "id";
@@ -117,6 +123,23 @@ com.example.yeo.practice.Common_braille_data.dot_student_data dot_student_data;
                 }
             }
         }
+        Paint finger = new Paint();
+        finger.setARGB(180,255,00,00);
+        finger.setAntiAlias(true);
+        canvas.drawCircle(first_x,first_y,minicircle*2,finger);
+        canvas.drawCircle(second_x,second_y,minicircle*2,finger);
+        canvas.drawCircle(third_x,third_y,minicircle*2,finger);
+
+    }
+
+    public void finger_set(int x1, int y1, int x2, int y2, int x3, int y3){
+        first_x=x1;
+        first_y=y1;
+        second_x=x2;
+        second_y=y2;
+        third_x=x3;
+        third_y=y3;
+        invalidate();
     }
     protected void show(){
         try {

@@ -14,6 +14,9 @@ import com.example.yeo.practice.WHclass;
  */
 
 public class teacher_display extends View {
+    public int first_x=-100, first_y=-100;
+    public int second_x=10, second_y=-100;
+    public int third_x=-100, third_y=-100;
 
     static boolean next = false;
     float width= WHclass.width; //가로
@@ -97,6 +100,23 @@ public class teacher_display extends View {
 
             }
         }
+        Paint finger = new Paint();
+        finger.setARGB(180,255,00,00);
+        finger.setAntiAlias(true);
+        canvas.drawCircle(first_x,first_y,minicircle*2,finger);
+        canvas.drawCircle(second_x,second_y,minicircle*2,finger);
+        canvas.drawCircle(third_x,third_y,minicircle*2,finger);
+
+    }
+
+    public void finger_set(int x1, int y1, int x2, int y2, int x3, int y3){
+        first_x=x1;
+        first_y=y1;
+        second_x=x2;
+        second_y=y2;
+        third_x=x3;
+        third_y=y3;
+        invalidate();
     }
 }
 

@@ -21,6 +21,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class writing_long_practice extends FragmentActivity {
+    int finger_x[] = new int[3];
+    int finger_y[] = new int[3];
+
     writing_long_display m;
     int newdrag, olddrag; //화면전환시 이용될 좌표 2개를 저장할 변수
     int y1drag, y2drag;
@@ -63,7 +66,12 @@ public class writing_long_practice extends FragmentActivity {
         // 화면에 터치가 발생했을 때 호출되는 콜백 메서드
         if (m.next == false) {
             switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                case MotionEvent.ACTION_UP://마지막 손가락을 땠을 때 화면잠금을 품
+                case MotionEvent.ACTION_UP: //마지막 손가락을 땠을 때 화면잠금을 품
+                    for(int j=0 ; j<3 ; j++){
+                        finger_x[j] = -100;
+                        finger_y[j] = -100;
+                    }
+                    m.finger_set(finger_x[0],finger_y[0],finger_x[1],finger_y[1],finger_x[2],finger_y[2]);
                     Timer_Stop();
                     if (click == false)
                         click = true;
@@ -81,6 +89,16 @@ public class writing_long_practice extends FragmentActivity {
                 case MotionEvent.ACTION_MOVE:// 화면을 터치한 상태로 움직일때 발생되는 이벤트
                     m.x = (int) event.getX();// 현재 터치한 지점의 x좌표를 저장
                     m.y = (int) event.getY();// 현재 터치한 지점의 y좌표를 저장
+                    int pointer_count2 = event.getPointerCount();
+                    for(int j=0 ; j<3 ; j++){
+                        finger_x[j] = -100;
+                        finger_y[j] = -100;
+                    }
+                    for(int i=0 ; i<pointer_count2 ; i++) {
+                        finger_x[i] = (int) event.getX(i);
+                        finger_y[i] = (int) event.getY(i);
+                    }
+                    m.finger_set(finger_x[0],finger_y[0],finger_x[1],finger_y[1],finger_x[2],finger_y[2]);
                     if ((m.x < m.bigcircle * 2) && (m.x > m.bigcircle * (-2)) && (m.y > m.bigcircle * (-2)) && (m.y < (m.bigcircle * 2)))
                         break;
                      /*

@@ -1,11 +1,13 @@
 package com.example.yeo.practice.Normal_version_quiz;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
 import com.example.yeo.practice.Normal_version_Display_Practice.writing_long_practice;
@@ -17,6 +19,9 @@ import com.example.yeo.practice.*;
  */
 
 public class quiz_writing_manual extends FragmentActivity {
+    static public AnimationDrawable speechani;
+    static public ImageView speechimage;
+
     final public static int ENTER = 0;
     public int newdrag,olddrag;
     public static int choice;
@@ -27,6 +32,9 @@ public class quiz_writing_manual extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_common_quiz_writing_manual);
+        speechimage = (ImageView) findViewById(R.id.imageView38);
+        speechimage.setBackgroundResource(R.drawable.speechani);
+        speechani = (AnimationDrawable) speechimage.getBackground();
 
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
@@ -40,6 +48,12 @@ public class quiz_writing_manual extends FragmentActivity {
         decorView.setSystemUiVisibility( uiOption );
 
 
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        speechani.start();
     }
 
     @Override
