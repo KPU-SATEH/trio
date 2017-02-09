@@ -13,7 +13,7 @@ import com.example.yeo.practice.Sound_Manager;
  */
 public class Menu_main_service extends Service {
     private static final String TAG = "Menu_basic_service";
-    MediaPlayer basic,master,quiz, tutorial,mynote,braille,mainfinish;
+    MediaPlayer basic,master,quiz, tutorial,mynote,braille,comunication,mainfinish;
     MediaPlayer main[];
     int rawid[];
 
@@ -34,10 +34,10 @@ public class Menu_main_service extends Service {
         mainfinish = MediaPlayer.create(this,R.raw.mainfinish);
         mainfinish.setLooping(false);
 
-        main = new MediaPlayer[]{tutorial,basic,master,braille,quiz,mynote};
-        rawid = new int[]{R.raw.directions,R.raw.basic,R.raw.master,R.raw.braille_translation,R.raw.quiz,R.raw.mynote};
+        main = new MediaPlayer[]{tutorial,basic,master,braille,quiz,mynote,comunication};
+        rawid = new int[]{R.raw.directions,R.raw.basic,R.raw.master,R.raw.braille_translation,R.raw.quiz,R.raw.mynote, R.raw.comunication};
 
-        for(int i=0 ; i<6 ; i++){
+        for(int i=0 ; i<main.length ; i++){
             main[i]=MediaPlayer.create(this,rawid[i]);
             main[i].setLooping(false);
         }

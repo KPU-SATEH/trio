@@ -18,7 +18,6 @@ import com.example.yeo.practice.WHclass;
 import java.util.Locale;
 import java.util.Random;
 
-import static com.example.yeo.practice.Normal_version_Display_Practice.writing_long_display.Dot_quiz_letter;
 import static com.example.yeo.practice.Normal_version_Display_Practice.writing_long_display.Dot_quiz_word;
 
 /**
@@ -58,7 +57,7 @@ class reading_long_display extends View {
     static float notarget7_height[][] =new float[3][14]; //비돌출 점자의 y 좌표값을 저장하는 배열 변수
     static int text_7[][] = new int[3][14];  // 7칸의 점자를 저장하는 배열 변수. 점자 배열정보가 담긴 클래스로부터 불러온 점자를 해당 배열변수에 저장함
     static String textname_7;// 불러온 점자가 의미하는 글자를 저장하는 변수
-
+    static dot_quiz_letter Dot_quiz_letter;
 
     static int page=0;
 

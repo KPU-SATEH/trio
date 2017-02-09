@@ -1,6 +1,7 @@
 package com.example.yeo.practice.Normal_version_menu;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.yeo.practice.Common_menu_display.Common_menu_display;
 import com.example.yeo.practice.Common_menu_sound.Menu_quiz_inside_service;
 import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
 import com.example.yeo.practice.MainActivity;
@@ -21,6 +23,9 @@ import com.example.yeo.practice.Common_sound.slied;
 // 쓰기 퀴즈 메뉴 화면
 
 public class Menu_quiz_writing extends FragmentActivity {
+    Common_menu_display m;
+    int finger_x[] = new int[3];
+    int finger_y[] = new int[3];
 
     int newdrag,olddrag;
     int y1drag,y2drag;
@@ -41,7 +46,12 @@ public class Menu_quiz_writing extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
          decorView.setSystemUiVisibility( uiOption );
-        setContentView(R.layout.activity_common_menu_quiz_writing);
+
+        Menu_info.DISPLAY = Menu_info.DISPLAY_QUIZ_WRITING;
+        m = new Common_menu_display(this);
+        m.setBackgroundColor(Color.rgb(22,26,44));
+
+        setContentView(m);
 
         Menu_quiz_inside_service.menu_page = Menu_info.MENU_QUIZ_WRITING;
         startService(new Intent(this, Menu_quiz_inside_service.class));
@@ -59,12 +69,19 @@ public class Menu_quiz_writing extends FragmentActivity {
                 posy1 = (int)event.getY();  //현재 좌표의 y좌표값 저장
                 break;
             case MotionEvent.ACTION_UP:  //손가락 1개를 화면에서 떨어트렸을 경우
+                for(int j=0 ; j<3 ; j++){
+                    finger_x[j] = -100;
+                    finger_y[j] = -100;
+                }
+                m.finger_set(finger_x[0],finger_y[0],finger_x[1],finger_y[1],finger_x[2],finger_y[2]);
+
                 posx2 = (int)event.getX();  //손가락 1개를 화면에서 떨어트린 x좌표값 저장
                 posy2 = (int)event.getY();  //손가락 1개를 화면에서 떨어트린 y좌표값 저장
                 if(enter == true) { //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 초성 퀴즈로 접속
                     if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                         Intent intent = new Intent(Menu_quiz_writing.this, quiz_writing_manual.class);
                         startActivityForResult(intent, Menu_info.MENU_QUIZ_INITIAL);
+                        overridePendingTransition(R.anim.fade, R.anim.hold);
                         quiz_writing_service.menu_page = Menu_info.writing_direction;
                         startService(new Intent(this, quiz_writing_service.class));
                     }
@@ -73,13 +90,25 @@ public class Menu_quiz_writing extends FragmentActivity {
 
 
                 break;
-
+            case MotionEvent.ACTION_MOVE :
+                int pointer_count2 = event.getPointerCount();
+                for(int j=0 ; j<3 ; j++){
+                    finger_x[j] = -100;
+                    finger_y[j] = -100;
+                }
+                for(int i=0 ; i<pointer_count2 ; i++) {
+                    finger_x[i] = (int) event.getX(i);
+                    finger_y[i] = (int) event.getY(i);
+                }
+                m.finger_set(finger_x[0],finger_y[0],finger_x[1],finger_y[1],finger_x[2],finger_y[2]);
+                break;
             case MotionEvent.ACTION_POINTER_UP:  // 두번째 손가락을 떼었을 경우
                 newdrag = (int)event.getX();  // 두번째 손가락이 떨어진 지점의 x좌표값 저장
                 y2drag = (int) event.getY();  // 두번째 손가락이 떨어진 지점의 y좌표값 저장
                 if(olddrag-newdrag>WHclass.Drag_space) { //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
                     Intent intent = new Intent(this,Menu_quiz_reading.class); // 읽기 퀴즈 메뉴로 이동
                     startActivityForResult(intent,Menu_info.MENU_QUIZ_READING);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     slied.slied = Menu_info.next;
                     startService(new Intent(this, slied.class));
                     finish();
@@ -87,6 +116,7 @@ public class Menu_quiz_writing extends FragmentActivity {
                 else if(newdrag-olddrag>WHclass.Drag_space) {  //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
                     Intent intent = new Intent(this,Menu_quiz_reading.class);
                     startActivityForResult(intent,Menu_info.MENU_QUIZ_READING);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     slied.slied = Menu_info.pre;
                     startService(new Intent(this, slied.class));
                     finish();

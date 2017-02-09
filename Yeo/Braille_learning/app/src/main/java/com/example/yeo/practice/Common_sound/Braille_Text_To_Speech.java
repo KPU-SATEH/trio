@@ -12,7 +12,6 @@ import net.daum.mf.speech.api.TextToSpeechListener;
 
 public class Braille_Text_To_Speech implements TextToSpeechListener {
     String TAG = "Braille_Text_To_Speech";
-    public static boolean tts_check = false;
     private TextToSpeechClient TTS;
 
     public Braille_Text_To_Speech(){
@@ -28,7 +27,7 @@ public class Braille_Text_To_Speech implements TextToSpeechListener {
     public void TTS_Play(String text){
         if(TTS.isPlaying())
             TTS.stop();
-        tts_check = true;
+
         TTS.play(text);
     }
 
@@ -89,8 +88,9 @@ public class Braille_Text_To_Speech implements TextToSpeechListener {
     public void onFinished() { //음성합성이 종료될 때 호출된다.
         int intSentSize = TTS.getSentDataSize();      //세션 중에 전송한 데이터 사이즈
         int intRecvSize = TTS.getReceivedDataSize();  //세션 중에 전송받은 데이터 사이즈
-        tts_check = false;
+
         final String strInacctiveText = "handleFinished() SentSize : " + intSentSize + "     RecvSize : " + intRecvSize;
+
         Log.i(TAG, strInacctiveText);
     }
 }

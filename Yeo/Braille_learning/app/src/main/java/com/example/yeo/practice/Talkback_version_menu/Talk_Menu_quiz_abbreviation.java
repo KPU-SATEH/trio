@@ -39,7 +39,7 @@ public class Talk_Menu_quiz_abbreviation extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-
+        //quiz_reading_service.finish_n = 6;
         decorView.setSystemUiVisibility( uiOption );
         setContentView(R.layout.activity_common_menu_quiz_abbreviation);
         View container = findViewById(R.id.activity_common_menu_quiz_abbreviation);

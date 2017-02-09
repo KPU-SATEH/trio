@@ -23,6 +23,9 @@ public class writing_short_practice extends FragmentActivity{
     /*
     3칸 이하의 점자 쓰기퀴즈를 진행하는 클래스 첫번째 버전
     */
+    int finger_x[] = new int[3];
+    int finger_y[] = new int[3];
+
     writing_short_display m;
     int newdrag, olddrag;  //첫번째 손가락과 두번째 손가락의 x좌표를 저장할 변수
     int y1drag, y2drag;//첫번째 손가락과 두번째 손가락의 y좌표를 저장할 변수
@@ -70,7 +73,12 @@ public class writing_short_practice extends FragmentActivity{
     public boolean onTouchEvent(MotionEvent event) {
         // 화면에 터치가 발생했을 때 호출되는 콜백 메서드
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_UP: // 마지막 한개의 손가락을 화면에서 떨어트렸을 경우 화면 잠금을 해제함
+            case MotionEvent.ACTION_UP: //마지막 손가락을 땠을 때 화면잠금을 품
+                for(int j=0 ; j<3 ; j++){
+                    finger_x[j] = -100;
+                    finger_y[j] = -100;
+                }
+                m.finger_set(finger_x[0],finger_y[0],finger_x[1],finger_y[1],finger_x[2],finger_y[2]);
                 if (click == false) click = true;
                 touch_init(0);
                 Timer_Stop();
@@ -85,6 +93,17 @@ public class writing_short_practice extends FragmentActivity{
             case MotionEvent.ACTION_MOVE: // 첫번째 손가락을 화면에 터치한 상태에서 드래그를 할 경우
                 m.x = (int) event.getX();  // 첫번째 손가락이 터치하고 있는 지점의 x좌표 값을 저장
                 m.y = (int) event.getY(); // 첫번째 손가락이 터치하고 있는 지점의 y좌표 값을 저장
+                int pointer_count2 = event.getPointerCount();
+                for(int j=0 ; j<3 ; j++){
+                    finger_x[j] = -100;
+                    finger_y[j] = -100;
+                }
+                for(int i=0 ; i<pointer_count2 ; i++) {
+                    finger_x[i] = (int) event.getX(i);
+                    finger_y[i] = (int) event.getY(i);
+                }
+                m.finger_set(finger_x[0],finger_y[0],finger_x[1],finger_y[1],finger_x[2],finger_y[2]);
+
                 /*
                 자신이 터치하고 있는 지점의 점자가 돌출된 점자이면 남성의 음성으로 점자번호를 안내하면서 강한 진동 발생
                 자신이 터치하고 있는 지점의 점자가 비돌출된 점자이면 여성의 음성으로 점자번호를 안내함

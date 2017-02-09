@@ -86,4 +86,47 @@ public class Menu_info {
     //점자번역 상수 정의
     public static int TRANS_INFO =0 ; //설명멘트
 
+    //메뉴화면 출력을 위한 모든 메뉴 상수 정의
+    public static int DISPLAY=0; //메뉴화면 출력 정보 저장 변수
+    public static int DISPLAY_TUTORIAL =0 ; //사용설명서
+
+    public static int DISPLAY_BASIC=1; //기초과정
+    public static int DISPLAY_INITIAL=11; //초성연습
+    public static int DISPLAY_VOWEL=12; //모음연습
+    public static int DISPLAY_FINAL=13; //종성연습
+    public static int DISPLAY_NUMBER=14; //숫자연습
+    public static int DISPLAY_ALPHABET=15; //알파벳연습
+    public static int DISPLAY_SENTENCE=16; //문장부호연습
+    public static int DISPLAY_ABBREVIATION=17; //약자 및 약어 연습
+
+    public static int DISPLAY_MASTER=2; //숙련과정
+    public static int DISPLAY_LETTER=21; //글자연습
+    public static int DISPLAY_WORD=22; //단어연습
+
+    public static int DISPLAY_TRANS=3; //점자번역
+
+    public static int DISPLAY_QUIZ=4; //퀴즈
+    public static int DISPLAY_QUIZ_INIT=41; //초성퀴즈
+    public static int DISPLAY_QUIZ_VOWEL=42; //모음퀴즈
+    public static int DISPLAY_QUIZ_FINAL=43; //종성퀴즈
+    public static int DISPLAY_QUIZ_NUMBER=44; //숫자퀴즈
+    public static int DISPLAY_QUIZ_ALPHABET=45; //알파벳퀴즈
+    public static int DISPLAY_QUIZ_SENTENCE=46; //문장부호퀴즈
+    public static int DISPLAY_QUIZ_ABBREVIATION=47; //약자 및 약어 퀴즈
+    public static int DISPLAY_QUIZ_LETTER=48; //글자 퀴즈
+    public static int DISPLAY_QUIZ_WORD=49; //단어퀴즈
+    public static int DISPLAY_QUIZ_READ = 401; //읽기퀴즈
+    public static int DISPLAY_QUIZ_WRITING = 402; //쓰기퀴즈
+
+    public static int DISPLAY_MYNOTE=5; //나만의 단어장
+    public static int DISPLAY_MYNOTE_BASIC=51; //기초단어장
+    public static int DISPLAY_MYNOTE_MASTER=52; //숙련단어장
+
+    public static int DISPLAY_COMUNICATION=6; //선생님과의 대화
+    public static int DISPLAY_COMUNICATION_TEAHCER=61; //선생님모드
+    public static int DISPLAY_COMUNICATION_STUDENT=62; //학생모드
+
+
+
+
 }

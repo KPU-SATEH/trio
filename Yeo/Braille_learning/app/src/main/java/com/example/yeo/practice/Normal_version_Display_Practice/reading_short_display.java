@@ -379,6 +379,11 @@ class reading_short_display extends View {
             case 6: //약자및 약어 퀴즈
                 Dot_quiz_abbreviation = new dot_quiz_abbreviation();
                 break;
+            /*
+            case 7: //글자 퀴즈
+                Dot_quiz_letter = new dot_quiz_letter();
+                break;
+                */
         }
 
         quiz_view_init();

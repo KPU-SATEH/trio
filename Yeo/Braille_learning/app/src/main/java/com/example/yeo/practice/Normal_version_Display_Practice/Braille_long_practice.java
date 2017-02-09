@@ -77,6 +77,9 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
 
     String text="";
 
+    int finger_x[] = new int[3];
+    int finger_y[] = new int[3];
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -218,29 +221,12 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
             getText();
         }
 
-
-/*
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if(check==true) {
-                    getText();
-                    check=false;
-                }
-
-            }
-        });
-*/
         client = null;
     }
 
     public void getText(){
         text = texts.get(0);
         check=true;
-/*        for(int i=0; i<texts.size() ; i++) {
-            text=text+texts.get(i)+" ";
-        }
-        */
         texts.clear();
     }
 
@@ -297,8 +283,15 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // 화면에 터치가 발생했을 때 호출되는 콜백 메서드
+
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_UP: //마지막 손가락을 땠을 때 화면잠금을 품
+                for(int j=0 ; j<3 ; j++){
+                    finger_x[j] = -100;
+                    finger_y[j] = -100;
+                }
+                m.finger_set(finger_x[0],finger_y[0],finger_x[1],finger_y[1],finger_x[2],finger_y[2]);
+
                 if (click == false) {
                     click = true;
                 }
@@ -308,7 +301,6 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                 startService(new Intent(this, Sound_Manager.class));
                 m.x = (int) event.getX(); //x좌표를 저장
                 m.y = (int) event.getY(); //y좌표를 저장
-
                 if ((m.x <m.bigcircle*2) && (m.x>m.bigcircle*(-2))&&(m.y >m.bigcircle*(-2))&&(m.y <(m.bigcircle*2))) {
                     break;
                 }
@@ -1221,8 +1213,19 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                 break;
 
             case MotionEvent.ACTION_MOVE : // 화면을 터치한 상태로 움직일때 발생되는 이벤트
-                m.x = (int)event.getX(); // 현재 터치한 지점의 x좌표를 저장
-                m.y = (int)event.getY(); // 현재 터치한 지점의 y좌표를 저장
+                m.x = (int) event.getX();
+                m.y = (int) event.getY();
+
+                int pointer_count2 = event.getPointerCount();
+                for(int j=0 ; j<3 ; j++){
+                        finger_x[j] = -100;
+                        finger_y[j] = -100;
+                }
+                for(int i=0 ; i<pointer_count2 ; i++) {
+                    finger_x[i] = (int) event.getX(i);
+                    finger_y[i] = (int) event.getY(i);
+                }
+                m.finger_set(finger_x[0],finger_y[0],finger_x[1],finger_y[1],finger_x[2],finger_y[2]);
                 if ((m.x <m.bigcircle*2) && (m.x>m.bigcircle*(-2))&&(m.y >m.bigcircle*(-2))&&(m.y <(m.bigcircle*2))) {
                     break;
                 }
@@ -2136,7 +2139,7 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
 
             case MotionEvent.ACTION_POINTER_UP:  // 두번째 손가락을 화면에서 떼었을 경우
                 click = true;
-                newdrag = (int)event.getX(); // 두번째 손가락이 화면에서 떨어진 지점의 x 좌표 저장
+                newdrag = (int) event.getX(); // 두번째 손가락이 화면에서 떨어진 지점의 x 좌표 저장
                 y2drag = (int) event.getY();// 두번째 손가락이 화면에서 떨어진 지점의 y 좌표 저장
                 int pointer_count = event.getPointerCount();
                 if(pointer_count==3) {
@@ -2369,7 +2372,7 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
 
         if(Matrix_check==false) {
             Trans_success=false;
-            Translation_text ="해당 단어는 7칸이 넘어서, 번역이 불가능합니다.";
+            Translation_text ="해당 단어는 7칸이 넘어서, 번역이 불가능합니다. 다른 단어를 이야기 해주세요.";
             MainActivity.Braille_TTS.TTS_Play(Translation_text);
             matrix_init();
         }
@@ -2388,6 +2391,8 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                 m.invalidate();
             }
         });
+
+
 
     }
 
@@ -2419,4 +2424,6 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
         }
         finish();
     }
+
+
 }

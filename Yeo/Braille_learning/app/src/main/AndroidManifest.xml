@@ -15,6 +15,7 @@
         android:label="@string/app_name"
         android:screenOrientation="landscape"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
@@ -578,16 +579,20 @@
             android:label=""
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Normal_version_Display_Practice.Communication_teacher_practice"
+            android:name=".Normal_version_Display_Practice.teacher_practice"
             android:label=""
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Normal_version_Display_Practice.Communication_student_practice"
+            android:name=".Normal_version_Display_Practice.student_practice"
             android:label=""
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
 
         <service
             android:name=".Common_trans_sound.Braille_trans_service"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Common_menu_sound.Menu_comunication_service"
             android:enabled="true"
             android:exported="true"></service>
     </application>

@@ -1,14 +1,27 @@
 package com.example.yeo.practice.Normal_version_menu;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.example.yeo.practice.Common_menu_display.Common_menu_display;
 import com.example.yeo.practice.Common_menu_sound.Menu_basic_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
+import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
@@ -21,6 +34,9 @@ import com.example.yeo.practice.Common_sound.slied;
 
 public class Menu_abbreviation extends FragmentActivity {
 
+    Common_menu_display m;
+    int finger_x[] = new int[3];
+    int finger_y[] = new int[3];
 
     int newdrag,olddrag;
     int posx1,posx2,posy1,posy2;
@@ -40,33 +56,57 @@ public class Menu_abbreviation extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
         decorView.setSystemUiVisibility( uiOption );
-        setContentView(R.layout.activity_common_menu_abbreviation);
 
+        Menu_info.DISPLAY = Menu_info.DISPLAY_ABBREVIATION;
+        m = new Common_menu_display(this);
+        m.setBackgroundColor(Color.rgb(22,26,44));
+
+        setContentView(m);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_DOWN: //손가락 1개를 화면에 터치하였을 경우
+            case MotionEvent.ACTION_DOWN: // 손가락 1개를 화면에 터치하였을 경우
                 startService(new Intent(this, Sound_Manager.class));
-                posx1 = (int)event.getX(); //현재 좌표의 x좌표값 저장
-                posy1 = (int)event.getY(); //현재 좌표의 y좌표값 저장
+                posx1 = (int)event.getX(); // 현재 좌표의 x좌표값 저장
+                posy1 = (int)event.getY(); // 현재 좌표의 y좌표값 저장
                 break;
-            case MotionEvent.ACTION_UP: //손가락 1개를 화면에서 떨어트렸을 경우
-                posx2 = (int)event.getX(); //손가락 1개를 화면에서 떨어트린 x좌표값 저장
-                posy2 = (int)event.getY(); //손가락 1개를 화면에서 떨어트린 y좌표값 저장
+            case MotionEvent.ACTION_UP: // 손가락 1개를 화면에서 떨어트렸을 경우
+                int pointer_count = event.getPointerCount();
+                for(int j=0 ; j<3 ; j++){
+                    finger_x[j] = -100;
+                    finger_y[j] = -100;
+                }
+                m.finger_set(finger_x[0],finger_y[0],finger_x[1],finger_y[1],finger_x[2],finger_y[2]);
+
+                posx2 = (int)event.getX(); // 손가락 1개를 화면에서 떨어트린 x좌표값 저장
+                posy2 = (int)event.getY(); // 손가락 1개를 화면에서 떨어트린 y좌표값 저장
                 if(enter == true) {
-                    //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 약자 및 약어연습으로 접속
+                    // 손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 약자 및 약어연습으로 접속
                     if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                         WHclass.sel=Menu_info.MENU_ABBREVIATION;
                         Menu_info.MENU_INFO = Menu_info.MENU_ABBREVIATION;
                         Intent intent = new Intent(Menu_abbreviation.this, Braille_short_practice.class);
                         startActivityForResult(intent, Menu_info.MENU_ABBREVIATION);
+                        overridePendingTransition(R.anim.fade, R.anim.hold);
                     }
                 }
                 else
                     enter = true;
+                break;
 
+            case MotionEvent.ACTION_MOVE :
+                int pointer_count2 = event.getPointerCount();
+                for(int j=0 ; j<3 ; j++){
+                    finger_x[j] = -100;
+                    finger_y[j] = -100;
+                }
+                for(int i=0 ; i<pointer_count2 ; i++) {
+                    finger_x[i] = (int) event.getX(i);
+                    finger_y[i] = (int) event.getY(i);
+                }
+                m.finger_set(finger_x[0],finger_y[0],finger_x[1],finger_y[1],finger_x[2],finger_y[2]);
                 break;
 
             case MotionEvent.ACTION_POINTER_UP:  // 두번째 손가락을 떼었을 경우
@@ -75,6 +115,7 @@ public class Menu_abbreviation extends FragmentActivity {
                 if(olddrag-newdrag>WHclass.Drag_space) { //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
                     Intent intent = new Intent(this,Menu_Initial_Consonant.class);
                     startActivityForResult(intent,Menu_info.MENU_INITIAL);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_basic_service.menu_page = Menu_info.MENU_INITIAL;
                     slied.slied =Menu_info.next;
                     startService(new Intent(this, slied.class));
@@ -84,6 +125,7 @@ public class Menu_abbreviation extends FragmentActivity {
                 else if(newdrag-olddrag>WHclass.Drag_space) { //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
                     Intent intent = new Intent(this,Menu_Sentence_marks.class);
                     startActivityForResult(intent,Menu_info.MENU_SENTENS);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_basic_service.menu_page = Menu_info.MENU_SENTENS;
                     slied.slied = Menu_info.pre;
                     startService(new Intent(this, slied.class));
@@ -106,10 +148,14 @@ public class Menu_abbreviation extends FragmentActivity {
         }
         return true;
     }
+
+
     @Override
     public void onBackPressed() { //종료키를 눌렀을 경우
         Menu_basic_service.finish=true;
         startService(new Intent(this,Menu_basic_service.class));
         finish();
     }
+
+
 }
