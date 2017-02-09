@@ -15,7 +15,7 @@ public class slied extends Service {
     MediaPlayer slied_[];
     int rawid[];
     int pre;
-    static public int slied = 0;
+    static public int slied ;
     public slied() {
     }
 
