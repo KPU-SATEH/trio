@@ -10,6 +10,7 @@ import android.speech.tts.TextToSpeech;
 import android.view.View;
 
 import com.example.yeo.practice.Common_braille_data.dot_student_data;
+import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.WHclass;
 
 import org.json.JSONArray;
@@ -31,13 +32,7 @@ import java.util.TimerTask;
  */
 
 public class student_display extends View {
-com.example.yeo.practice.Common_braille_data.dot_student_data dot_student_data;
-
-
-    public int first_x=-100, first_y=-100;
-    public int second_x=10, second_y=-100;
-    public int third_x=-100, third_y=-100;
-
+    com.example.yeo.practice.Common_braille_data.dot_student_data dot_student_data;
     String myJSON;
     private static final String TAG_RESULTS="result";
     private static final String ID = "id";
@@ -49,7 +44,6 @@ com.example.yeo.practice.Common_braille_data.dot_student_data dot_student_data;
     Timer timer =null;
     private TimerTask second; //타이머
     JSONArray abc_ = null;  //  Mysql에서 불러올 데이터를 저장할 배열
-    String room="87";    // 테스트용 방 설정
 
     private static Context mMain;
     static boolean next = false;
@@ -85,13 +79,6 @@ com.example.yeo.practice.Common_braille_data.dot_student_data dot_student_data;
     public student_display(Context context) {
         super(context);
         mMain = context;
-        tts = new TextToSpeech(mMain, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int i) {
-                tts.setLanguage(Locale.KOREA);
-            }
-        });
-        getData("http://192.168.0.124:10080/import.php", room);
         minicircle = width*(float)0.01; //작은점자  크기 메크로
         bigcircle = width*(float)0.049; //큰 점자 크기 메크로
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -123,29 +110,14 @@ com.example.yeo.practice.Common_braille_data.dot_student_data dot_student_data;
                 }
             }
         }
-        Paint finger = new Paint();
-        finger.setARGB(180,255,00,00);
-        finger.setAntiAlias(true);
-        canvas.drawCircle(first_x,first_y,minicircle*2,finger);
-        canvas.drawCircle(second_x,second_y,minicircle*2,finger);
-        canvas.drawCircle(third_x,third_y,minicircle*2,finger);
-
-    }
-
-    public void finger_set(int x1, int y1, int x2, int y2, int x3, int y3){
-        first_x=x1;
-        first_y=y1;
-        second_x=x2;
-        second_y=y2;
-        third_x=x3;
-        third_y=y3;
-        invalidate();
     }
     protected void show(){
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
             abc_ = jsonObj.getJSONArray(TAG_RESULTS);   //  mysql에서 불러온값을 저장.
-
+            if(abc_.length() == 0){
+                MainActivity.Braille_TTS.TTS_Play("해당 방이 존재하지 않습니다.");
+            }
             for(int i=0;i<abc_.length();i++){
                 Braille_insert = new int[3][14];
                 JSONObject c = abc_.getJSONObject(i);
