@@ -9,7 +9,9 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.yeo.practice.Common_menu_display.Common_menu_display;
+import com.example.yeo.practice.Common_menu_sound.Menu_basic_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_comunication_service;
+import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.Common_sound.slied;
 import com.example.yeo.practice.MainActivity;
@@ -117,11 +119,10 @@ public class Menu_communication_student extends AppCompatActivity {
                     finish();
                 }
                 else if(y2drag-y1drag> WHclass.Drag_space) { //손가락 2개를 이용하여 상단에서 하단으로 드래그할 경우 현재 메뉴의 상세정보 음성 출력
-                    //              Menu_detail_service.menu_page=4;
-                    //              startService(new Intent(this, Menu_detail_service.class));
+                                  Menu_detail_service.menu_page=27;
+                                  startService(new Intent(this, Menu_detail_service.class));
                 }else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
-                    //             Menu_main_service.menu_page=Menu_info.MENU_TUTORIAL;
-                    finish();
+                    onBackPressed();
                 }
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:  //두번째 손가락이 화면에 터치 될 경우
@@ -133,8 +134,9 @@ public class Menu_communication_student extends AppCompatActivity {
         return true;
     }
     @Override
-    public void onBackPressed() {  //종료키를 눌렀을 경우
-        //     Menu_main_service.menu_page=Menu_info.MENU_TUTORIAL;
+    public void onBackPressed() { //종료키를 눌렀을 경우
+        Menu_comunication_service.finish=true;
+        startService(new Intent(this,Menu_comunication_service.class));
         finish();
     }
 }

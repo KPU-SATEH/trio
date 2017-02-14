@@ -13,7 +13,7 @@ import com.example.yeo.practice.Sound_Manager;
  */
 public class Menu_comunication_service extends Service {
     private static final String TAG = "Menu_basic_service";
-    MediaPlayer teacher, student;
+    MediaPlayer teacher, student, communicationfinish;
     MediaPlayer comunication[];
     int rawid[];
 
@@ -31,9 +31,11 @@ public class Menu_comunication_service extends Service {
     @Override
     public void onCreate(){
         super.onCreate();
+        communicationfinish = MediaPlayer.create(this, R.raw.communication_finish); //기초과정 종료
+        communicationfinish.setLooping(false);
 
         comunication = new MediaPlayer[]{teacher, student};
-        rawid = new int[]{R.raw.comunication_teacher, R.raw.comunication_student};
+        rawid = new int[]{R.raw.communication_teacher, R.raw.communication_student};
 
         for(int i=0 ; i<comunication.length ; i++){
             comunication[i]=MediaPlayer.create(this,rawid[i]);
@@ -41,12 +43,12 @@ public class Menu_comunication_service extends Service {
         }
     }
     public void init(){
-/*
-        if(mainfinish.isPlaying()) {
-            mainfinish.reset();
-            mainfinish = MediaPlayer.create(this, R.raw.mainfinish);
+
+        if(communicationfinish.isPlaying()) {
+            communicationfinish.reset();
+            communicationfinish = MediaPlayer.create(this, R.raw.communication_finish);
         }
-*/
+
         if(comunication[previous].isPlaying()) {
             comunication[previous].reset();
             comunication[previous] = MediaPlayer.create(this, rawid[previous]);
@@ -66,21 +68,19 @@ public class Menu_comunication_service extends Service {
                 comunication[previous].start();
             }
             else{
-                /*
-                mainfinish.start();
+                communicationfinish.start();
                 finish=false;
-                */
+
             }
         }
-/*
-        mainfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        communicationfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                mainfinish.reset();
-                mainfinish = MediaPlayer.create(Menu_main_service.this,R.raw.mainfinish);
+                communicationfinish.reset();
+                communicationfinish = MediaPlayer.create(Menu_comunication_service.this,R.raw.communication_finish);
             }
         });
-*/
+
         return START_NOT_STICKY;
 
     }
