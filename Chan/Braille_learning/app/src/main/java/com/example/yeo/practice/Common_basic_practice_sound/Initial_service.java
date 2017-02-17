@@ -102,6 +102,14 @@ public class Initial_service extends Service {
             }
         }
 
+        Initial[previous].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                Initial[previous].reset();
+                Initial[previous] = MediaPlayer.create(Initial_service.this, rawid[previous]);
+            }
+        });
+
         initfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {

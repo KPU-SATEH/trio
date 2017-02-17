@@ -78,8 +78,8 @@ public class Menu_info {
     public static int writing_first = 1; //첫번째 문제
     public static int writing_second = 2; //두번째 문제
     public static int writing_last = 3; //마지막 문제
-    public static int writing_success = 4; //정답 맞춤
-    public static int writing_fail = 5; //정답 틀림
+    public static int writing_success = 1; //정답 맞춤
+    public static int writing_fail = 2; //정답 틀림
     public static int all_finish = 6; //모든 문제 풀고 종료
     public static int writingfinish =  7; //중간 종료
 

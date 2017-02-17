@@ -127,8 +127,64 @@ public class Menu_service extends Service {
                     }
                     abbreviation.start();
                     break;
-
             }
+            tutorial.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    tutorial.reset();
+                    tutorial = MediaPlayer.create(Menu_service.this,R.raw.directions);
+                }
+            });
+            Init.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    Init.reset();
+                    Init = MediaPlayer.create(Menu_service.this,R.raw.initial);
+                }
+            });
+            Vowel.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    Vowel.reset();
+                    Vowel = MediaPlayer.create(Menu_service.this,R.raw.vowel);
+                }
+            });
+            Final.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    Final.reset();
+                    Final = MediaPlayer.create(Menu_service.this,R.raw.finalconsonant);
+                }
+            });
+            number.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    number.reset();
+                    number = MediaPlayer.create(Menu_service.this,R.raw.number);
+                }
+            });
+            alphabet.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    alphabet.reset();
+                    alphabet = MediaPlayer.create(Menu_service.this,R.raw.alphabet);
+                }
+            });
+            Sentence.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    Sentence.reset();
+                    Sentence = MediaPlayer.create(Menu_service.this,R.raw.start_sentence);
+                }
+            });
+            abbreviation.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    abbreviation.reset();
+                    abbreviation = MediaPlayer.create(Menu_service.this,R.raw.abbreviation_start);
+                }
+            });
+
         }
         else{ //기초과정 종료
             basicfinish.start();

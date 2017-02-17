@@ -199,6 +199,25 @@ class writing_short_display extends View {
                 break;
          }
     }
+
+    public String getQuestion(){
+        String questionText="";
+        String countText="";
+        switch(dot_count){
+            case 1:
+                countText="한 칸";
+                break;
+            case 2:
+                countText="두 칸";
+                break;
+            case 3:
+                countText="세 칸";
+                break;
+        }
+        questionText = textname_3+", "+countText;
+        return questionText;
+    }
+
     public writing_short_display(Context context) {
         super(context);
         Dot_quiz_initial = new dot_quiz_initial();

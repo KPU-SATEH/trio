@@ -1250,6 +1250,7 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                             break;
                     }
 
+
                 }
                 m.invalidate(); // 화면을 다시 그려줘라 => onDraw() 호출해준다//// break;
                 break;
@@ -1951,6 +1952,13 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                             touch_init(6);
                         }
                     } //일곱번째 칸 6번 점자
+                    else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle){
+                        WHclass.number=7;
+                        WHclass.target= true;
+                        startService(new Intent(this, Number.class));
+                        m.vibrator.vibrate(WHclass.Weak_vibe);
+                        touch_init(0);
+                    }
                     else { // 그외 지점을 터치하였을 경우 문지르기 기능을 위한 컨트롤 변수 초기화
                         touch_init(0);
                         WHclass.number=0;

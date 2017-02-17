@@ -47,6 +47,7 @@ public class quiz_writing_manual extends FragmentActivity {
 
         decorView.setSystemUiVisibility( uiOption );
 
+
     }
 
     @Override

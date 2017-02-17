@@ -38,7 +38,6 @@ public class Talk_quiz_writing_manual extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
         decorView.setSystemUiVisibility( uiOption );
-
         View container = findViewById(R.id.activity_common_quiz_writing_manual);
         container.setOnHoverListener(new View.OnHoverListener() {
             @Override

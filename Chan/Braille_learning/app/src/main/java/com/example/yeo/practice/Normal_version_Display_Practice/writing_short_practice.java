@@ -63,11 +63,24 @@ public class writing_short_practice extends FragmentActivity{
         m.setBackgroundColor(Color.rgb(22, 26, 44));
         setContentView(m);
 
-        quiz_writing_service.menu_page = m.question;
-        startService(new Intent(this, quiz_writing_service.class));
+        Display_Question();
     }
 
-
+    public void Display_Question(){
+        String TTS_text="";
+        switch(m.question){
+            case 1:
+                TTS_text ="첫번째 문제 입니다. 점자를 입력하여 정답을 맞추어 보세요."+m.getQuestion();
+                break;
+            case 2:
+                TTS_text ="두번째 문제 입니다. 점자를 입력하여 정답을 맞추어 보세요."+m.getQuestion();
+                break;
+            case 3:
+                TTS_text ="마지막 문제 입니다. 점자를 입력하여 정답을 맞추어 보세요."+m.getQuestion();
+                break;
+        }
+        MainActivity.Braille_TTS.TTS_Play(TTS_text);
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -131,8 +144,7 @@ public class writing_short_practice extends FragmentActivity{
                             onBackPressed();
                         }
                         else if(m.question<4){
-                            quiz_writing_service.menu_page=m.question;
-                            startService(new Intent(this, quiz_writing_service.class));
+                            Display_Question();
                         }
                     }
                 }
@@ -747,20 +759,19 @@ public class writing_short_practice extends FragmentActivity{
                 touch_init(18);
             }
         }//세번째 칸의 6번 점자
-        else { //그외 지점을 터치할 경우 문지르기 기능을 위한 컨트롤 변수 초기화
+        else if (m.y > m.height1 - (m.bigcircle * 2) && m.y < m.height1 - m.bigcircle) {
+            WHclass.number = 7;
+            WHclass.target = true;
+            startService(new Intent(this, Number.class));
+            m.vibrator.vibrate(WHclass.Weak_vibe);
+            touch_init(0);
+        } else { //그외 지점을 터치할 경우 문지르기 기능을 위한 컨트롤 변수 초기화
             touch_init(0);
             WHclass.number = 0;
         }
         switch (m.dot_count) {
             case 1: //첫번째 칸의 구분선과 경고음이 발생되는 영역을 지정
-                if (m.x > m.width8 + m.bigcircle && m.x < m.width8 + (m.bigcircle * 2) && m.y > m.height1 - (m.bigcircle)) {
-                    WHclass.number = 7;
-                    WHclass.target = true;
-                    startService(new Intent(this, Number.class));
-                    m.vibrator.vibrate(WHclass.Weak_vibe);
-                    touch_init(0);
-                }
-                else if (m.y > m.height1 - (m.bigcircle * 2) && m.y < m.height1 - m.bigcircle && m.x < m.width8 + (m.bigcircle * 2)) {
+                if (m.x > m.width8 + m.bigcircle && m.x < m.width8 + (m.bigcircle * 2)) {
                     WHclass.number = 7;
                     WHclass.target = true;
                     startService(new Intent(this, Number.class));
@@ -769,20 +780,13 @@ public class writing_short_practice extends FragmentActivity{
                 }
                 break;
             case 2://두번째 칸의 구분선과 경고음이 발생되는 영역을 지정
-                if (m.x > m.width8 + m.bigcircle && m.x < m.width9 - m.bigcircle && m.y > m.height1 - (m.bigcircle)) {
+                if (m.x > m.width8 + m.bigcircle && m.x < m.width9 - m.bigcircle) {
                     WHclass.number = 8;
                     WHclass.target = true;
                     startService(new Intent(this, Number.class));
                     m.vibrator.vibrate(WHclass.Weak_vibe);
                     touch_init(0);
-                } else if (m.x > m.width10 + m.bigcircle && m.x < m.width10 + (m.bigcircle * 2) && m.y > m.height1 - (m.bigcircle)) {
-                    WHclass.number = 7;
-                    WHclass.target = true;
-                    startService(new Intent(this, Number.class));
-                    m.vibrator.vibrate(WHclass.Weak_vibe);
-                    touch_init(0);
-                }
-                else if (m.y > m.height1 - (m.bigcircle * 2) && m.y < m.height1 - m.bigcircle && m.x < m.width10 + (m.bigcircle * 2)) {
+                } else if (m.x > m.width10 + m.bigcircle && m.x < m.width10 + (m.bigcircle * 2)) {
                     WHclass.number = 7;
                     WHclass.target = true;
                     startService(new Intent(this, Number.class));
@@ -791,26 +795,19 @@ public class writing_short_practice extends FragmentActivity{
                 }
                 break;
             case 3://세번째 칸의 구분선과 경고음이 발생되는 영역을 지정
-                if (m.x > m.width8 + m.bigcircle && m.x < m.width9 - m.bigcircle && m.y > m.height1 - (m.bigcircle)) {
+                if (m.x > m.width8 + m.bigcircle && m.x < m.width9 - m.bigcircle) {
                     WHclass.number = 8;
                     WHclass.target = true;
                     startService(new Intent(this, Number.class));
                     m.vibrator.vibrate(WHclass.Weak_vibe);
                     touch_init(0);
-                } else if (m.x > m.width10 + m.bigcircle && m.x < m.width11 - m.bigcircle && m.y > m.height1 - (m.bigcircle)) {
+                } else if (m.x > m.width10 + m.bigcircle && m.x < m.width11 - m.bigcircle) {
                     WHclass.number = 8;
                     WHclass.target = true;
                     startService(new Intent(this, Number.class));
                     m.vibrator.vibrate(WHclass.Weak_vibe);
                     touch_init(0);
-                } else if (m.x > m.width12 + m.bigcircle && m.x < m.width12 + (m.bigcircle * 2) && m.y > m.height1 - (m.bigcircle) ) {
-                    WHclass.number = 7;
-                    WHclass.target = true;
-                    startService(new Intent(this, Number.class));
-                    m.vibrator.vibrate(WHclass.Weak_vibe);
-                    touch_init(0);
-                }
-                else if (m.y > m.height1 - (m.bigcircle * 2) && m.y < m.height1 - m.bigcircle && m.x < m.width12 + (m.bigcircle * 2)) {
+                } else if (m.x > m.width12 + m.bigcircle && m.x < m.width12 + (m.bigcircle * 2)) {
                     WHclass.number = 7;
                     WHclass.target = true;
                     startService(new Intent(this, Number.class));

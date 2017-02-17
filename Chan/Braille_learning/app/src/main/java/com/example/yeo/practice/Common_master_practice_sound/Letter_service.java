@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 
+import com.example.yeo.practice.Common_basic_practice_sound.Num_service;
 import com.example.yeo.practice.Common_braille_data.dot_letter;
 import com.example.yeo.practice.Normal_version_Display_Practice.Braille_long_display;
 import com.example.yeo.practice.Normal_version_Display_Practice.Braille_long_practice;
@@ -118,6 +119,14 @@ public class Letter_service extends Service {
                 }
             }
         }
+        Letter[previous].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                Letter[previous].reset();
+                Letter[previous] = MediaPlayer.create(Letter_service.this, rawid[previous]);
+            }
+        });
+
         letterfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {

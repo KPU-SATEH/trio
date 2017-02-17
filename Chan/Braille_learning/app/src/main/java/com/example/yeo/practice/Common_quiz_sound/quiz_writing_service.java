@@ -46,14 +46,15 @@ public class quiz_writing_service extends Service {
         all_finish = MediaPlayer.create(this, R.raw.writingfinish2);
         all_finish.setLooping(false);
 
-        writing = new MediaPlayer[] {direction, first, second, last, success, fail};         // 선언된 음성 변수들을 배열 변수에 저장
-
-        rawid = new int[] {R.raw.writing_direction, R.raw.writing_quiz_first, R.raw.wrting_quiz_second, R.raw.writing_quiz_last, R.raw.writing_quiz_success, R.raw.writing_quiz_fail};
+       // writing = new MediaPlayer[] {direction, first, second, last, success, fail};         // 선언된 음성 변수들을 배열 변수에 저장
+        writing = new MediaPlayer[] {direction,success, fail};         // 선언된 음성 변수들을 배열 변수에 저장
+       // rawid = new int[] {R.raw.writing_direction, R.raw.writing_quiz_first, R.raw.wrting_quiz_second, R.raw.writing_quiz_last, R.raw.writing_quiz_success, R.raw.writing_quiz_fail};
+        rawid = new int[] {R.raw.writing_direction, R.raw.writing_quiz_success, R.raw.writing_quiz_fail};
         // 음성파일의 id 주소를 배열변수에 저장
 
 
 
-        for(int i = 0; i< 6; i++){
+        for(int i = 0; i< writing.length; i++){
             writing[i] = MediaPlayer.create(this, rawid[i]);
             writing[i].setLooping(false);
         }
@@ -116,35 +117,7 @@ public class quiz_writing_service extends Service {
             public void onCompletion(MediaPlayer mediaPlayer) {
                 writing[previous].reset();
                 writing[previous] = MediaPlayer.create(quiz_writing_service.this,rawid[previous]);
-                switch(Menu_info.MENU_QUIZ_INFO){
-                    case 0:
-                        startService(new Intent(quiz_writing_service.this, writing_initial_service.class));
-                        break;
-                    case 1:
-                        startService(new Intent(quiz_writing_service.this, writing_vowel_service.class));
-                        break;
-                    case 2:
-                        startService(new Intent(quiz_writing_service.this, writing_final_service.class));
-                        break;
-                    case 3:
-                        startService(new Intent(quiz_writing_service.this, writing_number_service.class));
-                        break;
-                    case 4:
-                        startService(new Intent(quiz_writing_service.this, writing_alphabet_service.class));
-                        break;
-                    case 5:
-                        startService(new Intent(quiz_writing_service.this, writing_sentence_service.class));
-                        break;
-                    case 6:
-                        startService(new Intent(quiz_writing_service.this, writing_abbreviation_service.class));
-                        break;
-                    case 7:
-                        startService(new Intent(quiz_writing_service.this, writing_letter_service.class));
-                        break;
-                    case 8:
-                        startService(new Intent(quiz_writing_service.this, writing_word_service.class));
-                        break;
-                }
+                String writing_text ="";
             }
         });
 

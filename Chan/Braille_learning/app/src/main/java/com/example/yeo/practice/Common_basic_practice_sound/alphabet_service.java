@@ -102,7 +102,13 @@ public class alphabet_service extends Service {
                 }
             }
         }
-
+        alphabet[previous].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                alphabet[previous].reset();
+                alphabet[previous] = MediaPlayer.create(alphabet_service.this, rawid[previous]);
+            }
+        });
         alphabetfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {

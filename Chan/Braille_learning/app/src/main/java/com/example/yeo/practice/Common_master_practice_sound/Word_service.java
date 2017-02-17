@@ -111,6 +111,14 @@ public class Word_service extends Service {
                 }
             }
         }
+        Word[previous].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                Word[previous].reset();
+                Word[previous] = MediaPlayer.create(Word_service.this, rawid[previous]);
+            }
+        });
+
         wordfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {

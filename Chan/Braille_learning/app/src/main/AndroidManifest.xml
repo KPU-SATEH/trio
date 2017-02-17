@@ -13,6 +13,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:screenOrientation="landscape"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -204,35 +205,7 @@
             android:screenOrientation="landscape" />
 
         <service
-            android:name=".Common_quiz_sound.reading_initial_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".Common_quiz_sound.reading_vowel_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".Common_quiz_sound.reading_final_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".Common_quiz_sound.reading_number_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".Common_quiz_sound.reading_alphabet_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
             android:name=".Common_menu_sound.Menu_quiz_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".Common_quiz_sound.reading_sentence_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".Common_quiz_sound.reading_abbreviation_service"
             android:enabled="true"
             android:exported="true" />
 
@@ -299,10 +272,6 @@
             android:label=""
             android:screenOrientation="landscape" />
 
-        <service
-            android:name=".Common_quiz_sound.quiz_reading_service"
-            android:enabled="true"
-            android:exported="true" />
         <service
             android:name=".Common_quiz_sound.score_service"
             android:enabled="true"
@@ -510,53 +479,6 @@
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".Common_quiz_sound.quiz_writing_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".Common_quiz_sound.writing_vowel_service"
-            android:exported="false" />
-        <service
-            android:name=".Common_quiz_sound.writing_final_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".Common_quiz_sound.writing_number_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".Common_quiz_sound.writing_alphabet_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".Common_quiz_sound.writing_sentence_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".Common_quiz_sound.writing_abbreviation_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".Common_quiz_sound.reading_letter_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".Common_quiz_sound.reading_word_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".Common_quiz_sound.writing_letter_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".Common_quiz_sound.writing_word_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".Common_quiz_sound.writing_initial_service"
-            android:enabled="true"
-            android:exported="true" />
-        <service
             android:name=".Common_menu_sound.Menu_quiz_inside_service"
             android:enabled="true"
             android:exported="true" />
@@ -592,6 +514,14 @@
             android:exported="true" />
         <service
             android:name=".Common_menu_sound.Menu_comunication_service"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Common_quiz_sound.quiz_reading_service"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Common_quiz_sound.quiz_writing_service"
             android:enabled="true"
             android:exported="true"></service>
     </application>

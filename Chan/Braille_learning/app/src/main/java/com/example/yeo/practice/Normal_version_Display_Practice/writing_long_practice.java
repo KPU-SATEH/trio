@@ -9,10 +9,9 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.yeo.practice.Common_braille_data.dot_quiz_word;
 import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
-import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Common_sound.Number;
+import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
@@ -57,8 +56,23 @@ public class writing_long_practice extends FragmentActivity {
         m.setBackgroundColor(Color.rgb(22, 26, 44));
         setContentView(m);
 
-        quiz_writing_service.menu_page = m.question;
-        startService(new Intent(this, quiz_writing_service.class));
+        Display_Question();
+    }
+
+    public void Display_Question(){
+        String TTS_text="";
+        switch(m.question){
+            case 1:
+                TTS_text ="첫번째 문제 입니다. 점자를 입력하여 정답을 맞추어 보세요."+m.getQuestion();
+                break;
+            case 2:
+                TTS_text ="두번째 문제 입니다. 점자를 입력하여 정답을 맞추어 보세요."+m.getQuestion();
+                break;
+            case 3:
+                TTS_text ="마지막 문제 입니다. 점자를 입력하여 정답을 맞추어 보세요."+m.getQuestion();
+                break;
+        }
+        MainActivity.Braille_TTS.TTS_Play(TTS_text);
     }
 
     @Override
@@ -130,8 +144,7 @@ public class writing_long_practice extends FragmentActivity {
                                 onBackPressed();
                             }
                             else if(m.question<4){
-                                quiz_writing_service.menu_page=m.question;
-                                startService(new Intent(this, quiz_writing_service.class));
+                                Display_Question();
                             }
                         }
                     }

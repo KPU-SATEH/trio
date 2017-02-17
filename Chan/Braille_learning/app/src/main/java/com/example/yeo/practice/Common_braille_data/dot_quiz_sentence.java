@@ -10,7 +10,7 @@ public class dot_quiz_sentence{
  * 문장부호 퀴즈에서 사용되는 점자의 배열정보 및 글자정보를 관리하는 클래스
  */
     static public int sentence_count = 18; // 문장부호 퀴즈의 갯수
-     int ssangopen[][] = {{0,0},{1,0},{1,1}};// "
+    int ssangopen[][] = {{0,0},{1,0},{1,1}};// "
     int ssangclose[][] = {{0,0},{0,1},{1,1}};// "
     int gualhoopen[][] = {{0,0},{0,0},{1,1}};// (
     int gualhoclose[][] = {{0,0},{0,0},{1,1}};// )

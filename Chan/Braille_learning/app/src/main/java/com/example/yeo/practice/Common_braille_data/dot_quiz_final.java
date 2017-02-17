@@ -24,7 +24,7 @@ public class dot_quiz_final {
     int tieut_[][] = {{0,0},{1,0},{1,1}}; // 종성 티읕
     int pieup_[][] = {{0,0},{1,1},{0,1}}; // 종성 피읖
     int hieut_[][] = {{0,0},{0,1},{1,1}}; // 종성 히흫
-    public static String name [] ={ "ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ", "ㅎ"};
+    public static String name [] ={ "기억","니은","디귿","리을","미음","비읍","시옷","이응","지읒","치읓","키엌","티긑","피읖", "히흫"};
     public static int dot_count [] ={1,1,1,1,1,1,1,1,1,1,1,1,1,1}; //몇개의 칸으로 구성되어 있는지를 나타내는 점자 배열 변수
     public static ArrayList<int[][]> final_Array = new ArrayList<>(); //점자의 배열정보를 저장하는 연결리스트
     public static ArrayList<String> final_name = new ArrayList<>(); //점자의 글자를 저장하는 연결리스트

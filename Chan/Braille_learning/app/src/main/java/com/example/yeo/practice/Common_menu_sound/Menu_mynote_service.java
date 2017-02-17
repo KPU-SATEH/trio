@@ -68,6 +68,13 @@ public class Menu_mynote_service extends Service {
                 finish=false;
             }
         }
+        mynote[previous].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mynote[previous].reset();
+                mynote[previous] = MediaPlayer.create(Menu_mynote_service.this, rawid[previous]);
+            }
+        });
         mynotefinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {

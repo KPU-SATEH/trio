@@ -116,8 +116,38 @@ class writing_long_display extends View {
                     text_7[i][j] = Dot_quiz_word.word_Array.get(page)[i][j];
             }
         }
-
     }
+
+    public String getQuestion(){
+        String questionText="";
+        String countText="";
+        switch(dot_count){
+            case 1:
+                countText="한 칸";
+                break;
+            case 2:
+                countText="두 칸";
+                break;
+            case 3:
+                countText="세 칸";
+                break;
+            case 4:
+                countText="네 칸";
+                break;
+            case 5:
+                countText="다섯 칸";
+                break;
+            case 6:
+                countText="여섯 칸";
+                break;
+            case 7:
+                countText="일곱 칸";
+                break;
+        }
+        questionText = textname_7+", "+countText;
+        return questionText;
+    }
+
     public writing_long_display(Context context) {
         super(context);
         Dot_quiz_letter = new dot_quiz_letter();

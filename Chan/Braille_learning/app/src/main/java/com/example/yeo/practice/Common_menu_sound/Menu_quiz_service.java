@@ -72,6 +72,14 @@ public class Menu_quiz_service extends Service {
                 finish = false;
             }
         }
+        quiz_menu[previous].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                quiz_menu[previous].reset();
+                quiz_menu[previous] = MediaPlayer.create(Menu_quiz_service.this, rawid[previous]);
+            }
+        });
+
         quizfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {

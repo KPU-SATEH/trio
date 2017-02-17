@@ -10,11 +10,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Normal_version_Display_Practice.reading_long_practice;
 import com.example.yeo.practice.Normal_version_Display_Practice.reading_short_practice;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.*;
-import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 /*
 퀴즈를 풀어보게 될 때, 퀴즈를 진행하는 간략한 설명이 담긴 음성을 관리하는 서비스
  */
@@ -127,9 +127,7 @@ public class quiz_reading_manual extends FragmentActivity {
                 newdrag = (int)event.getX(); //두번째 손가락이 떨어진 x좌표 저장
                 y2drag = (int) event.getY(); //두번째 손가락이 떨어진 y좌표 저장
                 if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 하단에서 상단으로 쓸어 올렸을 때 퀴즈 종료
-                    quiz_reading_service.question=6;
-                    startService(new Intent(this, quiz_reading_service.class));
-                    finish();
+                    onBackPressed();
                 }
             case MotionEvent.ACTION_POINTER_DOWN: //두번째 손가락이 터치되었을 때
                 olddrag = (int)event.getX(); //두번째 손가락이 터치된 지점의 x좌표 저장
@@ -139,6 +137,8 @@ public class quiz_reading_manual extends FragmentActivity {
         return true;
     }
     public void onBackPressed() {
+        quiz_reading_service.finish = true;
+        startService(new Intent(this, quiz_reading_service.class));
         finish();
     }
 }

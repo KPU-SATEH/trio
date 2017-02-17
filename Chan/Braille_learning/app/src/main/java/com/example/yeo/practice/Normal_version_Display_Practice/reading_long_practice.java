@@ -13,11 +13,14 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.yeo.practice.Common_braille_data.dot_quiz_letter;
 import com.example.yeo.practice.Common_braille_data.dot_quiz_word;
 import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
+import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
 import com.example.yeo.practice.Common_sound.Number;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.R;
+import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
 
 import net.daum.mf.speech.api.SpeechRecognizeListener;
@@ -57,13 +60,17 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
             uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        startService(new Intent(this, quiz_reading_service.class));
         decorView.setSystemUiVisibility(uiOption);
 
-        dot_quiz_word dot = new dot_quiz_word(); // 단어퀴즈 단위의 점자 클래스 선언
+        dot_quiz_letter dot1 = new dot_quiz_letter();
+        dot_quiz_word dot2 = new dot_quiz_word(); // 단어퀴즈 단위의 점자 클래스 선언
+
         m = new reading_long_display(this);
         m.setBackgroundColor(Color.rgb(22, 26, 44));
         setContentView(m);
+
+     //   quiz_reading_service.menu_page = m.question;
+     //   startService(new Intent(this, quiz_reading_service.class));
     }
 
     public void onDestroy() {
@@ -80,7 +87,9 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
                     if (click == false) {
                         click = true;
                     }
+                    break;
                 case MotionEvent.ACTION_DOWN: // 손가락 1개를 이용하여 터치가 발생하였을 때
+                    startService(new Intent(this, Sound_Manager.class));
                     m.x = (int) event.getX();//x좌표를 저장
                     m.y = (int) event.getY();//y좌표를 저장
                     if ((m.x < m.bigcircle * 2) && (m.x > m.bigcircle * (-2)) && (m.y > m.bigcircle * (-2)) && (m.y < (m.bigcircle * 2))) {
@@ -766,206 +775,271 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
                                 touch_init(6);
                             }
                         } //일곱번째 칸의 6번 점자
-                        else if (m.y > m.height1 - (m.bigcircle * 2) && m.y < m.height1 - m.bigcircle) {
-                            WHclass.number = 7;
-                            WHclass.target = true;
-                            startService(new Intent(this, Number.class));
-                            m.vibrator.vibrate(WHclass.Weak_vibe);
-                            touch_init(0);
-                        } else { //그 외 지점을 터치할 경우 문지르기 기능을 위한 컨트롤 변수 초기화
+                        else { //그 외 지점을 터치할 경우 문지르기 기능을 위한 컨트롤 변수 초기화
                             touch_init(0);
                         }
-                        switch (m.dot_count) {
-                            case 1://점자의 칸 수가 한 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
-                                if (m.x > m.width2 + m.bigcircle && m.x < m.width2 + (m.bigcircle * 2)) {
-                                    WHclass.number = 7;
-                                    WHclass.target = true;
+                        switch(m.dot_count){
+                            case 1: //점자의 칸 수가 한 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
+                                if(m.x > m.width2+m.bigcircle && m.x<m.width2+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=7;
+                                    WHclass.target= true;
+                                    startService(new Intent(this, Number.class));
+                                    m.vibrator.vibrate(WHclass.Weak_vibe);
+                                    touch_init(0);
+                                }
+                                else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width2+(m.bigcircle*2)){
+                                    WHclass.number=7;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
                                 }
                                 break;
                             case 2://점자의 칸 수가 두 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
-                                if (m.x > m.width2 + m.bigcircle && m.x < m.width3 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width4 + m.bigcircle && m.x < m.width4 + (m.bigcircle * 2)) {
-                                    WHclass.number = 7;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width4+m.bigcircle && m.x<m.width4+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
+                                    WHclass.number=7;
+                                    WHclass.target= true;
+                                    startService(new Intent(this, Number.class));
+                                    m.vibrator.vibrate(WHclass.Weak_vibe);
+                                    touch_init(0);
+                                }
+                                else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width4+(m.bigcircle*2)){
+                                    WHclass.number=7;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
                                 }
                                 break;
                             case 3://점자의 칸 수가 세 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
-                                if (m.x > m.width2 + m.bigcircle && m.x < m.width3 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width4 + m.bigcircle && m.x < m.width5 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width6 + m.bigcircle && m.x < m.width6 + (m.bigcircle * 2)) {
-                                    WHclass.number = 7;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width6+m.bigcircle && m.x<m.width6+(m.bigcircle*2)&& m.y > m.height1-(m.bigcircle*2)){
+                                    WHclass.number=7;
+                                    WHclass.target= true;
+                                    startService(new Intent(this, Number.class));
+                                    m.vibrator.vibrate(WHclass.Weak_vibe);
+                                    touch_init(0);
+                                }
+                                else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width6+(m.bigcircle*2)){
+                                    WHclass.number=7;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
                                 }
                                 break;
                             case 4://점자의 칸 수가 네 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
-                                if (m.x > m.width2 + m.bigcircle && m.x < m.width3 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle) ){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width4 + m.bigcircle && m.x < m.width5 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width6 + m.bigcircle && m.x < m.width7 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width8 + m.bigcircle && m.x < m.width8 + (m.bigcircle * 2)) {
-                                    WHclass.number = 7;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width8+m.bigcircle && m.x<m.width8+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
+                                    WHclass.number=7;
+                                    WHclass.target= true;
+                                    startService(new Intent(this, Number.class));
+                                    m.vibrator.vibrate(WHclass.Weak_vibe);
+                                    touch_init(0);
+                                }
+                                else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width8+(m.bigcircle*2)){
+                                    WHclass.number=7;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
                                 }
                                 break;
                             case 5://점자의 칸 수가 다섯 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
-                                if (m.x > m.width2 + m.bigcircle && m.x < m.width3 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width4 + m.bigcircle && m.x < m.width5 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width6 + m.bigcircle && m.x < m.width7 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width8 + m.bigcircle && m.x < m.width9 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width10 + m.bigcircle && m.x < m.width10 + (m.bigcircle * 2)) {
-                                    WHclass.number = 7;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width10+m.bigcircle && m.x<m.width10+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
+                                    WHclass.number=7;
+                                    WHclass.target= true;
+                                    startService(new Intent(this, Number.class));
+                                    m.vibrator.vibrate(WHclass.Weak_vibe);
+                                    touch_init(0);
+                                }
+                                else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width10+(m.bigcircle*2)){
+                                    WHclass.number=7;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
                                 }
                                 break;
                             case 6://점자의 칸 수가 여섯 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
-                                if (m.x > m.width2 + m.bigcircle && m.x < m.width3 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width4 + m.bigcircle && m.x < m.width5 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width6 + m.bigcircle && m.x < m.width7 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width8 + m.bigcircle && m.x < m.width9 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width10 + m.bigcircle && m.x < m.width11 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width10+m.bigcircle && m.x<m.width11-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width12 + m.bigcircle && m.x < m.width12 + (m.bigcircle * 2)) {
-                                    WHclass.number = 7;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width12+m.bigcircle && m.x<m.width12+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
+                                    WHclass.number=7;
+                                    WHclass.target= true;
+                                    startService(new Intent(this, Number.class));
+                                    m.vibrator.vibrate(WHclass.Weak_vibe);
+                                    touch_init(0);
+                                }
+                                else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width12+(m.bigcircle*2)){
+                                    WHclass.number=7;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
                                 }
                                 break;
                             case 7://점자의 칸 수가 일곱 칸일 때의 구분선 및 외벽 경고음 가이드 영역을 설정함
-                                if (m.x > m.width2 + m.bigcircle && m.x < m.width3 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                if(m.x > m.width2+m.bigcircle && m.x<m.width3-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width4 + m.bigcircle && m.x < m.width5 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width6 + m.bigcircle && m.x < m.width7 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width6+m.bigcircle && m.x<m.width7-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width8 + m.bigcircle && m.x < m.width9 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width10 + m.bigcircle && m.x < m.width11 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width10+m.bigcircle && m.x<m.width11-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width12 + m.bigcircle && m.x < m.width13 - m.bigcircle) {
-                                    WHclass.number = 8;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width12+m.bigcircle && m.x<m.width13-m.bigcircle && m.y > m.height1-(m.bigcircle)){
+                                    WHclass.number=8;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
-                                } else if (m.x > m.width14 + m.bigcircle && m.x < m.width14 + (m.bigcircle * 2)) {
-                                    WHclass.number = 7;
-                                    WHclass.target = true;
+                                }
+                                else if(m.x > m.width14+m.bigcircle && m.x<m.width14+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
+                                    WHclass.number=7;
+                                    WHclass.target= true;
+                                    startService(new Intent(this, Number.class));
+                                    m.vibrator.vibrate(WHclass.Weak_vibe);
+                                    touch_init(0);
+                                }
+                                else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width14+(m.bigcircle*2)){
+                                    WHclass.number=7;
+                                    WHclass.target= true;
                                     startService(new Intent(this, Number.class));
                                     m.vibrator.vibrate(WHclass.Weak_vibe);
                                     touch_init(0);
                                 }
                                 break;
                         }
+
 
                     }
                     m.invalidate(); // 화면을 다시 그려줘라 => onDraw() 호출해준다//// break;
@@ -1900,7 +1974,7 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
                                 onBackPressed();
                             }
                             else if(quiz_reading_service.question<4){
-                                quiz_reading_service.menu_page=m.question;
+                                quiz_reading_service.menu_page=++m.question;
                                 startService(new Intent(this, quiz_reading_service.class));
                             }
                         }
@@ -1913,7 +1987,7 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
                     break;
 
             }
-        } else { //다음 문제가 존재할 경우
+        } /*else { //다음 문제가 존재할 경우
             switch (event.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN: //손가락 1개를 이용하여 화면을 터치하였을 경우
                     posx1 = (int) event.getX(); //현재 터치한 지점의 x좌표 저장
@@ -1939,7 +2013,7 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
                         enter = true;
                     break;
             }
-        }
+        }*/
         return true;
     }
 
@@ -1999,7 +2073,7 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
                 // finishing일때는 처리하지 않는다.
                 if (activity.isFinishing()) return;
                 m.invalidate();
-                if (result == true&&quiz_reading_service.question!=4) {
+                if (result == true&& quiz_reading_service.question!=4) {
                     MainActivity.Braille_TTS.TTS_Play("정답입니다. 다음 화면으로 이동하세요.");
                 }
                 else if(result == true&&quiz_reading_service.question==4){
@@ -2063,58 +2137,15 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
 
     @Override
     public void onBackPressed() { //종료키를 눌렀을 경우 발생되는 함수
-        quiz_reading_service.quizmanual.reset();
-        switch (quiz_reading_service.question) {
-            case 0:
-                quiz_reading_service.quizmanual.reset();
-                break;
-            case 1:
-                quiz_reading_service.first.reset();
-                break;
-            case 2:
-                quiz_reading_service.second.reset();
-                break;
-            case 3:
-                quiz_reading_service.third.reset();
-                break;
+        if(m.question==4){
+            quiz_writing_service.finish = true;
+            quiz_writing_service.progress = true;
+            startService(new Intent(this, quiz_writing_service.class));
         }
-        quiz_reading_service.question = 0;
-        switch (WHclass.sel) {
-            case 1: //초성퀴즈 종료
-                quiz_reading_service.initial_quiz_finish.start();
-                break;
-            case 2://모음퀴즈 종료
-                quiz_reading_service.vowel_quiz_finish.start();
-                break;
-            case 3://종성퀴즈 종료
-                quiz_reading_service.final_quiz_finish.start();
-                break;
-            case 4://숫자퀴즈 종료
-                quiz_reading_service.num_quiz_finish.start();
-                break;
-            case 5://알파벳퀴즈 종료
-                quiz_reading_service.alphabet_quiz_finish.start();
-                break;
-            case 6://문장부호퀴즈 종료
-                quiz_reading_service.sentence_quiz_finish.start();
-                break;
-            case 7://약자및 약어퀴즈 종료
-                quiz_reading_service.abbreviation_quiz_finish.start();
-                break;
-            case 8://글자 퀴즈 종료
-                quiz_reading_service.letter_quiz_finish.start();
-                break;
+        else{
+            quiz_writing_service.finish = true;
+            startService(new Intent(this, quiz_writing_service.class));
         }
-
-        if (m.question == 4) {
-            quiz_reading_service.finish = true;
-            quiz_reading_service.progress = true;
-            startService(new Intent(this, quiz_reading_service.class));
-        } else {
-            quiz_reading_service.finish = true;
-            startService(new Intent(this, quiz_reading_service.class));
-        }
-
         finish();
     }
 }

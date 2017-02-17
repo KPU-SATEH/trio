@@ -1,9 +1,7 @@
 package com.example.yeo.practice;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.IBinder;
 
 import com.example.yeo.practice.Common_basic_practice_sound.Final_service;
@@ -13,7 +11,6 @@ import com.example.yeo.practice.Common_basic_practice_sound.Sentence_service;
 import com.example.yeo.practice.Common_basic_practice_sound.Vowel_service;
 import com.example.yeo.practice.Common_basic_practice_sound.abbreviation_service;
 import com.example.yeo.practice.Common_basic_practice_sound.alphabet_service;
-import com.example.yeo.practice.Common_braille_data.dot_vowel;
 import com.example.yeo.practice.Common_master_practice_sound.Letter_service;
 import com.example.yeo.practice.Common_master_practice_sound.Word_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_basic_service;
@@ -26,6 +23,7 @@ import com.example.yeo.practice.Common_menu_sound.Menu_quiz_inside_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_quiz_service;
 import com.example.yeo.practice.Common_menu_sound.Version_check_service;
 import com.example.yeo.practice.Common_mynote_database.Mynote_service;
+import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
 import com.example.yeo.practice.Common_trans_sound.Braille_trans_service;
 
@@ -131,6 +129,9 @@ public class Sound_Manager extends Service {
                 break;
             case 320:
                 startService(new Intent(this,quiz_writing_service.class));
+                break;
+            case 321:
+                startService(new Intent(this,quiz_reading_service.class));
                 break;
             case 33:
                 startService(new Intent(this, Menu_quiz_inside_service.class));

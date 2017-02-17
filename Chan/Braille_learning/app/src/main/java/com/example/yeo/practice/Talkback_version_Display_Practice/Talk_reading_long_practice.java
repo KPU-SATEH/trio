@@ -114,7 +114,7 @@ public class Talk_reading_long_practice extends FragmentActivity {
                     if (y2drag - y1drag > WHclass.Drag_space) { //손가락 2개를 이용하여 하단으로 드래그 하는경우 음성 인식 실행
 
                     } else if (y1drag - y2drag > WHclass.Drag_space) {// 손가락 2개를 이용하여 상단으로 드래그하는 경우 종료
-                        quiz_reading_service.word_quiz_finish.start();
+                       // quiz_reading_service.word_quiz_finish.start();
                         onBackPressed();
                     }
                     break;

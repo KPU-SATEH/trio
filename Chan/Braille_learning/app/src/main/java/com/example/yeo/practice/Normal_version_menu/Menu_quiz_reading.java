@@ -11,19 +11,19 @@ import android.view.View;
 
 import com.example.yeo.practice.Common_menu_display.Common_menu_display;
 import com.example.yeo.practice.Common_menu_sound.Menu_quiz_inside_service;
-import com.example.yeo.practice.MainActivity;
+import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Normal_version_quiz.quiz_reading_manual;
-import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Common_sound.slied;
 
 // 읽기 퀴즈 메뉴 화면
 
 public class Menu_quiz_reading extends FragmentActivity {
     Common_menu_display m;
+    quiz_reading_service n;
     int finger_x[] = new int[3];
     int finger_y[] = new int[3];
 
@@ -47,6 +47,7 @@ public class Menu_quiz_reading extends FragmentActivity {
 
         Menu_info.DISPLAY = Menu_info.DISPLAY_QUIZ_READ;
         m = new Common_menu_display(this);
+
         m.setBackgroundColor(Color.rgb(22,26,44));
 
         setContentView(m);
@@ -82,6 +83,7 @@ public class Menu_quiz_reading extends FragmentActivity {
                         startService(new Intent(this, quiz_reading_service.class));
                         startActivityForResult(intent, Menu_info.MENU_QUIZ_INITIAL);
                         overridePendingTransition(R.anim.fade, R.anim.hold);
+                        quiz_reading_service.menu_page = Menu_info.writing_direction;
                         startService(new Intent(this, quiz_reading_service.class));
                     }
                 }
@@ -104,6 +106,8 @@ public class Menu_quiz_reading extends FragmentActivity {
                 newdrag = (int)event.getX();  // 두번째 손가락이 떨어진 지점의 x좌표값 저장
                 y2drag = (int) event.getY();  // 두번째 손가락이 떨어진 지점의 y좌표값 저장
                 if(olddrag-newdrag>WHclass.Drag_space) { //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
+                    Sound_Manager.stop = true;
+                    startService(new Intent(this, quiz_reading_service.class));
                     Intent intent = new Intent(this,Menu_quiz_writing.class);
                     startActivityForResult(intent,Menu_info.MENU_QUIZ_WRITING);
                     overridePendingTransition(R.anim.fade, R.anim.hold);
@@ -112,6 +116,8 @@ public class Menu_quiz_reading extends FragmentActivity {
                     finish();
                 }
                 else if(newdrag-olddrag>WHclass.Drag_space) {  //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
+                    Sound_Manager.stop = true;
+                    startService(new Intent(this, quiz_reading_service.class));
                     Intent intent = new Intent(this,Menu_quiz_writing.class);
                     startActivityForResult(intent,Menu_info.MENU_QUIZ_WRITING);
                     overridePendingTransition(R.anim.fade, R.anim.hold);
@@ -136,6 +142,8 @@ public class Menu_quiz_reading extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
+        Sound_Manager.stop = true;
+        startService(new Intent(this, quiz_reading_service.class));
         Menu_quiz_inside_service.menu_page = Menu_info.MENU_QUIZ_INFO;
         Menu_quiz_inside_service.finish = true;
         startService(new Intent(this, Menu_quiz_inside_service.class));

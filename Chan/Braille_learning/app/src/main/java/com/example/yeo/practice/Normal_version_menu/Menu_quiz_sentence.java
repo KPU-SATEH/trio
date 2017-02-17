@@ -12,7 +12,6 @@ import android.view.View;
 import com.example.yeo.practice.Common_menu_display.Common_menu_display;
 import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_quiz_service;
-import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Common_sound.slied;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.Normal_version_quiz.quiz_score;
@@ -43,7 +42,7 @@ public class Menu_quiz_sentence extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        quiz_reading_service.finish_n = 5;
+      //  quiz_reading_service.finish_n = 5;
         decorView.setSystemUiVisibility( uiOption );
         Menu_info.DISPLAY = Menu_info.DISPLAY_QUIZ_SENTENCE;
         m = new Common_menu_display(this);

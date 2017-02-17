@@ -143,82 +143,82 @@ public class Braille_short_practice extends FragmentActivity {
                 array[0]="";
                 array[1]="";
                 array[2]="";
-                switch(m.dot_count){
-                    case 1: //한 칸 일때
-                        if(WHclass.sel==Menu_info.MENU_NOTE) {
-                            MainActivity.basic_braille_db.delete(MainActivity.basic_braille_db.basic_db_manager.getId(MainActivity.basic_braille_db.basic_db_manager.My_Note_page));
-                            result = MainActivity.basic_braille_db.getResult();
-                            if(MainActivity.basic_braille_db.basic_db_manager.size_count==0)
-                                onBackPressed();
-                            m.MyView2_init();
-                            m.invalidate();
-                            MyNote_Start_service();
-                        }
-                        else {
-                            for (int i = 0; i < 3; i++) {
-                                for(int j=0; j<m.dot_count*2 ; j++){
-                                    array[i] = array[i] + Integer.toString(m.text_1[i][j]); // 3개의 배열에 1행 2행 3행을 집어넣음
-                                }
-                            }
-                            result = MainActivity.basic_braille_db.insert(m.dot_count, m.textname_1, array[0], array[1], array[2], Menu_info.MENU_INFO, m.page);  //데이터베이스에 입력하고, 성공문자를 돌려받음
-                            if(result.equals("성공")){
-                                Mynote_service.menu_page=2;
-                                startService(new Intent(this, Mynote_service.class));
-                            }
-                            else if(result.equals("실패")){
-                                Mynote_service.menu_page=3;
-                                startService(new Intent(this, Mynote_service.class));
-                            }
-                        }
-                        break;
-                    case 2://두 칸 일때
-                        if(WHclass.sel==Menu_info.MENU_NOTE) {
-                            MainActivity.basic_braille_db.delete(MainActivity.basic_braille_db.basic_db_manager.getId(MainActivity.basic_braille_db.basic_db_manager.My_Note_page));
-                            result = MainActivity.basic_braille_db.getResult();
-                            m.MyView2_init();
-                            m.invalidate();}
-                        else {
-                            for (int i = 0; i < 3; i++) {
-                                for(int j=0; j<m.dot_count*2 ; j++){
-                                    array[i] = array[i] + Integer.toString(m.text_2[i][j]); // 3개의 배열에 1행 2행 3행을 집어넣음
-                                }
-                            }
-                            result = MainActivity.basic_braille_db.insert(m.dot_count, m.textname_2, array[0], array[1], array[2], Menu_info.MENU_INFO, m.page);  //데이터베이스에 입력하고, 성공문자를 돌려받음
-                            if(result.equals("성공")){
-                                Mynote_service.menu_page=2;
-                                startService(new Intent(this, Mynote_service.class));
-                            }
-                            else if(result.equals("실패")){
-                                Mynote_service.menu_page=3;
-                                startService(new Intent(this, Mynote_service.class));
-                            }
-                        }
-                        break;
-                    case 3://세 칸 일때
-                        if(WHclass.sel==Menu_info.MENU_NOTE) {
-                            MainActivity.basic_braille_db.delete(MainActivity.basic_braille_db.basic_db_manager.getId(MainActivity.basic_braille_db.basic_db_manager.My_Note_page));
-                            result = MainActivity.basic_braille_db.getResult();
-                            m.MyView2_init();
-                            m.invalidate();
-                        }
-                        else {
-                            for (int i = 0; i < 3; i++) {
-                                for(int j=0; j<m.dot_count*2 ; j++){
-                                    array[i] = array[i] + Integer.toString(m.text_3[i][j]); // 3개의 배열에 1행 2행 3행을 집어넣음
-                                }
-                            }
-                            result = MainActivity.basic_braille_db.insert(m.dot_count, m.textname_3, array[0], array[1], array[2], Menu_info.MENU_INFO, m.page);  //데이터베이스에 입력하고, 성공문자를 돌려받음
-                            if(result.equals("성공")){
-                                Mynote_service.menu_page=2;
-                                startService(new Intent(this, Mynote_service.class));
-                            }
-                            else if(result.equals("실패")){
-                                Mynote_service.menu_page=3;
-                                startService(new Intent(this, Mynote_service.class));
-                            }
-                        }
-                        break;
+        switch(m.dot_count){
+            case 1: //한 칸 일때
+                if(WHclass.sel==Menu_info.MENU_NOTE) {
+                    MainActivity.basic_braille_db.delete(MainActivity.basic_braille_db.basic_db_manager.getId(MainActivity.basic_braille_db.basic_db_manager.My_Note_page));
+                    result = MainActivity.basic_braille_db.getResult();
+                    if(MainActivity.basic_braille_db.basic_db_manager.size_count==0)
+                        onBackPressed();
+                    m.MyView2_init();
+                    m.invalidate();
+                    MyNote_Start_service();
                 }
+                else {
+                    for (int i = 0; i < 3; i++) {
+                        for(int j=0; j<m.dot_count*2 ; j++){
+                            array[i] = array[i] + Integer.toString(m.text_1[i][j]); // 3개의 배열에 1행 2행 3행을 집어넣음
+                        }
+                    }
+                    result = MainActivity.basic_braille_db.insert(m.dot_count, m.textname_1, array[0], array[1], array[2], Menu_info.MENU_INFO, m.page);  //데이터베이스에 입력하고, 성공문자를 돌려받음
+                    if(result.equals("성공")){
+                        Mynote_service.menu_page=2;
+                        startService(new Intent(this, Mynote_service.class));
+                    }
+                    else if(result.equals("실패")){
+                        Mynote_service.menu_page=3;
+                        startService(new Intent(this, Mynote_service.class));
+                    }
+                }
+                break;
+            case 2://두 칸 일때
+                if(WHclass.sel==Menu_info.MENU_NOTE) {
+                    MainActivity.basic_braille_db.delete(MainActivity.basic_braille_db.basic_db_manager.getId(MainActivity.basic_braille_db.basic_db_manager.My_Note_page));
+                    result = MainActivity.basic_braille_db.getResult();
+                    m.MyView2_init();
+                    m.invalidate();}
+                else {
+                    for (int i = 0; i < 3; i++) {
+                        for(int j=0; j<m.dot_count*2 ; j++){
+                            array[i] = array[i] + Integer.toString(m.text_2[i][j]); // 3개의 배열에 1행 2행 3행을 집어넣음
+                        }
+                    }
+                    result = MainActivity.basic_braille_db.insert(m.dot_count, m.textname_2, array[0], array[1], array[2], Menu_info.MENU_INFO, m.page);  //데이터베이스에 입력하고, 성공문자를 돌려받음
+                    if(result.equals("성공")){
+                        Mynote_service.menu_page=2;
+                        startService(new Intent(this, Mynote_service.class));
+                    }
+                    else if(result.equals("실패")){
+                        Mynote_service.menu_page=3;
+                        startService(new Intent(this, Mynote_service.class));
+                    }
+                }
+                break;
+            case 3://세 칸 일때
+                if(WHclass.sel==Menu_info.MENU_NOTE) {
+                    MainActivity.basic_braille_db.delete(MainActivity.basic_braille_db.basic_db_manager.getId(MainActivity.basic_braille_db.basic_db_manager.My_Note_page));
+                    result = MainActivity.basic_braille_db.getResult();
+                    m.MyView2_init();
+                    m.invalidate();
+                }
+                else {
+                    for (int i = 0; i < 3; i++) {
+                        for(int j=0; j<m.dot_count*2 ; j++){
+                            array[i] = array[i] + Integer.toString(m.text_3[i][j]); // 3개의 배열에 1행 2행 3행을 집어넣음
+                        }
+                    }
+                    result = MainActivity.basic_braille_db.insert(m.dot_count, m.textname_3, array[0], array[1], array[2], Menu_info.MENU_INFO, m.page);  //데이터베이스에 입력하고, 성공문자를 돌려받음
+                    if(result.equals("성공")){
+                        Mynote_service.menu_page=2;
+                        startService(new Intent(this, Mynote_service.class));
+                    }
+                    else if(result.equals("실패")){
+                        Mynote_service.menu_page=3;
+                        startService(new Intent(this, Mynote_service.class));
+                    }
+                }
+                break;
+        }
 
     }
 
@@ -748,6 +748,13 @@ public class Braille_short_practice extends FragmentActivity {
                             touch_init(6);
                         }
                     }//세번째 칸의 6번 점자
+                    else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle){
+                        WHclass.number=7;
+                        WHclass.target= true;
+                        startService(new Intent(this, Number.class));
+                        m.vibrator.vibrate(WHclass.Weak_vibe);
+                        touch_init(0);
+                    }
                     else {// 그외 지점을 터치할 경우 문지르기 기능을 위한 컨트롤 변수 초기화
                         touch_init(0);
                         WHclass.number = 0;
@@ -755,14 +762,7 @@ public class Braille_short_practice extends FragmentActivity {
 
                     switch(m.dot_count){
                         case 1: //첫번째 칸의 구분선과 경고음이 발생되는 영역을 지정
-                            if(m.x > m.width2+m.bigcircle && m.x<m.width2+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width2+(m.bigcircle*2)){
+                            if(m.x > m.width2+m.bigcircle && m.x<m.width2+(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
@@ -771,21 +771,14 @@ public class Braille_short_practice extends FragmentActivity {
                             }
                             break;
                         case 2: //두번째 칸의 구분선과 경고음이 발생되는 영역을 지정
-                            if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle&& m.y > m.height1-(m.bigcircle)){
+                            if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width6+m.bigcircle && m.x<m.width6+(m.bigcircle*2)&& m.y > m.height1-(m.bigcircle*2)){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width6+(m.bigcircle*2)){
+                            else if(m.x > m.width6+m.bigcircle && m.x<m.width6+(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
@@ -794,28 +787,21 @@ public class Braille_short_practice extends FragmentActivity {
                             }
                             break;
                         case 3: //세번째 칸의 구분선과 경고음이 발생되는 영역을 지정
-                            if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle&& m.y > m.height1-(m.bigcircle) ){
+                            if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width10+m.bigcircle && m.x<m.width11-m.bigcircle&& m.y > m.height1-(m.bigcircle)){
+                            else if(m.x > m.width10+m.bigcircle && m.x<m.width11-m.bigcircle){
                                 WHclass.number=8;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));
                                 m.vibrator.vibrate(WHclass.Weak_vibe);
                                 touch_init(0);
                             }
-                            else if(m.x > m.width12+m.bigcircle && m.x<m.width12+(m.bigcircle*2)&& m.y > m.height1-(m.bigcircle*2)){
-                                WHclass.number=7;
-                                WHclass.target= true;
-                                startService(new Intent(this, Number.class));
-                                m.vibrator.vibrate(WHclass.Weak_vibe);
-                                touch_init(0);
-                            }
-                            else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width12+(m.bigcircle*2)){
+                            else if(m.x > m.width12+m.bigcircle && m.x<m.width12+(m.bigcircle*2)){
                                 WHclass.number=7;
                                 WHclass.target= true;
                                 startService(new Intent(this, Number.class));

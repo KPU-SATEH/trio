@@ -18,6 +18,7 @@ import com.example.yeo.practice.Common_sound.Number;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Normal_version_quiz.quiz_score;
 import com.example.yeo.practice.R;
+import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
 
 import net.daum.mf.speech.api.SpeechRecognizeListener;
@@ -55,7 +56,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
         sound_beep = sound_pool.load(this, R.raw.reading_quiz_stt_start, 1);
 
         quiz_score.score = 0;
-        WHclass.sel = 1;
+
 
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
@@ -65,13 +66,14 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
             uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        startService(new Intent(this, quiz_reading_service.class));
         decorView.setSystemUiVisibility(uiOption);
 
 
         m = new reading_short_display(this);
         m.setBackgroundColor(Color.rgb(22, 26, 44));
         setContentView(m);
+        quiz_reading_service.menu_page = m.question;
+        startService(new Intent(this, quiz_reading_service.class));
     }
 
     public void onDestroy() {
@@ -81,55 +83,15 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
 
     @Override
     public void onBackPressed() { //종료키를 눌렀을 경우 발생되는 함수
-        quiz_reading_service.quizmanual.reset();
-        switch (quiz_reading_service.question) {
-            case 0:
-                quiz_reading_service.quizmanual.reset();
-                break;
-            case 1:
-                quiz_reading_service.first.reset();
-                break;
-            case 2:
-                quiz_reading_service.second.reset();
-                break;
-            case 3:
-                quiz_reading_service.third.reset();
-                break;
-        }
-        quiz_reading_service.question = 0;
-        switch (WHclass.sel) {
-            case 1: //초성퀴즈 종료
-                quiz_reading_service.initial_quiz_finish.start();
-                break;
-            case 2://모음퀴즈 종료
-                quiz_reading_service.vowel_quiz_finish.start();
-                break;
-            case 3://종성퀴즈 종료
-                quiz_reading_service.final_quiz_finish.start();
-                break;
-            case 4://숫자퀴즈 종료
-                quiz_reading_service.num_quiz_finish.start();
-                break;
-            case 5://알파벳퀴즈 종료
-                quiz_reading_service.alphabet_quiz_finish.start();
-                break;
-            case 6://문장부호퀴즈 종료
-                quiz_reading_service.sentence_quiz_finish.start();
-                break;
-            case 7://약자및 약어퀴즈 종료
-                quiz_reading_service.abbreviation_quiz_finish.start();
-                break;
-        }
-
-        if (m.question == 4) {
+        if(m.question==4){
             quiz_reading_service.finish = true;
             quiz_reading_service.progress = true;
             startService(new Intent(this, quiz_reading_service.class));
-        } else {
+        }
+        else{
             quiz_reading_service.finish = true;
             startService(new Intent(this, quiz_reading_service.class));
         }
-
         finish();
     }
 
@@ -142,9 +104,11 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                     if (click == false) {
                         click = true;
                     }
+                    break;
                 case MotionEvent.ACTION_DOWN:// 첫번째 손가락을 화면에 터치하였을 경우
+                    startService(new Intent(this, Sound_Manager.class));
                     m.x = (int) event.getX();// 현재 좌표의 x좌표 값을 저장
-
+                    m.y = (int) event.getY();
                     if ((m.x == 0) && (m.y == 0)) { //좌표 초기값으로 지정된 곳을 터치하면 반응을 없앰
                         break;
                     } else {
@@ -620,13 +584,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                                 touch_init(6);
                             }
                         }//세번째 칸의 6번 점자
-                        else if (m.y > m.height1 - (m.bigcircle * 2) && m.y < m.height1 - m.bigcircle) {
-                            WHclass.number = 7;
-                            WHclass.target = true;
-                            startService(new Intent(this, Number.class));
-                            m.vibrator.vibrate(WHclass.Weak_vibe);
-                            touch_init(0);
-                        } else { //그외 지점을 터치할 경우 문지르기 기능을 위한 컨트롤 변수 초기화
+                        else { //그외 지점을 터치할 경우 문지르기 기능을 위한 컨트롤 변수 초기화
                             touch_init(0);
                             WHclass.number = 0;
                         }
@@ -732,12 +690,12 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                             if (quiz_reading_service.question == 4) {
                                 onBackPressed();
                             } else if (quiz_reading_service.question < 4) {
-                                quiz_reading_service.menu_page = m.question;
+                                quiz_reading_service.menu_page = ++m.question;
                                 startService(new Intent(this, quiz_reading_service.class));
                             }
                         }
                     }
-
+                    m.invalidate();
                     break;
                 case MotionEvent.ACTION_POINTER_DOWN:
                     click = false;
@@ -745,7 +703,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                     y1drag = (int) event.getY();
                     break;
             }
-        } else { //다음 문제가 존재할 경우
+        } /*else { //다음 문제가 존재할 경우
             switch (event.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN:
                     posx1 = (int) event.getX();
@@ -765,7 +723,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                         enter = true;
                     break;
             }
-        }
+        }*/
         return true;
     }
 

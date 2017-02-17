@@ -10,9 +10,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.*;
-import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_reading_long_practice;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_reading_short_practice;
 /*

@@ -105,6 +105,13 @@ public class Vowel_service extends Service {
                 }
             }
         }
+        vowel[previous].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                vowel[previous].reset();
+                vowel[previous] = MediaPlayer.create(Vowel_service.this, rawid[previous]);
+            }
+        });
         vowelfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {

@@ -12,8 +12,8 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
+import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_quiz_sound.score_service;
 import com.example.yeo.practice.Common_sound.Number;
 
@@ -228,7 +228,7 @@ public class Talk_reading_short_practice extends FragmentActivity implements Tex
                             mRecognizer.startListening(i);
                         }
                     } else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 상단으로 드래그 하는 경우 퀴즈 화면 종료
-                        switch(WHclass.sel){
+                       /* switch(WHclass.sel){
                             case 1: //초성퀴즈 종료
                                 quiz_reading_service.initial_quiz_finish.start();
                                 break;
@@ -254,7 +254,7 @@ public class Talk_reading_short_practice extends FragmentActivity implements Tex
                                 quiz_reading_service.letter_quiz_finish.start();
                                 break;
                         }
-                        onBackPressed();
+                        onBackPressed();*/
                     }
                     break;
                 case MotionEvent.ACTION_DOWN:

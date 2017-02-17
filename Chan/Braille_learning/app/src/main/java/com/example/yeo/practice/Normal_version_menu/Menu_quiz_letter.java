@@ -12,14 +12,12 @@ import android.view.View;
 import com.example.yeo.practice.Common_menu_display.Common_menu_display;
 import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_quiz_service;
-import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Normal_version_quiz.quiz_reading_manual;
 import com.example.yeo.practice.Normal_version_quiz.quiz_score;
-import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Common_sound.slied;
 
 // 글자 퀴즈 메뉴 화면
@@ -46,7 +44,7 @@ public class Menu_quiz_letter extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        quiz_reading_service.finish_n = 7;
+        //quiz_reading_service.finish_n = 7;
         decorView.setSystemUiVisibility( uiOption );
         Menu_info.DISPLAY = Menu_info.DISPLAY_QUIZ_LETTER;
         m = new Common_menu_display(this);

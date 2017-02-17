@@ -32,7 +32,7 @@ public class dot_quiz_vowel {
     int we[][] = {{1,1,1,0},{1,0,1,1},{1,0,1,0}};//ㅞ
     int wi[][] = {{1,1,1,0},{0,0,1,1},{1,0,1,0}};//ㅟ
 
-    public static String name [] ={ "ㅏ","ㅐ","ㅑ","ㅓ","ㅔ","ㅕ","ㅖ","ㅗ","ㅘ","ㅚ","ㅛ", "ㅜ", "ㅝ", "ㅠ", "ㅡ", "ㅢ", "ㅣ","ㅒ","ㅙ","ㅞ","ㅟ"};
+    public static String name [] ={ "아","애","야","어","에","여","예","오","와","외","요", "우", "워", "유", "으", "의", "이","얘","왜","웨","위"};
     public static int dot_counter[] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2}; // 몇개의 칸으로 구성되어 있는지를 나타내는 점자 배열 변수
     public static ArrayList<int[][]> vowel_Array = new ArrayList<>(); // 점자의 배열정보를 저장하는 연결리스트
     public static ArrayList<String> vowel_name = new ArrayList<>(); //점자의 글자를 저장하는 연결리스트

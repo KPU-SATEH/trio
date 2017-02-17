@@ -80,7 +80,9 @@ public class Common_menu_display extends View {
     public Common_menu_display(Context context) {
         super(context);
 
-
+        if(image!=null){
+            free();
+        }
 
         switch(Menu_info.DISPLAY){
             case 0:
@@ -205,6 +207,11 @@ public class Common_menu_display extends View {
         finger_x[2]=y3;
         finger_y[2]=y3;
         invalidate();
+    }
+
+    public void free(){
+        image.recycle();
+        image=null;
     }
 
 }

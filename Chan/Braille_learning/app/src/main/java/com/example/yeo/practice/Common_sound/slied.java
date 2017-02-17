@@ -15,7 +15,7 @@ public class slied extends Service {
     MediaPlayer slied_[];
     int rawid[];
     int pre;
-    static public int slied = 0;
+    static public int slied ;
     public slied() {
     }
 
@@ -47,6 +47,6 @@ public class slied extends Service {
                 slied_[slied] = MediaPlayer.create(slied.this,rawid[slied]);
             }
         });
-        return super.onStartCommand(intent, flags, startID);
+        return START_NOT_STICKY;
     }
 }

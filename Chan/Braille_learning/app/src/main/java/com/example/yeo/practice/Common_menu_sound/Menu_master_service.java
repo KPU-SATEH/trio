@@ -67,6 +67,13 @@ public class Menu_master_service extends Service {
                 finish=false;
             }
         }
+        master[previous].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                master[previous].reset();
+                master[previous] = MediaPlayer.create(Menu_master_service.this, rawid[previous]);
+            }
+        });
         masterfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {

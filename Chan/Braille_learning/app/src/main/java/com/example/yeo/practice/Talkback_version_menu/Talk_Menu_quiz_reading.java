@@ -9,13 +9,12 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.yeo.practice.Common_menu_sound.Menu_quiz_inside_service;
-import com.example.yeo.practice.MainActivity;
+import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.Talkback_version_quiz.Talk_quiz_reading_manual;
 import com.example.yeo.practice.WHclass;
-import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Common_sound.slied;
 
 // 읽기 퀴즈 메뉴 화면

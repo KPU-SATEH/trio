@@ -10,7 +10,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
-import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;

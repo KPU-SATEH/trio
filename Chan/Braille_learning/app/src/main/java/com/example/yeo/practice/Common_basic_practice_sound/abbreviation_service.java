@@ -99,6 +99,13 @@ public class abbreviation_service extends Service {
                 }
             }
         }
+        Abbreviation[previous].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                Abbreviation[previous].reset();
+                Abbreviation[previous] = MediaPlayer.create(abbreviation_service.this, rawid[previous]);
+            }
+        });
         abbreviationfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {

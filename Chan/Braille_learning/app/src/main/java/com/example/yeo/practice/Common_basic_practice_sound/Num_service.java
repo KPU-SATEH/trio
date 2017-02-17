@@ -104,6 +104,14 @@ public class Num_service extends Service {
             }
         }
 
+        Num[previous].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                Num[previous].reset();
+                Num[previous] = MediaPlayer.create(Num_service.this, rawid[previous]);
+            }
+        });
+
         numfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {

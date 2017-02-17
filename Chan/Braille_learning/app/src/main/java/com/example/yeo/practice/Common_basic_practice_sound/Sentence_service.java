@@ -106,6 +106,15 @@ public class Sentence_service extends Service {
                 }
             }
         }
+
+        sentence[previous].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                sentence[previous].reset();
+                sentence[previous] = MediaPlayer.create(Sentence_service.this, rawid[previous]);
+            }
+        });
+
         sentencefinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {

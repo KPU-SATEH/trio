@@ -78,7 +78,7 @@ public class Number extends Service {
                 mwnumber[pre_number] = MediaPlayer.create(Number.this,rawid[pre_number]);
             }
         });*/
-        return super.onStartCommand(intent, flags, startID);
+        return START_NOT_STICKY;
     }
 
 

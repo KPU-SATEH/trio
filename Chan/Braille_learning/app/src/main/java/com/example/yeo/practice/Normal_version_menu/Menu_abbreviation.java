@@ -1,27 +1,16 @@
 package com.example.yeo.practice.Normal_version_menu;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.example.yeo.practice.Common_menu_display.Common_menu_display;
 import com.example.yeo.practice.Common_menu_sound.Menu_basic_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
-import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;

@@ -7,6 +7,7 @@ import android.os.IBinder;
 
 import com.example.yeo.practice.Common_basic_practice_sound.Initial_service;
 import com.example.yeo.practice.Common_braille_data.dot_initial;
+import com.example.yeo.practice.Common_master_practice_sound.Word_service;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_display;
@@ -77,6 +78,13 @@ public class Menu_basic_service extends Service {
                 finish=false;
             }
         }
+        basic[previous].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                basic[previous].reset();
+                basic[previous] = MediaPlayer.create(Menu_basic_service.this, rawid[previous]);
+            }
+        });
         basicfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {

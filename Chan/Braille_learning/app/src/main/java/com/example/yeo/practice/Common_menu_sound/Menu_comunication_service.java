@@ -72,6 +72,13 @@ public class Menu_comunication_service extends Service {
                 */
             }
         }
+        comunication[previous].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                comunication[previous].reset();
+                comunication[previous] = MediaPlayer.create(Menu_comunication_service.this, rawid[previous]);
+            }
+        });
 /*
         mainfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override

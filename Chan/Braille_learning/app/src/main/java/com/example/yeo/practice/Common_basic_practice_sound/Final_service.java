@@ -98,6 +98,13 @@ public class Final_service extends Service {
                 }
             }
         }
+        Final[previous].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                Final[previous].reset();
+                Final[previous] = MediaPlayer.create(Final_service.this, rawid[previous]);
+            }
+        });
 
         finalfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
