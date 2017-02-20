@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.yeo.practice.Common_sound.Number;
+import com.example.yeo.practice.Coomon_communication_sound.Communication_service;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.WHclass;
 
@@ -1418,6 +1419,8 @@ public class teacher_practice extends FragmentActivity {
     @Override
     public void onBackPressed() { //종료키를 눌렀을 경우 발생되는 이벤트
         m.page = 0;
+        Communication_service.finish1 = true;
+        startService(new Intent(this, Communication_service.class));
         finish();
     }
 }

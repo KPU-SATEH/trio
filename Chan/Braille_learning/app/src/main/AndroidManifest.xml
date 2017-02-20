@@ -523,6 +523,10 @@
         <service
             android:name=".Common_quiz_sound.quiz_writing_service"
             android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Coomon_communication_sound.Communication_service"
+            android:enabled="true"
             android:exported="true"></service>
     </application>
 

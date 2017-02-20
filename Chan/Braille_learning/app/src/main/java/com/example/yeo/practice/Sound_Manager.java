@@ -26,6 +26,7 @@ import com.example.yeo.practice.Common_mynote_database.Mynote_service;
 import com.example.yeo.practice.Common_quiz_sound.quiz_reading_service;
 import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
 import com.example.yeo.practice.Common_trans_sound.Braille_trans_service;
+import com.example.yeo.practice.Coomon_communication_sound.Communication_service;
 
 public class Sound_Manager extends Service {
       /*
@@ -148,7 +149,9 @@ public class Sound_Manager extends Service {
             case 60:
                 startService(new Intent(this, Menu_comunication_service.class));
                 break;
-
+            case 70:
+                startService(new Intent(this, Communication_service.class));
+                break;
         }
 
     }

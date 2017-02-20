@@ -14,6 +14,7 @@ import com.example.yeo.practice.Common_braille_data.dot_student_data;
 import com.example.yeo.practice.Common_sound.Braille_Text_To_Speech;
 import com.example.yeo.practice.Common_sound.Number;
 import com.example.yeo.practice.Common_sound.slied;
+import com.example.yeo.practice.Coomon_communication_sound.Communication_service;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.WHclass;
@@ -1039,6 +1040,8 @@ public class student_practice extends FragmentActivity implements SpeechRecogniz
     @Override
     public void onBackPressed() { //종료키를 눌렀을 경우 발생되는 이벤트
         m.page = 0;
+        Communication_service.finish2 = true;
+        startService(new Intent(this, Communication_service.class));
         finish();
     }
 }
