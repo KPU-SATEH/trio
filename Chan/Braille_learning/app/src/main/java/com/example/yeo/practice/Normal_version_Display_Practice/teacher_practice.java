@@ -93,6 +93,7 @@ public class teacher_practice extends FragmentActivity {
                     Timer_Stop();
                     if (click == false)
                         click = true;
+
                     break;
                 case MotionEvent.ACTION_DOWN: // 손가락 1개를 이용하여 터치가 발생하였을 때
                     m.x = (int) event.getX();//x좌표를 저장
@@ -217,6 +218,12 @@ public class teacher_practice extends FragmentActivity {
             timer.cancel();
             timer= null;
         }
+        result1=0;
+        result2=0;
+        result3=0;
+        result4=0;
+        result5=0;
+        result6=0;
     }
 
     public void Timer_Reset(int coordinate_temp){

@@ -87,6 +87,7 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
                     if (click == false) {
                         click = true;
                     }
+                    touch_init(0);
                     break;
                 case MotionEvent.ACTION_DOWN: // 손가락 1개를 이용하여 터치가 발생하였을 때
                     startService(new Intent(this, Sound_Manager.class));
