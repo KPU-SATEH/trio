@@ -379,7 +379,6 @@ public class MainActivity extends FragmentActivity {
                                     finish();
                                     Timer_Stop();
                                     WHclass.Braiile_type=1;
-                                    Toast.makeText(MainActivity.this, "시각장애인버전", Toast.LENGTH_SHORT).show();
                                     break;
                                 case 2:
                                     Intent i2 = new Intent(MainActivity.this, Menu_Tutorial.class);
@@ -387,7 +386,6 @@ public class MainActivity extends FragmentActivity {
                                     overridePendingTransition(R.anim.fade, R.anim.hold);
                                     startService(new Intent(MainActivity.this, Menu_main_service.class)); //메뉴 음성 출력 서비스
                                     WHclass.Braiile_type=2;
-                                    Toast.makeText(MainActivity.this, "일반사용자버전", Toast.LENGTH_SHORT).show();
                                     finish();
                                     Timer_Stop();
                                     break;

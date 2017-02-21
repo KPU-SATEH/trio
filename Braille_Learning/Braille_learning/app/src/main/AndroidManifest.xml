@@ -14,12 +14,12 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:screenOrientation="landscape"
+        android:screenOrientation="sensorLandscape"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="sensorLandscape"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,23 +40,23 @@
         <activity
             android:name=".Normal_version_menu.Menu_alphabet"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_Final_consonant"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_Initial_Consonant"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_number"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_Sentence_marks"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
 
         <service
             android:name=".Common_menu_sound.Menu_basic_service"
@@ -66,11 +66,11 @@
         <activity
             android:name=".Normal_version_menu.Menu_Tutorial"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_Vowel"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
 
         <service
             android:name=".Common_basic_practice_sound.Num_service"
@@ -96,7 +96,7 @@
         <activity
             android:name=".Normal_version_Display_Practice.Braille_short_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
 
         <service
             android:name=".Common_basic_practice_sound.alphabet_service"
@@ -106,15 +106,15 @@
         <activity
             android:name=".Normal_version_menu.Menu_basic_practice"
             android:label=" "
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_master_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_quiz"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
 
         <service
             android:name=".Common_menu_sound.Menu_main_service"
@@ -132,19 +132,19 @@
         <activity
             android:name=".Normal_version_menu.Menu_abbreviation"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_letter"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_word"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_Display_Practice.Braille_long_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
 
         <service
             android:name=".Common_master_practice_sound.Letter_service"
@@ -162,47 +162,47 @@
         <activity
             android:name=".Normal_version_menu.Menu_quiz_initial"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_quiz_vowel"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_quiz_final"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_quiz_number"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_quiz_alphabet"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_quiz_sentence"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_quiz_abbreviation"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_quiz_letter"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_quiz_word"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_Display_Practice.reading_short_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_Display_Practice.reading_long_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
 
         <service
             android:name=".Common_menu_sound.Menu_quiz_service"
@@ -212,7 +212,7 @@
         <activity
             android:name=".Normal_version_tutorial.Tutorial"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
 
         <service
             android:name=".Normal_version_tutorial.Tutorial_service"
@@ -222,55 +222,55 @@
         <activity
             android:name=".Normal_version_tutorial.Tutorial_tutorial"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_tutorial.Tutorial_basic_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_tutorial.Tutorial_master_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_tutorial.Tutorial_quiz"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_tutorial.Tutorial_basic_init"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_tutorial.Tutorial_basic_vowel"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_tutorial.Tutorial_basic_final"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_tutorial.Tutorial_basic_number"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_tutorial.Tutorial_basic_english"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_tutorial.Tutorial_basic_sentence"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_tutorial.Tutorial_basic_abbreviation"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_tutorial.Tutorial_dot_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_tutorial.Tutorial_dot_lecture"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
 
         <service
             android:name=".Common_quiz_sound.score_service"
@@ -280,187 +280,187 @@
         <activity
             android:name=".Normal_version_quiz.quiz_reading_manual"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_quiz.quiz_score"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_Mynote"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_Mynote_basic"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_Mynote_master"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_quiz_reading"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_quiz_writing"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_quiz.quiz_writing_manual"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_Display_Practice.writing_short_practice2"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_Display_Practice.writing_short_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_Display_Practice.writing_long_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_tutorial"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_basic_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_Mynote"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_master_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_quiz"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_Initial_Consonant"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_letter"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_quiz_initial"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_Mynote_basic"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_Vowel"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_Final_consonant"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_number"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_alphabet"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_Sentence_marks"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_abbreviation"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_word"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_quiz_vowel"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_quiz_final"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_quiz_number"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_quiz_alphabet"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_quiz_sentence"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_quiz_abbreviation"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_quiz_letter"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_quiz_word"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_quiz_reading"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_quiz_writing"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_menu.Talk_Menu_Mynote_master"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_Display_Practice.Talk_Braille_short_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_Display_Practice.Talk_Braille_long_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_Display_Practice.Talk_reading_short_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_Display_Practice.Talk_reading_long_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_Display_Practice.Talk_writing_long_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_Display_Practice.Talk_writing_short_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_quiz.Talk_quiz_writing_manual"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Talkback_version_quiz.Talk_quiz_reading_manual"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
 
         <service
             android:name=".Sound_Manager"
@@ -486,27 +486,27 @@
         <activity
             android:name=".Normal_version_menu.Menu_Braille_translation"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_Communication"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_communication_teacher"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_menu.Menu_communication_student"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_Display_Practice.teacher_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_Display_Practice.student_practice"
             android:label=""
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
 
         <service
             android:name=".Common_trans_sound.Braille_trans_service"
@@ -527,7 +527,17 @@
         <service
             android:name=".Coomon_communication_sound.Communication_service"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".Talkback_version_menu.Talk_Menu_Communication"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity android:name=".Talkback_version_menu.Talk_Menu_Braille_translation"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity android:name=".Talkback_version_menu.Talk_Menu_communication_teacher"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
     </application>
 
 </manifest>
