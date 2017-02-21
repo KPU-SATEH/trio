@@ -20,6 +20,7 @@ import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.Common_mynote_database.Basic_DB_manager;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
+import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_practice;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_basic_practice_sound.Final_service;
 import com.example.yeo.practice.Common_basic_practice_sound.Initial_service;
@@ -83,7 +84,7 @@ public class Talk_Menu_Mynote_basic extends FragmentActivity {
                                 Mynote_service.menutype=0;
                                 result= MainActivity.basic_braille_db.getResult();
                                 if(MainActivity.basic_braille_db.basic_db_manager.size_count!=0) {
-                                    Intent intent = new Intent(Talk_Menu_Mynote_basic.this, Braille_short_practice.class);
+                                    Intent intent = new Intent(Talk_Menu_Mynote_basic.this, Talk_Braille_short_practice.class);
                                     startActivityForResult(intent, Menu_info.MENU_NOTE);
                                     overridePendingTransition(R.anim.fade, R.anim.hold);
                                     Mynote_service.menu_page=1;

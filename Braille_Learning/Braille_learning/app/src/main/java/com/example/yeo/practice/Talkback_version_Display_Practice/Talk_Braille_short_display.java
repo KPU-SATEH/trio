@@ -28,6 +28,11 @@ public class Talk_Braille_short_display extends View {
     /*
     3칸 이하의 점자를 화면에 출력해주는 클래스
      */
+
+    public int first_x=-100, first_y=-100;
+    public int second_x=10, second_y=-100;
+    public int third_x=-100, third_y=-100;
+
     public Random random;
     public float width; //가로
     public float height; //세로
@@ -750,5 +755,23 @@ public class Talk_Braille_short_display extends View {
                 break;
         }
 
+        Paint finger = new Paint();
+        finger.setARGB(180,255,00,00);
+        finger.setAntiAlias(true);
+        canvas.drawCircle(first_x,first_y,minicircle,finger);
+        canvas.drawCircle(second_x,second_y,minicircle,finger);
+        canvas.drawCircle(third_x,third_y,minicircle,finger);
+
     }
+
+    public void finger_set(int x1, int y1, int x2, int y2, int x3, int y3){
+        first_x=x1;
+        first_y=y1;
+        second_x=x2;
+        second_y=y2;
+        third_x=x3;
+        third_y=y3;
+        invalidate();
+    }
+
 }

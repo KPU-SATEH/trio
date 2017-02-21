@@ -14,6 +14,7 @@ import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
+import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_practice;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_practice;
 import com.example.yeo.practice.Common_sound.slied;
@@ -66,7 +67,7 @@ public class Talk_Menu_abbreviation extends FragmentActivity {
                             if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                                 WHclass.sel=Menu_info.MENU_ABBREVIATION;
                                 Menu_info.MENU_INFO = Menu_info.MENU_ABBREVIATION;
-                                Intent intent = new Intent(Talk_Menu_abbreviation.this, Braille_short_practice.class);
+                                Intent intent = new Intent(Talk_Menu_abbreviation.this, Talk_Braille_short_practice.class);
                                 startActivityForResult(intent, Menu_info.MENU_ABBREVIATION);
                                 overridePendingTransition(R.anim.fade, R.anim.hold);
                             }

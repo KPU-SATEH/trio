@@ -9,7 +9,6 @@ import android.os.Vibrator;
 import android.view.View;
 
 import com.example.yeo.practice.MainActivity;
-import com.example.yeo.practice.Normal_version_Display_Practice.Braille_long_practice;
 import com.example.yeo.practice.WHclass;
 
 import java.util.Random;
@@ -27,8 +26,11 @@ public class Talk_Braille_long_display extends View {
     public int max, min=0; // 랜덤변수 최대값과 최소값
     public float width= WHclass.width; //가로
     public float height= WHclass.height; //세로
-    public int x=0, y=0; // 점자를 터치할때 사용할 좌표를 저장할 변수
     public Vibrator vibrator; //진동 변수
+    public int first_x=-100, first_y=-100;
+    public int second_x=10, second_y=-100;
+    public int third_x=-100, third_y=-100;
+    public int x=0, y=0;
 
 
 
@@ -79,19 +81,22 @@ public class Talk_Braille_long_display extends View {
             }
         }
 
+        dot_count=0;
+        textname_7="";
+
         random = new Random();
         switch(WHclass.sel){
             case 8:
-                max = Braille_long_practice.Dot_letter.lettercount;
+                max = Talk_Braille_long_practice.Dot_letter.lettercount;
                 page = random.nextInt(max) + min;
-                dot_count = Braille_long_practice.Dot_letter.letter_dot_count.get(page);
-                textname_7 = Braille_long_practice.Dot_letter.letter_name.get(page);
+                dot_count = Talk_Braille_long_practice.Dot_letter.letter_dot_count.get(page);
+                textname_7 = Talk_Braille_long_practice.Dot_letter.letter_name.get(page);
                 break;
             case 9:
-                max = Braille_long_practice.Dot_word.wordcount;
+                max = Talk_Braille_long_practice.Dot_word.wordcount;
                 page = random.nextInt(max) + min;
-                dot_count = Braille_long_practice.Dot_word.word_dot_count.get(page);
-                textname_7 = Braille_long_practice.Dot_word.word_name.get(page);
+                dot_count = Talk_Braille_long_practice.Dot_word.word_dot_count.get(page);
+                textname_7 = Talk_Braille_long_practice.Dot_word.word_name.get(page);
                 break;
             case 10:
                 dot_count = MainActivity.master_braille_db.master_db_manager.getCount(MainActivity.master_braille_db.master_db_manager.My_Note_page); //데이터베이스로부터 점자 칸의 갯수를 불러옴
@@ -100,15 +105,31 @@ public class Talk_Braille_long_display extends View {
                 dot_temp[1]=MainActivity.master_braille_db.master_db_manager.getMatrix_2(MainActivity.master_braille_db.master_db_manager.My_Note_page); //두번째 행
                 dot_temp[2]=MainActivity.master_braille_db.master_db_manager.getMatrix_3(MainActivity.master_braille_db.master_db_manager.My_Note_page); //세번째 행
                 break;
+            case 11:
+                if(Talk_Braille_long_practice.Trans_success==true) {
+                    dot_count = Talk_Braille_long_practice.Trans_dot_count;
+                    textname_7 = Talk_Braille_long_practice.Trans_dot_name;
+                }
+                break;
         }
 
         for(int i=0 ; i<3 ; i++){
             for(int j=0; j<dot_count*2 ; j++){
-                if(WHclass.sel==8) text_7[i][j]=Braille_long_practice.Dot_letter.letter_Array.get(page)[i][j];
-                else if(WHclass.sel==9) text_7[i][j]=Braille_long_practice.Dot_word.word_Array.get(page)[i][j];
-                else if(WHclass.sel==10) text_7[i][j] = dot_temp[i].charAt(j)-'0';
+                if(WHclass.sel==8)
+                    text_7[i][j]=Talk_Braille_long_practice.Dot_letter.letter_Array.get(page)[i][j];
+                else if(WHclass.sel==9)
+                    text_7[i][j]=Talk_Braille_long_practice.Dot_word.word_Array.get(page)[i][j];
+                else if(WHclass.sel==10)
+                    text_7[i][j] = dot_temp[i].charAt(j)-'0';
+                else if(WHclass.sel==11) {
+                    if(Talk_Braille_long_practice.Trans_success==true)
+                        text_7[i][j] = Talk_Braille_long_practice.matrix[i][j];
+                }
             }
         }
+
+        if(Talk_Braille_long_practice.Trans_success==true)
+            Talk_Braille_long_practice.Trans_success=false;
     }
 
 
@@ -303,5 +324,23 @@ public class Talk_Braille_long_display extends View {
                 break;
         }
 
+        Paint finger = new Paint();
+        finger.setARGB(180,255,00,00);
+        finger.setAntiAlias(true);
+        canvas.drawCircle(first_x,first_y,minicircle*2,finger);
+        canvas.drawCircle(second_x,second_y,minicircle*2,finger);
+        canvas.drawCircle(third_x,third_y,minicircle*2,finger);
+
     }
+
+    public void finger_set(int x1, int y1, int x2, int y2, int x3, int y3){
+        first_x=x1;
+        first_y=y1;
+        second_x=x2;
+        second_y=y2;
+        third_x=x3;
+        third_y=y3;
+        invalidate();
+    }
+
 }
