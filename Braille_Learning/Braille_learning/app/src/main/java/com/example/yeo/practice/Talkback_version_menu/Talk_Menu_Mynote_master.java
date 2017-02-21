@@ -1,6 +1,7 @@
 package com.example.yeo.practice.Talkback_version_menu;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -8,17 +9,19 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.yeo.practice.Common_menu_display.Common_menu_display;
+import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_mynote_service;
+import com.example.yeo.practice.Common_menu_sound.Menu_quiz_service;
 import com.example.yeo.practice.Common_mynote_database.Mynote_service;
 import com.example.yeo.practice.Common_sound.Braille_Text_To_Speech;
+import com.example.yeo.practice.Normal_version_Display_Practice.Braille_long_practice;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.Common_mynote_database.Master_DB_manager;
-import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
-import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_long_practice;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_master_practice_sound.Letter_service;
 import com.example.yeo.practice.Common_master_practice_sound.Word_service;
@@ -27,6 +30,9 @@ import com.example.yeo.practice.Common_sound.slied;
 //나만의 단어장 메뉴 화면
 
 public class Talk_Menu_Mynote_master extends FragmentActivity {
+    Common_menu_display m;
+    int finger_x[] = new int[3];
+    int finger_y[] = new int[3];
 
     Braille_Text_To_Speech Braille_TTS = new Braille_Text_To_Speech();
 
@@ -50,31 +56,35 @@ public class Talk_Menu_Mynote_master extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
         decorView.setSystemUiVisibility( uiOption );
-        setContentView(R.layout.activity_common_menu__mynote_master);
+        Menu_info.DISPLAY = Menu_info.DISPLAY_MYNOTE_MASTER;
+        m = new Common_menu_display(this);
+        m.setBackgroundColor(Color.rgb(22,26,44));
 
-        View container = findViewById(R.id.activity_common_menu__mynote_master);
-        container.setOnHoverListener(new View.OnHoverListener() {
+        setContentView(m);
+        m.setOnHoverListener(new View.OnHoverListener() {
             @Override
             public boolean onHover(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_HOVER_ENTER: //손가락 1개를 화면에 터치하였을 경우
                         startService(new Intent(Talk_Menu_Mynote_master.this, Sound_Manager.class));
-                        posx1 = (int)event.getX();  //현재 좌표의 x좌표값 저장
-                        posy1 = (int)event.getY();  //현재 좌표의 y좌표값 저장
-                        enter= true;
+                        posx1 = (int)event.getX(); //현재 좌표의 x좌표값 저장
+                        posy1 = (int)event.getY(); //현재 좌표의 y좌표값 저장
                         break;
                     case MotionEvent.ACTION_HOVER_EXIT: // 손가락 1개를 화면에서 떨어트렸을 경우
-                        posx2 = (int)event.getX();//손가락 1개를 화면에서 떨어트린 x좌표값 저장
-                        posy2 = (int)event.getY();//손가락 1개를 화면에서 떨어트린 y좌표값 저장
+                        posx2 = (int)event.getX(); //손가락 1개를 화면에서 떨어트린 x좌표값 저장
+                        posy2 = (int)event.getY();  //손가락 1개를 화면에서 떨어트린 y좌표값 저장
+
                         if(enter == true) {  //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 나만의 단어장으로 접속
                             if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                                 WHclass.sel =Menu_info.MENU_NOTE ;
                                 result= MainActivity.master_braille_db.getResult();
                                 Mynote_service.menutype=1;
                                 if(MainActivity.master_braille_db.master_db_manager.size_count!=0) {
-                                    Intent intent = new Intent(Talk_Menu_Mynote_master.this, Talk_Braille_long_practice.class);
+                                    Intent intent = new Intent(Talk_Menu_Mynote_master.this, Braille_long_practice.class);
                                     startActivityForResult(intent, Menu_info.MENU_NOTE);
-                                    Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
+                                    overridePendingTransition(R.anim.fade, R.anim.hold);
+                                    Mynote_service.menu_page=1;
+                                    startService(new Intent(Talk_Menu_Mynote_master.this, Mynote_service.class));
                                     Master_DB_manager.MyNote_down=true;
                                     reference2 = MainActivity.master_braille_db.master_db_manager.getReference(MainActivity.master_braille_db.master_db_manager.My_Note_page);
                                     reference_index2 = MainActivity.master_braille_db.master_db_manager.getReference_index(MainActivity.master_braille_db.master_db_manager.My_Note_page);
@@ -87,24 +97,18 @@ public class Talk_Menu_Mynote_master extends FragmentActivity {
                                             break;
                                     }
                                 }
-                                else { //단어장에 단어가 추가되어 있지 않은경우 접속 차단
+                                else {//단어장에 단어가 추가되어 있지 않은경우 접속 차단
                                     Mynote_service.menu_page=0;
                                     startService(new Intent(Talk_Menu_Mynote_master.this, Mynote_service.class));
                                 }
+
                             }
                         }
-                        else    enter = true;
                         break;
                 }
                 return false;
             }
         });
-
-
-
-
-
-
     }
 
     @Override
@@ -116,6 +120,7 @@ public class Talk_Menu_Mynote_master extends FragmentActivity {
                 if(olddrag-newdrag>WHclass.Drag_space) { //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
                     Intent intent = new Intent(this,Talk_Menu_Mynote_basic.class);
                     startActivityForResult(intent,Menu_info.MENU_MYNOTE_BASIC);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_main_service.menu_page = Menu_info.MENU_MYNOTE_BASIC;
                     slied.slied =Menu_info.next;
                     startService(new Intent(this, slied.class));
@@ -126,6 +131,7 @@ public class Talk_Menu_Mynote_master extends FragmentActivity {
                 else if(newdrag-olddrag>WHclass.Drag_space) { //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
                     Intent intent = new Intent(this,Talk_Menu_Mynote_basic.class);
                     startActivityForResult(intent,Menu_info.MENU_MYNOTE_BASIC);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_main_service.menu_page = Menu_info.MENU_MYNOTE_BASIC;
                     slied.slied = Menu_info.pre;
                     startService(new Intent(this, slied.class));
@@ -141,8 +147,7 @@ public class Talk_Menu_Mynote_master extends FragmentActivity {
                 }
                 break;
             case MotionEvent.ACTION_DOWN:  //두번째 손가락이 화면에 터치 될 경우
-                startService(new Intent(this, Sound_Manager.class));
-                enter = false; //손가락 1개를 인지하는 화면을 잠금
+                startService(new Intent(Talk_Menu_Mynote_master.this, Sound_Manager.class));
                 olddrag = (int)event.getX(); // 두번째 손가락이 터지된 지점의 x좌표값 저장
                 y1drag = (int) event.getY(); // 두번째 손가락이 터지된 지점의 y좌표값 저장
                 break;
