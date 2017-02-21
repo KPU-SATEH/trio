@@ -1,6 +1,7 @@
 package com.example.yeo.practice.Talkback_version_menu;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -8,24 +9,28 @@ import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.yeo.practice.Common_menu_sound.Menu_quiz_service;
-import com.example.yeo.practice.Menu_info;
+import com.example.yeo.practice.Common_menu_display.Common_menu_display;
 import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
+import com.example.yeo.practice.Menu_info;
+import com.example.yeo.practice.Common_menu_sound.Menu_quiz_service;
 import com.example.yeo.practice.R;
+import com.example.yeo.practice.Normal_version_quiz.quiz_reading_manual;
 import com.example.yeo.practice.Normal_version_quiz.quiz_score;
 import com.example.yeo.practice.Common_sound.slied;
 import com.example.yeo.practice.*;
-import com.example.yeo.practice.Talkback_version_quiz.Talk_quiz_reading_manual;
 
 // 약자 및 약어 퀴즈 메뉴 화면
 
 public class Talk_Menu_quiz_abbreviation extends FragmentActivity {
+    Common_menu_display m;
+    int finger_x[] = new int[3];
+    int finger_y[] = new int[3];
 
     int newdrag,olddrag;
     int y1drag,y2drag;
     int posx1,posx2,posy1,posy2;
     boolean enter = true;
-    Talk_quiz_reading_manual manual;
+    quiz_reading_manual manual;
     quiz_score score;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,39 +43,39 @@ public class Talk_Menu_quiz_abbreviation extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        //quiz_reading_service.finish_n = 6;
+
         decorView.setSystemUiVisibility( uiOption );
-        setContentView(R.layout.activity_common_menu_quiz_abbreviation);
-        View container = findViewById(R.id.activity_common_menu_quiz_abbreviation);
-        container.setOnHoverListener(new View.OnHoverListener() {
+        Menu_info.DISPLAY = Menu_info.DISPLAY_QUIZ_ABBREVIATION;
+        m = new Common_menu_display(this);
+        m.setBackgroundColor(Color.rgb(22,26,44));
+
+        setContentView(m);
+        m.setOnHoverListener(new View.OnHoverListener() {
             @Override
             public boolean onHover(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_HOVER_ENTER: //손가락 1개를 화면에 터치하였을 경우
                         startService(new Intent(Talk_Menu_quiz_abbreviation.this, Sound_Manager.class));
-                        posx1 = (int)event.getX();  //현재 좌표의 x좌표값 저장
+                        posx1 = (int)event.getX(); //현재 좌표의 x좌표값 저장
                         posy1 = (int)event.getY();  //현재 좌표의 y좌표값 저장
-                        enter= true;
                         break;
                     case MotionEvent.ACTION_HOVER_EXIT: // 손가락 1개를 화면에서 떨어트렸을 경우
-                        posx2 = (int)event.getX();//손가락 1개를 화면에서 떨어트린 x좌표값 저장
-                        posy2 = (int)event.getY();//손가락 1개를 화면에서 떨어트린 y좌표값 저장
+                        posx2 = (int)event.getX();  //손가락 1개를 화면에서 떨어트린 x좌표값 저장
+                        posy2 = (int)event.getY(); //손가락 1개를 화면에서 떨어트린 y좌표값 저장
                         if(enter == true) {  //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 약자 및 약어 퀴즈로 접속
                             if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                                 Menu_info.MENU_QUIZ_INFO = Menu_info.MENU_QUIZ_ABBREVIATION;
-                                manual.choice=7;
                                 score.sel =7;
                                 Intent intent = new Intent(Talk_Menu_quiz_abbreviation.this, Talk_Menu_quiz_reading.class);
                                 startActivityForResult(intent, Menu_info.MENU_QUIZ_ABBREVIATION);
+                                overridePendingTransition(R.anim.fade, R.anim.hold);
                             }
                         }
-                        else    enter = true;
                         break;
                 }
                 return false;
             }
         });
-
     }
     public IBinder onBind(Intent intent) {
         return null;
@@ -85,6 +90,7 @@ public class Talk_Menu_quiz_abbreviation extends FragmentActivity {
                 if(olddrag-newdrag>WHclass.Drag_space) {  //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
                     Intent intent = new Intent(this,Talk_Menu_quiz_letter.class);
                     startActivityForResult(intent,Menu_info.MENU_QUIZ_LETTER);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_quiz_service.menu_page= Menu_info.MENU_QUIZ_LETTER;
                     startService(new Intent(this, Menu_quiz_service.class));
                     slied.slied = Menu_info.next;
@@ -94,6 +100,7 @@ public class Talk_Menu_quiz_abbreviation extends FragmentActivity {
                 else if(newdrag-olddrag>WHclass.Drag_space) {  //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
                     Intent intent = new Intent(this,Talk_Menu_quiz_sentence.class);
                     startActivityForResult(intent,Menu_info.MENU_QUIZ_SENTENS);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     Menu_quiz_service.menu_page=Menu_info.MENU_QUIZ_SENTENS;
                     startService(new Intent(this, Menu_quiz_service.class));
                     slied.slied = Menu_info.pre;
@@ -108,14 +115,14 @@ public class Talk_Menu_quiz_abbreviation extends FragmentActivity {
                 }
                 break;
             case MotionEvent.ACTION_DOWN:  //두번째 손가락이 화면에 터치 될 경우
-                startService(new Intent(this, Sound_Manager.class));
-                enter = false; //손가락 1개를 인지하는 화면을 잠금
+                startService(new Intent(Talk_Menu_quiz_abbreviation.this, Sound_Manager.class));
                 olddrag = (int)event.getX();  // 두번째 손가락이 터지된 지점의 x좌표값 저장
                 y1drag = (int) event.getY(); // 두번째 손가락이 터지된 지점의 y좌표값 저장
                 break;
         }
         return true;
     }
+
     @Override
     public void onBackPressed() {
         Menu_quiz_service.finish = true;
