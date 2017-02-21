@@ -529,13 +529,19 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".Talkback_version_menu.Talk_Menu_Communication"
+        <activity
+            android:name=".Talkback_version_menu.Talk_Menu_Communication"
             android:label=""
             android:screenOrientation="sensorLandscape" />
-        <activity android:name=".Talkback_version_menu.Talk_Menu_Braille_translation"
+        <activity
+            android:name=".Talkback_version_menu.Talk_Menu_Braille_translation"
             android:label=""
             android:screenOrientation="sensorLandscape" />
-        <activity android:name=".Talkback_version_menu.Talk_Menu_communication_teacher"
+        <activity
+            android:name=".Talkback_version_menu.Talk_Menu_communication_teacher"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity android:name=".Talkback_version_menu.Talk_Menu_communication_student"
             android:label=""
             android:screenOrientation="sensorLandscape" />
     </application>
