@@ -49,9 +49,6 @@ public class Talk_Menu_abbreviation extends FragmentActivity {
         Menu_info.DISPLAY = Menu_info.DISPLAY_ABBREVIATION;
         m = new Common_menu_display(this);
         m.setBackgroundColor(Color.rgb(22,26,44));
-
-        setContentView(m);
-
         m.setOnHoverListener(new View.OnHoverListener() {
             @Override
             public boolean onHover(View v, MotionEvent event) {
@@ -62,12 +59,6 @@ public class Talk_Menu_abbreviation extends FragmentActivity {
                         posy1 = (int)event.getY(); // 현재 좌표의 y좌표값 저장
                         break;
                     case MotionEvent.ACTION_HOVER_EXIT: // 손가락 1개를 화면에서 떨어트렸을 경우
-                        for(int j=0 ; j<3 ; j++){
-                            finger_x[j] = -100;
-                            finger_y[j] = -100;
-                        }
-                        m.finger_set(finger_x[0],finger_y[0],finger_x[1],finger_y[1],finger_x[2],finger_y[2]);
-
                         posx2 = (int)event.getX(); // 손가락 1개를 화면에서 떨어트린 x좌표값 저장
                         posy2 = (int)event.getY(); // 손가락 1개를 화면에서 떨어트린 y좌표값 저장
                         if(enter == true) {
@@ -85,17 +76,14 @@ public class Talk_Menu_abbreviation extends FragmentActivity {
                 return false;
             }
         });
+
+        setContentView(m);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_DOWN: // 손가락 1개를 화면에 터치하였을 경우
-                enter = false; //손가락 1개를 인지하는 화면을 잠금
-                olddrag = (int)event.getX(); // 두번째 손가락이 터지된 지점의 x좌표값 저장
-                y1drag = (int) event.getY(); // 두번째 손가락이 터지된 지점의 y좌표값 저장
-                break;
-            case MotionEvent.ACTION_UP: // 손가락 1개를 화면에서 떨어트렸을 경우
+            case MotionEvent.ACTION_UP:  // 두번째 손가락을 떼었을 경우
                 newdrag = (int)event.getX(); // 두번째 손가락이 떨어진 지점의 x좌표값 저장
                 y2drag = (int)event.getY(); // 두번째 손가락이 떨어진 지점의 y좌표값 저장
                 if(olddrag-newdrag>WHclass.Drag_space) { //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
@@ -125,6 +113,11 @@ public class Talk_Menu_abbreviation extends FragmentActivity {
                 else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
                     onBackPressed();
                 }
+                break;
+            case MotionEvent.ACTION_DOWN: //두번째 손가락이 화면에 터치 될 경우
+                startService(new Intent(Talk_Menu_abbreviation.this, Sound_Manager.class));
+                olddrag = (int)event.getX(); // 두번째 손가락이 터지된 지점의 x좌표값 저장
+                y1drag = (int) event.getY(); // 두번째 손가락이 터지된 지점의 y좌표값 저장
                 break;
         }
         return true;

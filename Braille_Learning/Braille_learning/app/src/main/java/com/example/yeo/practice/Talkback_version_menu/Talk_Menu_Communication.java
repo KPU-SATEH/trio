@@ -45,8 +45,8 @@ public class Talk_Menu_Communication extends AppCompatActivity {
         Menu_info.DISPLAY = Menu_info.DISPLAY_COMUNICATION;
         m = new Common_menu_display(this);
         m.setBackgroundColor(Color.rgb(22,26,44));
-
         setContentView(m);
+
         m.setOnHoverListener(new View.OnHoverListener() {
             @Override
             public boolean onHover(View v, MotionEvent event) {
@@ -57,11 +57,6 @@ public class Talk_Menu_Communication extends AppCompatActivity {
                         posy1 = (int)event.getY(); //현재 좌표의 y좌표값 저장
                         break;
                     case MotionEvent.ACTION_HOVER_EXIT: // 손가락 1개를 화면에서 떨어트렸을 경우
-                        for(int j=0 ; j<3 ; j++){
-                            finger_x[j] = -100;
-                            finger_y[j] = -100;
-                        }
-                        m.finger_set(finger_x[0],finger_y[0],finger_x[1],finger_y[1],finger_x[2],finger_y[2]);
                         posx2 = (int)event.getX(); //손가락 1개를 화면에서 떨어트린 x좌표값 저장
                         posy2 = (int)event.getY();  //손가락 1개를 화면에서 떨어트린 y좌표값 저장
                         if(enter == true) {  //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 나만의 단어장으로 접속
