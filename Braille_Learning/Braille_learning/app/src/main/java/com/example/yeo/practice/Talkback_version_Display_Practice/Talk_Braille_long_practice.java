@@ -2294,6 +2294,7 @@ public class Talk_Braille_long_practice extends FragmentActivity implements Spee
                         onBackPressed();
                     }
                 }
+                lock=false;
                 break;
             case MotionEvent.ACTION_DOWN: //두 번째 손가락을 터치하였을 때
                 startService(new Intent(Talk_Braille_long_practice.this, Sound_Manager.class));

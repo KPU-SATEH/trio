@@ -10,13 +10,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:id="@+id/activity_main"
     android:orientation="vertical"
-    android:background="#000000"
+    android:background="#161a2c"
     tools:context="com.example.yeo.practice.MainActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/imageView37"
-        app:srcCompat="@drawable/circle"
-        android:background="@drawable/circle" />
+        app:srcCompat="@color/colorAccent"
+        android:id="@+id/imageView37" />
 </LinearLayout>
