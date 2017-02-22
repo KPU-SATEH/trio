@@ -63,6 +63,7 @@ public class quiz_reading_manual extends FragmentActivity {
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN: //손가락 1개로 터치하였을 때
+                startService(new Intent(this, Sound_Manager.class));
                 posx1 = (int)event.getX(); //현재 좌표의 x좌표값을 저장
                 posy1 = (int)event.getY(); //현재 좌표의 y좌표값을 저장
                 break;
@@ -75,7 +76,6 @@ public class quiz_reading_manual extends FragmentActivity {
                         /*
                         화면을 터치하게 되면, 자신이 풀어보려고 했던 퀴즈가 시작됨
                          */
-                        quiz_reading_service.question = 1;
                         switch(Menu_info.MENU_QUIZ_INFO) {
                             case 0: //초성퀴즈
                                 Intent intent = new Intent(quiz_reading_manual.this, reading_short_practice.class);

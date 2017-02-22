@@ -117,7 +117,6 @@ public class quiz_writing_service extends Service {
             public void onCompletion(MediaPlayer mediaPlayer) {
                 writing[previous].reset();
                 writing[previous] = MediaPlayer.create(quiz_writing_service.this,rawid[previous]);
-                String writing_text ="";
             }
         });
 

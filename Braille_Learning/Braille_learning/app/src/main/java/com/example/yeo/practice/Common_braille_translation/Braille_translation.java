@@ -386,7 +386,8 @@ public class Braille_translation {
 
     //유니코드로 변환하는 함수
     public String getUnicode(String text){
-        text = Integer.toHexString(text.charAt(Text_number) & 0xFFFF);
+        if(text.equals("")==false)
+            text = Integer.toHexString(text.charAt(Text_number) & 0xFFFF);
         return text;
     }
 

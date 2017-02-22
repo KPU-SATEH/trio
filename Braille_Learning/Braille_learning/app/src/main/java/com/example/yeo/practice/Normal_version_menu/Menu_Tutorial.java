@@ -51,6 +51,9 @@ public class Menu_Tutorial extends FragmentActivity {
         m = new Common_menu_display(this);
         m.setBackgroundColor(Color.rgb(22,26,44));
 
+        Menu_main_service.menu_page = 0;
+        startService(new Intent(this, Menu_main_service.class)); //메뉴 음성 출력 서비스
+
         setContentView(m);
     }
     @Override

@@ -1104,7 +1104,7 @@ public class Talk_Braille_long_practice extends FragmentActivity implements Spee
                         }
                         m.invalidate(); // 화면을 다시 그려줘라 => onDraw() 호출해준다//// break;
                         break;
-                    case MotionEvent.ACTION_MOVE:
+                    case MotionEvent.ACTION_HOVER_MOVE:
                         m.x = (int) event.getX();
                         m.y = (int) event.getY();
                         if ((m.x <m.bigcircle*2) && (m.x>m.bigcircle*(-2))&&(m.y >m.bigcircle*(-2))&&(m.y <(m.bigcircle*2))) {

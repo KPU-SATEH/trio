@@ -69,8 +69,8 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
         m.setBackgroundColor(Color.rgb(22, 26, 44));
         setContentView(m);
 
-     //   quiz_reading_service.menu_page = m.question;
-     //   startService(new Intent(this, quiz_reading_service.class));
+        quiz_reading_service.menu_page = m.question;
+        startService(new Intent(this, quiz_reading_service.class));
     }
 
     public void onDestroy() {
@@ -1960,8 +1960,7 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
                             }, 1000);
 
                             next = true;
-                            quiz_reading_service.question++;
-
+                            m.question++;
                         }
                     } else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 상단으로 드래그 하는 경우 퀴즈 화면 종료
                         onBackPressed();
@@ -1971,15 +1970,16 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
                             next = false;
                             m.quiz_view_init();
 
-                            if(quiz_reading_service.question==4) {
+                            if(m.question==4) {
                                 onBackPressed();
                             }
-                            else if(quiz_reading_service.question<4){
-                                quiz_reading_service.menu_page=++m.question;
+                            else if(m.question<4){
+                                quiz_reading_service.menu_page=m.question;
                                 startService(new Intent(this, quiz_reading_service.class));
                             }
                         }
                     }
+                    m.invalidate();
                     break;
                 case MotionEvent.ACTION_POINTER_DOWN: //두 번째 손가락을 터치하였을 때
                     click = false;// 제스처 기능을 위해 손가락 1개를 인지하는 화면을 잠금
@@ -1988,33 +1988,7 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
                     break;
 
             }
-        } /*else { //다음 문제가 존재할 경우
-            switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                case MotionEvent.ACTION_DOWN: //손가락 1개를 이용하여 화면을 터치하였을 경우
-                    posx1 = (int) event.getX(); //현재 터치한 지점의 x좌표 저장
-                    posy1 = (int) event.getY(); //현재 터치한 지점의 y좌표 저장
-                    break;
-                case MotionEvent.ACTION_UP:
-                    posx2 = (int) event.getX();
-                    posy2 = (int) event.getY();
-                    if (enter == true) {
-                        if (page == 4) { //만약 마지막 문제였을 경우 점수 화면으로 이동
-                            //   Intent in = new Intent(this, quiz_score.class);
-                            //    startActivity(in);
-                            onBackPressed();
-                            break;
-                        }
-                        page++;
-                        quiz_reading_service.question++;
-                        startService(new Intent(this, quiz_reading_service.class));
-                        m.quiz_view_init();
-                        m.invalidate();
-                        m.next = false;
-                    } else
-                        enter = true;
-                    break;
-            }
-        }*/
+        }
         return true;
     }
 
@@ -2081,10 +2055,10 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
                     MainActivity.Braille_TTS.TTS_Play("정답입니다. 모든 문제가 끝났습니다.");
                 }
                 else if(result == false&&quiz_reading_service.question!=4) {
-                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은"+answer+"입니다. 점자를 다시 읽어본 후에 다음 화면으로 이동하세요.");
+                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은,"+answer+"! 입니다. 점자를 다시 읽어본 후에 다음 화면으로 이동하세요.");
                 }
                 else{
-                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은"+answer+"입니다. 모든 문제가 끝났습니다.");
+                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은,"+answer+"! 입니다. 모든 문제가 끝났습니다.");
                 }
             }
         });
@@ -2139,13 +2113,13 @@ public class reading_long_practice extends FragmentActivity implements SpeechRec
     @Override
     public void onBackPressed() { //종료키를 눌렀을 경우 발생되는 함수
         if(m.question==4){
-            quiz_writing_service.finish = true;
-            quiz_writing_service.progress = true;
-            startService(new Intent(this, quiz_writing_service.class));
+            quiz_reading_service.finish = true;
+            quiz_reading_service.progress = true;
+            startService(new Intent(this, quiz_reading_service.class));
         }
         else{
-            quiz_writing_service.finish = true;
-            startService(new Intent(this, quiz_writing_service.class));
+            quiz_reading_service.finish = true;
+            startService(new Intent(this, quiz_reading_service.class));
         }
         finish();
     }

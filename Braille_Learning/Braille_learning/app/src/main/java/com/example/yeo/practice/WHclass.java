@@ -10,6 +10,7 @@ public class WHclass extends ActionBarActivity {
     /*
     모든 클래스에서 사용되는 변수들을 관리하는 클래스
      */
+    static public boolean First_enter = false;
     static public String APIKEY = "bdc8f8fd6290a94adce3bce29b48f575"; //Daum 뉴톤 APIKEY
 
     static public float width; //스마트폰의 가로 해상도를 저장하는 변수

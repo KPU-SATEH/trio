@@ -661,24 +661,10 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                             }, 1000);
 
                             next = true;
-                            quiz_reading_service.question++;
+                            m.question++;
 
 
                         }
-                            /*
-
-                            SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().
-                                    setApiKey(WHclass.APIKEY).
-                                    setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB);
-
-                            client = builder.build();
-
-                            client.setSpeechRecognizeListener(this);
-                            client.startRecording(false);
-
-                            next=true;
-                            quiz_reading_service.question++;
-                            */
 
                     } else if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 이용하여 상단으로 드래그 하는 경우 퀴즈 화면 종료
                         onBackPressed();
@@ -690,7 +676,7 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                             if (quiz_reading_service.question == 4) {
                                 onBackPressed();
                             } else if (quiz_reading_service.question < 4) {
-                                quiz_reading_service.menu_page = ++m.question;
+                                quiz_reading_service.menu_page = m.question;
                                 startService(new Intent(this, quiz_reading_service.class));
                             }
                         }
@@ -825,9 +811,9 @@ public class reading_short_practice extends FragmentActivity implements SpeechRe
                 } else if (result == true && quiz_reading_service.question == 4) {
                     MainActivity.Braille_TTS.TTS_Play("정답입니다. 다음 화면을 이동하면 읽기 퀴즈가 종료됩니다.");
                 } else if (result == false && quiz_reading_service.question != 4) {
-                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은" + answer + "입니다. 점자를 다시 확인하고 다음 화면으로 이동하세요.");
+                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은," + answer + "! 입니다. 점자를 다시 확인하고 다음 화면으로 이동하세요.");
                 } else {
-                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은" + answer + "입니다. 점자를 다시 확인하고 다음 화면을 이동하면 읽기 퀴즈가 종료됩니다.");
+                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은," + answer + "! 입니다. 점자를 다시 확인하고 다음 화면을 이동하면 읽기 퀴즈가 종료됩니다.");
                 }
             }
         });

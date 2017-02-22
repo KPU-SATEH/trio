@@ -33,6 +33,8 @@ public class Talk_Menu_tutorial extends FragmentActivity {
     int posx1, posy1,posx2,posy2;
     boolean enter = true;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +54,20 @@ public class Talk_Menu_tutorial extends FragmentActivity {
         m.setBackgroundColor(Color.rgb(22,26,44));
         setContentView(m);
 
+        Menu_main_service.menu_page = 0;
+        startService(new Intent(this, Menu_main_service.class)); //메뉴 음성 출력 서비스
+
         m.setOnHoverListener(new View.OnHoverListener() {
             @Override
             public boolean onHover(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_HOVER_ENTER: //손가락 1개를 화면에 터치하였을 경우
-                        startService(new Intent(Talk_Menu_tutorial.this, Sound_Manager.class));
+                        if(WHclass.First_enter!=false) {
+                            startService(new Intent(Talk_Menu_tutorial.this, Sound_Manager.class));
+                        }
+                        else if(WHclass.First_enter==false){
+                            WHclass.First_enter=true;
+                        }
                         posx1 = (int)event.getX();  //현재 좌표의 x좌표값 저장
                         posy1 = (int)event.getY();  //현재 좌표의 y좌표값 저장
                         enter= true;
