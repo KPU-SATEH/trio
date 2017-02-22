@@ -114,6 +114,7 @@ public class quiz_reading_manual extends FragmentActivity {
                                 startActivityForResult(intent9, ENTER);
                                 break;
                         }
+
                         finish();
                     }
                 }

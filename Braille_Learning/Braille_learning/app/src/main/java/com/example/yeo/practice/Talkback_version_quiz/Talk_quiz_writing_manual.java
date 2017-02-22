@@ -1,13 +1,17 @@
 package com.example.yeo.practice.Talkback_version_quiz;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.yeo.practice.Common_quiz_sound.quiz_writing_service;
+import com.example.yeo.practice.Normal_version_Display_Practice.writing_long_practice;
+import com.example.yeo.practice.Normal_version_Display_Practice.writing_short_practice;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.*;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_writing_long_practice;
@@ -17,6 +21,9 @@ import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_writing_s
  */
 
 public class Talk_quiz_writing_manual extends FragmentActivity {
+    static public AnimationDrawable speechani;
+    static public ImageView speechimage;
+
     final public static int ENTER = 0;
     public int newdrag,olddrag;
     public static int choice;
@@ -27,6 +34,9 @@ public class Talk_quiz_writing_manual extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_common_quiz_writing_manual);
+        speechimage = (ImageView) findViewById(R.id.imageView38);
+        speechimage.setBackgroundResource(R.drawable.speechani);
+        speechani = (AnimationDrawable) speechimage.getBackground();
 
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
@@ -107,27 +117,33 @@ public class Talk_quiz_writing_manual extends FragmentActivity {
                 return false;
             }
         });
+
+
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        speechani.start();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_UP:  // 두번째 손가락을 떼었을 경우
-                newdrag = (int)event.getX(); // 두번째 손가락이 떨어진 x좌표 저장
-                y2drag = (int) event.getY(); // 두번째 손가락이 떨어진 y좌표 저장
-                if (y1drag - y2drag > WHclass.Drag_space) { // 손가락 2개를 하단에서 상단으로 쓸어 올렸을 때 퀴즈 종료
+                newdrag = (int)event.getX(); //두번째 손가락이 떨어진 x좌표 저장
+                y2drag = (int) event.getY(); //두번째 손가락이 떨어진 y좌표 저장
+                if (y1drag - y2drag > WHclass.Drag_space) { //손가락 2개를 하단에서 상단으로 쓸어 올렸을 때 퀴즈 종료
                     onBackPressed();
                 }
-                break;
             case MotionEvent.ACTION_DOWN: //두번째 손가락이 터치되었을 때
-                startService(new Intent(this, Sound_Manager.class));
+                startService(new Intent(Talk_quiz_writing_manual.this, Sound_Manager.class));
                 olddrag = (int)event.getX(); //두번째 손가락이 터치된 지점의 x좌표 저장
                 y1drag = (int) event.getY(); //두번째 손가락이 터치된 지점의 y좌표 저장
                 break;
         }
         return true;
     }
-
     @Override
     public void onBackPressed() {
         quiz_writing_service.finish = true;

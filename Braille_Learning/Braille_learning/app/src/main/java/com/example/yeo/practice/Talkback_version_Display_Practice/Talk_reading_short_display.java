@@ -6,20 +6,17 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Vibrator;
-import android.speech.tts.TextToSpeech;
 import android.view.View;
 
 import com.example.yeo.practice.Common_braille_data.dot_quiz_abbreviation;
 import com.example.yeo.practice.Common_braille_data.dot_quiz_alphabet;
 import com.example.yeo.practice.Common_braille_data.dot_quiz_final;
 import com.example.yeo.practice.Common_braille_data.dot_quiz_initial;
-import com.example.yeo.practice.Common_braille_data.dot_quiz_letter;
 import com.example.yeo.practice.Common_braille_data.dot_quiz_number;
 import com.example.yeo.practice.Common_braille_data.dot_quiz_sentence;
 import com.example.yeo.practice.Common_braille_data.dot_quiz_vowel;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.WHclass;
-import com.example.yeo.practice.Normal_version_quiz.quiz_score;
 
 import java.util.Random;
 
@@ -27,11 +24,8 @@ import java.util.Random;
  * Created by yoonc on 2016-07-25.
  */
 class Talk_reading_short_display extends View {
-    String tv;
-    int test = 1;
-    quiz_score score;
+    int question = 1;
     Random random;
-    TextToSpeech tts;
     int max, min=0; // 랜덤변수 최대값과 최소값
     float width; //가로
     float height; //세로
@@ -53,7 +47,7 @@ class Talk_reading_short_display extends View {
     static dot_quiz_alphabet Dot_quiz_alphabet;
     static dot_quiz_sentence Dot_quiz_sentence;
     static dot_quiz_abbreviation Dot_quiz_abbreviation;
-    static dot_quiz_letter Dot_quiz_letter;
+    //static dot_quiz_letter Dot_quiz_letter;
 
 
     int dot_count=0;
@@ -80,11 +74,9 @@ class Talk_reading_short_display extends View {
         th1=0;th2=0;th3=0;th4=0;th5=0;th6=0;th7=0;th8=0;th9=0;th10=0;th11=0;th12=0;th13=0;th14=0;th15=0;th16=0;th17=0;th18=0; // 타겟 세로위치
         print=false;
 
-
-
         /*
         초성퀴즈, 모음퀴즈, 종성퀴즈, 숫자퀴즈, 알파벳퀴즈, 문자부호퀴즈, 약자및 약어퀴즈, 글자퀴즈
-         */
+        */
         switch(Menu_info.MENU_QUIZ_INFO){
             case 0: //
                 max = Dot_quiz_initial.Initialcount;
@@ -97,6 +89,7 @@ class Talk_reading_short_display extends View {
                         for (int j = 0; j < 2; j++) {
                             text_1[i][j] = Dot_quiz_initial.Initial_Array.get(page)[i][j];
                             textname_1 = Dot_quiz_initial.Initial_name.get(page);
+
                         }
                     }
                 }
@@ -114,7 +107,6 @@ class Talk_reading_short_display extends View {
                         for (int j = 0; j < 6; j++) {
                             text_3[i][j] = Dot_quiz_initial.Initial_Array.get(page)[i][j];
                             textname_3 = Dot_quiz_initial.Initial_name.get(page);
-
                         }
                     }
                 }
@@ -318,51 +310,13 @@ class Talk_reading_short_display extends View {
                 }
                 break;
 
-            case 7: //
-                max = Dot_quiz_letter.lettercount;
-                random = new Random();
-                page = random.nextInt(max) + min;
-                dot_count = Dot_quiz_letter.letter_dot_count.get(page);
-
-                if(dot_count==1) { //점자가 6개일떄
-                    for (int i = 0; i < 3; i++) {
-                        for (int j = 0; j < 2; j++) {
-                            text_1[i][j] = Dot_quiz_letter.letter_Array.get(page)[i][j];
-                            textname_1 = Dot_quiz_letter.letter_name.get(page);
-                        }
-                    }
-                }
-                else if(dot_count==2) { //점자가 12개일때
-                    for (int i = 0; i < 3; i++) {
-                        for (int j = 0; j < 4; j++) {
-                            text_2[i][j] = Dot_quiz_letter.letter_Array.get(page)[i][j];
-                            textname_2 = Dot_quiz_letter.letter_name.get(page);
-
-                        }
-                    }
-                }
-                else if(dot_count==3) { //점자가 18개일때
-                    for (int i = 0; i < 3; i++) {
-                        for (int j = 0; j < 6; j++) {
-                            text_3[i][j] = Dot_quiz_letter.letter_Array.get(page)[i][j];
-                            textname_3 = Dot_quiz_letter.letter_name.get(page);
-
-                        }
-                    }
-                }
-                break;
         }
 
     }
     public Talk_reading_short_display(Context context) {
         super(context);
         mMain = context;
-/*        tts = new TextToSpeech(mMain, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int i) {
-                tts.setLanguage(Locale.KOREA);
-            }
-        });*/
+
 
         switch(Menu_info.MENU_QUIZ_INFO){ //점자의 종류에 따라 점자퀴즈 클래스를 불러옴
             case 0: //초성퀴즈
@@ -386,9 +340,7 @@ class Talk_reading_short_display extends View {
             case 6: //약자및 약어 퀴즈
                 Dot_quiz_abbreviation = new dot_quiz_abbreviation();
                 break;
-            case 7: //글자 퀴즈
-                Dot_quiz_letter = new dot_quiz_letter();
-                break;
+
         }
 
         quiz_view_init();
@@ -434,24 +386,11 @@ class Talk_reading_short_display extends View {
         switch(dot_count) { //점자의 칸수에 따라 글자 위치를 설정함. 또한 음성출력을 통한 퀴즈메뉴를 진행하고 화면에 점자를 출력함
             case 1: //점자의 칸 수가 한 칸 일때
                 if(print==true) {
-                    canvas.drawText(tv, height * (float) 0.4, width * (float) 0.2, paint);
-                    if(tv.equals(textname_1)){
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("정답 입니다.정답은 " + textname_1 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("정답 입니다.정답은 "+textname_1+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                        quiz_score.score++;
-                    }else{
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("틀렸습니다. 정답은 " + textname_1 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("틀렸습니다.정답은 "+textname_1+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
+                    if(Menu_info.MENU_QUIZ_INFO==0){
+                        canvas.drawText(Dot_quiz_initial.Initial_name1.get(page), height * (float) 0.4, width * (float) 0.2, paint);
+                    }
+                    else {
+                        canvas.drawText(textname_1, height * (float) 0.4, width * (float) 0.2, paint);
                     }
                 }
                 else
@@ -524,25 +463,7 @@ class Talk_reading_short_display extends View {
 
             case 2: //점자의 칸 수가 두 칸 일때
                 if(print==true) {
-                    canvas.drawText(tv, height * (float) 0.4, width * (float) 0.2, paint);
-                    if(tv.equals(textname_2)){
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("정답 입니다.정답은 " + textname_2 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("정답 입니다.정답은 "+textname_2+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                        quiz_score.score++;
-                    }else{
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("틀렸습니다. 정답은 " + textname_2 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("틀렸습니다.정답은 "+textname_2+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                    }
+                    canvas.drawText(textname_2, height * (float) 0.4, width * (float) 0.2, paint);
                 }
                 else
                     canvas.drawText("?", height * (float) 0.4, width * (float) 0.2, paint);
@@ -673,25 +594,7 @@ class Talk_reading_short_display extends View {
 
             case 3: //점자의 칸 수가 세 칸일때
                 if(print==true) {
-                    canvas.drawText(tv, height * (float) 0.4, width * (float) 0.2, paint);
-                    if(tv.equals(textname_3)){
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("정답 입니다.정답은 " + textname_3 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("정답 입니다.정답은 "+textname_3+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                        quiz_score.score++;
-                    }else{
-                        print = false;
-                        next = true;
-                        if(test != 5) {
-                            tts.speak("틀렸습니다. 정답은 " + textname_3 + "입니다. 다음 문제로 넘어가시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                            test ++;
-                        }else
-                            tts.speak("틀렸습니다.정답은 "+textname_3+"입니다. 결과를 확인하시려면 화면을 한번 터치해 주세요.", TextToSpeech.QUEUE_FLUSH, null);
-                    }
+                    canvas.drawText(textname_3, height * (float) 0.4, width * (float) 0.2, paint);
                 }
 
                 else
