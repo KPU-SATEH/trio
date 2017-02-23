@@ -12,7 +12,7 @@ import com.example.yeo.practice.Sound_Manager;
 
 public class Menu_mynote_service extends Service {
     private static final String TAG = "Menu_mynote_service";
-    MediaPlayer basic,master,mynotefinish;
+    MediaPlayer basic,master,communication,mynotefinish;
     MediaPlayer mynote[];
     int rawid[];
     static public int menu_page = 0;
@@ -33,9 +33,9 @@ public class Menu_mynote_service extends Service {
         mynotefinish = MediaPlayer.create(this, R.raw.mynotefinish);
         mynotefinish.setLooping(false);
 
-        mynote = new MediaPlayer[]{basic, master};
-        rawid = new int[]{R.raw.mynote_basic, R.raw.mynote_master};
-        for(int i=0 ; i<2 ; i++){
+        mynote = new MediaPlayer[]{basic, master, communication};
+        rawid = new int[]{R.raw.mynote_basic, R.raw.mynote_master, R.raw.mynote_communication};
+        for(int i=0 ; i<3 ; i++){
             mynote[i] = MediaPlayer.create(this, rawid[i]);
             mynote[i].setLooping(false);
         }
@@ -50,6 +50,7 @@ public class Menu_mynote_service extends Service {
             mynote[previous].reset();
             mynote[previous] = MediaPlayer.create(this, rawid[previous]);
         }
+
         Sound_Manager.stop=false;
     }
     @Override

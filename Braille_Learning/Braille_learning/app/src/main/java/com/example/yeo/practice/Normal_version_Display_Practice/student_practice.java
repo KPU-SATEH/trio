@@ -10,7 +10,12 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.yeo.practice.Common_braille_data.dot_letter;
 import com.example.yeo.practice.Common_braille_data.dot_student_data;
+import com.example.yeo.practice.Common_braille_data.dot_word;
+import com.example.yeo.practice.Common_master_practice_sound.Letter_service;
+import com.example.yeo.practice.Common_master_practice_sound.Word_service;
+import com.example.yeo.practice.Common_mynote_database.Mynote_service;
 import com.example.yeo.practice.Common_sound.Braille_Text_To_Speech;
 import com.example.yeo.practice.Common_sound.Number;
 import com.example.yeo.practice.Common_sound.slied;
@@ -48,6 +53,9 @@ public class student_practice extends FragmentActivity implements SpeechRecogniz
     private final Handler handler = new Handler();
     Timer timer =null;
     int time_check=0;
+
+    String array[] = new String[3]; //데이터베이스에 행렬에 대한 정보를 담기 위해 행렬정보를 담는 배열 변수
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,18 +68,18 @@ public class student_practice extends FragmentActivity implements SpeechRecogniz
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
-        MainActivity.Braille_TTS.TTS_Play("몇번방 들어갈래 시팔라마. 삑");
+        dot_student_data = new dot_student_data();
+        decorView.setSystemUiVisibility( uiOption );
+
+        MainActivity.Braille_TTS.TTS_Play("선생님께서 몇번방에 계신지 말씀해주세요. 삑");
         timer = new Timer();
         SpeechRecognizerManager.getInstance().initializeLibrary(this);
         Timer_Start();
 
-        dot_student_data = new dot_student_data();
-        decorView.setSystemUiVisibility( uiOption );
         m = new student_display(this);
         m.setBackgroundColor(Color.rgb(22, 26, 44));
         setContentView(m);
-
-
+        m.invalidate();
     }
     public void Timer_Stop(){
         if(timer != null){
@@ -132,27 +140,39 @@ public class student_practice extends FragmentActivity implements SpeechRecogniz
                     click = true;
                     newdrag = (int) event.getX(); // 두번째 손가락이 화면에서 떨어진 지점의 x 좌표 저장
                     y2drag = (int) event.getY();// 두번째 손가락이 화면에서 떨어진 지점의 y 좌표 저장
+                    int pointer_count = event.getPointerCount();
+                    if(pointer_count==3) {
+                        update();
+                    }
 
-                    if (y2drag - y1drag > WHclass.Drag_space) { //손가락 2개를 이용하여 하단으로 드래그 하는경우
+                    if (y2drag - y1drag > WHclass.Drag_space) {//손가락 2개를 이용하여 하단으로 드래그 하는경우
+                        m.check = true;
+                        m.invalidate();
+                        MainActivity.Braille_TTS.TTS_Play(m.Grade_speak());
                     } else if (y1drag - y2drag > WHclass.Drag_space) {// 손가락 2개를 이용하여 상단으로 드래그하는 경우 종료
                         dot_student_data.delete_data();
-                        MainActivity.Braille_TTS.TTS_Play("학생모드를 종료하고 상위 메뉴로 돌아갑니다. 학생모드");
                         onBackPressed();
                     }else if (olddrag - newdrag > WHclass.Drag_space) {//손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그 하였을 경우
+                        m.check = false;
                         m.getData("http://192.168.0.124:10080/import.php", result);
                         slied.slied = Menu_info.next;
                         startService(new Intent(this, slied.class));
                         m.page++;
                         if(m.page>dot_student_data.dot_count-1)
                             m.page--;
+                        if (MainActivity.communication_braille_db.communication_db_manager.My_Note_page > 0)
+                            MainActivity.communication_braille_db.communication_db_manager.My_Note_page--;
                         dot_student_data.delete_data();
                     } else if (newdrag - olddrag > WHclass.Drag_space) { //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 하였을 경우
+                        m.check = false;
                         m.getData("http://192.168.0.124:10080/import.php", result);
                         slied.slied = Menu_info.pre;
                         startService(new Intent(this, slied.class));
                         m.page--;
                         if(m.page<0)
                             m.page=0;
+                        if (MainActivity.communication_braille_db.communication_db_manager.My_Note_page > 0)
+                            MainActivity.communication_braille_db.communication_db_manager.My_Note_page--;
                         dot_student_data.delete_data();
                     }
                 case MotionEvent.ACTION_POINTER_DOWN: //두 번째 손가락을 터치하였을 때
@@ -1037,11 +1057,36 @@ public class student_practice extends FragmentActivity implements SpeechRecogniz
                 break;
         }
     }
+    public void update(){ //1초동안 화면에 연속으로 2번의 터치가 발생됬을 경우 데이터베이스로 현재 단어정보를 전송함
+        String result ="";
+        array[0]="";
+        array[1]="";
+        array[2]="";
+
+        for (int i = 0; i < 3; i++) {
+            for(int j=0; j<dot_student_data.count_Array.get(m.page) ; j++){
+                array[i] = array[i]+Integer.toString(dot_student_data.student_Array.get(m.page)[i][j]); // 3개의 배열에 1행 2행 3행을 집어넣음
+            }
+        }
+        result = MainActivity.communication_braille_db.insert(dot_student_data.count_Array.get(m.page)/2, m.dot_student_data.student_letter.get(m.page), array[0], array[1], array[2], Menu_info.MENU_INFO, m.page);  //데이터베이스에 입력하고, 성공문자를 돌려받음
+        if(result.equals("성공")){
+            Mynote_service.menu_page=2;
+            startService(new Intent(this, Mynote_service.class));
+        }
+        else if(result.equals("실패")){
+            Mynote_service.menu_page=3;
+            startService(new Intent(this, Mynote_service.class));
+        }
+
+
+    }
     @Override
     public void onBackPressed() { //종료키를 눌렀을 경우 발생되는 이벤트
         m.page = 0;
         Communication_service.finish2 = true;
+        dot_student_data.delete_data();
         startService(new Intent(this, Communication_service.class));
+        m.check = false;
         finish();
     }
 }

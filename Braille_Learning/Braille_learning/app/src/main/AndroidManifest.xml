@@ -541,9 +541,13 @@
             android:name=".Talkback_version_menu.Talk_Menu_communication_teacher"
             android:label=""
             android:screenOrientation="sensorLandscape" />
-        <activity android:name=".Talkback_version_menu.Talk_Menu_communication_student"
+        <activity
+            android:name=".Talkback_version_menu.Talk_Menu_communication_student"
             android:label=""
             android:screenOrientation="sensorLandscape" />
+        <activity android:name=".Normal_version_menu.Menu_Mynote_communication"
+            android:label=""
+            android:screenOrientation="sensorLandscape"/>
     </application>
 
 </manifest>

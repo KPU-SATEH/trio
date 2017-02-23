@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -15,6 +16,11 @@ import com.example.yeo.practice.Common_sound.Number;
 import com.example.yeo.practice.Coomon_communication_sound.Communication_service;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.WHclass;
+
+import net.daum.mf.speech.api.SpeechRecognizeListener;
+import net.daum.mf.speech.api.SpeechRecognizerClient;
+import net.daum.mf.speech.api.SpeechRecognizerManager;
+import net.daum.mf.speech.api.impl.util.PermissionUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +32,7 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -33,31 +40,34 @@ import java.util.TimerTask;
  * Created by 여명 on 2017-02-01.
  */
 
-public class teacher_practice extends FragmentActivity {
+public class teacher_practice extends FragmentActivity implements SpeechRecognizeListener {
     int finger_x[] = new int[3];
     int finger_y[] = new int[3];
 
     teacher_display m;
     int newdrag, olddrag; //화면전환시 이용될 좌표 2개를 저장할 변수
     int y1drag, y2drag;
-    int result1 = 0,result2=0, result3=0, result4=0, result5=0, result6=0;
+    int result1 = 0, result2 = 0, result3 = 0, result4 = 0, result5 = 0, result6 = 0;
     boolean click = true;
 
     String myJSON;
-    private static final String ROOM="room";
+    private static final String ROOM = "room";
 
     JSONArray abc = null;
-    String character = "ㄱ";
-    String array1  = "";
-    String array2  = "";
-    String array3  = "";
+    String array1 = "";
+    String array2 = "";
+    String array3 = "";
     String room = "0";
     private TimerTask second; //타이머
     private final Handler handler = new Handler();
-    Timer timer =null;
+    Timer timer = null;
 
-    int touch_check=0;  // 시간 초기화를 위한 변수
-    int coordinate=0; //현재 점자 위치를 저장하는 변수
+    private SpeechRecognizerClient client;
+    ArrayList<String> temp;
+    String result;
+
+    int touch_check = 0;  // 시간 초기화를 위한 변수
+    int coordinate = 0; //현재 점자 위치를 저장하는 변수
 
     boolean next = false; // 다음문제로 이동하기 위한 변수
 
@@ -66,19 +76,99 @@ public class teacher_practice extends FragmentActivity {
         super.onCreate(savedInstanceState);
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
-        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
             uiOption |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
             uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
-        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
-        decorView.setSystemUiVisibility( uiOption );
+        MainActivity.Braille_TTS.TTS_Play("점자를 입력하신 후 상단에서 하단으로 긁어 해당점자의 글자를 말씀해주세요.");
+
+        decorView.setSystemUiVisibility(uiOption);
         m = new teacher_display(this);
         m.setBackgroundColor(Color.rgb(22, 26, 44));
         setContentView(m);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        // API를 더이상 사용하지 않을 때 finalizeLibrary()를 호출한다.
+        SpeechRecognizerManager.getInstance().finalizeLibrary();
+    }
+
+    public void STT_start() {
+        String serviceType = SpeechRecognizerClient.SERVICE_TYPE_WEB;
+        // 음성인식 버튼 listener
+
+        if (PermissionUtils.checkAudioRecordPermission(this)) {
+            SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().
+                    setApiKey(WHclass.APIKEY).
+                    setServiceType(serviceType);
+            client = builder.build();
+            client.setSpeechRecognizeListener(this);
+            client.startRecording(false);
+        }
+
+    }
+
+    @Override
+    public void onReady() {
+        //TODO implement interface DaumSpeechRecognizeListener method
+    }
+
+    @Override
+    public void onBeginningOfSpeech() {
+        //TODO implement interface DaumSpeechRecognizeListener method
+    }
+
+    @Override
+    public void onEndOfSpeech() {
+        //TODO implement interface DaumSpeechRecognizeListener method
+
+    }
+
+    @Override
+    public void onError(int errorCode, String errorMsg) {
+        //TODO implement interface DaumSpeechRecognizeListener method
+        Log.e("SpeechSampleActivity", "onError");
+        client = null;
+    }
+
+    @Override
+    public void onPartialResult(String text) {
+        //TODO implement interface DaumSpeechRecognizeListener method
+    }
+
+    @Override
+    public void onResults(Bundle results) {
+//        final StringBuilder builder = new StringBuilder();
+        Log.i("SpeechSampleActivity", "onResults");
+        temp = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
+
+        if(temp.size()!=0) {
+            client.stopRecording();
+            getText();
+        }
+        client = null;
+    }
+
+    public void getText(){
+        result = temp.get(0);
+        temp.clear();
+        insert();
+    }
+    public void onAudioLevel(float v) {
+        //TODO implement interface DaumSpeechRecognizeListener method
+    }
+
+
+    @Override
+    public void onFinished() {
+        Log.i("SpeechSampleActivity", "onFinished");
+    }
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // 화면에 터치가 발생했을 때 호출되는 콜백 메서드
@@ -135,7 +225,7 @@ public class teacher_practice extends FragmentActivity {
                     newdrag = (int) event.getX(); // 두번째 손가락이 화면에서 떨어진 지점의 x 좌표 저장
                     y2drag = (int) event.getY();// 두번째 손가락이 화면에서 떨어진 지점의 y 좌표 저장
                     if (y2drag - y1drag > WHclass.Drag_space) { //데이터 전송
-                        insert();
+                        STT_start();
                     }
 
                     else if (y1drag - y2drag > WHclass.Drag_space) {// 손가락 2개를 이용하여 상단으로 드래그하는 경우 종료
@@ -1325,7 +1415,7 @@ public class teacher_practice extends FragmentActivity {
             else
                 array3+="1";
         }
-        insertToDatabase(array1, array2, array3, character, room);
+        insertToDatabase(array1, array2, array3, result, room);
         for(int k =0; k<3; k++){
             for(int p=0; p<14; p++){
                 m.Braille_insert[k][p]=0;

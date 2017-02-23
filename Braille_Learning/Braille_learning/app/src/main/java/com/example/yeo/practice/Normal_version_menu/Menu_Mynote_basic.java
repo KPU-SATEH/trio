@@ -163,13 +163,13 @@ public class Menu_Mynote_basic extends FragmentActivity {
                     finish();
                 }
                 else if(newdrag-olddrag>WHclass.Drag_space) { //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
-                    Intent intent = new Intent(this,Menu_Mynote_master.class);
-                    startActivityForResult(intent,Menu_info.MENU_MYNOTE_MASTER);
+                    Intent intent = new Intent(this,Menu_Mynote_communication.class);
+                    startActivityForResult(intent,Menu_info.MENU_MYNOTE_COMMUNICATION);
                     overridePendingTransition(R.anim.fade, R.anim.hold);
-                    Menu_main_service.menu_page = Menu_info.MENU_MYNOTE_MASTER;
+                    Menu_main_service.menu_page = Menu_info.MENU_MYNOTE_COMMUNICATION;
                     slied.slied = Menu_info.pre;
                     startService(new Intent(this, slied.class));
-                    Menu_mynote_service.menu_page=Menu_info.MENU_MYNOTE_MASTER;
+                    Menu_mynote_service.menu_page=Menu_info.MENU_MYNOTE_COMMUNICATION;
                     startService(new Intent(this,Menu_mynote_service.class));
                     finish();
                 }

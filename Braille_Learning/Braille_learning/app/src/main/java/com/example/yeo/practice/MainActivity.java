@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.Common_menu_sound.Version_check_service;
 import com.example.yeo.practice.Common_mynote_database.Basic_Braille_DB;
+import com.example.yeo.practice.Common_mynote_database.Communication_Braille_DB;
 import com.example.yeo.practice.Common_mynote_database.Master_Braille_DB;
 import com.example.yeo.practice.Common_sound.Braille_Text_To_Speech;
 import com.example.yeo.practice.Normal_version_menu.Menu_Tutorial;
@@ -46,6 +47,7 @@ public class MainActivity extends FragmentActivity {
     final static int CODE = 1;
     static public Basic_Braille_DB basic_braille_db; // 나만의 기초 단어장을 위한 데이터베이스
     static public Master_Braille_DB master_braille_db; // 나만의 숙련 단어장을 위한 데이터베이스
+    static public Communication_Braille_DB communication_braille_db; // 나만의 선생님의 단어장을 위한 데이터베이스
 
     static public Braille_Text_To_Speech Braille_TTS = new Braille_Text_To_Speech();
 
@@ -137,6 +139,7 @@ public class MainActivity extends FragmentActivity {
 
         basic_braille_db = new Basic_Braille_DB(getApplicationContext(),"BRAILLE.db",null,1); //BRAILLE 라는 이름을 가진 테이블
         master_braille_db = new Master_Braille_DB(getApplicationContext(),"BRAILLE2.db",null,1); //BRAILLE2 라는 이름을 가진 테이블
+        communication_braille_db = new Communication_Braille_DB(getApplicationContext(),"BRAILLE3.db",null,1); //BRAILLE2 라는 이름을 가진 테이블
 
         Version_check_service.menu_page=Menu_info.version_check;
         startService(new Intent(this, Version_check_service.class));

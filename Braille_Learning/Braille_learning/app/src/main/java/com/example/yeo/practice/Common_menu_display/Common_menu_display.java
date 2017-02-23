@@ -169,6 +169,9 @@ public class Common_menu_display extends View {
             case 52:
                 image = BitmapFactory.decodeResource(getResources(), R.drawable.mynote_master);
                 break;
+            case 53:
+                image = BitmapFactory.decodeResource(getResources(), R.drawable.mynote_communication);
+                break;
             case 6:
                 image = BitmapFactory.decodeResource(getResources(), R.drawable.comunication);
                 break;

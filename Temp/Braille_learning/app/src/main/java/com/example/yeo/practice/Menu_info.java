@@ -122,7 +122,6 @@ public class Menu_info {
     public static int DISPLAY_MYNOTE=5; //나만의 단어장
     public static int DISPLAY_MYNOTE_BASIC=51; //기초단어장
     public static int DISPLAY_MYNOTE_MASTER=52; //숙련단어장
-    public static int DISPLAY_MYNOTE_COMMUNICATION=53; //숙련단어장
 
     public static int DISPLAY_COMUNICATION=6; //선생님과의 대화
     public static int DISPLAY_COMUNICATION_TEAHCER=61; //선생님모드

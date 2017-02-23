@@ -42,6 +42,7 @@ public class Menu_info {
 
     public static int MENU_MYNOTE_BASIC = 0; //기초단어장
     public static int MENU_MYNOTE_MASTER = 1; //숙련단어장
+    public static int MENU_MYNOTE_COMMUNICATION = 2; //숙련단어장
 
     public static int MENU_TUTORIAL = 0; //사용설명서
     public static int MENU_BASIC_PRACTICE = 1; //기초과정
@@ -121,6 +122,7 @@ public class Menu_info {
     public static int DISPLAY_MYNOTE=5; //나만의 단어장
     public static int DISPLAY_MYNOTE_BASIC=51; //기초단어장
     public static int DISPLAY_MYNOTE_MASTER=52; //숙련단어장
+    public static int DISPLAY_MYNOTE_COMMUNICATION=53; //숙련단어장
 
     public static int DISPLAY_COMUNICATION=6; //선생님과의 대화
     public static int DISPLAY_COMUNICATION_TEAHCER=61; //선생님모드
