@@ -145,25 +145,34 @@ public class student_practice extends FragmentActivity implements SpeechRecogniz
                         update();
                     }
 
-                    if (y2drag - y1drag > WHclass.Drag_space) { //손가락 2개를 이용하여 하단으로 드래그 하는경우
+                    if (y2drag - y1drag > WHclass.Drag_space) {//손가락 2개를 이용하여 하단으로 드래그 하는경우
+                        m.check = true;
+                        m.invalidate();
+                        MainActivity.Braille_TTS.TTS_Play(m.Grade_speak());
                     } else if (y1drag - y2drag > WHclass.Drag_space) {// 손가락 2개를 이용하여 상단으로 드래그하는 경우 종료
                         dot_student_data.delete_data();
                         onBackPressed();
                     }else if (olddrag - newdrag > WHclass.Drag_space) {//손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그 하였을 경우
+                        m.check = false;
                         m.getData("http://192.168.0.124:10080/import.php", result);
                         slied.slied = Menu_info.next;
                         startService(new Intent(this, slied.class));
                         m.page++;
                         if(m.page>dot_student_data.dot_count-1)
                             m.page--;
+                        if (MainActivity.communication_braille_db.communication_db_manager.My_Note_page > 0)
+                            MainActivity.communication_braille_db.communication_db_manager.My_Note_page--;
                         dot_student_data.delete_data();
                     } else if (newdrag - olddrag > WHclass.Drag_space) { //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 하였을 경우
+                        m.check = false;
                         m.getData("http://192.168.0.124:10080/import.php", result);
                         slied.slied = Menu_info.pre;
                         startService(new Intent(this, slied.class));
                         m.page--;
                         if(m.page<0)
                             m.page=0;
+                        if (MainActivity.communication_braille_db.communication_db_manager.My_Note_page > 0)
+                            MainActivity.communication_braille_db.communication_db_manager.My_Note_page--;
                         dot_student_data.delete_data();
                     }
                 case MotionEvent.ACTION_POINTER_DOWN: //두 번째 손가락을 터치하였을 때
@@ -1059,7 +1068,7 @@ public class student_practice extends FragmentActivity implements SpeechRecogniz
                 array[i] = array[i]+Integer.toString(dot_student_data.student_Array.get(m.page)[i][j]); // 3개의 배열에 1행 2행 3행을 집어넣음
             }
         }
-        result = MainActivity.communication_braille_db.insert(dot_student_data.count_Array.get(m.page)/2, "ㄱ", array[0], array[1], array[2], Menu_info.MENU_INFO, m.page);  //데이터베이스에 입력하고, 성공문자를 돌려받음
+        result = MainActivity.communication_braille_db.insert(dot_student_data.count_Array.get(m.page)/2, m.dot_student_data.student_letter.get(m.page), array[0], array[1], array[2], Menu_info.MENU_INFO, m.page);  //데이터베이스에 입력하고, 성공문자를 돌려받음
         if(result.equals("성공")){
             Mynote_service.menu_page=2;
             startService(new Intent(this, Mynote_service.class));
@@ -1077,6 +1086,7 @@ public class student_practice extends FragmentActivity implements SpeechRecogniz
         Communication_service.finish2 = true;
         dot_student_data.delete_data();
         startService(new Intent(this, Communication_service.class));
+        m.check = false;
         finish();
     }
 }

@@ -22,6 +22,7 @@ import com.example.yeo.practice.Common_sound.slied;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.Normal_version_Display_Practice.Braille_long_practice;
+import com.example.yeo.practice.Normal_version_Display_Practice.student_display;
 import com.example.yeo.practice.Normal_version_Display_Practice.student_practice;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
@@ -31,8 +32,6 @@ public class Menu_Mynote_communication extends AppCompatActivity {
     Common_menu_display m;
     int finger_x[] = new int[3];
     int finger_y[] = new int[3];
-
-    Braille_Text_To_Speech Braille_TTS = new Braille_Text_To_Speech();
 
     int newdrag,olddrag;
     int posx1,posx2,posy1,posy2;
@@ -57,8 +56,8 @@ public class Menu_Mynote_communication extends AppCompatActivity {
         Menu_info.DISPLAY = Menu_info.DISPLAY_MYNOTE_MASTER;
         m = new Common_menu_display(this);
         m.setBackgroundColor(Color.rgb(22,26,44));
-
         setContentView(m);
+
     }
 
     @Override
@@ -93,14 +92,6 @@ public class Menu_Mynote_communication extends AppCompatActivity {
                             Communication_DB_manager.MyNote_down=true;
                             reference2 = MainActivity.communication_braille_db.communication_db_manager.getReference(MainActivity.communication_braille_db.communication_db_manager.My_Note_page);
                             reference_index2 = MainActivity.communication_braille_db.communication_db_manager.getReference_index(MainActivity.communication_braille_db.communication_db_manager.My_Note_page);
-                            switch(reference2){
-                                case 8: //글자연습
-                                    startService(new Intent(this, Letter_service.class));
-                                    break;
-                                case 9: //단어연습
-                                    startService(new Intent(this, Word_service.class));
-                                    break;
-                            }
                         }
                         else {//단어장에 단어가 추가되어 있지 않은경우 접속 차단
                             Mynote_service.menu_page=0;

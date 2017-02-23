@@ -41,6 +41,7 @@ import java.util.TimerTask;
 
 public class Braille_long_practice extends FragmentActivity implements SpeechRecognizeListener {
     Braille_long_display m;
+
     int newdrag, olddrag; //화면전환시 이용될 좌표 2개를 저장할 변수
     int y1drag, y2drag; // 손가락 1개를 터치하였을 때  y좌표와 손가락 2개를 터치하였을 때 y좌표를 저장하는 변수
     int result1 = 0,result2=0, result3=0, result4=0, result5=0, result6=0; // 화면을 문지르며 학습을 하기 위한 컨트롤 변수
@@ -57,7 +58,7 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
     int previous_reference=0; //나만의 단어장에서 이전에 출력됬던 음성을 초기화 시키기 위한 변수
     static public boolean pre_reference2 = false; //이전에 음성이 출력되었는지를 체크하는 변수
 
-
+    String TTs_text="";
 
     String hangel=""; //점자 번역을 위한 글자를 저장하는 변수
     private TimerTask second; // 버전확인을 위한 타이머
@@ -102,6 +103,9 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
         matrix = new int[3][14];
         Translation = new Braille_translation();
 
+        m = new Braille_long_display(this);
+        m.setBackgroundColor(Color.rgb(22,26,44));
+        setContentView(m);
 
         switch(WHclass.sel){
             case 8: //글자연습
@@ -143,12 +147,10 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                         break;
                 }
                 break;
+            case 12:
+                MainActivity.Braille_TTS.TTS_Play(Grade_speak());
+                break;
         }
-
-        m = new Braille_long_display(this);
-        m.setBackgroundColor(Color.rgb(22,26,44));
-        setContentView(m);
-
         switch(WHclass.sel){
             case 8: //글자연습
                 startService(new Intent(this, Letter_service.class));
@@ -2287,7 +2289,7 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                                 if (MainActivity.communication_braille_db.communication_db_manager.My_Note_page >= MainActivity.communication_braille_db.communication_db_manager.size_count) //가장 마지막 학습내용까지 진행됬다면
                                     onBackPressed(); //종료
                                 else  //아직 학습이 진행중이면
-                                    MyNote_Start_service();
+                                    MainActivity.Braille_TTS.TTS_Play(Grade_speak());
                                 m.MyView3_init();
                                 m.invalidate();
                                 break;
@@ -2322,11 +2324,12 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                             case 12:
                                 slied.slied = Menu_info.pre;
                                 startService(new Intent(this, slied.class));
-                                if (MainActivity.communication_braille_db.communication_db_manager.My_Note_page > 0)
+                                if (MainActivity.communication_braille_db.communication_db_manager.My_Note_page > 0) {
                                     MainActivity.communication_braille_db.communication_db_manager.My_Note_page--;
+                                    MainActivity.Braille_TTS.TTS_Play(Grade_speak());
+                                }
                                 m.MyView3_init();
                                 m.invalidate();
-                                MyNote_Start_service(); //현재 화면의 음성 출력
                                 break;
                         }
 
@@ -2519,12 +2522,87 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                 m.invalidate();
             }
         });
-
-
-
     }
+    public String Grade_speak() {
+        int a = 0;
+        int b = 0;
+        String dot_temp[];
 
+        TTs_text = "";
+        String letter="";
+        int dot[][];
+        int braille_count = MainActivity.communication_braille_db.communication_db_manager.getCount(MainActivity.communication_braille_db.communication_db_manager.My_Note_page); //데이터베이스로부터 점자 칸의 갯수를 불러옴
 
+        int temp = braille_count*2;
+
+        dot = new int[3][temp];
+        dot_temp = new String[3];
+        letter = MainActivity.communication_braille_db.communication_db_manager.getName(MainActivity.communication_braille_db.communication_db_manager.My_Note_page); //첫번째 행
+        dot_temp[0] = MainActivity.communication_braille_db.communication_db_manager.getMatrix_1(MainActivity.communication_braille_db.communication_db_manager.My_Note_page); //첫번째 행
+        dot_temp[1] = MainActivity.communication_braille_db.communication_db_manager.getMatrix_2(MainActivity.communication_braille_db.communication_db_manager.My_Note_page); //두번째 행
+        dot_temp[2] = MainActivity.communication_braille_db.communication_db_manager.getMatrix_3(MainActivity.communication_braille_db.communication_db_manager.My_Note_page); //세번째 행
+
+        for (int k = 0; k < 3; k++) {
+            for (int o = 0; o<temp; o++) {
+                dot[k][o] = dot_temp[k].charAt(o) - '0';
+            }
+        }
+        switch (braille_count) {
+            case 1:
+                TTs_text += " 한칸,";
+                break;
+            case 2:
+                TTs_text += " 두칸,";
+                break;
+            case 3:
+                TTs_text += " 세칸,";
+                break;
+            case 4:
+                TTs_text += " 네칸,";
+                break;
+            case 5:
+                TTs_text += " 다섯칸,";
+                break;
+            case 6:
+                TTs_text += " 여섯칸,";
+                break;
+            case 7:
+                TTs_text += " 일곱칸,";
+                break;
+        }
+        for (int i = 0; i < temp; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (dot[j][i] == 1) {
+                    switch (j) {
+                        case 0:
+                            if (i % 2 == 0)
+                                TTs_text += "1 ";
+                            else
+                                TTs_text += "4 ";
+                            break;
+                        case 1:
+                            if (i % 2 == 0)
+                                TTs_text += "2 ";
+                            else
+                                TTs_text += "5 ";
+                            break;
+                        case 2:
+                            if (i % 2 == 0)
+                                TTs_text += "3 ";
+                            else
+                                TTs_text += "6 ";
+                            break;
+                    }
+                }
+                if (j == 2 && i % 2 != 0) {
+                    TTs_text += "점, ";
+                }
+            }
+            a = 0;
+            b++;
+        }
+        return letter+TTs_text;
+    }
 
     @Override
     public void onBackPressed() { // 뒤로가기 키를 눌렀을때 점자 학습을 위한 변수 초기화 및 종료
@@ -2557,6 +2635,4 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
         }
         finish();
     }
-
-
 }
