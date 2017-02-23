@@ -1007,6 +1007,7 @@ public class Talk_Braille_short_practice extends FragmentActivity {
                         finish();
                     }
                 }
+                lock=false;
                 break;
             case MotionEvent.ACTION_DOWN: // 두번째 손가락이 화면에 터치된 경우
                 startService(new Intent(Talk_Braille_short_practice.this, Sound_Manager.class));

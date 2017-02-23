@@ -17,6 +17,7 @@ import com.example.yeo.practice.Normal_version_Display_Practice.Braille_long_pra
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Common_sound.slied;
 import com.example.yeo.practice.*;
+import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_long_practice;
 
 
 //기초과정 대 메뉴 화면
@@ -66,7 +67,7 @@ public class Talk_Menu_Braille_translation extends FragmentActivity {
                             if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
                                 Menu_info.MENU_INFO = Menu_info.MENU_TRANSLATION;
                                 WHclass.sel = Menu_info.MENU_TRANSLATION;
-                                Intent intent = new Intent(Talk_Menu_Braille_translation.this, Braille_long_practice.class);
+                                Intent intent = new Intent(Talk_Menu_Braille_translation.this, Talk_Braille_long_practice.class);
                                 startActivityForResult(intent, Menu_info.MENU_BRAILLE_TRANSLATION);
                                 overridePendingTransition(R.anim.fade, R.anim.hold);
                                 Braille_trans_service.menu_page = Menu_info.TRANS_INFO;

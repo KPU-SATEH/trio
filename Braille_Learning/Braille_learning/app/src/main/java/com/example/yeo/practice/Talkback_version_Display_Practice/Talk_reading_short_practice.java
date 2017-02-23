@@ -669,7 +669,7 @@ public class Talk_reading_short_practice extends FragmentActivity implements Spe
                             }, 1000);
 
                             next = true;
-                            quiz_reading_service.question++;
+                            m.question++;
 
 
                         }
@@ -680,10 +680,10 @@ public class Talk_reading_short_practice extends FragmentActivity implements Spe
                             next = false;
                             m.quiz_view_init();
 
-                            if (quiz_reading_service.question == 4) {
+                            if (m.question == 4) {
                                 onBackPressed();
-                            } else if (quiz_reading_service.question < 4) {
-                                quiz_reading_service.menu_page = ++m.question;
+                            } else if (m.question < 4) {
+                                quiz_reading_service.menu_page = m.question;
                                 startService(new Intent(this, quiz_reading_service.class));
                             }
                         }
@@ -798,9 +798,9 @@ public class Talk_reading_short_practice extends FragmentActivity implements Spe
                 } else if (result == true && quiz_reading_service.question == 4) {
                     MainActivity.Braille_TTS.TTS_Play("정답입니다. 다음 화면을 이동하면 읽기 퀴즈가 종료됩니다.");
                 } else if (result == false && quiz_reading_service.question != 4) {
-                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은" + answer + "입니다. 점자를 다시 확인하고 다음 화면으로 이동하세요.");
+                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은," + answer + "! 입니다. 점자를 다시 확인하고 다음 화면으로 이동하세요.");
                 } else {
-                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은" + answer + "입니다. 점자를 다시 확인하고 다음 화면을 이동하면 읽기 퀴즈가 종료됩니다.");
+                    MainActivity.Braille_TTS.TTS_Play("오답입니다. 정답은," + answer + "! 입니다. 점자를 다시 확인하고 다음 화면을 이동하면 읽기 퀴즈가 종료됩니다.");
                 }
             }
         });

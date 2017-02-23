@@ -2,6 +2,7 @@ package com.example.yeo.practice;
 
 import android.content.Intent;
 import android.graphics.Point;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
@@ -37,6 +39,9 @@ Braile_learning Application이 시작되면 가장먼저 실행되는 Main 클�
 
  */
 public class MainActivity extends FragmentActivity {
+    static public AnimationDrawable versionani;
+    static public ImageView versionimage;
+
     static public float width,height;
     final static int CODE = 1;
     static public Basic_Braille_DB basic_braille_db; // 나만의 기초 단어장을 위한 데이터베이스
@@ -65,6 +70,8 @@ public class MainActivity extends FragmentActivity {
     int oldx,oldy,newx,newy;
 
     public static boolean version_finish=false;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,6 +251,17 @@ public class MainActivity extends FragmentActivity {
         //startService(new Intent(this, Menu_main_service.class)); //메뉴 음성 출력 서비스
       //  finish();
 
+        versionimage = (ImageView) findViewById(R.id.imageView37);
+        versionimage.setBackgroundResource(R.drawable.versionani);
+        versionani = (AnimationDrawable) versionimage.getBackground();
+
+
+    }
+
+    public void Ani_memory_clear(){
+        versionimage=null;
+        versionani=null;
+        System.gc();
     }
 
     @Override
@@ -255,6 +273,7 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
+
         if(test==false) {
             if (Blind_person == true) { //시각장애인 전용버전일경우
                 if (one_finger == false) { // hover이벤트가 발생되지 않았을 경우
@@ -268,9 +287,9 @@ public class MainActivity extends FragmentActivity {
                                 startService(new Intent(MainActivity.this, Version_check_service.class));
                                 Timer_Stop();
                             }
+
                             break;
                         case MotionEvent.ACTION_UP:  // 두번째 손가락을 떼었을 경우
-
                             newx = (int)event.getX();  // 두번째 손가락이 떨어진 지점의 x좌표값 저장
                             newy = (int) event.getY();  // 두번째 손가락이 떨어진 지점의 y좌표값 저장
                             if (oldy - newy > WHclass.Drag_space) {  //손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
@@ -302,6 +321,7 @@ public class MainActivity extends FragmentActivity {
             } else if (Blind_person == false) { //일반사용자 버전일 경우
                 switch(event.getAction() & MotionEvent.ACTION_MASK) {
                     case MotionEvent.ACTION_DOWN:
+                        versionani.start();
                         type = NORMAL;
                         Version_check_service.menu_page=Menu_info.version_start;
                         startService(new Intent(MainActivity.this, Version_check_service.class));
@@ -316,6 +336,13 @@ public class MainActivity extends FragmentActivity {
                             startService(new Intent(MainActivity.this, Version_check_service.class));
                             type = INIT;
                             Timer_Stop();
+
+                            if(versionani.isRunning()){
+                                versionani.stop();
+                                versionani.start();
+                                versionani.stop();
+                            }
+
                         }
                         break;
                     case MotionEvent.ACTION_POINTER_UP:  // 두번째 손가락을 떼었을 경우
@@ -347,7 +374,7 @@ public class MainActivity extends FragmentActivity {
                 update();
             }
         };
-        timer.schedule(second,0,100); //0.3초의 딜레이시간
+        timer.schedule(second,0,300); //0.3초의 딜레이시간
     }
 
     public void update(){ //일정시간마다 타이머 함수에 의해 불려짐
@@ -375,19 +402,19 @@ public class MainActivity extends FragmentActivity {
                                     Intent i1 = new Intent(MainActivity.this, Talk_Menu_tutorial.class);
                                     startActivityForResult(i1, CODE);
                                     overridePendingTransition(R.anim.fade, R.anim.hold);
-                                    startService(new Intent(MainActivity.this, Menu_main_service.class)); //메뉴 음성 출력 서비스
                                     finish();
                                     Timer_Stop();
                                     WHclass.Braiile_type=1;
+                                    Ani_memory_clear();
                                     break;
                                 case 2:
                                     Intent i2 = new Intent(MainActivity.this, Menu_Tutorial.class);
                                     startActivityForResult(i2, CODE);
                                     overridePendingTransition(R.anim.fade, R.anim.hold);
-                                    startService(new Intent(MainActivity.this, Menu_main_service.class)); //메뉴 음성 출력 서비스
                                     WHclass.Braiile_type=2;
                                     finish();
                                     Timer_Stop();
+                                    Ani_memory_clear();
                                     break;
                             }
 
