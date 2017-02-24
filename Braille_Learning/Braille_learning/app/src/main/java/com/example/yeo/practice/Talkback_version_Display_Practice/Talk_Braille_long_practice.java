@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yeo.practice.Common_braille_data.dot_letter;
+import com.example.yeo.practice.Common_braille_data.dot_student_data;
 import com.example.yeo.practice.Common_braille_data.dot_word;
 import com.example.yeo.practice.Common_braille_translation.Braille_translation;
 import com.example.yeo.practice.Common_mynote_database.Mynote_service;
@@ -22,6 +23,7 @@ import com.example.yeo.practice.Common_trans_sound.Braille_trans_service;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.Sound_Manager;
+import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_long_display;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_master_practice_sound.Letter_service;
 import com.example.yeo.practice.Common_master_practice_sound.Word_service;
@@ -40,6 +42,7 @@ import java.util.TimerTask;
 
 public class Talk_Braille_long_practice extends FragmentActivity implements SpeechRecognizeListener {
     Talk_Braille_long_display m;
+
     int newdrag, olddrag; //화면전환시 이용될 좌표 2개를 저장할 변수
     int y1drag, y2drag; // 손가락 1개를 터치하였을 때  y좌표와 손가락 2개를 터치하였을 때 y좌표를 저장하는 변수
     int result1 = 0,result2=0, result3=0, result4=0, result5=0, result6=0; // 화면을 문지르며 학습을 하기 위한 컨트롤 변수
@@ -56,7 +59,7 @@ public class Talk_Braille_long_practice extends FragmentActivity implements Spee
     int previous_reference=0; //나만의 단어장에서 이전에 출력됬던 음성을 초기화 시키기 위한 변수
     static public boolean pre_reference2 = false; //이전에 음성이 출력되었는지를 체크하는 변수
 
-
+    String TTs_text="";
 
     String hangel=""; //점자 번역을 위한 글자를 저장하는 변수
     private TimerTask second; // 버전확인을 위한 타이머
@@ -74,7 +77,11 @@ public class Talk_Braille_long_practice extends FragmentActivity implements Spee
     ArrayList<String> texts;
     boolean check= false;
 
+
     String text="";
+
+    int finger_x[] = new int[3];
+    int finger_y[] = new int[3];
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,8 +103,6 @@ public class Talk_Braille_long_practice extends FragmentActivity implements Spee
 
         matrix = new int[3][14];
         Translation = new Braille_translation();
-
-
         switch(WHclass.sel){
             case 8: //글자연습
                 Dot_letter = new dot_letter();
@@ -143,11 +148,28 @@ public class Talk_Braille_long_practice extends FragmentActivity implements Spee
         m = new Talk_Braille_long_display(this);
         m.setBackgroundColor(Color.rgb(22,26,44));
         setContentView(m);
+
+
+        switch(WHclass.sel){
+            case 8: //글자연습
+                startService(new Intent(this, Letter_service.class));
+                break;
+            case 9: //단어연습
+                startService(new Intent(this, Word_service.class));
+                break;
+            case 11:
+                m.invalidate();
+                break;
+            case 12:
+                MainActivity.Braille_TTS.TTS_Play(Grade_speak());
+                break;
+        }
+
         m.setOnHoverListener(new View.OnHoverListener() {
             @Override
             public boolean onHover(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_HOVER_ENTER: //손가락 1개를 화면에 터치하였을 경우
+                switch(event.getAction()){
+                    case MotionEvent.ACTION_HOVER_ENTER:
                         startService(new Intent(Talk_Braille_long_practice.this, Sound_Manager.class));
                         m.x = (int) event.getX(); //x좌표를 저장
                         m.y = (int) event.getY(); //y좌표를 저장
@@ -1107,6 +1129,7 @@ public class Talk_Braille_long_practice extends FragmentActivity implements Spee
                     case MotionEvent.ACTION_HOVER_MOVE:
                         m.x = (int) event.getX();
                         m.y = (int) event.getY();
+
                         if ((m.x <m.bigcircle*2) && (m.x>m.bigcircle*(-2))&&(m.y >m.bigcircle*(-2))&&(m.y <(m.bigcircle*2))) {
                             break;
                         }
@@ -2066,7 +2089,7 @@ public class Talk_Braille_long_practice extends FragmentActivity implements Spee
 
                         m.invalidate(); // 화면을 다시 그려줘라 => onDraw() 호출해준다
                         break;
-                    case MotionEvent.ACTION_HOVER_EXIT: // 손가락 1개를 화면에서 떨어트렸을 경우
+                    case MotionEvent.ACTION_HOVER_EXIT:
                         touch_init(0);
                         lock=false;
                         break;
@@ -2074,18 +2097,6 @@ public class Talk_Braille_long_practice extends FragmentActivity implements Spee
                 return false;
             }
         });
-
-        switch(WHclass.sel){
-            case 8: //글자연습
-                startService(new Intent(this, Letter_service.class));
-                break;
-            case 9: //단어연습
-                startService(new Intent(this, Word_service.class));
-                break;
-            case 11:
-                m.invalidate();
-                break;
-        }
     }
 
 
@@ -2187,7 +2198,20 @@ public class Talk_Braille_long_practice extends FragmentActivity implements Spee
             }
 
         }
-        else {
+        if(WHclass.sel==12){
+            MainActivity.communication_braille_db.delete(MainActivity.communication_braille_db.communication_db_manager.getId(MainActivity.communication_braille_db.communication_db_manager.My_Note_page));
+            result = MainActivity.communication_braille_db.getResult();
+            if(MainActivity.communication_braille_db.communication_db_manager.size_count==0)
+                onBackPressed();
+            m.MyView3_init();
+            m.invalidate();
+            MyNote_Start_service();
+            if(result.equals("삭제")){
+                //  Mynote_service.menu_page=1;
+                //  startService(new Intent(this, Mynote_service.class));
+            }
+        }
+        else{
             for (int i = 0; i < 3; i++) {
                 for(int j=0; j<m.dot_count*2 ; j++){
                     array[i] = array[i]+Integer.toString(m.text_7[i][j]); // 3개의 배열에 1행 2행 3행을 집어넣음
@@ -2203,7 +2227,6 @@ public class Talk_Braille_long_practice extends FragmentActivity implements Spee
                 startService(new Intent(this, Mynote_service.class));
             }
         }
-
     }
 
 
@@ -2216,7 +2239,12 @@ public class Talk_Braille_long_practice extends FragmentActivity implements Spee
                 click = true;
                 newdrag = (int) event.getX(); // 두번째 손가락이 화면에서 떨어진 지점의 x 좌표 저장
                 y2drag = (int) event.getY();// 두번째 손가락이 화면에서 떨어진 지점의 y 좌표 저장
-                if(lock==false) {
+                int pointer_count = event.getPointerCount();
+                if(pointer_count==3) {
+                    update();
+                    lock=true;
+                }
+                else if(lock==false) {
                     if (olddrag - newdrag > WHclass.Drag_space) { // 다음 화면의 점자 학습 진행
                         switch (WHclass.sel) {
                             case 8: //글자연습
@@ -2244,6 +2272,18 @@ public class Talk_Braille_long_practice extends FragmentActivity implements Spee
                                 m.MyView3_init();
                                 m.invalidate();
                                 break;
+                            case 12:
+                                slied.slied = Menu_info.next;
+                                startService(new Intent(this, slied.class));
+                                MainActivity.communication_braille_db.communication_db_manager.My_Note_page++;
+                                if (MainActivity.communication_braille_db.communication_db_manager.My_Note_page >= MainActivity.communication_braille_db.communication_db_manager.size_count) //가장 마지막 학습내용까지 진행됬다면
+                                    onBackPressed(); //종료
+                                else  //아직 학습이 진행중이면
+                                    MainActivity.Braille_TTS.TTS_Play(Grade_speak());
+                                m.MyView3_init();
+                                m.invalidate();
+                                break;
+
                         }
 
                     } else if (newdrag - olddrag > WHclass.Drag_space) { // 이전 화면의 점자 학습 진행
@@ -2267,8 +2307,19 @@ public class Talk_Braille_long_practice extends FragmentActivity implements Spee
                                 startService(new Intent(this, slied.class));
                                 if (MainActivity.master_braille_db.master_db_manager.My_Note_page > 0)
                                     MainActivity.master_braille_db.master_db_manager.My_Note_page--;
+                                m.MyView3_init();
+                                m.invalidate();
                                 MyNote_Start_service(); //현재 화면의 음성 출력
-
+                                break;
+                            case 12:
+                                slied.slied = Menu_info.pre;
+                                startService(new Intent(this, slied.class));
+                                if (MainActivity.communication_braille_db.communication_db_manager.My_Note_page > 0) {
+                                    MainActivity.communication_braille_db.communication_db_manager.My_Note_page--;
+                                    MainActivity.Braille_TTS.TTS_Play(Grade_speak());
+                                }
+                                m.MyView3_init();
+                                m.invalidate();
                                 break;
                         }
 
@@ -2294,19 +2345,11 @@ public class Talk_Braille_long_practice extends FragmentActivity implements Spee
                         onBackPressed();
                     }
                 }
-                lock=false;
                 break;
             case MotionEvent.ACTION_DOWN: //두 번째 손가락을 터치하였을 때
-                startService(new Intent(Talk_Braille_long_practice.this, Sound_Manager.class));
+                click = false; // 제스처 기능을 위해 손가락 1개를 인지하는 화면을 잠금
                 olddrag = (int)event.getX(); // 두번쨰 손가락이 터치한 지점의 x좌표 저장
                 y1drag = (int) event.getY(); // 두번째 손가락이 터치한 지점의 y좌표 저장
-                break;
-            case MotionEvent.ACTION_POINTER_UP:
-                int pointer_count = event.getPointerCount();
-                if(pointer_count==3) {
-                    update();
-                    lock=true;
-                }
                 break;
 
 
@@ -2469,12 +2512,87 @@ public class Talk_Braille_long_practice extends FragmentActivity implements Spee
                 m.invalidate();
             }
         });
-
-
-
     }
+    public String Grade_speak() {
+        int a = 0;
+        int b = 0;
+        String dot_temp[];
 
+        TTs_text = "";
+        String letter="";
+        int dot[][];
+        int braille_count = MainActivity.communication_braille_db.communication_db_manager.getCount(MainActivity.communication_braille_db.communication_db_manager.My_Note_page); //데이터베이스로부터 점자 칸의 갯수를 불러옴
 
+        int temp = braille_count*2;
+
+        dot = new int[3][temp];
+        dot_temp = new String[3];
+        letter = MainActivity.communication_braille_db.communication_db_manager.getName(MainActivity.communication_braille_db.communication_db_manager.My_Note_page); //첫번째 행
+        dot_temp[0] = MainActivity.communication_braille_db.communication_db_manager.getMatrix_1(MainActivity.communication_braille_db.communication_db_manager.My_Note_page); //첫번째 행
+        dot_temp[1] = MainActivity.communication_braille_db.communication_db_manager.getMatrix_2(MainActivity.communication_braille_db.communication_db_manager.My_Note_page); //두번째 행
+        dot_temp[2] = MainActivity.communication_braille_db.communication_db_manager.getMatrix_3(MainActivity.communication_braille_db.communication_db_manager.My_Note_page); //세번째 행
+
+        for (int k = 0; k < 3; k++) {
+            for (int o = 0; o<temp; o++) {
+                dot[k][o] = dot_temp[k].charAt(o) - '0';
+            }
+        }
+        switch (braille_count) {
+            case 1:
+                TTs_text += " 한칸,";
+                break;
+            case 2:
+                TTs_text += " 두칸,";
+                break;
+            case 3:
+                TTs_text += " 세칸,";
+                break;
+            case 4:
+                TTs_text += " 네칸,";
+                break;
+            case 5:
+                TTs_text += " 다섯칸,";
+                break;
+            case 6:
+                TTs_text += " 여섯칸,";
+                break;
+            case 7:
+                TTs_text += " 일곱칸,";
+                break;
+        }
+        for (int i = 0; i < temp; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (dot[j][i] == 1) {
+                    switch (j) {
+                        case 0:
+                            if (i % 2 == 0)
+                                TTs_text += "1 ";
+                            else
+                                TTs_text += "4 ";
+                            break;
+                        case 1:
+                            if (i % 2 == 0)
+                                TTs_text += "2 ";
+                            else
+                                TTs_text += "5 ";
+                            break;
+                        case 2:
+                            if (i % 2 == 0)
+                                TTs_text += "3 ";
+                            else
+                                TTs_text += "6 ";
+                            break;
+                    }
+                }
+                if (j == 2 && i % 2 != 0) {
+                    TTs_text += "점, ";
+                }
+            }
+            a = 0;
+            b++;
+        }
+        return letter+TTs_text;
+    }
 
     @Override
     public void onBackPressed() { // 뒤로가기 키를 눌렀을때 점자 학습을 위한 변수 초기화 및 종료
@@ -2499,9 +2617,12 @@ public class Talk_Braille_long_practice extends FragmentActivity implements Spee
                 Braille_trans_service.finish = true;
                 startService(new Intent(this, Braille_trans_service.class));
                 break;
+            case 12:
+                MainActivity.communication_braille_db.communication_db_manager.My_Note_page=0;
+                Mynote_service.finish = true;
+                startService(new Intent(this, Mynote_service.class));
+                break;
         }
         finish();
     }
-
-
 }

@@ -165,6 +165,7 @@ public class MainActivity extends FragmentActivity {
                                     Version_check_service.menu_page=Menu_info.version_start;
                                     startService(new Intent(MainActivity.this, Version_check_service.class));
                                     Timer_Reset(); //시간 카운트 시작
+                                    versionani.start();
                                 }
                                 break;
                             case MotionEvent.ACTION_HOVER_MOVE:
@@ -176,6 +177,11 @@ public class MainActivity extends FragmentActivity {
                                     startService(new Intent(MainActivity.this, Version_check_service.class));
                                     type = INIT; //타입 초기화
                                     Timer_Stop(); //시간 카운트 정지
+                                    if(versionani.isRunning()){
+                                        versionani.stop();
+                                        versionani.start();
+                                        versionani.stop();
+                                    }
                                 }
                                 else {
                                     test = false; //버전 판별이 끝났을 경우
@@ -339,7 +345,6 @@ public class MainActivity extends FragmentActivity {
                             startService(new Intent(MainActivity.this, Version_check_service.class));
                             type = INIT;
                             Timer_Stop();
-
                             if(versionani.isRunning()){
                                 versionani.stop();
                                 versionani.start();

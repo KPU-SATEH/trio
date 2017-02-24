@@ -119,13 +119,13 @@ public class Talk_Menu_Mynote_master extends FragmentActivity {
                 newdrag = (int)event.getX();  // 두번째 손가락이 떨어진 지점의 x좌표값 저장
                 y2drag = (int)event.getY(); // 두번째 손가락이 떨어진 지점의 y좌표값 저장
                 if(olddrag-newdrag>WHclass.Drag_space) { //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
-                    Intent intent = new Intent(this,Talk_Menu_Mynote_basic.class);
-                    startActivityForResult(intent,Menu_info.MENU_MYNOTE_BASIC);
+                    Intent intent = new Intent(this,Talk_Menu_Mynote_communication.class);
+                    startActivityForResult(intent,Menu_info.MENU_MYNOTE_COMMUNICATION);
                     overridePendingTransition(R.anim.fade, R.anim.hold);
-                    Menu_main_service.menu_page = Menu_info.MENU_MYNOTE_BASIC;
+                    Menu_main_service.menu_page = Menu_info.MENU_MYNOTE_COMMUNICATION;
                     slied.slied =Menu_info.next;
                     startService(new Intent(this, slied.class));
-                    Menu_mynote_service.menu_page=Menu_info.MENU_MYNOTE_BASIC;
+                    Menu_mynote_service.menu_page=Menu_info.MENU_MYNOTE_COMMUNICATION;
                     startService(new Intent(this,Menu_mynote_service.class));
                     finish();
                 }
