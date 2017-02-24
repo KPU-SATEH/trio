@@ -26,6 +26,7 @@
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/build/intermediates/classes/debug" />
     <output-test url="file://$MODULE_DIR$/build/intermediates/classes/test/debug" />
+    <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/debug" isTestSource="false" generated="true" />
@@ -120,6 +121,7 @@
     <orderEntry type="library" exported="" scope="TEST" name="junit-4.12" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-24.0.0-alpha1" level="project" />
     <orderEntry type="module" module-name="daum-speech-openapi-5.0" exported="" />
+    <orderEntry type="library" exported="" name="android-android-24" level="project" />
     <orderEntry type="library" exported="" name="daum-speech-openapi-5.0-unspecified" level="project" />
   </component>
 </module>

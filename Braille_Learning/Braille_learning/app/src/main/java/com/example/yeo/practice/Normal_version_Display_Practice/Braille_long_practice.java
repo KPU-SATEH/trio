@@ -102,11 +102,6 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
 
         matrix = new int[3][14];
         Translation = new Braille_translation();
-
-        m = new Braille_long_display(this);
-        m.setBackgroundColor(Color.rgb(22,26,44));
-        setContentView(m);
-
         switch(WHclass.sel){
             case 8: //글자연습
                 Dot_letter = new dot_letter();
@@ -147,10 +142,13 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                         break;
                 }
                 break;
-            case 12:
-                MainActivity.Braille_TTS.TTS_Play(Grade_speak());
-                break;
         }
+
+        m = new Braille_long_display(this);
+        m.setBackgroundColor(Color.rgb(22,26,44));
+        setContentView(m);
+
+
         switch(WHclass.sel){
             case 8: //글자연습
                 startService(new Intent(this, Letter_service.class));
@@ -160,6 +158,9 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
                 break;
             case 11:
                 m.invalidate();
+                break;
+            case 12:
+                MainActivity.Braille_TTS.TTS_Play(Grade_speak());
                 break;
         }
     }
