@@ -39,6 +39,8 @@ public class quiz_reading_manual extends FragmentActivity {
 
     public void init(){
         speechimage = (ImageView) findViewById(R.id.imageView2);
+        speechimage.setMaxHeight((int)WHclass.height);
+        speechimage.setMaxWidth((int)WHclass.width);
         speechimage.setBackgroundResource(R.drawable.speechani);
         speechani = (AnimationDrawable) speechimage.getBackground();
 

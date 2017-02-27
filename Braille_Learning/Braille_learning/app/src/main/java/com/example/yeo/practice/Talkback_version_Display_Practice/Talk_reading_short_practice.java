@@ -562,47 +562,71 @@ public class Talk_reading_short_practice extends FragmentActivity implements Spe
                                 touch_init(0);
                                 WHclass.number = 0;
                             }
-                            switch (m.dot_count) {
+                            switch(m.dot_count){
                                 case 1: //첫번째 칸의 구분선과 경고음이 발생되는 영역을 지정
-                                    if (m.x > m.width2 + m.bigcircle && m.x < m.width2 + (m.bigcircle * 2)) {
-                                        WHclass.number = 7;
-                                        WHclass.target = true;
+                                    if(m.x > m.width2+m.bigcircle && m.x<m.width2+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
+                                        WHclass.number=7;
+                                        WHclass.target= true;
+                                        startService(new Intent(Talk_reading_short_practice.this, Number.class));
+                                        m.vibrator.vibrate(WHclass.Weak_vibe);
+                                        touch_init(0);
+                                    }
+                                    else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width2+(m.bigcircle*2)){
+                                        WHclass.number=7;
+                                        WHclass.target= true;
                                         startService(new Intent(Talk_reading_short_practice.this, Number.class));
                                         m.vibrator.vibrate(WHclass.Weak_vibe);
                                         touch_init(0);
                                     }
                                     break;
-                                case 2://두번째 칸의 구분선과 경고음이 발생되는 영역을 지정
-                                    if (m.x > m.width4 + m.bigcircle && m.x < m.width5 - m.bigcircle) {
-                                        WHclass.number = 8;
-                                        WHclass.target = true;
+                                case 2: //두번째 칸의 구분선과 경고음이 발생되는 영역을 지정
+                                    if(m.x > m.width4+m.bigcircle && m.x<m.width5-m.bigcircle  && m.y > m.height1-(m.bigcircle*2) ){
+                                        WHclass.number=8;
+                                        WHclass.target= true;
                                         startService(new Intent(Talk_reading_short_practice.this, Number.class));
                                         m.vibrator.vibrate(WHclass.Weak_vibe);
                                         touch_init(0);
-                                    } else if (m.x > m.width6 + m.bigcircle && m.x < m.width6 + (m.bigcircle * 2)) {
-                                        WHclass.number = 7;
-                                        WHclass.target = true;
+                                    }
+                                    else if(m.x > m.width6+m.bigcircle && m.x<m.width6+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2)){
+                                        WHclass.number=7;
+                                        WHclass.target= true;
+                                        startService(new Intent(Talk_reading_short_practice.this, Number.class));
+                                        m.vibrator.vibrate(WHclass.Weak_vibe);
+                                        touch_init(0);
+                                    }
+                                    else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width6+(m.bigcircle*2)){
+                                        WHclass.number=7;
+                                        WHclass.target= true;
                                         startService(new Intent(Talk_reading_short_practice.this, Number.class));
                                         m.vibrator.vibrate(WHclass.Weak_vibe);
                                         touch_init(0);
                                     }
                                     break;
-                                case 3://세번째 칸의 구분선과 경고음이 발생되는 영역을 지정
-                                    if (m.x > m.width8 + m.bigcircle && m.x < m.width9 - m.bigcircle) {
-                                        WHclass.number = 8;
-                                        WHclass.target = true;
+                                case 3: //세번째 칸의 구분선과 경고음이 발생되는 영역을 지정
+                                    if(m.x > m.width8+m.bigcircle && m.x<m.width9-m.bigcircle && m.y > m.height1-(m.bigcircle*2)){
+                                        WHclass.number=8;
+                                        WHclass.target= true;
                                         startService(new Intent(Talk_reading_short_practice.this, Number.class));
                                         m.vibrator.vibrate(WHclass.Weak_vibe);
                                         touch_init(0);
-                                    } else if (m.x > m.width10 + m.bigcircle && m.x < m.width11 - m.bigcircle) {
-                                        WHclass.number = 8;
-                                        WHclass.target = true;
+                                    }
+                                    else if(m.x > m.width10+m.bigcircle && m.x<m.width11-m.bigcircle && m.y > m.height1-(m.bigcircle*2)){
+                                        WHclass.number=8;
+                                        WHclass.target= true;
                                         startService(new Intent(Talk_reading_short_practice.this, Number.class));
                                         m.vibrator.vibrate(WHclass.Weak_vibe);
                                         touch_init(0);
-                                    } else if (m.x > m.width12 + m.bigcircle && m.x < m.width12 + (m.bigcircle * 2)) {
-                                        WHclass.number = 7;
-                                        WHclass.target = true;
+                                    }
+                                    else if(m.x > m.width12+m.bigcircle && m.x<m.width12+(m.bigcircle*2) && m.y > m.height1-(m.bigcircle*2) ){
+                                        WHclass.number=7;
+                                        WHclass.target= true;
+                                        startService(new Intent(Talk_reading_short_practice.this, Number.class));
+                                        m.vibrator.vibrate(WHclass.Weak_vibe);
+                                        touch_init(0);
+                                    }
+                                    else if(m.y > m.height1-(m.bigcircle*2) && m.y<m.height1-m.bigcircle && m.x<m.width12+(m.bigcircle*2)){
+                                        WHclass.number=7;
+                                        WHclass.target= true;
                                         startService(new Intent(Talk_reading_short_practice.this, Number.class));
                                         m.vibrator.vibrate(WHclass.Weak_vibe);
                                         touch_init(0);

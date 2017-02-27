@@ -34,6 +34,8 @@ public class Talk_quiz_reading_manual extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_common_quiz_reading_manual);
         speechimage = (ImageView) findViewById(R.id.imageView2);
+        speechimage.setMaxHeight((int)WHclass.height);
+        speechimage.setMaxWidth((int)WHclass.width);
         speechimage.setBackgroundResource(R.drawable.speechani);
         speechani = (AnimationDrawable) speechimage.getBackground();
 
@@ -129,6 +131,8 @@ public class Talk_quiz_reading_manual extends FragmentActivity {
 
     public void Ani_reset(){
         speechimage = (ImageView) findViewById(R.id.imageView2);
+        speechimage.setMaxHeight((int)WHclass.height);
+        speechimage.setMaxWidth((int)WHclass.width);
         speechimage.setBackgroundResource(R.drawable.speechani);
         speechani = (AnimationDrawable) speechimage.getBackground();
     }

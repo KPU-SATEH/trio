@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
@@ -266,6 +267,8 @@ public class MainActivity extends FragmentActivity {
       //  finish();
 
         versionimage = (ImageView) findViewById(R.id.imageView37);
+        versionimage.setMaxHeight((int)WHclass.height);
+        versionimage.setMaxWidth((int)WHclass.width);
         versionimage.setBackgroundResource(R.drawable.versionani);
         versionani = (AnimationDrawable) versionimage.getBackground();
 
@@ -292,6 +295,8 @@ public class MainActivity extends FragmentActivity {
 
     public void Ani_reset(){
         versionimage = (ImageView) findViewById(R.id.imageView37);
+        versionimage.setMaxHeight((int)WHclass.height);
+        versionimage.setMaxWidth((int)WHclass.width);
         versionimage.setBackgroundResource(R.drawable.versionani);
         versionani = (AnimationDrawable) versionimage.getBackground();
     }
