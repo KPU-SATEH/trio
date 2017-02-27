@@ -144,6 +144,68 @@ public class Talk_Menu_Mynote_basic extends FragmentActivity {
         m = new Common_menu_display(this);
         m.setBackgroundColor(Color.rgb(22,26,44));
         setContentView(m);
+        m.setOnHoverListener(new View.OnHoverListener() {
+            @Override
+            public boolean onHover(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_HOVER_ENTER: //손가락 1개를 화면에 터치하였을 경우
+                        startService(new Intent(Talk_Menu_Mynote_basic.this, Sound_Manager.class));
+                        posx1 = (int)event.getX(); //현재 좌표의 x좌표값 저장
+                        posy1 = (int)event.getY(); //현재 좌표의 y좌표값 저장
+                        break;
+                    case MotionEvent.ACTION_HOVER_EXIT: // 손가락 1개를 화면에서 떨어트렸을 경우
+                        posx2 = (int)event.getX(); //손가락 1개를 화면에서 떨어트린 x좌표값 저장
+                        posy2 = (int)event.getY();  //손가락 1개를 화면에서 떨어트린 y좌표값 저장
+                        if(enter == true) {  //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 나만의 단어장으로 접속
+                            if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
+                                WHclass.sel =Menu_info.MENU_NOTE ;
+                                Mynote_service.menutype=0;
+                                result= MainActivity.basic_braille_db.getResult();
+                                if(MainActivity.basic_braille_db.basic_db_manager.size_count!=0) {
+                                    Intent intent = new Intent(Talk_Menu_Mynote_basic.this, Talk_Braille_short_practice.class);
+                                    startActivityForResult(intent, Menu_info.MENU_NOTE);
+                                    overridePendingTransition(R.anim.fade, R.anim.hold);
+                                    Mynote_service.menu_page=1;
+                                    startService(new Intent(Talk_Menu_Mynote_basic.this, Mynote_service.class));
+                                    Basic_DB_manager.MyNote_down=true;
+                                    reference = MainActivity.basic_braille_db.basic_db_manager.getReference(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
+                                    reference_index = MainActivity.basic_braille_db.basic_db_manager.getReference_index(MainActivity.basic_braille_db.basic_db_manager.My_Note_page);
+
+                                    switch(reference){
+                                        case 1: //초성연습
+                                            startService(new Intent(Talk_Menu_Mynote_basic.this, Initial_service.class));
+                                            break;
+                                        case 2: //모음연습
+                                            startService(new Intent(Talk_Menu_Mynote_basic.this, Vowel_service.class));
+                                            break;
+                                        case 3:
+                                            startService(new Intent(Talk_Menu_Mynote_basic.this, Final_service.class));
+                                            break;
+                                        case 4: //숫자연습
+                                            startService(new Intent(Talk_Menu_Mynote_basic.this, Num_service.class));
+                                            break;
+                                        case 5: // 알파벳 연습
+                                            startService(new Intent(Talk_Menu_Mynote_basic.this, alphabet_service.class));
+                                            break;
+                                        case 6: // 문장부호 연습
+                                            startService(new Intent(Talk_Menu_Mynote_basic.this, Sentence_service.class));
+                                            break;
+                                        case 7: //약자 및 약어 연습
+                                            startService(new Intent(Talk_Menu_Mynote_basic.this, abbreviation_service.class));
+                                            break;
+                                    }
+                                }
+                                else {
+                                    Mynote_service.menu_page=0;
+                                    startService(new Intent(Talk_Menu_Mynote_basic.this, Mynote_service.class));
+                                }
+                            }
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     @Override

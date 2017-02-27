@@ -45,10 +45,20 @@ public class Talk_Menu_alphabet extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
         decorView.setSystemUiVisibility( uiOption );
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        m.free();
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
         Menu_info.DISPLAY = Menu_info.DISPLAY_ALPHABET;
         m = new Common_menu_display(this);
         m.setBackgroundColor(Color.rgb(22,26,44));
-
         setContentView(m);
         m.setOnHoverListener(new View.OnHoverListener() {
             @Override
@@ -77,21 +87,6 @@ public class Talk_Menu_alphabet extends FragmentActivity {
                 return false;
             }
         });
-    }
-
-    @Override
-    public void onPause(){
-        super.onPause();
-        m.free();
-    }
-
-    @Override
-    public void onRestart(){
-        super.onRestart();
-        Menu_info.DISPLAY = Menu_info.DISPLAY_ALPHABET;
-        m = new Common_menu_display(this);
-        m.setBackgroundColor(Color.rgb(22,26,44));
-        setContentView(m);
     }
 
     @Override

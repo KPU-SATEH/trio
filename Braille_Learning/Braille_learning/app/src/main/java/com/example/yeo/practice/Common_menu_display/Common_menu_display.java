@@ -80,15 +80,12 @@ public class Common_menu_display extends View {
         }
     }
 
-
-
     public Common_menu_display(Context context) {
         super(context);
         SetBackground();
     }
 
     public void SetBackground(){
-
                 switch (Menu_info.DISPLAY) {
                     case 0:
                         image1 = BitmapFactory.decodeResource(getResources(), R.drawable.tutorial);
@@ -187,9 +184,6 @@ public class Common_menu_display extends View {
                         image1 = BitmapFactory.decodeResource(getResources(), R.drawable.student);
                         break;
                 }
-
-
-
 
         Finger_init();
     }

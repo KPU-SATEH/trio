@@ -94,6 +94,32 @@ public class Talk_Menu_quiz_abbreviation extends FragmentActivity {
         m = new Common_menu_display(this);
         m.setBackgroundColor(Color.rgb(22,26,44));
         setContentView(m);
+        m.setOnHoverListener(new View.OnHoverListener() {
+            @Override
+            public boolean onHover(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_HOVER_ENTER: //손가락 1개를 화면에 터치하였을 경우
+                        startService(new Intent(Talk_Menu_quiz_abbreviation.this, Sound_Manager.class));
+                        posx1 = (int)event.getX(); //현재 좌표의 x좌표값 저장
+                        posy1 = (int)event.getY();  //현재 좌표의 y좌표값 저장
+                        break;
+                    case MotionEvent.ACTION_HOVER_EXIT: // 손가락 1개를 화면에서 떨어트렸을 경우
+                        posx2 = (int)event.getX();  //손가락 1개를 화면에서 떨어트린 x좌표값 저장
+                        posy2 = (int)event.getY(); //손가락 1개를 화면에서 떨어트린 y좌표값 저장
+                        if(enter == true) {  //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 약자 및 약어 퀴즈로 접속
+                            if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
+                                Menu_info.MENU_QUIZ_INFO = Menu_info.MENU_QUIZ_ABBREVIATION;
+                                score.sel =7;
+                                Intent intent = new Intent(Talk_Menu_quiz_abbreviation.this, Talk_Menu_quiz_reading.class);
+                                startActivityForResult(intent, Menu_info.MENU_QUIZ_ABBREVIATION);
+                                overridePendingTransition(R.anim.fade, R.anim.hold);
+                            }
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
