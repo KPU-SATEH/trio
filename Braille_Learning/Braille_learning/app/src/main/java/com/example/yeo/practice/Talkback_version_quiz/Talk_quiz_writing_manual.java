@@ -122,11 +122,37 @@ public class Talk_quiz_writing_manual extends FragmentActivity {
     }
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        speechani.start();
+    public void onRestart(){
+        super.onRestart();
+        Ani_reset();
     }
 
+    public void Ani_reset(){
+        speechimage = (ImageView) findViewById(R.id.imageView38);
+        speechimage.setBackgroundResource(R.drawable.speechani);
+        speechani = (AnimationDrawable) speechimage.getBackground();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        speechimage = (ImageView) findViewById(R.id.imageView38);
+        speechimage.setBackgroundResource(R.drawable.speechani);
+        speechani = (AnimationDrawable) speechimage.getBackground();
+        speechani.start();
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        Ani_memory_clear();
+    }
+
+    public void Ani_memory_clear(){
+        findViewById(R.id.imageView38).setBackground(null);
+        speechimage=null;
+        speechani=null;
+        System.gc();
+    }
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction() & MotionEvent.ACTION_MASK) {

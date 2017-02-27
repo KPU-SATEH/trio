@@ -1,8 +1,12 @@
 package com.example.yeo.practice;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -166,6 +170,7 @@ public class MainActivity extends FragmentActivity {
                                     startService(new Intent(MainActivity.this, Version_check_service.class));
                                     Timer_Reset(); //시간 카운트 시작
                                     versionani.start();
+
                                 }
                                 break;
                             case MotionEvent.ACTION_HOVER_MOVE:
@@ -264,25 +269,41 @@ public class MainActivity extends FragmentActivity {
         versionimage.setBackgroundResource(R.drawable.versionani);
         versionani = (AnimationDrawable) versionimage.getBackground();
 
+    }
 
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        Ani_reset();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Ani_memory_clear();
     }
 
     public void Ani_memory_clear(){
+        findViewById(R.id.imageView37).setBackground(null);
         versionimage=null;
         versionani=null;
         System.gc();
     }
 
+    public void Ani_reset(){
+        versionimage = (ImageView) findViewById(R.id.imageView37);
+        versionimage.setBackgroundResource(R.drawable.versionani);
+        versionani = (AnimationDrawable) versionimage.getBackground();
+    }
+
     @Override
     public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event){ //토크백 활성화 되었을 시 호출되는 함수
         Blind_person = super.dispatchPopulateAccessibilityEvent(event);
-
         return Blind_person;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
-
         if(test==false) {
             if (Blind_person == true) { //시각장애인 전용버전일경우
                 if (one_finger == false) { // hover이벤트가 발생되지 않았을 경우
@@ -295,6 +316,7 @@ public class MainActivity extends FragmentActivity {
                                 Version_check_service.menu_page=Menu_info.version_restart;
                                 startService(new Intent(MainActivity.this, Version_check_service.class));
                                 Timer_Stop();
+
                             }
 
                             break;
@@ -345,6 +367,7 @@ public class MainActivity extends FragmentActivity {
                             startService(new Intent(MainActivity.this, Version_check_service.class));
                             type = INIT;
                             Timer_Stop();
+
                             if(versionani.isRunning()){
                                 versionani.stop();
                                 versionani.start();
@@ -413,7 +436,6 @@ public class MainActivity extends FragmentActivity {
                                     finish();
                                     Timer_Stop();
                                     WHclass.Braiile_type=1;
-                                    Ani_memory_clear();
                                     break;
                                 case 2:
                                     Intent i2 = new Intent(MainActivity.this, Menu_Tutorial.class);
@@ -422,7 +444,6 @@ public class MainActivity extends FragmentActivity {
                                     WHclass.Braiile_type=2;
                                     finish();
                                     Timer_Stop();
-                                    Ani_memory_clear();
                                     break;
                             }
 

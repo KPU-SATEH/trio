@@ -31,6 +31,13 @@ public class quiz_reading_manual extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_common_quiz_reading_manual);
+        init();
+
+
+
+    }
+
+    public void init(){
         speechimage = (ImageView) findViewById(R.id.imageView2);
         speechimage.setBackgroundResource(R.drawable.speechani);
         speechani = (AnimationDrawable) speechimage.getBackground();
@@ -45,14 +52,35 @@ public class quiz_reading_manual extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
         decorView.setSystemUiVisibility( uiOption );
+    }
 
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        init();
 
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+        speechimage = (ImageView) findViewById(R.id.imageView2);
+        speechimage.setBackgroundResource(R.drawable.speechani);
+        speechani = (AnimationDrawable) speechimage.getBackground();
         speechani.start();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Ani_memory_clear();
+    }
+
+    public void Ani_memory_clear(){
+        findViewById(R.id.imageView2).setBackground(null);
+        speechimage=null;
+        speechani=null;
+        System.gc();
     }
 
     public IBinder onBind(Intent intent) {

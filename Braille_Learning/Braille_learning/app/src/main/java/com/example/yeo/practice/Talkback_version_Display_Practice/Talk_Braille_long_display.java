@@ -32,6 +32,11 @@ public class Talk_Braille_long_display extends View {
     public int third_x=-100, third_y=-100;
     public int x=0, y=0;
 
+
+
+
+
+
     public int dot_count=0; // 점자의 칸 수를 저장하는 변수
 
 
@@ -106,13 +111,6 @@ public class Talk_Braille_long_display extends View {
                     textname_7 = Talk_Braille_long_practice.Trans_dot_name;
                 }
                 break;
-            case 12:
-                dot_count = MainActivity.communication_braille_db.communication_db_manager.getCount(MainActivity.communication_braille_db.communication_db_manager.My_Note_page); //데이터베이스로부터 점자 칸의 갯수를 불러옴
-                textname_7 = MainActivity.communication_braille_db.communication_db_manager.getName(MainActivity.communication_braille_db.communication_db_manager.My_Note_page); //점자 이름
-                dot_temp[0]=MainActivity.communication_braille_db.communication_db_manager.getMatrix_1(MainActivity.communication_braille_db.communication_db_manager.My_Note_page); //첫번째 행
-                dot_temp[1]=MainActivity.communication_braille_db.communication_db_manager.getMatrix_2(MainActivity.communication_braille_db.communication_db_manager.My_Note_page); //두번째 행
-                dot_temp[2]=MainActivity.communication_braille_db.communication_db_manager.getMatrix_3(MainActivity.communication_braille_db.communication_db_manager.My_Note_page); //세번째 행
-                break;
         }
 
         for(int i=0 ; i<3 ; i++){
@@ -121,7 +119,7 @@ public class Talk_Braille_long_display extends View {
                     text_7[i][j]=Talk_Braille_long_practice.Dot_letter.letter_Array.get(page)[i][j];
                 else if(WHclass.sel==9)
                     text_7[i][j]=Talk_Braille_long_practice.Dot_word.word_Array.get(page)[i][j];
-                else if(WHclass.sel==10 || WHclass.sel==12)
+                else if(WHclass.sel==10)
                     text_7[i][j] = dot_temp[i].charAt(j)-'0';
                 else if(WHclass.sel==11) {
                     if(Talk_Braille_long_practice.Trans_success==true)

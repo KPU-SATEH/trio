@@ -78,6 +78,21 @@ public class Talk_Menu_quiz extends FragmentActivity {
     }
 
     @Override
+    public void onPause(){
+        super.onPause();
+        m.free();
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        Menu_info.DISPLAY = Menu_info.DISPLAY_QUIZ;
+        m = new Common_menu_display(this);
+        m.setBackgroundColor(Color.rgb(22,26,44));
+        setContentView(m);
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN: //손가락 1개를 화면에 터치하였을 경우

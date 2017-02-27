@@ -35,6 +35,12 @@ public class Menu_quiz_reading extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Menu_quiz_inside_service.menu_page = Menu_info.MENU_QUIZ_READING;
+        startService(new Intent(this, Menu_quiz_inside_service.class));
+        init();
+    }
+
+    public void init(){
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
@@ -53,10 +59,21 @@ public class Menu_quiz_reading extends FragmentActivity {
         setContentView(m);
 
 
-        Menu_quiz_inside_service.menu_page = Menu_info.MENU_QUIZ_READING;
-        startService(new Intent(this, Menu_quiz_inside_service.class));
 
     }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        m.free();
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        init();
+    }
+
     public IBinder onBind(Intent intent) {
         return null;
     }

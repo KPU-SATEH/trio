@@ -46,6 +46,11 @@ public class Menu_Mynote_master extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        init();
+
+    }
+
+    public void init(){
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
@@ -61,12 +66,17 @@ public class Menu_Mynote_master extends FragmentActivity {
         m.setBackgroundColor(Color.rgb(22,26,44));
 
         setContentView(m);
+    }
 
-
-
-
-
-
+    @Override
+    public void onPause(){
+        super.onPause();
+        m.free();
+    }
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        init();
     }
 
     @Override

@@ -31,6 +31,10 @@ public class Menu_master_practice extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        init();
+    }
+
+    public void init(){
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
@@ -47,6 +51,19 @@ public class Menu_master_practice extends FragmentActivity {
 
         setContentView(m);
     }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        m.free();
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        init();
+    }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -103,6 +120,7 @@ public class Menu_master_practice extends FragmentActivity {
                     startService(new Intent(this, slied.class));
                     startService(new Intent(this, Menu_main_service.class));
                     finish();
+
                 }
                 else if(newdrag-olddrag>WHclass.Drag_space) { //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
                     Intent intent = new Intent(this,Menu_basic_practice.class);

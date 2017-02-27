@@ -80,6 +80,22 @@ public class Talk_Menu_Braille_translation extends FragmentActivity {
             }
         });
     }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        m.free();
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        Menu_info.DISPLAY = Menu_info.DISPLAY_TRANS;
+        m = new Common_menu_display(this);
+        m.setBackgroundColor(Color.rgb(22,26,44));
+        setContentView(m);
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction() & MotionEvent.ACTION_MASK) {

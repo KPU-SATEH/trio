@@ -6,11 +6,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.AnimationDrawable;
 import android.view.View;
 
 import com.example.yeo.practice.Menu_info;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.WHclass;
+
+import java.util.Set;
 
 /**
  * Created by chanh on 2017-02-08.
@@ -60,12 +63,14 @@ public class Common_menu_display extends View {
         메뉴화면을 출력해주는 클래스
         */
 
-    private Bitmap image;
+    private Bitmap image1;
+    public static int number=0;
 
     public float width= WHclass.width; //가로
     public int finger_x[] = new int[3];
     public int finger_y[] = new int[3];
     public float finger_circle=width*(float)0.02; // 동그라미 크기 메크로
+    boolean finish =false;
 
 
     public void Finger_init(){ //화면 초기화 함수. 화면이 이동될 때 점자를 다시 그려줌.
@@ -79,109 +84,111 @@ public class Common_menu_display extends View {
 
     public Common_menu_display(Context context) {
         super(context);
+        SetBackground();
+    }
 
-        if(image!=null){
-            free();
-        }
+    public void SetBackground(){
 
-        switch(Menu_info.DISPLAY){
-            case 0:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.tutorial);
-                break;
-            case 1:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.basic_practice);
-                break;
-            case 11:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.first);
-                break;
-            case 12:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.vowel);
-                break;
-            case 13:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.last);
-                break;
-            case 14:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.number);
-                break;
-            case 15:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.alphabet);
-                break;
-            case 16:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.sentence);
-                break;
-            case 17:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.promise);
-                break;
-            case 2:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.master_practice);
-                break;
-            case 21:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.oneword);
-                break;
-            case 22:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.word);
-                break;
-            case 3:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.translation);
-                break;
-            case 4:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.quiz);
-                break;
-            case 41:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.init_quiz);
-                break;
-            case 42:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.vowel_quiz);
-                break;
-            case 43:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.final_quiz);
-                break;
-            case 44:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.number_quiz);
-                break;
-            case 45:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.alphabet_quiz);
-                break;
-            case 46:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.sentence_quiz);
-                break;
-            case 47:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.promise_quiz);
-                break;
-            case 48:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.letter_quiz);
-                break;
-            case 49:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.word_quiz);
-                break;
-            case 401:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.read);
-                break;
-            case 402:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.write);
-                break;
-            case 5:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.mynote);
-                break;
-            case 51:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.mynote_basic);
-                break;
-            case 52:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.mynote_master);
-                break;
-            case 53:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.mynote_communication);
-                break;
-            case 6:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.comunication);
-                break;
-            case 61:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.teacher);
-                break;
-            case 62:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.student);
-                break;
-        }
+                switch (Menu_info.DISPLAY) {
+                    case 0:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.tutorial);
+                        break;
+                    case 1:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.basic_practice);
+                        break;
+                    case 11:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.first);
+                        break;
+                    case 12:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.vowel);
+                        break;
+                    case 13:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.last);
+                        break;
+                    case 14:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.number);
+                        break;
+                    case 15:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.alphabet);
+                        break;
+                    case 16:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.sentence);
+                        break;
+                    case 17:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.promise);
+                        break;
+                    case 2:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.master_practice);
+                        break;
+                    case 21:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.oneword);
+                        break;
+                    case 22:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.word);
+                        break;
+                    case 3:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.translation);
+                        break;
+                    case 4:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.quiz);
+                        break;
+                    case 41:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.init_quiz);
+                        break;
+                    case 42:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.vowel_quiz);
+                        break;
+                    case 43:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.final_quiz);
+                        break;
+                    case 44:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.number_quiz);
+                        break;
+                    case 45:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.alphabet_quiz);
+                        break;
+                    case 46:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.sentence_quiz);
+                        break;
+                    case 47:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.promise_quiz);
+                        break;
+                    case 48:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.letter_quiz);
+                        break;
+                    case 49:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.word_quiz);
+                        break;
+                    case 401:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.read);
+                        break;
+                    case 402:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.write);
+                        break;
+                    case 5:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.mynote);
+                        break;
+                    case 51:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.mynote_basic);
+                        break;
+                    case 52:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.mynote_master);
+                        break;
+                    case 53:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.mynote_communication);
+                        break;
+                    case 6:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.comunication);
+                        break;
+                    case 61:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.teacher);
+                        break;
+                    case 62:
+                        image1 = BitmapFactory.decodeResource(getResources(), R.drawable.student);
+                        break;
+                }
+
+
 
 
         Finger_init();
@@ -191,7 +198,10 @@ public class Common_menu_display extends View {
         int width = (int)WHclass.width;
         int height = (int)WHclass.height;
         Rect dst = new Rect(0, 0, height, width);
-        canvas.drawBitmap(image, null, dst, null);
+
+        if(finish==false)
+        canvas.drawBitmap(image1, null, dst, null);
+
 
 
         Paint finger = new Paint();
@@ -213,8 +223,11 @@ public class Common_menu_display extends View {
     }
 
     public void free(){
-        image.recycle();
-        image=null;
+        if(image1!=null) {
+            image1.recycle();
+            image1 = null;
+        }
+        finish = true;
     }
 
 }

@@ -122,8 +122,37 @@ public class Talk_quiz_reading_manual extends FragmentActivity {
     }
 
     @Override
+    public void onRestart(){
+        super.onRestart();
+        Ani_reset();
+    }
+
+    public void Ani_reset(){
+        speechimage = (ImageView) findViewById(R.id.imageView2);
+        speechimage.setBackgroundResource(R.drawable.speechani);
+        speechani = (AnimationDrawable) speechimage.getBackground();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Ani_memory_clear();
+    }
+
+    public void Ani_memory_clear(){
+        findViewById(R.id.imageView2).setBackground(null);
+        speechimage=null;
+        speechani=null;
+        System.gc();
+    }
+
+
+    @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+        speechimage = (ImageView) findViewById(R.id.imageView2);
+        speechimage.setBackgroundResource(R.drawable.speechani);
+        speechani = (AnimationDrawable) speechimage.getBackground();
         speechani.start();
     }
 

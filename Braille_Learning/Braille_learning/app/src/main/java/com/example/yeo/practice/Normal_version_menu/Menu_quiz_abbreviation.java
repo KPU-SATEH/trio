@@ -30,11 +30,13 @@ public class Menu_quiz_abbreviation extends FragmentActivity {
     int y1drag,y2drag;
     int posx1,posx2,posy1,posy2;
     boolean enter = true;
-    quiz_reading_manual manual;
     quiz_score score;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        init();
+    }
+    public void init(){
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
@@ -50,8 +52,20 @@ public class Menu_quiz_abbreviation extends FragmentActivity {
         m.setBackgroundColor(Color.rgb(22,26,44));
 
         setContentView(m);
-
     }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        m.free();
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        init();
+    }
+
     public IBinder onBind(Intent intent) {
         return null;
     }

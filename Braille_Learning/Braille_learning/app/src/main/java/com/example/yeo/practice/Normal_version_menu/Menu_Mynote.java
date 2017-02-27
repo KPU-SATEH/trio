@@ -34,6 +34,10 @@ public class Menu_Mynote extends FragmentActivity {
      @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        init();
+     }
+
+    public void init(){
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
@@ -44,12 +48,23 @@ public class Menu_Mynote extends FragmentActivity {
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
         decorView.setSystemUiVisibility( uiOption );
-         Menu_info.DISPLAY = Menu_info.DISPLAY_MYNOTE;
-         m = new Common_menu_display(this);
-         m.setBackgroundColor(Color.rgb(22,26,44));
+        Menu_info.DISPLAY = Menu_info.DISPLAY_MYNOTE;
+        m = new Common_menu_display(this);
+        m.setBackgroundColor(Color.rgb(22,26,44));
 
-         setContentView(m);
-     }
+        setContentView(m);
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        m.free();
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        init();
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {

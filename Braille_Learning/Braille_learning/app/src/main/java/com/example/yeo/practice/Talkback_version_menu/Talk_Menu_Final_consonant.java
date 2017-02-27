@@ -82,6 +82,21 @@ public class Talk_Menu_Final_consonant extends FragmentActivity {
 
 
     }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        m.free();
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        Menu_info.DISPLAY = Menu_info.DISPLAY_FINAL;
+        m = new Common_menu_display(this);
+        m.setBackgroundColor(Color.rgb(22,26,44));
+        setContentView(m);
+    }
     public IBinder onBind(Intent intent) {
         return null;
     }

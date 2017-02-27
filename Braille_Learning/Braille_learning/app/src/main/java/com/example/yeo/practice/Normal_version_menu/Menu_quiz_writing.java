@@ -35,6 +35,12 @@ public class Menu_quiz_writing extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Menu_quiz_inside_service.menu_page = Menu_info.MENU_QUIZ_WRITING;
+        startService(new Intent(this, Menu_quiz_inside_service.class));
+        init();
+    }
+
+    public void init(){
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
@@ -44,17 +50,26 @@ public class Menu_quiz_writing extends FragmentActivity {
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
-         decorView.setSystemUiVisibility( uiOption );
+        decorView.setSystemUiVisibility( uiOption );
 
         Menu_info.DISPLAY = Menu_info.DISPLAY_QUIZ_WRITING;
         m = new Common_menu_display(this);
         m.setBackgroundColor(Color.rgb(22,26,44));
-
         setContentView(m);
-
-        Menu_quiz_inside_service.menu_page = Menu_info.MENU_QUIZ_WRITING;
-        startService(new Intent(this, Menu_quiz_inside_service.class));
     }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        m.free();
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        init();
+    }
+
     public IBinder onBind(Intent intent) {
         return null;
     }
