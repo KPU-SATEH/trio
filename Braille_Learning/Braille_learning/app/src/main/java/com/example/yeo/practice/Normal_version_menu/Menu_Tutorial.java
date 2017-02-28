@@ -10,11 +10,9 @@ import android.view.View;
 
 import com.example.yeo.practice.Common_menu_display.Common_menu_display;
 import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
-import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Normal_version_tutorial.Tutorial;
-import com.example.yeo.practice.Normal_version_tutorial.Tutorial_service;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_sound.slied;
 import com.example.yeo.practice.*;
@@ -93,12 +91,10 @@ public class Menu_Tutorial extends FragmentActivity {
                 posy2 = (int)event.getY(); //손가락 1개를 화면에서 떨어트린 y좌표값 저장
                 if(enter == true) {   //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 문장부호 연습으로 접속
                     if (posx2 < posx1 + WHclass.Touch_space&& posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
-                    /*
+
                         Intent intent = new Intent(Menu_Tutorial.this, Tutorial.class);
                         startActivityForResult(intent, Menu_info.MENU_TUTORIAL);
                         overridePendingTransition(R.anim.fade, R.anim.hold);
-                        startService(new Intent(this, Tutorial_service.class));
-                        */
                     }
                 }
                 else    enter = true;

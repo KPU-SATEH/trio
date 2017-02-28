@@ -6,6 +6,7 @@ package com.example.yeo.practice.Common_sound;
 
 import android.util.Log;
 
+import com.example.yeo.practice.Normal_version_tutorial.Tutorial;
 import com.example.yeo.practice.WHclass;
 import net.daum.mf.speech.api.TextToSpeechClient;
 import net.daum.mf.speech.api.TextToSpeechListener;
@@ -14,6 +15,7 @@ public class Braille_Text_To_Speech implements TextToSpeechListener {
     String TAG = "Braille_Text_To_Speech";
     public static boolean tts_check = false;
     private TextToSpeechClient TTS;
+    public boolean Tutorial_lock=false;
 
     public Braille_Text_To_Speech(){
         TTS = new TextToSpeechClient.Builder()
@@ -85,6 +87,16 @@ public class Braille_Text_To_Speech implements TextToSpeechListener {
         Log.i(TAG, statusMessage);
     }
 
+    public void Tutorial_lock(){
+        Tutorial_lock=true;
+    }
+
+    public void Tutorial_unlock(){
+        Tutorial_lock=false;
+    }
+
+
+
     @Override
     public void onFinished() { //음성합성이 종료될 때 호출된다.
         int intSentSize = TTS.getSentDataSize();      //세션 중에 전송한 데이터 사이즈
@@ -92,5 +104,8 @@ public class Braille_Text_To_Speech implements TextToSpeechListener {
         tts_check = false;
         final String strInacctiveText = "handleFinished() SentSize : " + intSentSize + "     RecvSize : " + intRecvSize;
         Log.i(TAG, strInacctiveText);
+
+        if(Tutorial_lock==true)
+            Tutorial_unlock();
     }
 }

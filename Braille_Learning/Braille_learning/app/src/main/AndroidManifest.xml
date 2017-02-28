@@ -215,64 +215,6 @@
             android:screenOrientation="sensorLandscape" />
 
         <service
-            android:name=".Normal_version_tutorial.Tutorial_service"
-            android:enabled="true"
-            android:exported="true" />
-
-        <activity
-            android:name=".Normal_version_tutorial.Tutorial_tutorial"
-            android:label=""
-            android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".Normal_version_tutorial.Tutorial_basic_practice"
-            android:label=""
-            android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".Normal_version_tutorial.Tutorial_master_practice"
-            android:label=""
-            android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".Normal_version_tutorial.Tutorial_quiz"
-            android:label=""
-            android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".Normal_version_tutorial.Tutorial_basic_init"
-            android:label=""
-            android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".Normal_version_tutorial.Tutorial_basic_vowel"
-            android:label=""
-            android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".Normal_version_tutorial.Tutorial_basic_final"
-            android:label=""
-            android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".Normal_version_tutorial.Tutorial_basic_number"
-            android:label=""
-            android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".Normal_version_tutorial.Tutorial_basic_english"
-            android:label=""
-            android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".Normal_version_tutorial.Tutorial_basic_sentence"
-            android:label=""
-            android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".Normal_version_tutorial.Tutorial_basic_abbreviation"
-            android:label=""
-            android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".Normal_version_tutorial.Tutorial_dot_practice"
-            android:label=""
-            android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".Normal_version_tutorial.Tutorial_dot_lecture"
-            android:label=""
-            android:screenOrientation="sensorLandscape" />
-
-        <service
             android:name=".Common_quiz_sound.score_service"
             android:enabled="true"
             android:exported="true" />
@@ -545,9 +487,38 @@
             android:name=".Talkback_version_menu.Talk_Menu_communication_student"
             android:label=""
             android:screenOrientation="sensorLandscape" />
-        <activity android:name=".Normal_version_menu.Menu_Mynote_communication"
+        <activity
+            android:name=".Normal_version_menu.Menu_Mynote_communication"
             android:label=""
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Normal_version_tutorial.Tutorial_tutorial"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Normal_version_tutorial.Tutorial_basic_practice"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Normal_version_tutorial.Tutorial_master_practice"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Normal_version_tutorial.Tutorial_translation"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Normal_version_tutorial.Tutorial_quiz"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Normal_version_tutorial.Tutorial_mynote"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Normal_version_tutorial.Tutorial_communication"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
     </application>
 
 </manifest>

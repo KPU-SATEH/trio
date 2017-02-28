@@ -7,15 +7,11 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.yeo.practice.Common_menu_display.Common_menu_display;
 import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
-import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.R;
-import com.example.yeo.practice.Normal_version_tutorial.Tutorial;
-import com.example.yeo.practice.Normal_version_tutorial.Tutorial_service;
 import com.example.yeo.practice.WHclass;
 import com.example.yeo.practice.Common_sound.slied;
 import com.example.yeo.practice.*;

@@ -20,7 +20,7 @@ import com.example.yeo.practice.Normal_version_menu.Menu_master_practice;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.WHclass;
 
-public class Tutorial_basic_practice extends AppCompatActivity {
+public class Tutorial_mynote extends AppCompatActivity {
     Common_menu_display m;
 
     int oldDragX,newDragX;
@@ -29,14 +29,17 @@ public class Tutorial_basic_practice extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         init();
-        Menu_main_service.menu_page = Menu_info.MENU_BASIC_PRACTICE;
+
+        Menu_main_service.menu_page = Menu_info.MENU_MYNOTE;
         startService(new Intent(this, Menu_main_service.class));
+
         thread = new SoundThread();
         thread.start();
 
-
     }
+
 
 
     class SoundThread extends Thread{
@@ -46,16 +49,15 @@ public class Tutorial_basic_practice extends AppCompatActivity {
             while(true){
                 if(WHclass.SoundCheck==true){
                     MainActivity.Braille_TTS.Tutorial_lock();
-                    MainActivity.Braille_TTS.TTS_Play("잘하셨습니다. 현재 메뉴는 7개의 대 메뉴 중, 두번째 메뉴인 기초과정 메뉴이며, 초성, 모음, 종성, " +
-                            "숫자, 알파벳, 문장부호, 약자 및 약어와 같이, 기초적인 점자 연습이 하위 메뉴들로 구성되어 있습니다. 다음 메뉴인 숙련과정 메뉴로 이동하겠습니다. " +
-                            "준비되었으면, 다음 메뉴로 이동하시기 바랍니다. ");
+                    MainActivity.Braille_TTS.TTS_Play("잘하셨습니다. 현재 메뉴는 7개의 대 메뉴 중, 여섯번째 메뉴인 나만의 단어장 메뉴 입니다. 점자 학습을 진행하다가, 손가락 3개를 이용하여 화면을 터치하게 되면," +
+                            "해당 점자가 나만의 단어장에 저장됩니다. 나만의 단어장에서 손가락 3개를 이용하여 화면을 터치하게 되면, 저장되어 있는 점자가 삭제 됩니다."+
+                            "마지막 메뉴인 선생님과의 대화 메뉴로 이동하겠습니다. 준비되었으면, 다음 메뉴로 이동하시기 바랍니다.");
                     WHclass.SoundCheck=false;
                     break;
                 }
             }
         }
     }
-
     public void init(){
         View decorView = getWindow().getDecorView();
         int uiOption = getWindow().getDecorView().getSystemUiVisibility();
@@ -67,8 +69,7 @@ public class Tutorial_basic_practice extends AppCompatActivity {
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
         decorView.setSystemUiVisibility( uiOption );
-
-        Menu_info.DISPLAY = Menu_info.DISPLAY_BASIC;
+        Menu_info.DISPLAY = Menu_info.DISPLAY_MYNOTE;
         m = new Common_menu_display(this);
         m.setBackgroundColor(Color.rgb(22,26,44));
 
@@ -100,8 +101,8 @@ public class Tutorial_basic_practice extends AppCompatActivity {
                     newDragX = (int)event.getX();
                     newDragY = (int)event.getY();
                     if(oldDragX-newDragX> WHclass.Drag_space) {  //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
-                        Intent master = new Intent(Tutorial_basic_practice.this, Tutorial_master_practice.class);
-                        startActivity(master);
+                        Intent quiz = new Intent(Tutorial_mynote.this, Tutorial_communication.class);
+                        startActivity(quiz);
                         overridePendingTransition(R.anim.fade, R.anim.hold);
                         slied.slied = Menu_info.next;
                         startService(new Intent(this, slied.class));
@@ -109,9 +110,9 @@ public class Tutorial_basic_practice extends AppCompatActivity {
                     }
                     else if(newDragY-oldDragY> WHclass.Drag_space) {  //손가락 2개를 이용하여 상단에서 하단으로 드래그할 경우 현재 메뉴의 상세정보 음성 출력
                         MainActivity.Braille_TTS.Tutorial_lock();
-                        MainActivity.Braille_TTS.TTS_Play("잘하셨습니다. 현재 메뉴는 7개의 대 메뉴 중, 두번째 메뉴인 기초과정 메뉴이며, 초성, 모음, 종성, " +
-                                "숫자, 알파벳, 문장부호, 약자 및 약어와 같이, 기초적인 점자 연습이 하위 메뉴들로 구성되어 있습니다. 다음 메뉴인 숙련과정 메뉴로 이동하겠습니다. " +
-                                "준비되었으면, 다음 메뉴로 이동하시기 바랍니다. ");
+                        MainActivity.Braille_TTS.TTS_Play("잘하셨습니다. 현재 메뉴는 7개의 대 메뉴 중, 여섯번째 메뉴인 나만의 단어장 메뉴 입니다. 점자 학습을 진행하다가, 손가락 3개를 이용하여 화면을 터치하게 되면," +
+                                "해당 점자가 나만의 단어장에 저장됩니다. 나만의 단어장에서 손가락 3개를 이용하여 화면을 터치하게 되면, 저장되어 있는 점자가 삭제 됩니다."+
+                                "마지막 메뉴인 선생님과의 대화 메뉴로 이동하겠습니다. 준비되었으면, 다음 메뉴로 이동하시기 바랍니다.");
                     }
                     else if (oldDragY - newDragY > WHclass.Drag_space) {//손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
                         onBackPressed();

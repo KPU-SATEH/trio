@@ -28,6 +28,7 @@ import com.example.yeo.practice.Common_mynote_database.Communication_Braille_DB;
 import com.example.yeo.practice.Common_mynote_database.Master_Braille_DB;
 import com.example.yeo.practice.Common_sound.Braille_Text_To_Speech;
 import com.example.yeo.practice.Normal_version_menu.Menu_Tutorial;
+import com.example.yeo.practice.Normal_version_tutorial.Tutorial;
 import com.example.yeo.practice.Talkback_version_menu.Talk_Menu_tutorial;
 
 import junit.runner.Version;
@@ -441,8 +442,10 @@ public class MainActivity extends FragmentActivity {
                                     finish();
                                     Timer_Stop();
                                     WHclass.Braiile_type=1;
+
                                     break;
                                 case 2:
+                                    //Intent i2 = new Intent(MainActivity.this, Tutorial.class);
                                     Intent i2 = new Intent(MainActivity.this, Menu_Tutorial.class);
                                     startActivityForResult(i2, CODE);
                                     overridePendingTransition(R.anim.fade, R.anim.hold);

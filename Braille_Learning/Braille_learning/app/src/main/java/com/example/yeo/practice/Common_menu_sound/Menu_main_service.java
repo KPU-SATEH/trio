@@ -7,6 +7,7 @@ import android.os.IBinder;
 
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
+import com.example.yeo.practice.WHclass;
 
 /*
 대메뉴 화면 음성 출력 서비스
@@ -77,6 +78,8 @@ public class Menu_main_service extends Service {
             public void onCompletion(MediaPlayer mediaPlayer) {
                 main[previous].reset();
                 main[previous] = MediaPlayer.create(Menu_main_service.this, rawid[previous]);
+                if(WHclass.SoundCheck==false)
+                    WHclass.SoundCheck=true;
             }
         });
         mainfinish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
