@@ -6,14 +6,12 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 
 import com.example.yeo.practice.Common_braille_data.dot_sentence;
-import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_display;
-import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_practice;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
+import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_display;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_display;
-import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_practice;
 import com.example.yeo.practice.WHclass;
 
 
@@ -43,7 +41,7 @@ public class Sentence_service extends Service {
     @Override
     public void onCreate(){
 
-        sentencefinish = MediaPlayer.create(this, R.raw.setence_finish);
+        sentencefinish = MediaPlayer.create(this, R.raw.sentence_finish);
         sentencefinish.setLooping(false);
 
         sentence = new MediaPlayer[]{ssangopen, ssangclose, gualhoopen, gualhoclose, surprise, finish_dot, rest_dot, plus, minus, multiple,
@@ -70,7 +68,7 @@ public class Sentence_service extends Service {
         }
         if(sentencefinish.isPlaying()){
             sentencefinish.reset();
-            sentencefinish = MediaPlayer.create(this, R.raw.setence_finish);
+            sentencefinish = MediaPlayer.create(this, R.raw.sentence_finish);
         }
         Sound_Manager.stop = false;
     }
@@ -119,7 +117,7 @@ public class Sentence_service extends Service {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
                 sentencefinish.reset();
-                sentencefinish = MediaPlayer.create(Sentence_service.this, R.raw.setence_finish);
+                sentencefinish = MediaPlayer.create(Sentence_service.this, R.raw.sentence_finish);
             }
         });
         return START_NOT_STICKY;
