@@ -48,8 +48,10 @@ public class Sentence_service extends Service {
                 divide, equal, sangopen, sangclose, wave, twodot, sweat, billiboard};
         // 선언된 음성 변수들을 배열 변수에 저장
 
-        rawid =new int[]{R.raw.ssangopen,R.raw.ssangclose,R.raw.gualhoopen,R.raw.gualhoclose,R.raw.surprise,R.raw.finish_dot,R.raw.rest_dot,R.raw.plus
-                ,R.raw.minus,R.raw.multiple,R.raw.divide,R.raw.equal,R.raw.sangopen,R.raw.sangclose,R.raw.wave,R.raw.twodot,R.raw.sweat,R.raw.billiboard};
+        rawid =new int[]{R.raw.ssangopen,R.raw.ssangclose,R.raw.gualhoopen,
+            R.raw.gualhoclose,R.raw.surprise,R.raw.finish_dot,R.raw.rest_dot,R.raw.plus,
+            R.raw.minus,R.raw.multiple,R.raw.divide,R.raw.equal,R.raw.sangopen,R.raw.sangclose,
+            R.raw.wave,R.raw.twodot,R.raw.sweat,R.raw.billiboard};
         // 음성파일의 id 주소를 배열변수에 저장
 
 
