@@ -48,10 +48,11 @@ public class Sentence_service extends Service {
                 divide, equal, sangopen, sangclose, wave, twodot, sweat, billiboard};
         // 선언된 음성 변수들을 배열 변수에 저장
 
-        rawid =new int[]{R.raw.ssangopen,R.raw.ssangclose,R.raw.gualhoopen,
-            R.raw.gualhoclose,R.raw.surprise,R.raw.finish_dot,R.raw.rest_dot,R.raw.plus,
-            R.raw.minus,R.raw.multiple,R.raw.divide,R.raw.equal,R.raw.sangopen,R.raw.sangclose,
-            R.raw.wave,R.raw.twodot,R.raw.sweat,R.raw.billiboard};
+        rawid =new int[]{R.raw.sentence_d_quotation_open,R.raw.sentence_d_quotation_close,R.raw.sentence_parenthesis_open,
+                R.raw.sentence_parenthesis_close,R.raw.sentence_exclamation,R.raw.sentence_period,R.raw.sentence_comma,R.raw.sentence_add,
+                R.raw.sentence_sub,R.raw.sentence_mul,R.raw.sentence_div,R.raw.sentence_same,R.raw.sentence_s_quotation_open,
+                R.raw.sentence_s_quotation_close, R.raw.sentence_swung,R.raw.sentence_colon,
+                R.raw.sentence_s_colon,R.raw.sentence_reference};
         // 음성파일의 id 주소를 배열변수에 저장
 
 
@@ -59,8 +60,6 @@ public class Sentence_service extends Service {
             sentence[i] = MediaPlayer.create(this, rawid[i]);
             sentence[i].setLooping(false);
         }
-
-
     }
 
     public void init(){ //사용한 음성파일을 재 설정해주는 함수
