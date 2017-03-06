@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="daum-speech-openapi-5.0-unspecified">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/Braille_learning/daum-speech-openapi-5.0/unspecified/res" />
-      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/Braille_learning/daum-speech-openapi-5.0/unspecified/jars/classes.jar!/" />
-      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/Braille_learning/daum-speech-openapi-5.0/unspecified/jars/libs/dialoid-apklib-1.0.0.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/2be5bfb01ba0233cb25728b2f2c5cc45136b0287/output/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/2be5bfb01ba0233cb25728b2f2c5cc45136b0287/output/jars/libs/dialoid-apklib-1.0.0.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/2be5bfb01ba0233cb25728b2f2c5cc45136b0287/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

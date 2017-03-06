@@ -7,14 +7,12 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 
 import com.example.yeo.practice.Common_braille_data.dot_alphabet;
-import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_display;
-import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_practice;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
+import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_display;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_display;
-import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_practice;
 import com.example.yeo.practice.WHclass;
 
 public class alphabet_service extends Service {
@@ -45,12 +43,17 @@ public class alphabet_service extends Service {
         alphabet = new MediaPlayer[] {roma,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,fortis,fa,fb,fc,fd,fe,ff,fg,fh,fi,fj,fk,fl,fm,fn,fo,fp,fq,fr,fs,ft,fu,fv,fw,fx,fy,fz};
         // 선언된 음성 변수들을 배열 변수에 저장
 
-        rawid = new int[] {R.raw.alphabet_roma,R.raw.alphabet_a,R.raw.alphabet_b,R.raw.alphabet_c,R.raw.alphabet_d,R.raw.alphabet_e,R.raw.alphabet_f,R.raw.alphabet_g,R.raw.alphabet_h
-        ,R.raw.alphabet_i,R.raw.alphabet_j,R.raw.alphabet_k,R.raw.alphabet_l,R.raw.alphabet_m,R.raw.alphabet_n,R.raw.alphabet_o,R.raw.alphabet_p,R.raw.alphabet_q,R.raw.alphabet_r
-        ,R.raw.alphabet_s,R.raw.alphabet_t,R.raw.alphabet_u,R.raw.alphabet_v,R.raw.alphabet_w,R.raw.alphabet_x,R.raw.alphabet_y,R.raw.alphabet_z,R.raw.alphabet_fortis,R.raw.alphabet_fortis_a
-        ,R.raw.alphabet_fortis_b,R.raw.alphabet_fortis_c,R.raw.alphabet_fortis_d,R.raw.alphabet_fortis_e,R.raw.alphabet_fortis_f,R.raw.alphabet_fortis_g,R.raw.alphabet_fortis_h,R.raw.alphabet_fortis_i
-        ,R.raw.alphabet_fortis_j,R.raw.alphabet_fortis_k,R.raw.alphabet_fortis_l,R.raw.alphabet_fortis_m,R.raw.alphabet_fortis_n,R.raw.alphabet_fortis_o,R.raw.alphabet_fortis_p,R.raw.alphabet_fortis_q,R.raw.alphabet_fortis_r,R.raw.alphabet_fortis_s
-        ,R.raw.alphabet_fortis_t,R.raw.alphabet_fortis_u,R.raw.alphabet_fortis_v,R.raw.alphabet_fortis_w,R.raw.alphabet_fortis_x,R.raw.alphabet_fortis_y,R.raw.alphabet_fortis_z};
+        rawid = new int[] {R.raw.alphabet_roma,R.raw.alphabet_a,R.raw.alphabet_b,R.raw.alphabet_c,R.raw.alphabet_d,
+                R.raw.alphabet_e,R.raw.alphabet_f,R.raw.alphabet_g,R.raw.alphabet_h, R.raw.alphabet_i,R.raw.alphabet_j,
+                R.raw.alphabet_k,R.raw.alphabet_l,R.raw.alphabet_m,R.raw.alphabet_n,R.raw.alphabet_o,R.raw.alphabet_p,
+                R.raw.alphabet_q,R.raw.alphabet_r,R.raw.alphabet_s,R.raw.alphabet_t,R.raw.alphabet_u,R.raw.alphabet_v,
+                R.raw.alphabet_w,R.raw.alphabet_x,R.raw.alphabet_y,R.raw.alphabet_z,R.raw.alphabet_capital,R.raw.alphabet_capital_a,
+                R.raw.alphabet_capital_b,R.raw.alphabet_capital_c,R.raw.alphabet_capital_d,R.raw.alphabet_capital_e,
+                R.raw.alphabet_capital_f,R.raw.alphabet_capital_g,R.raw.alphabet_capital_h,R.raw.alphabet_capital_i,
+                R.raw.alphabet_capital_j,R.raw.alphabet_capital_k,R.raw.alphabet_capital_l,R.raw.alphabet_capital_m,
+                R.raw.alphabet_capital_n,R.raw.alphabet_capital_o,R.raw.alphabet_capital_p,R.raw.alphabet_capital_q,
+                R.raw.alphabet_capital_r,R.raw.alphabet_capital_s,R.raw.alphabet_capital_t,R.raw.alphabet_capital_u,
+                R.raw.alphabet_capital_v,R.raw.alphabet_capital_w,R.raw.alphabet_capital_x,R.raw.alphabet_capital_y,R.raw.alphabet_capital_z};
         // 음성파일의 id 주소를 배열변수에 저장
 
         for(int i = 0; i< dot_alphabet.alphabet_count; i++){
