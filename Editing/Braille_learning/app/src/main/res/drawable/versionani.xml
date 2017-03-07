@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:oneshot="true">
+    <item
+        android:drawable = "@drawable/enter0"
+        android:duration="200"/>
+    <item
+        android:drawable = "@drawable/enter1"
+        android:duration="200"/>
+    <item
+        android:drawable = "@drawable/enter2"
+        android:duration="200"/>
+    <item
+        android:drawable = "@drawable/enter3"
+        android:duration="200"/>
+    <item
+        android:drawable = "@drawable/enter4"
+        android:duration="200"/>
+    <item
+        android:drawable = "@drawable/enter5"
+        android:duration="200"/>
+    <item
+        android:drawable = "@drawable/enter6"
+        android:duration="200"/>
+    <item
+        android:drawable = "@drawable/enter7"
+        android:duration="200"/>
+    <item
+        android:drawable = "@drawable/enter8"
+        android:duration="200"/>
+    <item
+        android:drawable = "@drawable/enter9"
+        android:duration="50"/>
+    <item
+        android:drawable = "@drawable/enter10"
+        android:duration="50"/>
+    <item
+        android:drawable = "@drawable/enter11"
+        android:duration="50"/>
+    <item
+        android:drawable = "@drawable/enter12"
+        android:duration="50"/>
+    <item
+        android:drawable = "@drawable/enter13"
+        android:duration="50"/>
+    <item
+        android:drawable = "@drawable/enter14"
+        android:duration="50"/>
+    <item
+        android:drawable = "@drawable/enter15"
+        android:duration="600"/>
+    <item
+        android:drawable = "@drawable/enter16"
+        android:duration="300"/>
+</animation-list>
