@@ -2,23 +2,136 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0539fa3-eaec-4ee6-8fff-88d281689ef0" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/raw/letter_detail.m4a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/raw/men_1.m4a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/raw/men_2.m4a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/raw/men_3.m4a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/raw/men_4.m4a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/raw/men_5.m4a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/raw/men_6.m4a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/raw/word_seoul.MP3" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/yeo/practice/Common_master_practice_sound/Letter_service.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/yeo/practice/Common_master_practice_sound/Letter_service.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/yeo/practice/Common_master_practice_sound/Word_service.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/yeo/practice/Common_master_practice_sound/Word_service.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_accordingly.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_accordingly.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_and.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_and.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ba.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ba.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_but.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_but.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_da.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_da.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_eul.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_eul.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_eun.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_eun.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_fortis_siot.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_fortis_siot.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ga.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ga.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_gut.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_gut.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ha.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ha.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_in.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_in.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ja.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ja.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ka.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ka.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ma.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ma.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_na.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_na.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ok.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ok.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_on.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_on.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ong.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ong.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_pa.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_pa.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_sa.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_sa.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_so.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_so.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ta.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ta.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_then.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_then.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_therefore.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_therefore.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_uk.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_uk.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ul.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_ul.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_un.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_un.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_well.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_well.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_wool.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_wool.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_woon.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_woon.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_young.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_young.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_yul.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_yul.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_yun.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/abbreviation_yun.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alarm2.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alarm2.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_a.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_a.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_b.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_b.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_c.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_c.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_a.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_a.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_b.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_b.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_c.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_c.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_d.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_d.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_e.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_e.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_f.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_f.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_g.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_g.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_h.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_h.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_i.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_i.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_j.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_j.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_k.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_k.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_l.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_l.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_m.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_m.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_n.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_n.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_o.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_o.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_p.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_p.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_q.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_q.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_r.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_r.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_s.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_s.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_t.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_t.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_u.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_u.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_v.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_v.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_w.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_w.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_x.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_x.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_y.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_y.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_z.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_capital_z.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_d.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_d.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_e.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_e.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_f.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_f.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_g.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_g.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_h.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_h.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_i.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_i.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_j.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_j.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_k.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_k.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_l.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_l.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_m.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_m.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_n.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_n.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_o.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_o.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_p.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_p.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_q.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_q.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_r.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_r.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_roma.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_roma.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_s.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_s.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_t.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_t.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_u.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_u.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_v.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_v.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_w.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_w.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_x.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_x.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_y.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_y.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_z.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alphabet_z.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/final_bieub.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/final_bieub.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/final_chieut.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/final_chieut.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/final_digeud.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/final_digeud.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/final_eng.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/final_eng.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/final_giyeok.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/final_giyeok.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/final_hieut.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/final_hieut.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/final_kieuk.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/final_kieuk.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/final_mieum.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/final_mieum.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/final_nieul.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/final_nieul.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/final_nieun.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/final_nieun.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/final_pieup.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/final_pieup.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/final_siot.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/final_siot.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/final_tieut.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/final_tieut.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/final_zieut.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/final_zieut.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_bieub.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_bieub.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_chieut.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_chieut.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_digeud.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_digeud.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_fortis.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_fortis.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_fortis_bieub.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_fortis_bieub.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_fortis_digeud.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_fortis_digeud.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_fortis_giyeok.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_fortis_giyeok.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_fortis_siot.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_fortis_siot.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_fortis_zieut.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_fortis_zieut.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_giyeok.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_giyeok.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_hieut.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_hieut.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_kieuk.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_kieuk.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_mieum.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_mieum.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_nieul.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_nieul.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_nieun.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_nieun.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_pieup.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_pieup.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_siot.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_siot.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_tieut.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_tieut.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/initial_zieut.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/initial_zieut.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/letter_ang.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/letter_ang.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/letter_bak.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/letter_bak.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/letter_bba.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/letter_bba.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/letter_big.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/letter_big.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/letter_chui.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/letter_chui.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/letter_dae.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/letter_dae.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/letter_detail.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/letter_detail.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/letter_dok.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/letter_dok.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/letter_eom.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/letter_eom.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/letter_gak.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/letter_gak.mp3" />
@@ -45,6 +158,74 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/letter_si.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/letter_si.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/letter_sil.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/letter_sil.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/letter_su.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/letter_su.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/men_1.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/men_1.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/men_2.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/men_2.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/men_3.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/men_3.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/men_4.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/men_4.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/men_5.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/men_5.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/men_6.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/men_6.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/num_eight.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/num_eight.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/num_five.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/num_five.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/num_four.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/num_four.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/num_fourseven.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/num_fourseven.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/num_nine.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/num_nine.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/num_ninenine.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/num_ninenine.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/num_one.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/num_one.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/num_seven.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/num_seven.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/num_sign.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/num_sign.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/num_six.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/num_six.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/num_sixeight.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/num_sixeight.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/num_ten.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/num_ten.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/num_three.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/num_three.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/num_two.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/num_two.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/num_twofive.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/num_twofive.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/num_zero.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/num_zero.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/quiz_manual.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/quiz_manual.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/reading_quiz_first.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/reading_quiz_first.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/reading_quiz_manual.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/reading_quiz_manual.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/reading_quiz_second.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/reading_quiz_second.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/reading_quiz_stt_start.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/reading_quiz_stt_start.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/reading_quiz_third.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/reading_quiz_third.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_add.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_add.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_colon.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_colon.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_comma.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_comma.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_d_quotation_close.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_d_quotation_close.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_d_quotation_open.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_d_quotation_open.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_div.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_div.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_exclamation.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_exclamation.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_mul.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_mul.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_parenthesis_close.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_parenthesis_close.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_parenthesis_open.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_parenthesis_open.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_period.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_period.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_reference.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_reference.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_s_colon.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_s_colon.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_s_quotation_close.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_s_quotation_close.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_s_quotation_open.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_s_quotation_open.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_same.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_same.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_sub.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_sub.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/sentence_swung.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sentence_swung.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/stt.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/stt.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_a.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_a.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_ae.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_ae.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_e.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_e.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_ei.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_ei.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_eo.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_eo.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_i.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_i.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_ij.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_ij.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_ja.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_ja.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_jae.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_jae.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_je.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_je.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_jo.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_jo.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_ju.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_ju.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_o.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_o.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_oi.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_oi.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_u.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_u.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_ueo.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_ueo.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_wa.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_wa.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_wae.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_wae.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_we.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_we.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_wi.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_wi.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/vowel_yeo.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vowel_yeo.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/word_bookstore.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/word_bookstore.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/word_computer.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/word_computer.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/word_dad.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/word_dad.mp3" />
@@ -59,6 +240,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/word_mom.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/word_mom.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/word_right.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/word_right.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/word_seat.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/word_seat.mp3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/word_seoull.MP3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/word_seoull.MP3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/word_smartphone.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/word_smartphone.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/word_stair.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/word_stair.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/word_subway.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/word_subway.mp3" />
@@ -127,11 +309,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="555">
               <caret line="51" column="77" selection-start-line="51" selection-start-column="77" selection-end-line="51" selection-end-column="77" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1283#1284#0" expanded="false" />
-                <element signature="e#1310#1311#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -141,11 +319,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="450">
               <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1412#1413#0" expanded="false" />
-                <element signature="e#1439#1440#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -155,11 +329,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="495">
               <caret line="47" column="111" selection-start-line="47" selection-start-column="111" selection-end-line="47" selection-end-column="111" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1220#1221#0" expanded="false" />
-                <element signature="e#1247#1248#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -169,11 +339,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="450">
               <caret line="44" column="84" selection-start-line="44" selection-start-column="84" selection-end-line="44" selection-end-column="84" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1261#1262#0" expanded="false" />
-                <element signature="e#1288#1289#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -181,7 +347,7 @@
       <file leaf-file-name="Sentence_service.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/yeo/practice/Common_basic_practice_sound/Sentence_service.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="87">
+            <state relative-caret-position="300">
               <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
               <folding />
             </state>
@@ -191,8 +357,8 @@
       <file leaf-file-name="Word_service.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/yeo/practice/Common_master_practice_sound/Word_service.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="458">
-              <caret line="66" column="9" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="9" />
+            <state relative-caret-position="353">
+              <caret line="59" column="35" selection-start-line="59" selection-start-column="35" selection-end-line="59" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -201,9 +367,13 @@
       <file leaf-file-name="Menu_detail_service.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/yeo/practice/Common_menu_sound/Menu_detail_service.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
+            <state relative-caret-position="645">
               <caret line="52" column="111" selection-start-line="52" selection-start-column="111" selection-end-line="52" selection-end-column="111" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#1306#1307#0" expanded="false" />
+                <element signature="e#1333#1334#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1945,7 +2115,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1956,9 +2129,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2271,11 +2441,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="765">
           <caret line="51" column="77" selection-start-line="51" selection-start-column="77" selection-end-line="51" selection-end-column="77" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1283#1284#0" expanded="false" />
-            <element signature="e#1310#1311#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2283,7 +2449,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2291,11 +2456,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="690">
           <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1412#1413#0" expanded="false" />
-            <element signature="e#1439#1440#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2303,11 +2464,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="705">
           <caret line="47" column="111" selection-start-line="47" selection-start-column="111" selection-end-line="47" selection-end-column="111" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1220#1221#0" expanded="false" />
-            <element signature="e#1247#1248#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2315,11 +2472,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="44" column="84" selection-start-line="44" selection-start-column="84" selection-end-line="44" selection-end-column="84" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1261#1262#0" expanded="false" />
-            <element signature="e#1288#1289#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2355,11 +2508,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1283#1284#0" expanded="false" />
-            <element signature="e#1310#1311#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2367,7 +2516,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2375,11 +2523,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="690">
           <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1412#1413#0" expanded="false" />
-            <element signature="e#1439#1440#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2387,11 +2531,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="705">
           <caret line="47" column="111" selection-start-line="47" selection-start-column="111" selection-end-line="47" selection-end-column="111" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1220#1221#0" expanded="false" />
-            <element signature="e#1247#1248#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2399,11 +2539,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="44" column="84" selection-start-line="44" selection-start-column="84" selection-end-line="44" selection-end-column="84" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1261#1262#0" expanded="false" />
-            <element signature="e#1288#1289#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2439,11 +2575,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1283#1284#0" expanded="false" />
-            <element signature="e#1310#1311#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2451,7 +2583,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2459,11 +2590,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="690">
           <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1412#1413#0" expanded="false" />
-            <element signature="e#1439#1440#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2471,11 +2598,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="705">
           <caret line="47" column="111" selection-start-line="47" selection-start-column="111" selection-end-line="47" selection-end-column="111" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1220#1221#0" expanded="false" />
-            <element signature="e#1247#1248#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2483,11 +2606,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="660">
           <caret line="44" column="84" selection-start-line="44" selection-start-column="84" selection-end-line="44" selection-end-column="84" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1261#1262#0" expanded="false" />
-            <element signature="e#1288#1289#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2523,7 +2642,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2531,11 +2649,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="690">
           <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1412#1413#0" expanded="false" />
-            <element signature="e#1439#1440#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2543,11 +2657,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="705">
           <caret line="47" column="111" selection-start-line="47" selection-start-column="111" selection-end-line="47" selection-end-column="111" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1220#1221#0" expanded="false" />
-            <element signature="e#1247#1248#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2555,11 +2665,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="44" column="84" selection-start-line="44" selection-start-column="84" selection-end-line="44" selection-end-column="84" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1261#1262#0" expanded="false" />
-            <element signature="e#1288#1289#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2595,7 +2701,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2603,11 +2708,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="705">
           <caret line="47" column="31" selection-start-line="47" selection-start-column="31" selection-end-line="47" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1412#1413#0" expanded="false" />
-            <element signature="e#1439#1440#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2615,11 +2716,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="705">
           <caret line="47" column="111" selection-start-line="47" selection-start-column="111" selection-end-line="47" selection-end-column="111" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1220#1221#0" expanded="false" />
-            <element signature="e#1247#1248#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2627,11 +2724,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="675">
           <caret line="45" column="84" selection-start-line="45" selection-start-column="84" selection-end-line="45" selection-end-column="84" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1261#1262#0" expanded="false" />
-            <element signature="e#1288#1289#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2647,7 +2740,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2655,11 +2747,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1412#1413#0" expanded="false" />
-            <element signature="e#1439#1440#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2667,11 +2755,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="47" column="111" selection-start-line="47" selection-start-column="111" selection-end-line="47" selection-end-column="111" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1220#1221#0" expanded="false" />
-            <element signature="e#1247#1248#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2679,11 +2763,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="44" column="84" selection-start-line="44" selection-start-column="84" selection-end-line="44" selection-end-column="84" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1261#1262#0" expanded="false" />
-            <element signature="e#1288#1289#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2699,11 +2779,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
           <caret line="51" column="77" selection-start-line="51" selection-start-column="77" selection-end-line="51" selection-end-column="77" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1283#1284#0" expanded="false" />
-            <element signature="e#1310#1311#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2733,7 +2809,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/yeo/practice/Common_basic_practice_sound/Sentence_service.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
+        <state relative-caret-position="300">
           <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
           <folding />
         </state>
@@ -2741,16 +2817,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/yeo/practice/Common_menu_sound/Menu_detail_service.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
+        <state relative-caret-position="645">
           <caret line="52" column="111" selection-start-line="52" selection-start-column="111" selection-end-line="52" selection-end-column="111" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1306#1307#0" expanded="false" />
+            <element signature="e#1333#1334#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/yeo/practice/Common_master_practice_sound/Word_service.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="66" column="9" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="9" />
+        <state relative-caret-position="353">
+          <caret line="59" column="35" selection-start-line="59" selection-start-column="35" selection-end-line="59" selection-end-column="35" />
           <folding />
         </state>
       </provider>
