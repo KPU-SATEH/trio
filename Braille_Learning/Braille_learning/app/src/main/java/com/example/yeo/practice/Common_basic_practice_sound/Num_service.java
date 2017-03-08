@@ -6,14 +6,12 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 
 import com.example.yeo.practice.Common_braille_data.dot_num;
-import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_display;
-import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_practice;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
+import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_display;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_display;
-import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_practice;
 import com.example.yeo.practice.WHclass;
 
 
@@ -43,8 +41,9 @@ public class Num_service extends Service {
         Num = new MediaPlayer[] {ns,zero0,one1,two2,three3,four4,five5,six6,seven7,eight8,nine9,ten10,twofive25,fourseven47,sixeight68,ninenine99};
         // 선언된 음성 변수들을 배열 변수에 저장
 
-        rawid = new int[] {R.raw.num_sign,R.raw.zero,R.raw.one,R.raw.two,R.raw.three,R.raw.four,R.raw.five,R.raw.six,R.raw.seven,R.raw.eight,R.raw.nine,R.raw.ten
-                ,R.raw.twofive,R.raw.fourseven,R.raw.sixeight,R.raw.ninenine};
+        rawid = new int[] {R.raw.num_sign,R.raw.num_zero,R.raw.num_one,R.raw.num_two,R.raw.num_three,R.raw.num_four,
+                R.raw.num_five,R.raw.num_six,R.raw.num_seven,R.raw.num_eight,R.raw.num_nine,R.raw.num_ten
+                ,R.raw.num_twofive,R.raw.num_fourseven,R.raw.num_sixeight,R.raw.num_ninenine};
         // 음성파일의 id 주소를 배열변수에 저장
 
 

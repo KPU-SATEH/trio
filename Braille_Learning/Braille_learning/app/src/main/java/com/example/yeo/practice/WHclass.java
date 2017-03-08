@@ -18,7 +18,6 @@ public class WHclass extends ActionBarActivity {
     static public int sel; //자신이 학습하려는 학습 종류를 저장하는 변수
     static public boolean target=false; //점자의 돌출 유무를 저장한 변수
     static public int number = 0; // 문지르기 기능을 위한 점자 번호 저장 변수
-    //static public int quiz_sel = 0; //자신이 풀어보려는 퀴즈의 종류를 저장하는 변수
     static public int tutorial_progress = 0; //사용설명서를 진행하기 위한 단계를 저장하는 변수
     static public int tutorial_previous = -1;
     static public boolean touchevent = true;

@@ -6,14 +6,12 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 
 import com.example.yeo.practice.Common_braille_data.dot_abbreviation;
-import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_display;
-import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_practice;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
+import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_display;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_display;
-import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_practice;
 import com.example.yeo.practice.WHclass;
 
 
@@ -45,9 +43,13 @@ public class abbreviation_service extends Service {
         Abbreviation = new MediaPlayer[] {ga, na, da, ma, ba, sa, ja, ka, ta, pa, ha, uk, un,wool,ul, yun, yul, young, ok, on, yong, woon, woo, eun, eul, in, fortis_siot, gut,so,but,and,so2,bytheway,and2,so3};
         // 선언된 음성 변수들을 배열 변수에 저장
 
-        rawid = new int[]{R.raw.ga,R.raw.na,R.raw.da,R.raw.ma,R.raw.ba,R.raw.sa,R.raw.ja,R.raw.ka,R.raw.ta,R.raw.pa,R.raw.ha,R.raw.uk,R.raw.un
-                ,R.raw.ul,R.raw.yun,R.raw.yul,R.raw.young,R.raw.ok,R.raw.on,R.raw.yong,R.raw.woon,R.raw.wool,R.raw.eun,R.raw.eul
-                ,R.raw.in,R.raw.abbreviation_siot,R.raw.gut,R.raw.gut,R.raw.gut,R.raw.gut,R.raw.gut,R.raw.gut,R.raw.gut,R.raw.gut};
+        rawid = new int[]{R.raw.abbreviation_ga,R.raw.abbreviation_na,R.raw.abbreviation_da,R.raw.abbreviation_ma,R.raw.abbreviation_ba,
+                R.raw.abbreviation_sa,R.raw.abbreviation_ja,R.raw.abbreviation_ka,R.raw.abbreviation_ta,R.raw.abbreviation_pa,
+                R.raw.abbreviation_ha,R.raw.abbreviation_uk,R.raw.abbreviation_un,R.raw.abbreviation_ul,R.raw.abbreviation_yun,
+                R.raw.abbreviation_yul,R.raw.abbreviation_young,R.raw.abbreviation_ok,R.raw.abbreviation_on,R.raw.abbreviation_ong,
+                R.raw.abbreviation_woon,R.raw.abbreviation_wool,R.raw.abbreviation_eun,R.raw.abbreviation_eul,
+                R.raw.abbreviation_in,R.raw.abbreviation_fortis_siot,R.raw.abbreviation_gut,R.raw.abbreviation_so,R.raw.abbreviation_but,
+                R.raw.abbreviation_and,R.raw.abbreviation_therefore,R.raw.abbreviation_well,R.raw.abbreviation_then,R.raw.abbreviation_accordingly};
         // 음성파일의 id 주소를 배열변수에 저장
 
         for(int i = 0; i< dot_abbreviation.abbreviation_count; i++){

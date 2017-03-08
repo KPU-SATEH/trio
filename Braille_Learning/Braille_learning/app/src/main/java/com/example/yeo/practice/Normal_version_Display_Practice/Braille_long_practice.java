@@ -299,7 +299,6 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // 화면에 터치가 발생했을 때 호출되는 콜백 메서드
-
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_UP: //마지막 손가락을 땠을 때 화면잠금을 품
                 for(int j=0 ; j<3 ; j++){

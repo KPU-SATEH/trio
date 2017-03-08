@@ -13,7 +13,7 @@ public class Communication_service extends Service {
     /*
       종성 연습에서 출력되는 음성파일을 관리하는 서비스 클래스
       */
-    private static final String TAG = "Initial_service";
+    private static final String TAG = "Common_Tutorial_service";
     MediaPlayer teacherfinish, studentfinish;
 
     public static boolean finish1 = false;

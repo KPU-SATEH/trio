@@ -519,6 +519,43 @@
             android:name=".Normal_version_tutorial.Tutorial_communication"
             android:label=""
             android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Talkback_version_tutorial.Talk_Tutorial"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Talkback_version_tutorial.Talk_Tutorial_tutorial"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Talkback_version_tutorial.Talk_Tutorial_basic"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Talkback_version_tutorial.Talk_Tutorial_com"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Talkback_version_tutorial.Talk_Tutorial_master"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Talkback_version_tutorial.Talk_Tutorial_mynote"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Talkback_version_tutorial.Talk_Tutorial_quiz"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Talkback_version_tutorial.Talk_Tutorial_translation"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+
+        <service
+            android:name=".Common_Tutorial_sound.Common_Tutorial_service"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

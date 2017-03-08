@@ -6,13 +6,11 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 
 import com.example.yeo.practice.Common_braille_data.dot_word;
-import com.example.yeo.practice.Normal_version_Display_Practice.Braille_long_display;
-import com.example.yeo.practice.Normal_version_Display_Practice.Braille_long_practice;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
-import com.example.yeo.practice.Sound_Manager;
-import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_long_practice;
+import com.example.yeo.practice.Normal_version_Display_Practice.Braille_long_display;
 import com.example.yeo.practice.R;
+import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_long_display;
 import com.example.yeo.practice.WHclass;
 
@@ -23,7 +21,7 @@ public class Word_service extends Service {
  */
     private static final String TAG = "Menu_basic_service";
     MediaPlayer  wordfinish, toilet, love, exit, enterance, subway, korea, computer, dot, mom, dad, seoul,
-                 right, left, direction, seat, smartphone, stair, handphone, bookstore;
+            right, left, direction, seat, smartphone, stair, handphone, bookstore;
     MediaPlayer Word[] ;//음성파일을 저장하는 배열 변수
     int setting[] = new int[dot_word.wordcount];
     int rawid[];//음성파일의 주소를 저장하는 배열 변수
@@ -50,7 +48,7 @@ public class Word_service extends Service {
         // 선언된 음성 변수들을 배열 변수에 저장
 
         rawid = new int[]{R.raw.word_toilet, R.raw.word_love, R.raw.word_exit, R.raw.word_entrance, R.raw.word_subway, R.raw.word_korea, R.raw.word_computer, R.raw.word_dot
-                , R.raw.word_mom, R.raw.word_dad, R.raw.word_seoul, R.raw.word_right, R.raw.word_left, R.raw.word_direction, R.raw.word_seat, R.raw.word_smartphone, R.raw.word_stair
+                , R.raw.word_mom, R.raw.word_dad, R.raw.word_seoull, R.raw.word_right, R.raw.word_left, R.raw.word_direction, R.raw.word_seat, R.raw.word_smartphone, R.raw.word_stair
                 , R.raw.word_handphone, R.raw.word_bookstore};
         // 음성파일의 id 주소를 배열변수에 저장
 

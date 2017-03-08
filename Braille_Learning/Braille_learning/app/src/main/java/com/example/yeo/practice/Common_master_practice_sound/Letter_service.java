@@ -19,9 +19,9 @@ import com.example.yeo.practice.WHclass;
 
 
 public class Letter_service extends Service {
-/*
-글자 연습에서 출력되는 음성파일을 관리하는 서비스 클래스
- */
+    /*
+    글자 연습에서 출력되는 음성파일을 관리하는 서비스 클래스
+     */
     private static final String TAG = "Menu_basic_service";
     MediaPlayer letterfinish, ham, kal, ang, hwa, dae, han, gang, nam, s, il, jak, eom, bba, sam, gu, bak, su, dok, ri, gi, si, gak, jang, hak, gyo, sil,
             big, ryun, gue, min, kuk,chui;
@@ -52,13 +52,15 @@ public class Letter_service extends Service {
                 gyo,sil,chui,big,ryun,gue,min,kuk};
         // 선언된 음성 변수들을 배열 변수에 저장
 
-        rawid = new int[] { R.raw.letter_ham,R.raw.letter_kal,R.raw.letter_ang,R.raw.letter_hwa,R.raw.letter_dae,R.raw.letter_han,R.raw.letter_gang,R.raw.letter_nam,R.raw.letter_s,R.raw.letter_il,R.raw.letter_jak,R.raw.letter_eom,R.raw.letter_bba
-                ,R.raw.letter_sam,R.raw.letter_gu,R.raw.letter_bak,R.raw.letter_su,R.raw.letter_dok,R.raw.letter_ri,R.raw.letter_gi,R.raw.letter_si,R.raw.letter_gak,R.raw.letter_jang,R.raw.letter_hak
-                ,R.raw.letter_gyo,R.raw.letter_sil,R.raw.letter_chui,R.raw.letter_big,R.raw.letter_ryun,R.raw.letter_gue,R.raw.letter_min,R.raw.letter_kuk};
+        rawid = new int[] { R.raw.letter_ham,R.raw.letter_kal,R.raw.letter_ang,R.raw.letter_hwa,R.raw.letter_dae,R.raw.letter_han,
+                R.raw.letter_gang,R.raw.letter_nam,R.raw.letter_s,R.raw.letter_il,R.raw.letter_jak,R.raw.letter_eom,R.raw.letter_bba
+                ,R.raw.letter_sam,R.raw.letter_gu,R.raw.letter_bak,R.raw.letter_su,R.raw.letter_dok,R.raw.letter_ri,R.raw.letter_gi,
+                R.raw.letter_si,R.raw.letter_gak,R.raw.letter_jang,R.raw.letter_hak,R.raw.letter_gyo,R.raw.letter_sil,R.raw.letter_chui,
+                R.raw.letter_big,R.raw.letter_ryun,R.raw.letter_gue,R.raw.letter_min,R.raw.letter_kuk};
         // 음성파일의 id 주소를 배열변수에 저장
 
         for(int i = 0; i< dot_letter.lettercount; i++){
-           setting[i] = 0;
+            setting[i] = 0;
         }
 
 

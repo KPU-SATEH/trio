@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.yeo.practice.Common_Tutorial_sound.Common_Tutorial_service;
 import com.example.yeo.practice.Common_menu_display.Common_menu_display;
 import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
@@ -26,6 +27,8 @@ public class Tutorial_mynote extends AppCompatActivity {
     int oldDragX,newDragX;
     int oldDragY,newDragY;
     private SoundThread thread;
+    int finger_x[] = new int[3];
+    int finger_y[] = new int[3];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +43,10 @@ public class Tutorial_mynote extends AppCompatActivity {
 
     }
 
-
+    public void startService(){
+        Common_Tutorial_service.previous=6;
+        startService(new Intent(this, Common_Tutorial_service.class));
+    }
 
     class SoundThread extends Thread{
         @Override
@@ -48,11 +54,7 @@ public class Tutorial_mynote extends AppCompatActivity {
             super.run();
             while(true){
                 if(WHclass.SoundCheck==true){
-                    MainActivity.Braille_TTS.Tutorial_lock();
-                    MainActivity.Braille_TTS.TTS_Play("잘하셨습니다. 현재 메뉴는 7개의 대 메뉴 중, 여섯번째 메뉴인 나만의 단어장 메뉴 입니다. 점자 학습을 진행하다가, 손가락 3개를 이용하여 화면을 터치하게 되면," +
-                            "해당 점자가 나만의 단어장에 저장됩니다. 나만의 단어장에서 손가락 3개를 이용하여 화면을 터치하게 되면, 저장되어 있는 점자가 삭제 됩니다."+
-                            "마지막 메뉴인 선생님과의 대화 메뉴로 이동하겠습니다. 준비되었으면, 다음 메뉴로 이동하시기 바랍니다.");
-                    WHclass.SoundCheck=false;
+                    startService();
                     break;
                 }
             }
@@ -91,8 +93,27 @@ public class Tutorial_mynote extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(MainActivity.Braille_TTS.Tutorial_lock==false) {
+        if(Common_Tutorial_service.Touch_lock==false) {
             switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                case MotionEvent.ACTION_UP:
+                    for(int j=0 ; j<3 ; j++){
+                        finger_x[j] = -100;
+                        finger_y[j] = -100;
+                    }
+                    m.finger_set(finger_x[0],finger_y[0],finger_x[1],finger_y[1],finger_x[2],finger_y[2]);
+                    break;
+                case MotionEvent.ACTION_MOVE :
+                    int pointer_count2 = event.getPointerCount();
+                    for(int j=0 ; j<3 ; j++){
+                        finger_x[j] = -100;
+                        finger_y[j] = -100;
+                    }
+                    for(int i=0 ; i<pointer_count2 ; i++) {
+                        finger_x[i] = (int) event.getX(i);
+                        finger_y[i] = (int) event.getY(i);
+                    }
+                    m.finger_set(finger_x[0],finger_y[0],finger_x[1],finger_y[1],finger_x[2],finger_y[2]);
+                    break;
                 case MotionEvent.ACTION_POINTER_DOWN:
                     oldDragX = (int)event.getX();
                     oldDragY = (int)event.getY();
@@ -109,12 +130,24 @@ public class Tutorial_mynote extends AppCompatActivity {
                         finish();
                     }
                     else if(newDragY-oldDragY> WHclass.Drag_space) {  //손가락 2개를 이용하여 상단에서 하단으로 드래그할 경우 현재 메뉴의 상세정보 음성 출력
-                        MainActivity.Braille_TTS.Tutorial_lock();
-                        MainActivity.Braille_TTS.TTS_Play("잘하셨습니다. 현재 메뉴는 7개의 대 메뉴 중, 여섯번째 메뉴인 나만의 단어장 메뉴 입니다. 점자 학습을 진행하다가, 손가락 3개를 이용하여 화면을 터치하게 되면," +
-                                "해당 점자가 나만의 단어장에 저장됩니다. 나만의 단어장에서 손가락 3개를 이용하여 화면을 터치하게 되면, 저장되어 있는 점자가 삭제 됩니다."+
-                                "마지막 메뉴인 선생님과의 대화 메뉴로 이동하겠습니다. 준비되었으면, 다음 메뉴로 이동하시기 바랍니다.");
+                        startService();
                     }
                     else if (oldDragY - newDragY > WHclass.Drag_space) {//손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
+                        onBackPressed();
+                    }
+                    break;
+            }
+        }
+        else{
+            switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    oldDragX = (int)event.getX();
+                    oldDragY = (int)event.getY();
+                    break;
+                case MotionEvent.ACTION_POINTER_UP:
+                    newDragX = (int)event.getX();
+                    newDragY = (int)event.getY();
+                    if (oldDragY - newDragY > WHclass.Drag_space) {//손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
                         onBackPressed();
                     }
                     break;
@@ -125,8 +158,8 @@ public class Tutorial_mynote extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        Menu_main_service.finish=true;
-        startService(new Intent(this,Menu_main_service.class));
+        Common_Tutorial_service.finish=true;
+        startService(new Intent(this,Common_Tutorial_service.class));
         finish();
     }
 

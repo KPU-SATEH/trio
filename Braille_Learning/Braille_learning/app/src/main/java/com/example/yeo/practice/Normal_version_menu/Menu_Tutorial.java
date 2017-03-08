@@ -52,10 +52,6 @@ public class Menu_Tutorial extends FragmentActivity {
         Menu_info.DISPLAY = Menu_info.DISPLAY_TUTORIAL;
         m = new Common_menu_display(this);
         m.setBackgroundColor(Color.rgb(22,26,44));
-
-        Menu_main_service.menu_page = 0;
-        startService(new Intent(this, Menu_main_service.class)); //메뉴 음성 출력 서비스
-
         setContentView(m);
     }
 
@@ -91,7 +87,6 @@ public class Menu_Tutorial extends FragmentActivity {
                 posy2 = (int)event.getY(); //손가락 1개를 화면에서 떨어트린 y좌표값 저장
                 if(enter == true) {   //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 문장부호 연습으로 접속
                     if (posx2 < posx1 + WHclass.Touch_space&& posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
-
                         Intent intent = new Intent(Menu_Tutorial.this, Tutorial.class);
                         startActivityForResult(intent, Menu_info.MENU_TUTORIAL);
                         overridePendingTransition(R.anim.fade, R.anim.hold);

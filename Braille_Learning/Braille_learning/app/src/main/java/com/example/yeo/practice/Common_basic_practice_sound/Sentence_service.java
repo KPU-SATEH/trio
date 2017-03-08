@@ -6,14 +6,12 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 
 import com.example.yeo.practice.Common_braille_data.dot_sentence;
-import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_display;
-import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_practice;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
+import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_display;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_display;
-import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_practice;
 import com.example.yeo.practice.WHclass;
 
 
@@ -43,15 +41,18 @@ public class Sentence_service extends Service {
     @Override
     public void onCreate(){
 
-        sentencefinish = MediaPlayer.create(this, R.raw.setence_finish);
+        sentencefinish = MediaPlayer.create(this, R.raw.sentence_finish);
         sentencefinish.setLooping(false);
 
         sentence = new MediaPlayer[]{ssangopen, ssangclose, gualhoopen, gualhoclose, surprise, finish_dot, rest_dot, plus, minus, multiple,
                 divide, equal, sangopen, sangclose, wave, twodot, sweat, billiboard};
         // 선언된 음성 변수들을 배열 변수에 저장
 
-        rawid =new int[]{R.raw.ssangopen,R.raw.ssangclose,R.raw.gualhoopen,R.raw.gualhoclose,R.raw.surprise,R.raw.finish_dot,R.raw.rest_dot,R.raw.plus
-                ,R.raw.minus,R.raw.multiple,R.raw.divide,R.raw.equal,R.raw.sangopen,R.raw.sangclose,R.raw.wave,R.raw.twodot,R.raw.sweat,R.raw.billiboard};
+        rawid =new int[]{R.raw.sentence_d_quotation_open,R.raw.sentence_d_quotation_close,R.raw.sentence_parenthesis_open,
+                R.raw.sentence_parenthesis_close,R.raw.sentence_exclamation,R.raw.sentence_period,R.raw.sentence_comma,R.raw.sentence_add,
+                R.raw.sentence_sub,R.raw.sentence_mul,R.raw.sentence_div,R.raw.sentence_same,R.raw.sentence_s_quotation_open,
+                R.raw.sentence_s_quotation_close, R.raw.sentence_swung,R.raw.sentence_colon,
+                R.raw.sentence_s_colon,R.raw.sentence_reference};
         // 음성파일의 id 주소를 배열변수에 저장
 
 
@@ -59,8 +60,6 @@ public class Sentence_service extends Service {
             sentence[i] = MediaPlayer.create(this, rawid[i]);
             sentence[i].setLooping(false);
         }
-
-
     }
 
     public void init(){ //사용한 음성파일을 재 설정해주는 함수
@@ -70,7 +69,7 @@ public class Sentence_service extends Service {
         }
         if(sentencefinish.isPlaying()){
             sentencefinish.reset();
-            sentencefinish = MediaPlayer.create(this, R.raw.setence_finish);
+            sentencefinish = MediaPlayer.create(this, R.raw.sentence_finish);
         }
         Sound_Manager.stop = false;
     }
@@ -119,7 +118,7 @@ public class Sentence_service extends Service {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
                 sentencefinish.reset();
-                sentencefinish = MediaPlayer.create(Sentence_service.this, R.raw.setence_finish);
+                sentencefinish = MediaPlayer.create(Sentence_service.this, R.raw.sentence_finish);
             }
         });
         return START_NOT_STICKY;

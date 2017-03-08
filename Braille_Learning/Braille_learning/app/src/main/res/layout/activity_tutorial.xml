@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:id = "@+id/activity_tutorial"
     tools:context="com.example.yeo.practice.Normal_version_tutorial.Tutorial"
     android:background="#161a2c">
 

@@ -6,14 +6,12 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 
 import com.example.yeo.practice.Common_braille_data.dot_initial;
-import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_display;
-import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_practice;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.Menu_info;
+import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_display;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_display;
-import com.example.yeo.practice.Talkback_version_Display_Practice.Talk_Braille_short_practice;
 import com.example.yeo.practice.WHclass;
 
 
@@ -44,8 +42,10 @@ public class Initial_service extends Service {
         Initial = new MediaPlayer[] {giyeok,nieun,digeud,nieul,mieum,bieub,siot,zieut,chieut,kieuk,tieut,pieup,hieut,fortis,fgiyeok, fdigued, fbieub, fsiot, fzieut};
         // 선언된 음성 변수들을 배열 변수에 저장
 
-        rawid = new int[]{R.raw.giyeok,R.raw.nieun,R.raw.digeud,R.raw.nieul,R.raw.mieum,R.raw.bieub,R.raw.siot,R.raw.zieut,R.raw.chieut,R.raw.kieuk,R.raw.tieut
-                ,R.raw.pieup,R.raw.hieut,R.raw.fortis,R.raw.fortis_giyeok,R.raw.fortis_digeud,R.raw.fortis_bieub,R.raw.fortis_siot,R.raw.fortis_zieut};
+        rawid = new int[]{R.raw.initial_giyeok,R.raw.initial_nieun,R.raw.initial_digeud,R.raw.initial_nieul,R.raw.initial_mieum,
+                R.raw.initial_bieub,R.raw.initial_siot,R.raw.initial_zieut,R.raw.initial_chieut,R.raw.initial_kieuk,
+                R.raw.initial_tieut,R.raw.initial_pieup,R.raw.initial_hieut,R.raw.initial_fortis,R.raw.initial_fortis_giyeok,
+                R.raw.initial_fortis_digeud,R.raw.initial_fortis_bieub,R.raw.initial_fortis_siot,R.raw.initial_fortis_zieut};
         // 음성파일의 id 주소를 배열변수에 저장
 
 

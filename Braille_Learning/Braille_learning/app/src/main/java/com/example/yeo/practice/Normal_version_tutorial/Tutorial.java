@@ -11,9 +11,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.yeo.practice.Common_Tutorial_sound.Common_Tutorial_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.MainActivity;
 import com.example.yeo.practice.R;
+import com.example.yeo.practice.Talkback_version_menu.Talk_Menu_tutorial;
+import com.example.yeo.practice.Talkback_version_tutorial.Talk_Tutorial;
 import com.example.yeo.practice.WHclass;
 
 public class Tutorial extends FragmentActivity {
@@ -21,11 +24,9 @@ public class Tutorial extends FragmentActivity {
     int oldDragX,oldDragY,newDragX,newDragY;
     static AnimationDrawable speechani;
     static ImageView speechimage;
-    static boolean click = false;
-    int posx1,posx2,posy1,posy2;
-    int olddragx,newdragx,olddragy,newdragy;
+    public Ani_Thread thread;
+    boolean lock=false;
     boolean enter = false;
-    static int previous =0 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,18 +43,43 @@ public class Tutorial extends FragmentActivity {
         decorView.setSystemUiVisibility(uiOption);
         init();
 
+        startService();
+
+        thread = new Ani_Thread();
+        thread.start();
 
 
-        MainActivity.Braille_TTS.Tutorial_lock();
-        MainActivity.Braille_TTS.TTS_Play("시작");
-        /*MainActivity.Braille_TTS.TTS_Play("점자 학습을 진행하는 여러분을 응원합니다. 지금부터, 점자 학습 어플리케이션의 조작법과 메뉴에 대한 간략한 설명을 시작하겠습니다." +
-                "점자 학습 어플리케이션은, 손가락 한 개, 두 개, 그리고 세 개를 이용하여, 모든 기능을 사용할 수 있으며, 7개의 대 메뉴가 존재합니다. 먼저, 손가락 1개를 이용하는 기능부터 설명하겠습니다." +
-                "준비되었으면 손가락 한 개를 이용하여 화면을 한 번 터치하시기 바랍니다. 다시 듣기를 희망하면, 화면에 손가락 2개를 얹고, 상단에서 하단으로 쓸어 내리시기 바랍니다. 종료하기를 희망하면,"+
-                "화면에 손가락 2개를 얹고, 하단에서 상단으로 쓸어 올리시기 바랍니다.");
-                */
+    }
 
+    class Ani_Thread extends Thread{
+        @Override
+        public void run(){
+            super.run();
+            while(true){
+                if(WHclass.SoundCheck==false){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Ani_stop();
+                        }
+                    });
+                    break;
+                }
+            }
+        }
+    }
 
-        //startService(new Intent(this, Tutorial_service.class));
+    public void Ani_stop(){
+        if(speechani.isRunning()){
+            speechani.stop();
+            speechani.start();
+            speechani.stop();
+        }
+    }
+
+    public void startService(){
+        Common_Tutorial_service.previous=0;
+        startService(new Intent(this, Common_Tutorial_service.class));
     }
 
     public void init(){
@@ -78,20 +104,45 @@ public class Tutorial extends FragmentActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-      //  speechani.start();
-
+        if(lock==false)
+            speechani.start();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(MainActivity.Braille_TTS.Tutorial_lock==false) {
+        if(Common_Tutorial_service.Touch_lock==false) {
             switch (event.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_UP:
-                    Intent tutorial = new Intent(Tutorial.this, Tutorial_tutorial.class);
-                    startActivityForResult(tutorial, 0);
-                    overridePendingTransition(R.anim.fade, R.anim.hold);
-                    finish();
+
+                    if(enter==false) {
+                        Intent tutorial = new Intent(Tutorial.this, Tutorial_tutorial.class);
+                        startActivityForResult(tutorial, 0);
+                        overridePendingTransition(R.anim.fade, R.anim.hold);
+                        finish();
+                    }
+                    else
+                        enter = false;
+
                     break;
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    enter = true;
+                    oldDragX = (int)event.getX();
+                    oldDragY = (int)event.getY();
+                    break;
+                case MotionEvent.ACTION_POINTER_UP:
+                    newDragX = (int)event.getX();
+                    newDragY = (int)event.getY();
+                    if(newDragY-oldDragY> WHclass.Drag_space) {  //손가락 2개를 이용하여 상단에서 하단으로 드래그할 경우 현재 메뉴의 상세정보 음성 출력
+                        startService();
+                    }
+                    else if (oldDragY - newDragY > WHclass.Drag_space) {//손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
+                        onBackPressed();
+                    }
+                    break;
+            }
+        }
+        else{
+            switch (event.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_POINTER_DOWN:
                     oldDragX = (int)event.getX();
                     oldDragY = (int)event.getY();
@@ -99,20 +150,7 @@ public class Tutorial extends FragmentActivity {
                 case MotionEvent.ACTION_POINTER_UP:
                     newDragX = (int)event.getX();
                     newDragY = (int)event.getY();
-                    if(oldDragX-newDragX> WHclass.Drag_space) {  //손가락 2개를 이용하여 오른쪽에서 왼쪽으로 드래그할 경우 다음 메뉴로 이동
-
-                    }
-                    else if(newDragX-oldDragX>WHclass.Drag_space) {//손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
-
-                    }
-                    else if(newDragY-oldDragY> WHclass.Drag_space) {  //손가락 2개를 이용하여 상단에서 하단으로 드래그할 경우 현재 메뉴의 상세정보 음성 출력
-                        MainActivity.Braille_TTS.Tutorial_lock();
-                        MainActivity.Braille_TTS.TTS_Play("점자 학습을 진행하는 여러분을 응원합니다. 지금부터, 점자 학습 어플리케이션의 조작법과 메뉴에 대한 간략한 설명을 시작하겠습니다." +
-                                "점자 학습 어플리케이션은, 손가락 한개, 두개, 그리고 세개를 이용하여, 모든 기능을 사용할 수 있으며, 7개의 대 메뉴가 존재합니다. 먼저, 손가락 1개를 이용하는 기능부터 설명하겠습니다." +
-                                "준비되었으면 손가락 한 개를 이용하여 화면을 한 번 터치하시기 바랍니다. 다시 듣기를 희망하면, 화면에 손가락 2개를 얹고, 상단에서 하단으로 쓸어 내리시기 바랍니다. 종료하기를 희망하면,"+
-                                "화면에 손가락 2개를 얹고, 하단에서 상단으로 쓸어 올리시기 바랍니다.");
-                    }
-                    else if (oldDragY - newDragY > WHclass.Drag_space) {//손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
+                    if (oldDragY - newDragY > WHclass.Drag_space) {//손가락 2개를 이용하여 하단에서 상단으로 드래그할 경우 현재 메뉴를 종료
                         onBackPressed();
                     }
                     break;
@@ -123,8 +161,9 @@ public class Tutorial extends FragmentActivity {
 
     @Override
     public void onBackPressed(){
-        Menu_main_service.finish=true;
-        startService(new Intent(this,Menu_main_service.class));
+        Common_Tutorial_service.finish=true;
+        startService(new Intent(this,Common_Tutorial_service.class));
+        lock=true;
         finish();
     }
 }

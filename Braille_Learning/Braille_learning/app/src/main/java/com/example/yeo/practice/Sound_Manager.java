@@ -42,7 +42,7 @@ public class Sound_Manager extends Service {
     Menu_Braille_translation = 50; //점자 번역 음성
     Menu_comunication = 60; //선생님과의 대화 내부 음성
 
-    Initial_service = 11; //초성연습 음성
+    Common_Tutorial_service = 11; //초성연습 음성
     Vowel_service = 12; //모음연습 음성
     Final_service = 13; //종성연습 음성
     Num_service = 14; //숫자연습 음성

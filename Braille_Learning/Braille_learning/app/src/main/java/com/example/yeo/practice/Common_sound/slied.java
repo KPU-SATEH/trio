@@ -32,7 +32,6 @@ public class slied extends Service {
         for(int i=0; i<slied_.length ; i++){
             slied_[i] = MediaPlayer.create(this,rawid[i]);
             slied_[i].setLooping(false);
-
         }
     }
 
