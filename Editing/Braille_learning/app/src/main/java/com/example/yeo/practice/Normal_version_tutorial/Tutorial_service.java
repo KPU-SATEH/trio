@@ -12,10 +12,10 @@ public class Tutorial_service extends Service {
 
     MediaPlayer tutorial_0,tutorial_1, tutorial_2, tutorial_3, tutorial_4,tutorial_5, tutorial_6, tutorial_7, tutorial_8,
             tutorial_9, tutorial_10, tutorial_11, tutorial_12, tutorial_13, tutorial_14, tutorial_15, tutorial_16,
-            tutorial_17, tutorial_18, tutorial_19, tutorial_20, tutorial_21;
+            tutorial_17, tutorial_18, tutorial_19, tutorial_20, tutorial_21,tutorial_22,tutorial_23,tutorial_24,tutorial_25,tutorial_26, tutorial_practice_finish; // 22~27
     MediaPlayer tutorial[];
     int rawid[];
-    int count= 22;
+    int count= 28;
     boolean setting[] = new boolean[count];
     int previous=0;
     boolean progress = false;
@@ -28,10 +28,11 @@ public class Tutorial_service extends Service {
 
         tutorial = new MediaPlayer[]{tutorial_0,tutorial_1, tutorial_2, tutorial_3, tutorial_4,tutorial_5, tutorial_6, tutorial_7, tutorial_8,
                 tutorial_9, tutorial_10, tutorial_11, tutorial_12, tutorial_13, tutorial_14, tutorial_15, tutorial_16,
-                tutorial_17,tutorial_18, tutorial_19, tutorial_20, tutorial_21};
+                tutorial_17,tutorial_18, tutorial_19, tutorial_20,tutorial_21,tutorial_22,tutorial_23,tutorial_24,tutorial_25,tutorial_26, tutorial_practice_finish}; // 22~26
         rawid =new int[]{R.raw.tutorial_0,R.raw.tutorial_1, R.raw.tutorial_2, R.raw.tutorial_3, R.raw.tutorial_4, R.raw.tutorial_5, R.raw.tutorial_6, R.raw.tutorial_7,
                 R.raw.tutorial_8,R.raw.tutorial_9, R.raw.tutorial_10, R.raw.tutorial_11, R.raw.tutorial_12, R.raw.tutorial_13, R.raw.tutorial_14,
-                R.raw.tutorial_15, R.raw.tutorial_16, R.raw.tutorial_17, R.raw.tutorial_18, R.raw.tutorial_19, R.raw.tutorial_20, R.raw.tutorial_21};
+                R.raw.tutorial_15, R.raw.tutorial_16, R.raw.tutorial_17, R.raw.tutorial_18, R.raw.tutorial_19, R.raw.tutorial_20, R.raw.tutorial_21,
+                R.raw.tutorial_practice_one,R.raw.tutorial_practice_two,R.raw.tutorial_practice_three,R.raw.tutorial_practice_four,R.raw.tutorial_practice_five,R.raw.tutorial_practice_finish};
 
 
         for(int i=0 ; i<count ; i++){
@@ -59,10 +60,6 @@ public class Tutorial_service extends Service {
                 tutorial[WHclass.tutorial_progress].reset();
                 tutorial[WHclass.tutorial_progress] = MediaPlayer.create(Tutorial_service.this, rawid[WHclass.tutorial_progress]);
                 WHclass.tutorial_previous = WHclass.tutorial_progress;
-
-                if (Tutorial.speechani.isRunning()) {
-                    Tutorial.speechani.stop();
-                }
 
                 if(WHclass.tutorial_progress <20) {
                     WHclass.tutorial_progress++;

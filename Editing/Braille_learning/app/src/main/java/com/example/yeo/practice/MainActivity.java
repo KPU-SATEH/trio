@@ -1,6 +1,9 @@
 package com.example.yeo.practice;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -28,6 +31,7 @@ import com.example.yeo.practice.Common_mynote_database.Communication_Braille_DB;
 import com.example.yeo.practice.Common_mynote_database.Master_Braille_DB;
 import com.example.yeo.practice.Common_sound.Braille_Text_To_Speech;
 import com.example.yeo.practice.Normal_version_menu.Menu_Tutorial;
+import com.example.yeo.practice.Normal_version_tutorial.Tutorial;
 import com.example.yeo.practice.Talkback_version_menu.Talk_Menu_tutorial;
 
 import junit.runner.Version;
@@ -76,9 +80,15 @@ public class MainActivity extends FragmentActivity {
 
     int oldx,oldy,newx,newy;
 
-    public static boolean version_finish=false;
 
+    public static SharedPreferences Pref;
+    public static SharedPreferences.Editor PrefEditor;
 
+    public static SharedPreferences Pref2;
+    public static SharedPreferences.Editor PrefEditor2;
+
+    static public String tutorial;
+    static public String basic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,10 +147,16 @@ public class MainActivity extends FragmentActivity {
         WHclass.height = height;  //WHclass height에 세로 해상도 저장
         WHclass.width = width;  //WHclass width에 가로 해상도 저장
         WHclass.Touch_space = width * (float) 0.1; //터치 영역을 저장하는 메크로
-        WHclass.Drag_space = width * (float) 0.2; //드래그 영역을 저장하는 메크로
-        // WidthHeight WH = new WidthHeight(width,height);
-        //SharedPreferences sf= getSharedPreferences("save", 0);
-        //int i = sf.getInt("b", 0);
+        WHclass.Drag_space = width * (float) 0.3; //드래그 영역을 저장하는 메크로
+
+        Pref = getSharedPreferences("TUTORIAL",0);
+        PrefEditor = Pref.edit();
+        tutorial = Pref.getString("TUTORIAL","0");
+
+        Pref2 = getSharedPreferences("BASIC",0);
+        PrefEditor2 = Pref2.edit();
+        basic = Pref.getString("BASIC","0");
+
 
         basic_braille_db = new Basic_Braille_DB(getApplicationContext(),"BRAILLE.db",null,1); //BRAILLE 라는 이름을 가진 테이블
         master_braille_db = new Master_Braille_DB(getApplicationContext(),"BRAILLE2.db",null,1); //BRAILLE2 라는 이름을 가진 테이블
@@ -201,70 +217,6 @@ public class MainActivity extends FragmentActivity {
                 return false;
             }
         });
-
-
-
-/*
-        switch(i){ //Database 에 저장된 값을 읽어들여, 시작지점을 결정함
-            case 0:
-                Intent i0 = new Intent(MainActivity.this, Menu_Tutorial.class);
-                //Intent i0 = new Intent(MainActivity.this, Tutorial.class);
-                startActivityForResult(i0,CODE);
-                startService(new Intent(this, Menu_main_service.class)); //메뉴 음성 출력 서비스
-                //startService(new Intent(this, Tutorial_service.class)); // 사용설명 서비스
-                finish();
-                //WHclass.db=1;
-                break;
-            case 1:
-                Intent i1 = new Intent(MainActivity.this, Tutorial_tutorial.class);
-                startActivityForResult(i1, 0);
-                startService(new Intent(this, Tutorial_service.class));
-                finish();
-                break;
-            case 2:
-                Intent i2 = new Intent(MainActivity.this, Tutorial_basic_practice.class);
-                startActivityForResult(i2, 0);
-                finish();
-                break;
-            case 3:
-                Intent i3 = new Intent(MainActivity.this, Tutorial_master_practice.class);
-                WHclass.basicprogress[0] = 1;
-                startActivityForResult(i3, 0);
-                finish();
-                break;
-            case 4:
-                Intent i4 = new Intent(MainActivity.this, Tutorial_quiz.class);
-                startActivityForResult(i4, 0);
-                WHclass.mainmenuprogress = true;
-                finish();
-                break;
-            case 5:
-                Intent i5 = new Intent(MainActivity.this, Tutorial_dot_lecture.class);
-                startActivityForResult(i5, 0);
-                startService(new Intent(this, Tutorial_service.class));
-                finish();
-                break;
-            case 6:
-                Intent i6 = new Intent(MainActivity.this, Tutorial_dot_practice.class);
-                WHclass.sel = 9;
-                startActivityForResult(i6, 0);
-                startService(new Intent(this, Tutorial_service.class));
-                finish();
-                break;
-            case 7:
-                Intent i7 = new Intent(MainActivity.this, Menu_Tutorial.class);
-                startActivityForResult(i7, 0);
-                startService(new Intent(this, Tutorial_service.class));
-                finish();
-                break;
-        }
-*/
-        //Intent intent = new Intent(MainActivity.this, Menu_Tutorial.class); // 대 메뉴 사용설명서 화면
-        //Intent intent = new Intent(MainActivity.this, Tutorial.class); //여자 스피커 사용설명 화면
-        //startActivityForResult(intent,CODE);
-        //startService(new Intent(this, Tutorial_service.class)); // 사용설명 서비스
-        //startService(new Intent(this, Menu_main_service.class)); //메뉴 음성 출력 서비스
-      //  finish();
 
         versionimage = (ImageView) findViewById(R.id.imageView37);
         versionimage.setMaxHeight((int)WHclass.height);
@@ -389,7 +341,7 @@ public class MainActivity extends FragmentActivity {
 
                         }
 
-                            break;
+                        break;
                     case MotionEvent.ACTION_POINTER_DOWN:  //두번째 손가락이 화면에 터치 될 경우
                         oldx = (int)event.getX();  // 두번째 손가락이 터지된 지점의 x좌표값 저장
                         oldy = (int)event.getY();  // 두번째 손가락이 터지된 지점의 y좌표값 저장
@@ -435,17 +387,36 @@ public class MainActivity extends FragmentActivity {
                         if(test==true) {
                             switch(type){
                                 case 1 :
-                                    Intent i1 = new Intent(MainActivity.this, Talk_Menu_tutorial.class);
-                                    startActivityForResult(i1, CODE);
-                                    overridePendingTransition(R.anim.fade, R.anim.hold);
+                                    if(tutorial.equals("0")==true) {
+                                        //Intent i1 = new Intent(MainActivity.this, Talk_Tutorial.class);
+                                        //startActivityForResult(i1, CODE);
+                                        //overridePendingTransition(R.anim.fade, R.anim.hold);
+                                    }
+                                    else if(tutorial.equals("0")==false){
+                                        Intent i1 = new Intent(MainActivity.this, Talk_Menu_tutorial.class);
+                                        startActivityForResult(i1, CODE);
+                                        overridePendingTransition(R.anim.fade, R.anim.hold);
+                                        Menu_main_service.menu_page = 0;
+                                        startService(new Intent(MainActivity.this, Menu_main_service.class)); //메뉴 음성 출력 서비스
+                                    }
                                     finish();
                                     Timer_Stop();
                                     WHclass.Braiile_type=1;
+
                                     break;
                                 case 2:
-                                    Intent i2 = new Intent(MainActivity.this, Menu_Tutorial.class);
-                                    startActivityForResult(i2, CODE);
-                                    overridePendingTransition(R.anim.fade, R.anim.hold);
+                                    if(tutorial.equals("0")==false) {
+                                        Intent i2 = new Intent(MainActivity.this, Tutorial.class);
+                                        startActivityForResult(i2, CODE);
+                                        overridePendingTransition(R.anim.fade, R.anim.hold);
+                                    }
+                                    else if(tutorial.equals("0")==true) {
+                                        Intent i2 = new Intent(MainActivity.this, Menu_Tutorial.class);
+                                        startActivityForResult(i2, CODE);
+                                        overridePendingTransition(R.anim.fade, R.anim.hold);
+                                        Menu_main_service.menu_page = 0;
+                                        startService(new Intent(MainActivity.this, Menu_main_service.class)); //메뉴 음성 출력 서비스
+                                    }
                                     WHclass.Braiile_type=2;
                                     finish();
                                     Timer_Stop();
@@ -513,4 +484,3 @@ public class MainActivity extends FragmentActivity {
 
     }
 }
-

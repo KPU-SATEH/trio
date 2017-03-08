@@ -86,13 +86,22 @@ public class Menu_basic_practice extends FragmentActivity {
                 if(enter == true) {
                     //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 기초과정으로 접속
                     if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
-                        //Intent intent = new Intent(Menu_basic_practice.this, Menu_Initial_Consonant.class);
                         WHclass.tutorial_progress = 1;
-                        Intent intent = new Intent(Menu_basic_practice.this, Tutorial_practice.class);
-                        startActivityForResult(intent, Menu_info.MENU_BASIC_PRACTICE);
-                        overridePendingTransition(R.anim.fade, R.anim.hold);
-                        //Menu_basic_service.menu_page=Menu_info.MENU_INITIAL;
-                        //startService(new Intent(this, Menu_basic_service.class));
+
+
+                        if(MainActivity.basic.equals("0")==true) {
+                            Intent intent = new Intent(Menu_basic_practice.this, Tutorial_practice.class);
+                            startActivityForResult(intent, Menu_info.MENU_BASIC_PRACTICE);
+                            overridePendingTransition(R.anim.fade, R.anim.hold);
+
+                        }
+                        else if(MainActivity.basic.equals("1")==true){
+                            Intent intent = new Intent(Menu_basic_practice.this, Menu_Initial_Consonant.class);
+                            startActivityForResult(intent, Menu_info.MENU_BASIC_PRACTICE);
+                            overridePendingTransition(R.anim.fade, R.anim.hold);
+                            Menu_basic_service.menu_page=Menu_info.MENU_INITIAL;
+                            startService(new Intent(this, Menu_basic_service.class));
+                        }
                     }
                 }
                 else    enter = true;

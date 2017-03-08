@@ -42,7 +42,8 @@ public class Tutorial_practice extends FragmentActivity {
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
-        MainActivity.Braille_TTS.TTS_Play("기초과정에 앞서 점자 학습 방식에 대해 설명");
+        WHclass.tutorial_progress = 22;
+        startService(new Intent(this, Tutorial_service.class));
         decorView.setSystemUiVisibility(uiOption);
     }
     @Override
@@ -57,22 +58,11 @@ public class Tutorial_practice extends FragmentActivity {
                     enter = true;
                     break;
                 case MotionEvent.ACTION_UP:
-                    if (WHclass.tutorial_progress == 1) {
-                            //startService(new Intent(this, Tutorial_service.class));
-                        Tutorial_practice_basic.n = 1;
-                        onStop();
-                        Intent intent = new Intent(Tutorial_practice.this, Tutorial_practice_basic.class);
-                        startActivityForResult(intent, 0);
-                    }
-                    else enter = true;
-                    break;
-                case MotionEvent.ACTION_POINTER_UP:  // 두번째 손가락을 떼었을 경우
-
-                    WHclass.tutorial_progress = WHclass.tutorial_previous;
-                    startService(new Intent(this, Tutorial_service.class));
-                    break;
-                case MotionEvent.ACTION_POINTER_DOWN:
-                    enter = false;
+                    Tutorial_practice_basic.n = 1;
+                    onStop();
+                    Intent intent = new Intent(Tutorial_practice.this, Tutorial_practice_basic.class);
+                    startActivityForResult(intent, 0);
+                    enter = true;
                     break;
             }
         }
