@@ -113,11 +113,11 @@ public class Tutorial extends FragmentActivity {
         if(Common_Tutorial_service.Touch_lock==false) {
             switch (event.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_UP:
-
                     if(enter==false) {
                         Intent tutorial = new Intent(Tutorial.this, Tutorial_tutorial.class);
                         startActivityForResult(tutorial, 0);
                         overridePendingTransition(R.anim.fade, R.anim.hold);
+                        lock=true;
                         finish();
                     }
                     else

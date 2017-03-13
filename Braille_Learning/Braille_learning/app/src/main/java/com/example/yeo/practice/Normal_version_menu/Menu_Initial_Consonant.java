@@ -13,6 +13,7 @@ import com.example.yeo.practice.Common_menu_sound.Menu_basic_service;
 import com.example.yeo.practice.Common_menu_sound.Menu_detail_service;
 import com.example.yeo.practice.Normal_version_Display_Practice.Braille_short_practice;
 import com.example.yeo.practice.Menu_info;
+import com.example.yeo.practice.Normal_version_tutorial.Tutorial_service;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Sound_Manager;
 import com.example.yeo.practice.WHclass;
@@ -90,7 +91,7 @@ public class Menu_Initial_Consonant extends FragmentActivity {
                         Intent intent = new Intent(Menu_Initial_Consonant.this, Braille_short_practice.class);
                         startActivityForResult(intent, Menu_info.MENU_INITIAL);
                         overridePendingTransition(R.anim.fade, R.anim.hold);
-                     }
+                    }
                 }
                 else    enter = true;
 
@@ -121,7 +122,6 @@ public class Menu_Initial_Consonant extends FragmentActivity {
                     slied.slied =Menu_info.next;
                     startService(new Intent(this, slied.class));
                     startService(new Intent(this, Menu_basic_service.class));
-
                     finish();
                 }
                 else if(newdrag-olddrag>WHclass.Drag_space) { //손가락 2개를 이용하여 왼쪽에서 오른쪽으로 드래그 할 경우 이전 메뉴로 이동
@@ -146,7 +146,6 @@ public class Menu_Initial_Consonant extends FragmentActivity {
                 olddrag = (int)event.getX(); // 두번째 손가락이 터지된 지점의 x좌표값 저장
                 y1drag = (int) event.getY(); // 두번째 손가락이 터지된 지점의 y좌표값 저장
                 break;
-
         }
 
         return true;

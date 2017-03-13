@@ -388,9 +388,9 @@ public class MainActivity extends FragmentActivity {
                             switch(type){
                                 case 1 :
                                     if(tutorial.equals("0")==true) {
-                                        //Intent i1 = new Intent(MainActivity.this, Talk_Tutorial.class);
-                                        //startActivityForResult(i1, CODE);
-                                        //overridePendingTransition(R.anim.fade, R.anim.hold);
+                                  //      Intent i1 = new Intent(MainActivity.this, Talk_Tutorial.class);
+                                   //     startActivityForResult(i1, CODE);
+                                  //      overridePendingTransition(R.anim.fade, R.anim.hold);
                                     }
                                     else if(tutorial.equals("0")==false){
                                         Intent i1 = new Intent(MainActivity.this, Talk_Menu_tutorial.class);

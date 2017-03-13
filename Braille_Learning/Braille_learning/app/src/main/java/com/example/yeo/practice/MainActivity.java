@@ -1,19 +1,12 @@
 package com.example.yeo.practice;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.speech.tts.TextToSpeech;
 import android.support.v4.app.FragmentActivity;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -21,8 +14,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.Common_menu_sound.Version_check_service;
@@ -31,17 +22,12 @@ import com.example.yeo.practice.Common_mynote_database.Communication_Braille_DB;
 import com.example.yeo.practice.Common_mynote_database.Master_Braille_DB;
 import com.example.yeo.practice.Common_sound.Braille_Text_To_Speech;
 import com.example.yeo.practice.Normal_version_menu.Menu_Tutorial;
-import com.example.yeo.practice.Normal_version_tutorial.Tutorial;
 import com.example.yeo.practice.Talkback_version_menu.Talk_Menu_tutorial;
 import com.example.yeo.practice.Talkback_version_tutorial.Talk_Tutorial;
-
-import junit.runner.Version;
-
 import net.daum.mf.speech.api.SpeechRecognizerManager;
 import net.daum.mf.speech.api.TextToSpeechManager;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -85,8 +71,11 @@ public class MainActivity extends FragmentActivity {
     public static SharedPreferences Pref;
     public static SharedPreferences.Editor PrefEditor;
 
-    static public String tutorial;
+    public static SharedPreferences Pref2;
+    public static SharedPreferences.Editor PrefEditor2;
 
+    static public String tutorial;
+    static public String basic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,6 +139,9 @@ public class MainActivity extends FragmentActivity {
         PrefEditor = Pref.edit();
         tutorial = Pref.getString("TUTORIAL","0");
 
+        Pref2 = getSharedPreferences("BASIC",0);
+        PrefEditor2 = Pref2.edit();
+        basic = Pref.getString("BASIC","0");
 
         basic_braille_db = new Basic_Braille_DB(getApplicationContext(),"BRAILLE.db",null,1); //BRAILLE 라는 이름을 가진 테이블
         master_braille_db = new Master_Braille_DB(getApplicationContext(),"BRAILLE2.db",null,1); //BRAILLE2 라는 이름을 가진 테이블
@@ -398,18 +390,18 @@ public class MainActivity extends FragmentActivity {
 
                                     break;
                                 case 2:
-                                    if(tutorial.equals("0")==true) {
+                                    /*if(tutorial.equals("0")==true) {
                                         Intent i2 = new Intent(MainActivity.this, Tutorial.class);
                                         startActivityForResult(i2, CODE);
                                         overridePendingTransition(R.anim.fade, R.anim.hold);
-                                    }
-                                    else if(tutorial.equals("0")==false) {
+                                    }*/
+                                   // else if(tutorial.equals("0")==false) {
                                         Intent i2 = new Intent(MainActivity.this, Menu_Tutorial.class);
                                         startActivityForResult(i2, CODE);
                                         overridePendingTransition(R.anim.fade, R.anim.hold);
                                         Menu_main_service.menu_page = 0;
                                         startService(new Intent(MainActivity.this, Menu_main_service.class)); //메뉴 음성 출력 서비스
-                                    }
+                                    //}
                                     WHclass.Braiile_type=2;
                                     finish();
                                     Timer_Stop();

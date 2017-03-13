@@ -555,7 +555,19 @@
         <service
             android:name=".Common_Tutorial_sound.Common_Tutorial_service"
             android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Normal_version_tutorial.Tutorial_service"
+            android:enabled="true"
             android:exported="true"></service>
+        <activity
+            android:name=".Normal_version_tutorial.Tutorial_practice"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Normal_version_tutorial.Tutorial_practice_basic"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
     </application>
 
 </manifest>
