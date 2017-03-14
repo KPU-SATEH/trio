@@ -15,6 +15,7 @@ import com.example.yeo.practice.Common_menu_sound.Menu_main_service;
 import com.example.yeo.practice.R;
 import com.example.yeo.practice.Common_sound.slied;
 import com.example.yeo.practice.*;
+import com.example.yeo.practice.Talkback_version_tutorial.Talk_Tutorial_pra;
 
 
 //기초과정 대 메뉴 화면
@@ -62,13 +63,23 @@ public class Talk_Menu_basic_practice extends FragmentActivity {
                         posx2 = (int)event.getX();//손가락 1개를 화면에서 떨어트린 x좌표값 저장
                         posy2 = (int)event.getY();//손가락 1개를 화면에서 떨어트린 y좌표값 저장
                         if(enter == true) {
+
                             //손가락 1개를 떨어트린 x,y좌표 지점에 다시 클릭이 이루어진다면 기초과정으로 접속
                             if (posx2 < posx1 + WHclass.Touch_space && posx2 > posx1 - WHclass.Touch_space && posy1 < posy2 + WHclass.Touch_space && posy2 > posy2 - WHclass.Touch_space) {
-                                Intent intent = new Intent(Talk_Menu_basic_practice.this, Talk_Menu_Initial_Consonant.class);
-                                startActivityForResult(intent, Menu_info.MENU_BASIC_PRACTICE);
-                                overridePendingTransition(R.anim.fade, R.anim.hold);
-                                Menu_basic_service.menu_page=Menu_info.MENU_INITIAL;
-                                startService(new Intent(Talk_Menu_basic_practice.this, Menu_basic_service.class));
+                                if(MainActivity.basic.equals("0")==true) {
+                                    Intent intent = new Intent(Talk_Menu_basic_practice.this, Talk_Tutorial_pra.class);
+                                    startActivityForResult(intent, Menu_info.MENU_BASIC_PRACTICE);
+                                    overridePendingTransition(R.anim.fade, R.anim.hold);
+                                }
+                                else if(MainActivity.basic.equals("1")==true){
+                                    Intent intent = new Intent(Talk_Menu_basic_practice.this, Talk_Menu_Initial_Consonant.class);
+                                    startActivityForResult(intent, Menu_info.MENU_BASIC_PRACTICE);
+                                    overridePendingTransition(R.anim.fade, R.anim.hold);
+                                    Menu_basic_service.menu_page=Menu_info.MENU_INITIAL;
+                                    startService(new Intent(Talk_Menu_basic_practice.this, Menu_basic_service.class));
+                                }
+
+
                             }
                         }
                         break;

@@ -559,13 +559,20 @@
         <service
             android:name=".Normal_version_tutorial.Tutorial_service"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
         <activity
             android:name=".Normal_version_tutorial.Tutorial_practice"
             android:label=""
             android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Normal_version_tutorial.Tutorial_practice_basic"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity android:name=".Talkback_version_tutorial.Talk_Tutorial_pra"
+            android:label=""
+            android:screenOrientation="sensorLandscape" />
+        <activity android:name=".Talkback_version_tutorial.Talk_Tutorial_pra_basic"
             android:label=""
             android:screenOrientation="sensorLandscape" />
     </application>

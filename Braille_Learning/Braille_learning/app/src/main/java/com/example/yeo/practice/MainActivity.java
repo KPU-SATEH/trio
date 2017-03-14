@@ -141,7 +141,7 @@ public class MainActivity extends FragmentActivity {
 
         Pref2 = getSharedPreferences("BASIC",0);
         PrefEditor2 = Pref2.edit();
-        basic = Pref.getString("BASIC","0");
+        basic = Pref2.getString("BASIC","0");
 
         basic_braille_db = new Basic_Braille_DB(getApplicationContext(),"BRAILLE.db",null,1); //BRAILLE 라는 이름을 가진 테이블
         master_braille_db = new Master_Braille_DB(getApplicationContext(),"BRAILLE2.db",null,1); //BRAILLE2 라는 이름을 가진 테이블

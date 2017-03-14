@@ -19,8 +19,6 @@ public class Tutorial_practice extends FragmentActivity {
     static AnimationDrawable prac_speechani;
     static ImageView prac_speechimage;
     static boolean click = false;
-    int posx1,posx2,posy1,posy2;
-    int olddragx,newdragx,olddragy,newdragy;
     boolean enter = false;
     static int previous =0 ;
 
@@ -73,8 +71,6 @@ public class Tutorial_practice extends FragmentActivity {
         super.onStop();
         SharedPreferences sf = getSharedPreferences("save", 0);
         SharedPreferences.Editor editor = sf.edit();
-        //Intent intent = getIntent();
-        //int a=intent.getExtras().getInt("a");
         editor.putInt("b", WHclass.db);
         editor.commit();
     }
