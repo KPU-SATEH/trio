@@ -264,7 +264,7 @@ public class Braille_long_practice extends FragmentActivity implements SpeechRec
             }
 
         }
-        if(WHclass.sel==12){
+        else if(WHclass.sel==12){
             MainActivity.communication_braille_db.delete(MainActivity.communication_braille_db.communication_db_manager.getId(MainActivity.communication_braille_db.communication_db_manager.My_Note_page));
             result = MainActivity.communication_braille_db.getResult();
             if(MainActivity.communication_braille_db.communication_db_manager.size_count==0)
