@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('daum-speech-openapi-5.0.aar'))
